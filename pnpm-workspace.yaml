@@ -13,6 +13,7 @@ overrides:
   baseline-browser-mapping@2.11.1: "2.10.43"
   adm-zip@<0.6.0: ">=0.6.0"
   sharp@<0.35.0: ">=0.35.0"
+  brace-expansion@<5.0.8: ">=5.0.8"
 peerDependencyRules:
   allowedVersions:
     "@opentelemetry/api": ">=1.0.0 <2.0.0"
