@@ -40,7 +40,7 @@ export const markdownComponents: Components = {
   ),
   p: ({ children, ...props }) => (
     <p
-      className="mb-4 text-sm leading-relaxed text-[color:var(--text-primary)]"
+      className="mb-4 break-words text-sm leading-relaxed text-[color:var(--text-primary)]"
       {...props}
     >
       {children}
@@ -58,11 +58,11 @@ export const markdownComponents: Components = {
     <li className="flex gap-2 items-baseline" {...props}>
       <span
         aria-hidden="true"
-        className="font-mono text-[color:var(--v3-accent)] shrink-0"
+        className="font-mono text-[color:var(--v3-accent-text)] shrink-0"
       >
         →
       </span>
-      <div>{children}</div>
+      <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
   ol: ({ children, ...props }) => (
@@ -78,7 +78,7 @@ export const markdownComponents: Components = {
   ),
   a: ({ children, ...props }) => (
     <a
-      className="font-medium text-[color:var(--v3-accent)] underline underline-offset-4 hover:opacity-80"
+      className="font-medium text-[color:var(--v3-accent-text)] underline underline-offset-4 hover:opacity-80"
       {...props}
     >
       {children}
@@ -147,12 +147,12 @@ export const aboutPageComponents: Components = {
   li: ({ children, ...props }) => (
     <li className="flex gap-2 items-baseline" {...props}>
       <span
-        className="font-mono text-[color:var(--v3-accent)] shrink-0"
+        className="font-mono text-[color:var(--v3-accent-text)] shrink-0"
         aria-hidden="true"
       >
         →
       </span>
-      <div>{children}</div>
+      <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
   ol: (props) => (
@@ -169,7 +169,7 @@ export const aboutPageComponents: Components = {
 export const introComponents: Components = {
   p: (props) => (
     <p
-      className="text-base sm:text-lg leading-relaxed text-[color:var(--text-primary)]"
+      className="break-words text-base sm:text-lg leading-relaxed text-[color:var(--text-primary)]"
       {...props}
     />
   ),
@@ -182,12 +182,12 @@ export const introComponents: Components = {
   li: ({ children, ...props }) => (
     <li className="flex gap-2 items-baseline" {...props}>
       <span
-        className="font-mono text-[color:var(--v3-accent)] shrink-0"
+        className="font-mono text-[color:var(--v3-accent-text)] shrink-0"
         aria-hidden="true"
       >
         →
       </span>
-      <div>{children}</div>
+      <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
   ol: (props) => (

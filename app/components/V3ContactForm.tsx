@@ -191,7 +191,7 @@ export function V3ContactForm() {
           style={{
             ...mono,
             fontSize: 11,
-            color: "var(--v3-accent)",
+            color: "var(--v3-accent-text)",
             letterSpacing: "0.18em",
           }}
         >
@@ -261,7 +261,7 @@ export function V3ContactForm() {
         <span
           style={{
             ...labelKeyStyle,
-            ...(emailError ? { color: "var(--v3-accent)" } : {}),
+            ...(emailError ? { color: "var(--v3-accent-text)" } : {}),
           }}
         >
           {t("form.email")} {emailError ? `— ${emailError}` : "*"}
@@ -276,7 +276,7 @@ export function V3ContactForm() {
           required
           style={{
             ...inputStyle,
-            ...(emailError ? { color: "var(--v3-accent)" } : {}),
+            ...(emailError ? { color: "var(--v3-accent-text)" } : {}),
           }}
           autoComplete="email"
         />
@@ -307,7 +307,7 @@ export function V3ContactForm() {
             ...labelKeyStyle,
             paddingTop: 14,
             paddingBottom: 14,
-            ...(msgError ? { color: "var(--v3-accent)" } : {}),
+            ...(msgError ? { color: "var(--v3-accent-text)" } : {}),
           }}
         >
           {t("form.message")} {msgError ? `— ${msgError}` : "*"}
@@ -363,7 +363,7 @@ export function V3ContactForm() {
           style={{
             ...mono,
             fontSize: 10,
-            color: errorMsg ? "var(--v3-accent)" : "var(--v3-muted)",
+            color: errorMsg ? "var(--v3-accent-text)" : "var(--v3-muted)",
             letterSpacing: "0.1em",
             flex: 1,
           }}
@@ -378,7 +378,7 @@ export function V3ContactForm() {
               disabled || !turnstileToken
                 ? "var(--v3-muted)"
                 : "var(--v3-accent)",
-            color: "#fff",
+            color: "var(--v3-bg)",
             border: "none",
             padding: "10px 18px",
             fontSize: 12,

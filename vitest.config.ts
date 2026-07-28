@@ -16,6 +16,7 @@ export default defineConfig({
       ...configDefaults.exclude,
       "test/e2e/**",
       "test/visual/**",
+      "test/a11y/**",
       "next-sitemap.config.*",
       ".claude/worktrees/**",
     ],

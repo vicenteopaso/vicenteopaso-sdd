@@ -67,7 +67,7 @@ Todos los elementos interactivos son completamente accesibles mediante teclado:
 
 - ESLint con `eslint-plugin-jsx-a11y` detecta problemas comunes durante el desarrollo
 - Un script automatizado de auditoría de accesibilidad (`scripts/audit-a11y.mjs`) se ejecuta en CI/CD
-- Las pruebas E2E con Playwright incluyen verificaciones básicas de accesibilidad
+- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA, incluido el contraste de color) en cada página, en ambos idiomas y en los temas claro y oscuro, además de verificaciones específicas de reflujo a 320px de ancho y la anulación de espaciado de texto de WCAG 1.4.12, con advertencias informativas sobre tamaño de texto, interlineado y grosor de fuente
 
 ### Pruebas Manuales
 

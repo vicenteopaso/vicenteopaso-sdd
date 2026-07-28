@@ -73,7 +73,7 @@ function SecHead({ n, label }: { n: string; label: string }) {
         style={{
           ...mono,
           fontSize: 11,
-          color: "var(--v3-accent)",
+          color: "var(--v3-accent-text)",
           letterSpacing: "0.14em",
         }}
       >
@@ -139,7 +139,7 @@ function HeroA4({
             <br />
             {t("hero.headline2")}
             <br />
-            <span style={{ color: "var(--v3-accent)" }}>
+            <span style={{ color: "var(--v3-accent-text)" }}>
               {t("hero.headline3")}
             </span>
             <br />
@@ -204,7 +204,7 @@ function HeroA4({
                   style={{
                     ...mono,
                     fontSize: 11,
-                    color: "var(--v3-accent)",
+                    color: "var(--v3-accent-text)",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -261,7 +261,7 @@ function HeroBtn({
       style={{
         display: "inline-block",
         background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "#fff" : "var(--v3-fg)",
+        color: primary ? "var(--v3-bg)" : "var(--v3-fg)",
         border: primary ? "none" : "1px solid var(--v3-fg)",
         padding: "12px 20px",
         fontSize: 12,
@@ -300,7 +300,7 @@ function ImpactStrip({ impact }: { impact: Array<{ k: string; v: string }> }) {
               style={{
                 ...big,
                 fontSize: 56,
-                color: i === 0 ? "var(--v3-accent)" : "var(--v3-fg)",
+                color: i === 0 ? "var(--v3-accent-text)" : "var(--v3-fg)",
                 lineHeight: 1,
               }}
             >
@@ -364,13 +364,13 @@ function TlDrSection({
             §01
           </div>
           <div style={{ ...big, fontSize: 48, lineHeight: 0.95, marginTop: 8 }}>
-            TL;<span style={{ color: "var(--v3-accent)" }}>DR</span>
+            TL;<span style={{ color: "var(--v3-accent-text)" }}>DR</span>
           </div>
           <div
             style={{
               ...mono,
               fontSize: 11,
-              opacity: 0.55,
+              opacity: 0.75,
               letterSpacing: "0.06em",
               marginTop: 14,
               lineHeight: 1.7,
@@ -404,7 +404,7 @@ function TlDrSection({
                 style={{
                   ...mono,
                   fontSize: 11,
-                  color: "var(--v3-accent)",
+                  color: "var(--v3-accent-text)",
                   letterSpacing: "0.1em",
                 }}
               >
@@ -485,7 +485,7 @@ function FocusStrip({
               style={{
                 ...mono,
                 fontSize: 10,
-                color: "var(--v3-accent)",
+                color: "var(--v3-accent-text)",
                 letterSpacing: "0.14em",
                 marginBottom: 8,
               }}
@@ -602,7 +602,9 @@ function ExperienceTable({
                   style={{
                     ...mono,
                     fontSize: 11,
-                    color: isCurrent ? "var(--v3-accent)" : "var(--v3-muted)",
+                    color: isCurrent
+                      ? "var(--v3-accent-text)"
+                      : "var(--v3-muted)",
                     whiteSpace: "nowrap",
                     paddingRight: 16,
                   }}
@@ -732,7 +734,7 @@ function WhatIBuildSection({ t, data }: { t: T; data: WhatIBuildData }) {
                 style={{
                   ...mono,
                   fontSize: 10,
-                  color: "var(--v3-accent)",
+                  color: "var(--v3-accent-text)",
                   letterSpacing: "0.12em",
                   lineHeight: 1.7,
                 }}
@@ -803,7 +805,8 @@ function WhatIBuildSection({ t, data }: { t: T; data: WhatIBuildData }) {
                         style={{
                           fontFamily: "var(--f-mono)",
                           fontSize: 11,
-                          color: "var(--v3-accent)",
+                          color: "var(--v3-accent-text)",
+                          backgroundColor: "var(--v3-bg)",
                         }}
                       >
                         {children}
@@ -924,7 +927,7 @@ function StackGrid({ skills, t }: { skills: SkillGroup[]; t: T }) {
                   style={{
                     ...mono,
                     fontSize: 9,
-                    color: "var(--v3-accent)",
+                    color: "var(--v3-accent-text)",
                     letterSpacing: "0.14em",
                   }}
                 >
@@ -974,7 +977,7 @@ function ContactBlock({ t }: { t: T }) {
           >
             {t("contact.headline")}
             <br />{" "}
-            <span style={{ color: "var(--v3-accent)" }}>
+            <span style={{ color: "var(--v3-accent-text)" }}>
               {t("contact.headlineAccent")}
             </span>
             .
@@ -1039,7 +1042,7 @@ function ContactBlock({ t }: { t: T }) {
                 <span>{label}</span>
                 <span
                   aria-hidden="true"
-                  style={{ color: "var(--v3-accent)", fontSize: 14 }}
+                  style={{ color: "var(--v3-accent-text)", fontSize: 14 }}
                 >
                   ↗
                 </span>

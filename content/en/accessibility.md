@@ -67,7 +67,7 @@ All interactive elements are fully keyboard accessible:
 
 - ESLint with `eslint-plugin-jsx-a11y` catches common issues during development
 - Automated accessibility audit script (`scripts/audit-a11y.mjs`) runs in CI/CD
-- Playwright E2E tests include basic accessibility checks
+- A dedicated Playwright suite (`test/a11y/`) runs a full `axe-core` scan (WCAG 2.1 A/AA, including color contrast) across every page, in both languages and both light/dark themes, plus dedicated checks for reflow at 320px width and the WCAG 1.4.12 text-spacing override, with advisory readability warnings for text size, line-height, and font weight
 
 ### Manual Testing
 

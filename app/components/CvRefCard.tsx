@@ -1,9 +1,25 @@
 "use client";
 
-import type { KeyboardEvent } from "react";
 import { useState } from "react";
 
+import { useTranslations } from "@/lib/i18n";
+
 const mono: React.CSSProperties = { fontFamily: "var(--f-mono)" };
+
+const toggleButtonStyle: React.CSSProperties = {
+  ...mono,
+  display: "block",
+  marginTop: 10,
+  padding: 0,
+  border: "none",
+  background: "transparent",
+  color: "var(--v3-accent-text)",
+  fontSize: 10.5,
+  letterSpacing: "0.08em",
+  textDecoration: "underline",
+  textUnderlineOffset: 3,
+  cursor: "pointer",
+};
 
 interface Ref {
   index: number;
@@ -33,7 +49,7 @@ function CardContent({
         style={{
           ...mono,
           fontSize: 10,
-          color: "var(--v3-accent)",
+          color: "var(--v3-accent-text)",
           letterSpacing: "0.14em",
           marginBottom: 10,
         }}
@@ -105,13 +121,14 @@ function CvRefCard({
   onEnter: () => void;
   onLeave: () => void;
 }) {
+  const t = useTranslations();
   const [clickExpanded, setClickExpanded] = useState(false);
   const expanded = hovered || clickExpanded;
   const isEvenCol = index % 2 === 0;
   const isLastRow = index >= total - 2;
   const truncated = fullText.slice(0, 220) + "\u2026";
 
-  const handleClick = () => setClickExpanded((prev) => !prev);
+  const handleToggle = () => setClickExpanded((prev) => !prev);
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     // Only collapse when focus leaves the card entirely (not moving to the link inside)
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -120,25 +137,12 @@ function CvRefCard({
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    // Ignore events that bubbled up from interactive children (e.g. the link)
-    if (event.target !== event.currentTarget) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setClickExpanded((prev) => !prev);
-    }
-  };
-
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-expanded={expanded}
+      data-testid="cv-ref-card"
       onMouseEnter={onEnter}
       onFocus={onEnter}
       onBlur={handleBlur}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
       style={{
         position: "relative",
         padding: "20px",
@@ -146,20 +150,19 @@ function CvRefCard({
         borderLeft: "none",
         borderRight: isEvenCol ? "1px solid var(--v3-rule)" : "none",
         borderBottom: !isLastRow ? "1px solid var(--v3-rule)" : "none",
-        cursor: "pointer",
         zIndex: expanded ? 10 : "auto",
         opacity: dimmed ? 0.35 : 1,
         transition: "opacity 0.2s ease",
         background: "transparent",
         textAlign: "left",
         width: "100%",
-        fontFamily: "inherit",
-        color: "inherit",
       }}
     >
       {/* Truncated content — always rendered to hold grid row height */}
       <div
+        data-testid="cv-ref-card-truncated"
         aria-hidden={expanded ? true : undefined}
+        inert={expanded ? true : undefined}
         style={{ visibility: expanded ? "hidden" : "visible" }}
       >
         <CardContent
@@ -169,10 +172,19 @@ function CvRefCard({
           href={href}
           text={truncated}
         />
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={false}
+          style={toggleButtonStyle}
+        >
+          {t("cv.referencesShowMore")}
+        </button>
       </div>
 
       {/* Expanded overlay — pointer-events:auto when expanded so links are clickable */}
       <div
+        data-testid="cv-ref-card-overlay"
         style={{
           position: "absolute",
           ...(isLastRow ? { bottom: 0 } : { top: 0 }),
@@ -192,6 +204,7 @@ function CvRefCard({
           pointerEvents: expanded ? "auto" : "none",
         }}
         aria-hidden={expanded ? undefined : true}
+        inert={expanded ? undefined : true}
       >
         <CardContent
           index={index}
@@ -200,6 +213,14 @@ function CvRefCard({
           href={href}
           text={fullText}
         />
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={true}
+          style={toggleButtonStyle}
+        >
+          {t("cv.referencesShowLess")}
+        </button>
       </div>
     </div>
   );

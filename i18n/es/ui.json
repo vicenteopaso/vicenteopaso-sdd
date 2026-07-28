@@ -84,6 +84,8 @@
   "cv.publicationsSection": "Publicaciones",
   "cv.interestsSection": "Intereses",
   "cv.referencesSection": "Referencias",
+  "cv.referencesShowMore": "Leer referencia completa",
+  "cv.referencesShowLess": "Mostrar menos",
   "cv.endcta.label": "FIN DEL DOCUMENTO ————",
   "cv.endcta.headline": "Hablemos",
   "cv.endcta.accent": "hablemos",

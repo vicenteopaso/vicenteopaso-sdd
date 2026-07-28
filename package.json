@@ -21,11 +21,12 @@
     "test:e2e:ui": "playwright test test/e2e --ui",
     "test:visual": "playwright test test/visual",
     "test:visual:update": "playwright test test/visual --update-snapshots",
+    "test:a11y": "playwright test test/a11y",
     "coverage": "mkdir -p coverage/unit/.tmp && SENTRY_DSN= SENTRY_AUTH_TOKEN= NEXT_TELEMETRY_DISABLED=1 vitest run --coverage",
     "clean": "node scripts/clean-local.mjs",
     "reset": "pnpm clean && pnpm install && pnpm build",
-    "verify": "pnpm install && pnpm lint && pnpm format && pnpm typecheck && pnpm audit:secrets && pnpm validate:links && pnpm test && pnpm test:e2e && pnpm build && pnpm coverage && pnpm sitemap",
-    "verify:fix": "pnpm install && pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm audit:secrets && pnpm validate:links && pnpm test && pnpm test:e2e && pnpm build && pnpm coverage && pnpm sitemap",
+    "verify": "pnpm install && pnpm lint && pnpm format && pnpm typecheck && pnpm audit:secrets && pnpm validate:links && pnpm test && pnpm test:e2e && pnpm test:a11y && pnpm build && pnpm coverage && pnpm sitemap",
+    "verify:fix": "pnpm install && pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm audit:secrets && pnpm validate:links && pnpm test && pnpm test:e2e && pnpm test:a11y && pnpm build && pnpm coverage && pnpm sitemap",
     "validate:links": "node scripts/validate-links.mjs",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:lighthouse": "node scripts/audit-lighthouse.mjs",
@@ -56,6 +57,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
     "@next/eslint-plugin-next": "^16.2.12",
