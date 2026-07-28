@@ -122,7 +122,7 @@ function SecHead({ n, label }: { n: string; label: string }) {
         style={{
           ...mono,
           fontSize: 11,
-          color: "var(--v3-accent)",
+          color: "var(--v3-accent-text)",
           letterSpacing: "0.14em",
         }}
       >
@@ -214,7 +214,7 @@ function CvMasthead({
           >
             {name.split(" ")[0]}
             <br />
-            <span style={{ color: "var(--v3-accent)" }}>
+            <span style={{ color: "var(--v3-accent-text)" }}>
               {name.split(" ").slice(1).join(" ")}
             </span>
             .
@@ -310,7 +310,7 @@ function CvMasthead({
                 fontWeight: 500,
                 color:
                   k === t("cv.metaAvailability")
-                    ? "var(--v3-accent)"
+                    ? "var(--v3-accent-text)"
                     : "inherit",
               }}
             >
@@ -341,7 +341,7 @@ function CvBtn({
       style={{
         display: "inline-block",
         background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "#fff" : "var(--v3-fg)",
+        color: primary ? "var(--v3-bg)" : "var(--v3-fg)",
         border: primary ? "none" : "1px solid var(--v3-fg)",
         padding: "12px 20px",
         fontSize: 12,
@@ -399,7 +399,7 @@ function CvToc({
               style={{
                 ...mono,
                 fontSize: 11,
-                color: "var(--v3-accent)",
+                color: "var(--v3-accent-text)",
                 letterSpacing: "0.1em",
               }}
             >
@@ -454,10 +454,11 @@ function ImpactStrip({ impact }: { impact: Array<{ k: string; v: string }> }) {
             }}
           >
             <div
+              className="v3-impact-stat"
               style={{
                 ...big,
                 fontSize: 56,
-                color: i === 0 ? "var(--v3-accent)" : "var(--v3-fg)",
+                color: i === 0 ? "var(--v3-accent-text)" : "var(--v3-fg)",
                 lineHeight: 1,
               }}
             >
@@ -550,7 +551,7 @@ function SummarySection({
                   style={{
                     ...mono,
                     fontSize: 11,
-                    color: "var(--v3-accent)",
+                    color: "var(--v3-accent-text)",
                     letterSpacing: "0.08em",
                   }}
                 >
@@ -688,7 +689,9 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                     style={{
                       ...mono,
                       fontSize: 10,
-                      color: isCurrent ? "var(--v3-accent)" : "var(--v3-muted)",
+                      color: isCurrent
+                        ? "var(--v3-accent-text)"
+                        : "var(--v3-muted)",
                       letterSpacing: "0.04em",
                       lineHeight: 1.55,
                     }}
@@ -745,7 +748,10 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                             }}
                           >
                             <span
-                              style={{ ...mono, color: "var(--v3-accent)" }}
+                              style={{
+                                ...mono,
+                                color: "var(--v3-accent-text)",
+                              }}
                             >
                               →
                             </span>
@@ -854,7 +860,7 @@ function SkillsSection({
                   style={{
                     ...mono,
                     fontSize: 9.5,
-                    color: "var(--v3-accent)",
+                    color: "var(--v3-accent-text)",
                     letterSpacing: "0.14em",
                   }}
                 >
@@ -1085,7 +1091,7 @@ function PublicationsSection({
               style={{
                 ...mono,
                 fontSize: 11,
-                color: "var(--v3-accent)",
+                color: "var(--v3-accent-text)",
                 textAlign: "right" as const,
                 letterSpacing: "0.1em",
               }}
@@ -1117,9 +1123,7 @@ function GovernanceSection({
             style={{
               padding: "16px 18px",
               borderBottom:
-                i < governance.length - 1
-                  ? "1px solid var(--v3-rule)"
-                  : "none",
+                i < governance.length - 1 ? "1px solid var(--v3-rule)" : "none",
             }}
           >
             <div
@@ -1223,7 +1227,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             style={{
               ...mono,
               fontSize: 11,
-              opacity: 0.55,
+              opacity: 0.75,
               letterSpacing: "0.18em",
               marginBottom: 12,
             }}
@@ -1235,7 +1239,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             style={{ ...big, fontSize: 56, lineHeight: 0.95 }}
           >
             {t("cv.endcta.headline")}{" "}
-            <span style={{ color: "var(--v3-accent)" }}>
+            <span style={{ color: "var(--v3-accent-text)" }}>
               {t("cv.endcta.accent")}
             </span>
             .
@@ -1269,7 +1273,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             href="mailto:vicente@opa.so"
             style={{
               background: "var(--v3-accent)",
-              color: "#fff",
+              color: "var(--v3-bg)",
               padding: "12px 20px",
               fontSize: 12,
               fontWeight: 600,

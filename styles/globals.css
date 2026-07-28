@@ -575,14 +575,21 @@ body {
 
 .dark {
   /* v3 color tokens — dark */
-  --v3-bg: #0d0c0a;
+  --v3-bg: #000000;
   --v3-bg-soft: #15130f;
   --v3-fg: #f6f1e7;
   --v3-muted: #8a847a;
   --v3-rule: #26231e;
   --v3-elevated: #1a1814;
-  --v3-accent: #b91c1c;
-  --v3-accent-text: #ef4444;
+  /* One red for everything in dark mode — the light theme already uses a
+     single #b91c1c for both background and text uses; #b91c1c itself fails
+     4.5:1 text contrast on dark backgrounds, so this is pushed only as far
+     as that requires (button text uses --v3-bg, not white, precisely so
+     this can stay as deep/dark as the text-contrast floor allows — pure
+     black --v3-bg lowers that floor slightly, letting this go a bit
+     darker/richer than it could against the previous #0d0c0a). */
+  --v3-accent: #e13232;
+  --v3-accent-text: var(--v3-accent);
   --v3-sec: #1d4ed8;
 }
 
@@ -659,7 +666,7 @@ body {
   border-right: 1px solid var(--v3-rule);
 }
 .v3-build-bullet::marker {
-  color: var(--v3-accent);
+  color: var(--v3-accent-text);
 }
 
 /* ── v3 Responsive ──────────────────────────────────────────────────────── */

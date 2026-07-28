@@ -75,7 +75,7 @@ export function BrutalistFooter() {
                 href={`/${locale}/${l.path}` as Route}
                 style={{
                   fontSize: 10.5,
-                  color: "var(--v3-accent)",
+                  color: "var(--v3-accent-text)",
                   textDecoration: "underline",
                   textUnderlineOffset: 3,
                   letterSpacing: "0.06em",

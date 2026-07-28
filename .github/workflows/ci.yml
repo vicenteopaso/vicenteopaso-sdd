@@ -238,6 +238,9 @@ jobs:
       - name: Playwright visual regression tests (with web server)
         run: pnpm test:visual
 
+      - name: Playwright accessibility audits — axe + typography (with web server)
+        run: pnpm test:a11y
+
       - name: Upload Playwright artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v7

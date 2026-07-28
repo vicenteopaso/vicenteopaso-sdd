@@ -73,8 +73,10 @@ All UI components in `app/components/` must:
 **Automated:**
 
 - `pnpm lint` includes `eslint-plugin-jsx-a11y`
-- `scripts/audit-a11y.mjs` checks image alt text
-- CI workflow: `.github/workflows/accessibility.yml`
+- `scripts/audit-a11y.mjs` checks image alt text (fast, no build required — runs in `.github/workflows/accessibility.yml`)
+- `pnpm test:a11y` (`test/a11y/`) runs against the built app in CI's Build & Verify job:
+  - `axe.spec.ts`: full `axe-core` scan tagged to WCAG 2.1 A/AA (contrast, ARIA, labels, heading order, landmarks, link names, etc.) across every route, both locales, and both themes
+  - `typography.spec.ts`: reflow at 320px width (WCAG 1.4.10) and the WCAG 1.4.12 text-spacing override check are hard gates; font size, line-height, and font-weight are advisory (non-blocking) warnings, since the site's design intentionally uses small mono labels/meta text in places
 - Lighthouse accessibility score ≥ 90
 
 **Manual (required for PRs):**

@@ -61,7 +61,7 @@ test.describe("References Grid Card Visual Regression", () => {
     await waitForCVPage(page);
 
     const firstCard = page
-      .locator(`${REFS_GRID_SELECTOR} [role="button"]`)
+      .locator(`${REFS_GRID_SELECTOR} [data-testid="cv-ref-card"]`)
       .first();
     await expect(firstCard).toBeVisible();
 
