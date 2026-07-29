@@ -31,6 +31,11 @@ export default defineConfig({
   },
   // Visual regression testing configuration
   expect: {
+    // Default is 5000ms; under full local parallelism (default worker count)
+    // the stability wait before a screenshot can exceed that from CPU
+    // contention alone, not a real pixel mismatch (reproduced: the same
+    // assertion passes immediately in isolation with --workers=1).
+    timeout: 10_000,
     toHaveScreenshot: {
       // Maximum allowed pixel difference (set low for effective regression; override per-test if needed)
       maxDiffPixels: 200,
