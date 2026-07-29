@@ -248,7 +248,9 @@ function CvMasthead({
             >
               {t("cv.downloadPdf")}
             </CvBtn>
-            <CvBtn href="#contact">{t("cv.emailCta")}</CvBtn>
+            <CvBtn href="#contact" ariaLabel={t("cv.emailCta.ariaLabel")}>
+              {t("cv.emailCta")}
+            </CvBtn>
           </div>
         </div>
 
@@ -268,7 +270,7 @@ function CvMasthead({
             style={{ objectFit: "cover", objectPosition: "center top" }}
             priority
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, 340px"
+            sizes="(max-width: 768px) 280px, 180px"
           />
         </div>
       </div>
@@ -328,16 +330,19 @@ function CvBtn({
   primary,
   href,
   download,
+  ariaLabel,
 }: {
   children: React.ReactNode;
   primary?: boolean;
   href: string;
   download?: string;
+  ariaLabel?: string;
 }) {
   return (
     <a
       href={href}
       download={download}
+      aria-label={ariaLabel}
       style={{
         display: "inline-block",
         background: primary ? "var(--v3-accent)" : "transparent",
@@ -1271,6 +1276,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
           </a>
           <a
             href="mailto:vicente@opa.so"
+            aria-label={t("cv.endcta.email.ariaLabel")}
             style={{
               background: "var(--v3-accent)",
               color: "var(--v3-bg)",

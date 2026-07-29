@@ -19,6 +19,11 @@ const securityHeaders = [
       "img-src 'self' data:",
       // Fonts from self or inlined
       "font-src 'self' data:",
+      // The WebMCP polyfill (@mcp-b/global, loaded from unpkg above) spins up
+      // a blob: worker internally. Without worker-src, that falls back to
+      // script-src, which doesn't include 'blob:' and blocks it — so this is
+      // scoped narrowly to same-origin + blob: rather than widened globally.
+      "worker-src 'self' blob:",
       // Allow Turnstile frames
       "frame-src https://challenges.cloudflare.com",
       // XHR/fetch endpoints (includes Sentry error reporting via global/EU/DE ingest endpoints)
