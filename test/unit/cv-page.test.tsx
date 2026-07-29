@@ -473,7 +473,7 @@ describe("CV Page Masthead Actions", () => {
       "/en/cv/download",
     );
     expect(
-      screen.getAllByRole("link", { name: /VICENTE@OPA\.SO/i })[0],
+      screen.getByRole("link", { name: /jump to contact section/i }),
     ).toHaveAttribute("href", "#contact");
   });
 
@@ -536,7 +536,7 @@ describe("CV Page Masthead Actions", () => {
     render(ui);
 
     expect(
-      screen.getAllByRole("link", { name: /VICENTE@OPA\.SO/i })[1],
+      screen.getByRole("link", { name: /email vicente directly/i }),
     ).toHaveAttribute("href", "mailto:vicente@opa.so");
   });
 });
