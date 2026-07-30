@@ -6,17 +6,20 @@
   },
   "role_preferences": {
     "target_titles": [
+      "Staff Frontend Engineer",
+      "Principal Frontend Engineer",
+      "Software Architect",
+      "Frontend Architect",
+      "Senior Frontend Engineer",
+      "Tech Lead",
+      "Design System Engineer",
+      "Design System Lead",
+      "Developer Experience Engineer",
+      "Platform Engineer (Frontend-focused)",
       "Engineering Manager",
       "Web Engineering Manager",
       "Frontend Engineering Manager",
-      "Staff Frontend Engineer",
-      "Tech Lead",
-      "Principal Frontend Engineer",
-      "Platform Engineer (Frontend-focused)",
-      "Design System Manager",
-      "Design System Engineer",
-      "Design System Lead",
-      "Developer Experience Engineer"
+      "Design System Manager"
     ],
     "excluded_titles": [
       "Product Designer",
@@ -28,7 +31,7 @@
       "Intern"
     ],
     "min_seniority": "senior",
-    "management_interest": "manager_or_individual_contributor",
+    "management_interest": "Primarily individual contributor and technical leadership (Staff, Principal, Architect, Senior); open to Engineering Manager roles but deprioritizes Senior Engineering Manager, and deprioritizes Director-level roles most of all.",
     "open_to_individual_contributor": true
   },
   "domains": {
@@ -56,12 +59,15 @@
       "CI/CD",
       "Testing strategy",
       "Performance optimization",
-      "Accessibility"
+      "Accessibility",
+      "MCP Server Architecture",
+      "AI agent pipeline architecture"
     ],
     "platform_and_devex_additions": [
       "Internal platforms",
       "Tooling ownership",
-      "Documentation standards"
+      "Documentation standards",
+      "Spec-Driven Development (SDD)"
     ],
     "cloud_and_infra": [
       "Vercel",
@@ -78,9 +84,11 @@
   "experience_highlights": [
     "15+ años en ingeniería de software con foco en arquitectura frontend y design systems.",
     "Lideró la estrategia de plataforma y design systems en Carlsberg Group, construyendo y escalando el design system Malty.",
+    "Contribuyó a la gobernanza de arquitectura en Carlsberg a través de los comités directivos Software Engineering Leadership Team y Beacon Council — definiendo estándares de diseño de software y dirección de arquitectura junto a Architects, Principals y Leads.",
     "Creó y amplió una Frontend Community of Practice entre equipos distribuidos.",
     "Experiencia convirtiendo entornos poco estructurados en equipos de ingeniería disciplinados y de alto rendimiento.",
-    "Hands-on con React, TypeScript, Next.js, monorepos, CI/CD y tooling de DX."
+    "Hands-on con React, TypeScript, Next.js, monorepos, CI/CD y tooling de DX.",
+    "Construye y opera pipelines de agentes de IA autónomos en producción — orquestación multi-proveedor de LLMs (Qwen, Claude, OpenAI), tooling MCP, CI auto-reparable — como práctica hands-on de ingeniería AI-native."
   ],
   "location_preferences": {
     "primary_locations": [
@@ -152,12 +160,14 @@
       "Prácticas modernas de ingeniería",
       "Cultura remota saludable",
       "Inversión en DX y design systems",
-      "Estrategia de producto clara"
+      "Estrategia de producto clara",
+      "Alcance frontend-forward (React/TypeScript) o liderazgo técnico a nivel staff/principal/architect, incluso en organizaciones backend-adjacent"
     ],
     "red_flags": [
       "Sin ownership claro de arquitectura frontend o DX",
       "Roles puramente de mantenimiento con poco impacto estratégico",
-      "Procesos waterfall tardíos vendidos como agile"
+      "Procesos waterfall tardíos vendidos como agile",
+      "Roles puramente backend centrados en Java, Spring Boot, o trabajo puro de DevOps/SRE/infraestructura sin componente frontend o de liderazgo técnico"
     ]
   },
   "hard_constraints": {
