@@ -53,7 +53,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10.24.0
+          version: 11.2.2
 
       - name: Detect English content changes
         id: diff
