@@ -67,7 +67,7 @@ describe("CVPage", () => {
     render(ui);
 
     expect(
-      screen.getByText(/CURRICULUM VITAE · v2026\.04/i),
+      screen.getByText(/CURRICULUM VITAE · v2026\.08/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /DOWNLOAD PDF/i }),
