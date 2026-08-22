@@ -114,7 +114,7 @@ Por favor, incluye:
 - La URL de la página en la que has detectado el problema
 - Una descripción del problema
 - La tecnología de apoyo que utilizas (si procede)
-- Su navegador y sistema operativo
+- Tu navegador y sistema operativo
 
 Nuestro objetivo es responder en un plazo de 2 días laborables y nos esforzaremos por resolver rápidamente los problemas notificados.
 

@@ -10,7 +10,7 @@ Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo. 
 
 ## Cookies utilizadas en este sitio web
 
-opa.so utiliza **solo una categoría** de cookies:
+opa.so utiliza **dos categorías** de cookies:
 
 ### 1. Cookie de seguridad estrictamente necesaria (Cloudflare Turnstile)
 

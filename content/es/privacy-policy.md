@@ -12,11 +12,11 @@ La presente Política de privacidad explica cómo opa.so («nosotros», «nos» 
 
 ### 1. Datos que facilitas voluntariamente
 
-Cuando envía el formulario de contacto, recopilamos:
+Cuando envías el formulario de contacto, recopilamos:
 
-- Su dirección de correo electrónico
-- El contenido de su mensaje
-- Cualquier información adicional que incluya voluntariamente
+- Tu dirección de correo electrónico
+- El contenido de tu mensaje
+- Cualquier información adicional que incluyas voluntariamente
 
 El formulario es procesado por Formspree, nuestro encargado del tratamiento de datos externo.
 
