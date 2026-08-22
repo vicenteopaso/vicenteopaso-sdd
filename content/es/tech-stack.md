@@ -4,134 +4,134 @@ title: Tech Stack
 slug: tech-stack
 ---
 
-## Visión General
+## Descripción general
 
-Este sitio está construido con un stack moderno y type-safe optimizado para rendimiento, accesibilidad y experiencia de desarrollador. La arquitectura sigue los principios de [Spec-Driven Development (SDD)](/en/technical-governance), con documentación de gobernanza que guía las decisiones de implementación.
+Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipos (type-safe), optimizado para el rendimiento, la accesibilidad y la experiencia del desarrollador. La arquitectura sigue los principios del [desarrollo basado en especificaciones (Spec-Driven Development, SDD)](/es/technical-governance), con una documentación de gobernanza exhaustiva que orienta las decisiones de implementación.
 
-## Framework Principal y Runtime
+## Marco principal y entorno de ejecución
 
-- **Next.js 16** — App Router con React Server Components (RSC), generación estática (SSG) y rutas tipadas
-- **React 19.2** — Librería UI con server components y mejora progresiva
-- **TypeScript 6.0** — Tipado estricto de extremo a extremo
+- **Next.js 16** — Enrutador de aplicaciones (App Router) con React Server Components (RSC), generación de sitios estáticos (SSG) y rutas tipadas
+- **React 19.2** — Biblioteca de interfaz de usuario (UI) con componentes de servidor (server components) y mejora progresiva
+- **TypeScript 6.0** — Verificación estricta de tipos de extremo a extremo
 - **Node.js 24** — Entorno de ejecución (LTS)
 
-## Estilos y Componentes UI
+## Estilo y componentes de interfaz de usuario
 
-- **Tailwind CSS v4** — Framework CSS utility-first con design tokens personalizados
-- **Radix UI** — Primitivas accesibles de componentes:
+- **Tailwind CSS v4** — Marco CSS basado en utilidades con tokens de diseño personalizados
+- **Radix UI** — Componentes básicos accesibles:
   - `@radix-ui/react-dialog` — Diálogos modales
   - `@radix-ui/react-navigation-menu` — Componentes de navegación
-  - `@radix-ui/react-avatar` — Avatares
-  - `@radix-ui/react-popover` — Popovers
-- **next-themes** — Theming claro/oscuro con detección del sistema
-- **tailwindcss-animate** — Utilidades de animación
+  - `@radix-ui/react-avatar` — Componentes de avatar
+  - `@radix-ui/react-popover`: componentes de ventanas emergentes
+- **next-themes**: temas para los modos claro y oscuro con detección de las preferencias del sistema
+- **tailwindcss-animate**: utilidades de animación
 - **tailwindcss-radix** — Integración de Radix UI con Tailwind
-- **@tailwindcss/typography** — Tipografía optimizada para contenido en formato prosa
+- **@tailwindcss/typography** — Complemento tipográfico para el estilo de la prosa
 
-## Gestión de Contenido
+## Gestión de contenidos
 
-- **Markdown** — Archivos fuente en el directorio `content/`
-- **gray-matter** — Parsing de frontmatter, validado con un esquema Zod
-- **react-markdown** — Renderizado de Markdown en React
-- **sanitize-html** — Saneamiento HTML para seguridad
+- **Markdown** — Archivos fuente de contenido en el directorio `content/`
+- **gray-matter** — Análisis de frontmatter, validado según un esquema Zod
+- **react-markdown** — Representación de Markdown en React
+- **sanitize-html** — Desinfectación de HTML por motivos de seguridad
 
-## Formularios y Servicios Backend
+## Formularios y servicios de backend
 
-- **Cloudflare Turnstile** — Protección contra bots y spam
-- **Formspree** — Backend para formularios de correo
-- **Next.js Route Handlers** — Rutas API para procesamiento de formularios y contenido
-- **Zod** — Validación de esquemas para datos de formularios y peticiones API
+- **Cloudflare Turnstile** — Protección contra bots y prevención del spam (alternativa al CAPTCHA)
+- **Formspree** — Servicio de backend para formularios de correo electrónico
+- **Next.js Route Handlers** — Rutas de API para el procesamiento de formularios y la entrega de contenido
+- **Zod** — Validación de esquemas para datos de formularios y solicitudes de API
 
-## Testing y Aseguramiento de Calidad
+## Pruebas y control de calidad
 
-- **Vitest 4.1** — Framework de tests unitarios con entorno jsdom
-- **@vitest/coverage-v8** — Reportes de cobertura
-- **Playwright 1.59** — End-to-end testing
-- **@testing-library/react** — Utilidades para testear componentes React
-- **@testing-library/jest-dom** — Matchers DOM
-- **@testing-library/dom** — Utilidades para pruebas DOM
+- **Vitest 4.1** — Marco de pruebas unitarias con entorno jsdom
+- **@vitest/coverage-v8** — Informes de cobertura de código
+- **Playwright 1.62** — Pruebas de extremo a extremo
+- **@testing-library/react** — Utilidades de pruebas de componentes de React
+- **@testing-library/jest-dom** — Comparadores DOM para pruebas
+- **@testing-library/dom** — Utilidades de pruebas del DOM
 
-## Calidad de Código y Linting
+## Calidad del código y análisis sintáctico
 
-- **ESLint 10.3** — Linter con configuraciones:
-  - `eslint-config-next` — Reglas recomendadas para Next.js
-  - `@typescript-eslint/eslint-plugin` — Reglas específicas para TypeScript
-  - `eslint-plugin-jsx-a11y` — Accesibilidad
-  - `eslint-plugin-security` — Reglas de seguridad
-  - `eslint-plugin-simple-import-sort` — Ordenación de imports
-  - `eslint-config-prettier` — Integración con Prettier
-- **Prettier 3.8** — Formateo de código
-- **Husky 9.1** — Git hooks
-- **lint-staged 16.4** — Linting y formateo pre-commit
+- **ESLint 10.8** — Análisis sintáctico del código con:
+  - `eslint-config-next` — Reglas recomendadas por Next.js
+  - `@typescript-eslint/eslint-plugin`: reglas específicas de TypeScript
+  - `eslint-plugin-jsx-a11y`: validación de accesibilidad
+  - `eslint-plugin-security`: reglas centradas en la seguridad
+  - `eslint-plugin-simple-import-sort`: ordenación de importaciones
+  - `eslint-config-prettier`: integración con Prettier
+- **Prettier 3.9**: formateo de código
+- **Husky 9.1** — Hooks de Git
+- **lint-staged 17.3** — Validación y formateo previos al commit
 
-## Observabilidad y Monitoreo
+## Observabilidad y monitorización
 
-- **Vercel Analytics** — Métricas de interacción y visitas
+- **Vercel Analytics** — Visitas a la página e interacciones de los usuarios
 - **Vercel Speed Insights** — Core Web Vitals y métricas de rendimiento
-- **Sentry (@sentry/nextjs 10.49)** — Tracking de errores, session replay y alertas
-- **Vercel Logs** — Logs de errores del servidor
+- **Sentry (@sentry/nextjs 10.70)** — Seguimiento de errores, reproducción de sesiones y alertas
+- **Vercel Logs** — Registros de errores del lado del servidor
 
-## Build y Deployment
+## Compilación e implementación
 
-- **Vercel** — Hosting, CDN y despliegue en edge network
-- **next-sitemap 4.2** — Generación automática de sitemap y robots.txt
-- **pnpm 10.32** — Gestor de paquetes
+- **Vercel** — Alojamiento, CDN e implementación en red perimetral
+- **next-sitemap 4.2** — Generación automática de mapas del sitio y del archivo robots.txt
+- **pnpm 11.2** — Gestor de paquetes
 
-## Herramientas de Desarrollo
+## Herramientas de desarrollo
 
-- **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal para flujos de desarrollo
-- **[Cursor](https://cursor.com)** — Editor con asistencia IA
-- **PostCSS 8.4** — Procesador CSS
-- **autoprefixer 10.4** — Prefijos CSS automáticos
+- **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal para el flujo de trabajo de desarrollo
+- **[Cursor](https://cursor.com)** — Editor de código asistido por IA
+- **PostCSS 8.5** — Procesamiento de CSS
+- **autoprefixer 10.5** — Prefijos de proveedor para CSS
 
 ## Rendimiento y SEO
 
-- **Static Site Generation (SSG)** — Páginas prerenderizadas en build
-- **Server Components** — Menos JavaScript en el cliente
-- **Optimización de Imágenes** — Optimización automática de Next.js
-- **Optimización de Fuentes** — Google Fonts via `next/font/google`: Instrument Serif y JetBrains Mono, con `font-display: swap`
-- **JSON-LD Structured Data** — Marcado Schema.org para SEO
-- **Open Graph y Twitter Cards** — Previews sociales
+- **Generación de sitios estáticos (SSG)** — Páginas prerenderizadas en el momento de la compilación
+- **Componentes de servidor (server components)** — Reducción del JavaScript del lado del cliente
+- **Optimización de imágenes** — Optimización automática de imágenes con Next.js
+- **Optimización de fuentes** — Google Fonts a través de `next/font/google`: Instrument Serif y JetBrains Mono, con `font-display: swap`
+- **Datos estructurados JSON-LD** — Marcado Schema.org para SEO
+- **Open Graph y Twitter Cards** — Vistas previas en redes sociales
 
 ## Seguridad
 
-- **Content Security Policy (CSP)** — Protección contra XSS
-- **Rate Limiting** — Limitación de peticiones en rutas API
-- **Validación de Entrada** — Validación con Zod
-- **Saneamiento de Salida** — Saneamiento HTML para contenido generado por usuario
-- **Security Headers** — Cabeceras de seguridad configuradas vía Next.js
-- **CodeQL** — Escaneo automatizado de seguridad en CI
+- **Política de seguridad de contenidos (CSP)** — Protección contra XSS
+- **Limitación de tasa** — Limitación de tasa en memoria para rutas de API
+- **Validación de entradas** — Validación de esquemas Zod
+- **Desinfectación de salidas** — Desinfectación de HTML para contenido generado por el usuario
+- **Encabezados de seguridad** — Encabezados de seguridad completos mediante la configuración de Next.js
+- **CodeQL** — Análisis de seguridad automatizado en CI
 
-## CI/CD y Automatización
+## CI/CD y automatización
 
-- **GitHub Actions** — Integración y despliegue continuo
+- **GitHub Actions** — Integración y despliegue continuos
 - **Dependabot** — Actualizaciones automatizadas de dependencias
 - **Lighthouse CI** — Auditorías de rendimiento y accesibilidad
-- **Coverage Thresholds** — Límites de cobertura aplicados vía Vitest (90% líneas, sentencias, ramas y funciones)
+- **Umbrales de cobertura** — Aplicados mediante Vitest (90 % de líneas, sentencias, ramificaciones y funciones)
 
-## Design System
+## Sistema de diseño
 
-El sitio utiliza un design system personalizado basado en CSS custom properties (design tokens) definido en `styles/globals.css`. Las decisiones de diseño se documentan en [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md).
+El sitio utiliza un sistema de diseño personalizado basado en propiedades CSS personalizadas (tokens de diseño) definidas en `styles/globals.css`. Las decisiones de diseño están documentadas en [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md).
 
 Principios clave de diseño:
 
-- Estética minimalista, orientada al contenido
-- Cumplimiento de accesibilidad WCAG AA
-- Compatibilidad con tema claro/oscuro
-- Inspiración brutalista con radio de borde configurable
+- Estética minimalista que da prioridad al contenido
+- Cumplimiento de las normas de accesibilidad WCAG AA
+- Compatibilidad con temas oscuros y claros
+- Estilo de inspiración brutalista con radio de borde configurable
 
-## Arquitectura y Gobernanza
+## Arquitectura y gobernanza
 
-Este proyecto sigue los principios de [Spec-Driven Development (SDD)](/en/technical-governance), acompañado de documentación de gobernanza que incluye:
+Este proyecto sigue los principios del [Desarrollo basado en especificaciones (SDD)](/es/technical-governance), con una documentación exhaustiva sobre gobernanza que incluye:
 
-- **[Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)** — Intención de ingeniería y estándares guía
-- **[Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md)** — Arquitectura técnica y diseño del sistema
-- **[Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md)** — Invariantes de gobernanza y precedencia
+- **[Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)** — Objetivo principal de la ingeniería
+- **[Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md)**: arquitectura técnica y diseño del sistema
+- **[Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md)** — Invariantes de gobernanza inmutables y orden de prioridad
 
-Para más detalles sobre cómo estos documentos guían el desarrollo y habilitan flujos asistidos por IA, consulta la página de [Technical Governance](/en/technical-governance).
+Para obtener más detalles sobre cómo estos documentos de gobernanza orientan el desarrollo y permiten flujos de trabajo asistidos por IA, consulta la página [Gobernanza técnica](/es/technical-governance).
 
-## Enlaces del Proyecto
+## Enlaces del proyecto
 
-- [Repositorio GitHub](https://github.com/vicenteopaso/vicenteopaso-vibecode)
+- [Repositorio de GitHub](https://github.com/vicenteopaso/vicenteopaso-vibecode)
 - [Alojado en Vercel](https://vercel.com)
-- [Technical Governance](/en/technical-governance) — Cómo SDD y la ingeniería basada en documentación dieron forma a este proyecto
+- [Gobernanza técnica](/es/technical-governance) — Cómo el SDD y la ingeniería centrada en la documentación han dado forma a este proyecto

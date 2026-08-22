@@ -1,126 +1,126 @@
 ---
-name: Política de Privacidad
-title: Política de Privacidad
+name: Política de privacidad
+title: Política de privacidad
 slug: privacy-policy
 ---
 
 ## Introducción
 
-Esta Política de Privacidad explica cómo opa.so ("nosotros") recopila, utiliza, divulga y protege tus datos personales cuando visitas https://opa.so/. Cumplimos con el RGPD de la Unión Europea, la AEPD (Agencia Española de Protección de Datos) y las normativas de protección de datos aplicables.
+La presente Política de privacidad explica cómo opa.so («nosotros», «nos» o «nuestro») recopila, utiliza, divulga y protege tus datos personales cuando visitas https://opa.so/. Cumplimos con el RGPD de la UE, la AEPD (Agencia Española de Protección de Datos) y la normativa aplicable en materia de protección de datos.
 
-## Información que Recopilamos
+## Información que recopilamos
 
-### 1. Datos que Proporcionas Voluntariamente
+### 1. Datos que facilitas voluntariamente
 
-Cuando envías el formulario de Contacto, recopilamos:
+Cuando envías el formulario de contacto, recopilamos:
 
 - Tu dirección de correo electrónico
 - El contenido de tu mensaje
 - Cualquier información adicional que incluyas voluntariamente
 
-El formulario es procesado por Formspree, nuestro procesador de datos externo.
+El formulario es procesado por Formspree, nuestro encargado del tratamiento de datos externo.
 
-### 2. Datos de Seguridad y Anti-abuso (Cloudflare Turnstile)
+### 2. Datos de seguridad y contra el uso indebido (Cloudflare Turnstile)
 
-Para proteger el sitio contra bots y tráfico malicioso, Cloudflare Turnstile procesa:
+Para proteger el sitio web de bots y tráfico malicioso, Cloudflare Turnstile procesa:
+
+- La dirección IP
+- Las características del navegador
+- Los datos de interacción necesarios para verificar que eres un ser humano
+
+Cloudflare actúa como responsable del tratamiento independiente para este procesamiento.
+
+### 3. Alojamiento, registros y datos de tráfico (Vercel)
+
+Dado que el sitio está alojado en Vercel, se recopilan automáticamente los registros estándar de alojamiento y los análisis de perímetro. Estos pueden incluir:
 
 - Dirección IP
-- Características del navegador
-- Datos de interacción necesarios para verificar que eres humano
-
-Cloudflare actúa como controlador independiente en este procesamiento.
-
-### 3. Datos de Hosting, Logs y Tráfico (Vercel)
-
-Debido a que el sitio se encuentra alojado en Vercel, se recopilan automáticamente registros estándar del hosting y analíticas básicas del edge. Esto puede incluir:
-
-- Dirección IP
-- Marca temporal de la solicitud
-- Rutas de URL visitadas
-- Dispositivo, sistema operativo y tipo de navegador
-- Información del referente
-- Métricas básicas de rendimiento y enrutamiento (telemetría de la Edge Network)
+- Marca de tiempo de la solicitud
+- Rutas URL visitadas
+- Tipo de dispositivo, sistema operativo y navegador
+- Información de referencia
+- Métricas básicas de rendimiento y enrutamiento (telemetría de Edge Network)
 
 Vercel utiliza estos datos para:
 
 - Seguridad
-- Prevención de abuso
-- Monitoreo de rendimiento
+- Prevención de abusos
+- Supervisión del rendimiento
 - Diagnóstico de errores
 
-Vercel actúa como un controlador independiente.  
+Vercel actúa como responsable del tratamiento independiente.  
 Más información: https://vercel.com/legal/privacy-policy
 
-### 4. Monitorización de Errores (Sentry)
+### 4. Supervisión de errores (Sentry)
 
-Para diagnosticar errores y mejorar la fiabilidad, Sentry puede procesar:
+Para diagnosticar errores y mejorar la fiabilidad, Sentry puede tratar:
 
-- Trazas de pila y mensajes de error (sin datos de identificación personal salvo que estén incluidos en un envío de formulario)
-- Tipo de navegador, sistema operativo y URL de la página donde ocurrió el error
-- Datos de reproducción de sesión (muestreados y con redacción de entradas sensibles)
+- Trazas de pila y mensajes de error (sin datos de carácter personal, salvo que se incluyan en el envío de un formulario)
+- Tipo de navegador, sistema operativo y URL de la página en la que se produjo el error
+- Datos de reproducción de sesiones (muestreados y con la información confidencial ocultada)
 
-Sentry actúa como encargado del tratamiento bajo nuestras instrucciones.  
+Sentry actúa como encargado del tratamiento de datos siguiendo nuestras instrucciones.  
 https://sentry.io/privacy/
 
-### 5. Sin Cookies de Seguimiento o Publicidad
+### 5. Sin cookies de seguimiento ni publicitarias
 
-No utilizamos herramientas de analítica que rastreen comportamiento identificable ni empleamos cookies de publicidad.
+**No** utilizamos herramientas de análisis que rastreen comportamientos identificables, ni utilizamos cookies publicitarias.
 
-## Cómo Utilizamos Tu Información
+## Cómo utilizamos tu información
 
 - **Los datos del formulario de contacto** se utilizan únicamente para responder a tus consultas.
-- **Los datos procesados por Cloudflare y Vercel** se utilizan para seguridad, prevención de abuso y rendimiento del sitio.
+- **Los datos de Cloudflare y Vercel** se utilizan con fines de seguridad, prevención de abusos y rendimiento del sitio web.
 - No vendemos ni compartimos tus datos con fines de marketing o publicidad.
 
-## Base Legal para el Procesamiento (RGPD)
+## Base legal para el tratamiento (RGPD)
 
 Nos basamos en:
 
-- **Interés Legítimo:** Responder consultas y garantizar la seguridad y estabilidad del sitio web.
-- **Consentimiento:** Otorgado explícitamente cuando envías el formulario de contacto. Puedes retirar tu consentimiento en cualquier momento.
+- **Interés legítimo:** responder a las consultas y garantizar la seguridad y la estabilidad del sitio web.
+- **Consentimiento:** otorgado de forma explícita al enviar el formulario de contacto. Puedes retirar tu consentimiento en cualquier momento.
 
-## Procesadores Externos
+## Encargados del tratamiento de datos externos
 
-- **Sentry** — procesa informes de errores, trazas de pila y datos opcionales de reproducción de sesión para depuración y monitorización.  
-  Los datos solo se recopilan cuando se producen errores. La reproducción de sesión tiene una tasa de muestreo baja.  
+- **Sentry**: procesa informes de errores, trazas de pila y datos opcionales de reproducción de sesiones con fines de depuración y supervisión.  
+  Los datos solo se recopilan cuando se producen errores. La reproducción de sesiones se muestrea con baja frecuencia.  
   https://sentry.io/privacy/
-- **Formspree** — procesa de forma segura los envíos del formulario de contacto.  
+- **Formspree**: procesa de forma segura los envíos del formulario de contacto.  
   https://formspree.io/security/
-- **Cloudflare** — procesa datos de seguridad y anti-abuso como controlador independiente.  
+- **Cloudflare**: trata datos de seguridad y contra el uso indebido como responsable del tratamiento independiente.  
   https://www.cloudflare.com/privacypolicy/
-- **Vercel** — procesa logs de hosting y analíticas edge como controlador independiente.  
+- **Vercel**: trata los registros de alojamiento y el análisis de borde como responsable del tratamiento independiente.  
   https://vercel.com/legal/privacy-policy
 
-## Transferencias Internacionales de Datos
+## Transferencias de datos
 
-Formspree y Vercel pueden procesar datos en Estados Unidos u otras jurisdicciones.  
-Las transferencias están protegidas mediante Cláusulas Contractuales Tipo (SCCs) y otras garantías conformes al RGPD.
+Formspree y Vercel pueden tratar datos en Estados Unidos u otras jurisdicciones.  
+Las transferencias están protegidas mediante cláusulas contractuales tipo (SCC) y otras garantías conformes al RGPD.
 
-## Conservación de Datos
+## Conservación de datos
 
-- Los envíos del formulario de contacto se conservan solo durante el tiempo necesario para responderte.
-- Los logs de hosting (Vercel) y los datos anti-abuso (Cloudflare) siguen las políticas de retención de cada proveedor.
-- No mantenemos bases de datos locales o persistentes con información de visitantes.
+- Los envíos a través del formulario de contacto se conservan únicamente durante el tiempo necesario para responderte.
+- Los registros de alojamiento (Vercel) y los datos contra el uso indebido (Cloudflare) se rigen por las políticas de conservación de cada proveedor.
+- No mantenemos bases de datos locales ni persistentes con información de los visitantes.
 
-## Tus Derechos
+## Tus derechos
 
 Puedes solicitar:
 
-- Acceso a tus datos personales
-- Corrección de datos inexactos
-- Eliminación de tus datos
-- Oposición al procesamiento
-- Retirada del consentimiento
-- Portabilidad de los datos que hayas proporcionado
+- Acceder a tus datos personales
+- Rectificar datos inexactos
+- Suprimir tus datos
+- Oponerte al tratamiento
+- Retirar tu consentimiento
+- Solicitar la portabilidad de los datos que hayas facilitado
 
-Para ejercer tus derechos, escribe a: **contact@opa.so**
+Para ejercer tus derechos, envía un correo electrónico a: **contact@opa.so**
 
-También puedes presentar una reclamación ante la AEPD:  
+También puede presentar una reclamación ante la AEPD:  
 https://www.aepd.es/
 
 ## Contacto
 
-Para asuntos de privacidad, puedes contactarnos en:  
+Para cuestiones relacionadas con la privacidad, póngase en contacto con nosotros en:  
 **contact@opa.so**
 
 _Última actualización: 3 de mayo de 2026_

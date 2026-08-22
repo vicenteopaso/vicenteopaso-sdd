@@ -46,43 +46,43 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 - **Vitest 4.1** — Unit testing framework with jsdom environment
 - **@vitest/coverage-v8** — Code coverage reporting
-- **Playwright 1.59** — End-to-end testing
+- **Playwright 1.62** — End-to-end testing
 - **@testing-library/react** — React component testing utilities
 - **@testing-library/jest-dom** — DOM matchers for testing
 - **@testing-library/dom** — DOM testing utilities
 
 ## Code Quality & Linting
 
-- **ESLint 10.3** — Code linting with:
+- **ESLint 10.8** — Code linting with:
   - `eslint-config-next` — Next.js recommended rules
   - `@typescript-eslint/eslint-plugin` — TypeScript-specific rules
   - `eslint-plugin-jsx-a11y` — Accessibility linting
   - `eslint-plugin-security` — Security-focused rules
   - `eslint-plugin-simple-import-sort` — Import sorting
   - `eslint-config-prettier` — Prettier integration
-- **Prettier 3.8** — Code formatting
+- **Prettier 3.9** — Code formatting
 - **Husky 9.1** — Git hooks
-- **lint-staged 16.4** — Pre-commit linting and formatting
+- **lint-staged 17.3** — Pre-commit linting and formatting
 
 ## Observability & Monitoring
 
 - **Vercel Analytics** — Page views and user interactions
 - **Vercel Speed Insights** — Core Web Vitals and performance metrics
-- **Sentry (@sentry/nextjs 10.49)** — Error tracking, session replay, and alerting
+- **Sentry (@sentry/nextjs 10.70)** — Error tracking, session replay, and alerting
 - **Vercel Logs** — Server-side error logs
 
 ## Build & Deployment
 
 - **Vercel** — Hosting, CDN, and edge network deployment
 - **next-sitemap 4.2** — Automatic sitemap and robots.txt generation
-- **pnpm 10.32** — Package manager
+- **pnpm 11.2** — Package manager
 
 ## Development Tools
 
 - **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal for development workflow
 - **[Cursor](https://cursor.com)** — AI-assisted code editor
-- **PostCSS 8.4** — CSS processing
-- **autoprefixer 10.4** — CSS vendor prefixing
+- **PostCSS 8.5** — CSS processing
+- **autoprefixer 10.5** — CSS vendor prefixing
 
 ## Performance & SEO
 

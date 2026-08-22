@@ -2,98 +2,99 @@
 name: Vicente Opaso
 title: Vicente Opaso
 slug: about
-tagline: Web Engineering Manager. Frontend Architect. Líder en Design Systems y DevEx.
-underhero: Más de 25 años impulsando plataformas web escalables y de alto rendimiento en entornos empresariales, e-commerce y dominios de misión crítica.
+tagline: Director de ingeniería web. Arquitecto de front-end. Líder de sistemas de diseño y DevEx.
+underhero: Más de 15 años impulsando plataformas web escalables y de alto rendimiento en los sectores empresarial, del comercio electrónico y de sistemas críticos.
 initials: VO
 ---
 
-## Introduction
+## Introducción
 
-Lidero equipos de ingeniería y articulo plataformas frontend que combinan arquitecturas composables, frameworks modernos, design systems, flujos de Developer Experience (DevEx) y gobernanza de ingeniería. Mi trabajo se centra en arquitecturas frontend escalables, experiencias accesibles, automatización CI/CD y liderazgo técnico transversal.
+Dirijo equipos de ingeniería y diseño plataformas front-end que combinan arquitecturas componibles, marcos modernos, sistemas de diseño, flujos de trabajo de experiencia del desarrollador (DevEx) y gobernanza de ingeniería. Mi trabajo se centra en arquitecturas front-end escalables, experiencias de usuario accesibles, automatización de CI/CD y liderazgo de ingeniería multifuncional.
 
 ---
 
-### Impact Cards
+### Fichas de impacto
 
-_Mejoré_  
-**Core Web Vitals**  
-**25%**  
+_Mejora_
+**Core Web Vitals**
+**25 %**  
 En seis mercados globales
 
 ---
 
-_Reduje_  
-**Fricción en releases**  
-**40%**  
-Mediante guardrails de CI/CD y automatización DevEx
+_Reducción_
+**de las fricciones en los lanzamientos**
+**40 %**  
+Mediante medidas de control de CI/CD y automatización de DevEx
 
 ---
 
-_Entregué_  
-**Arquitectura Composable**  
-Impulsando plataformas empresariales multi-locale
+_Implementada_
+**Arquitectura componible**  
+Que da soporte a plataformas empresariales multilocalizadas
 
 ---
 
-_Lideré_  
+_Dirigí_
 **Equipos de ingeniería distribuidos**  
-En EU/EE. UU./LATAM/India
+En la UE, EE. UU., Latinoamérica e India
 
 ---
 
-_Aceleré_  
-**Productividad de desarrollo**  
-En porcentajes de doble dígito
+_Acelerada_
+**Productividad de los desarrolladores**  
+En porcentajes de dos dígitos
 
 ---
 
-_Construí_  
-**Librerías globales de componentes**  
-Adoptadas en múltiples regiones
+_Creadas_
+**Bibliotecas de componentes globales**  
+Adoptadas en todas las regiones
 
 ---
 
-_Optimicé_  
+_Mejoradas_
 **Rendimiento y estabilidad**  
-A través de edge delivery y marcos de gobernanza
+Mediante la entrega en el borde y marcos de gobernanza
 
 ---
 
-_Lideré_  
-**€1B+ de facturación anual**  
-Equipo de Frontend Development para plataformas B2B E‑Commerce
+_Dirigí_
+**Más de 1.000 millones de euros de facturación anual**  
+Equipo de desarrollo front-end
+de plataformas de comercio electrónico B2B
 
 ---
 
-## Resumen Profesional
+## Resumen profesional
 
-En Nexthink lideré la plataforma global de marketing corporativo basada en Next.js, GraphQL, Tailwind CSS y Hygraph sobre Vercel—impulsando rendimiento, accesibilidad y automatización DevEx dentro de un equipo multifuncional de 5 personas (incluyendo una persona de UI/UX Design) operando en seis mercados y elevando Core Web Vitals en 25%.
+En Nexthink dirigí la plataforma global de marketing corporativo desarrollada con Next.js, GraphQL, Tailwind CSS y Hygraph en Vercel, impulsando el rendimiento, la accesibilidad y la automatización de DevEx en un equipo multifuncional de 5 personas (incluido un diseñador de UI/UX) que operaba en seis ubicaciones, lo que permitió aumentar los Core Web Vitals en un 25 %.
 
-En EUROCONTROL definí la estrategia del Design System para operaciones críticas de aviación, coordiné un equipo de entrega multifuncional de 10 personas e implementé marcos de gobernanza que redujeron la fricción de despliegue en 40% en flujos regulados y de misión crítica.
+En EUROCONTROL definí la estrategia del sistema de diseño para operaciones críticas en el sector de la aviación, coordiné un equipo de entrega multifuncional de 10 personas e implementé marcos de gobernanza que redujeron las dificultades de implementación en un 40 % en flujos de trabajo regulados y de misión crítica.
 
-En Carlsberg construí la librería global de componentes React/TypeScript _Malty_, fundé la Frontend Community of Practice y escalé los flujos de ingeniería entre mercados que soportan el ecosistema digital de Europa Occidental.
+En Carlsberg, desarrollé la biblioteca global de componentes _Malty_ en React/TypeScript, fundé la Comunidad de Práctica de Frontend y amplié los flujos de trabajo de ingeniería entre mercados para dar soporte al ecosistema digital de Europa Occidental.
 
-Antes de dedicarme por completo al software, pasé diez años en **Nokia** como **Ingeniero RF**, trabajando en optimización de redes, sistemas de antenas, rendimiento de movilidad y despliegues inalámbricos a gran escala—experiencia que moldeó mi enfoque sistémico hacia la arquitectura, la fiabilidad y el rendimiento.
+Antes de dedicarme por completo al desarrollo de software, pasé diez años en **Nokia** como **ingeniero de RF**, trabajando en la optimización de redes, sistemas de antenas, rendimiento de la movilidad e implementaciones inalámbricas a gran escala —una experiencia que moldeó mi enfoque a nivel de sistemas en materia de arquitectura, fiabilidad y rendimiento—.
 
-Mi carrera en software comenzó hace casi 15 años cuando cofundé Greygoo, liderando entregas web y móviles para clientes como GM, NCAA y el Paulson Institute en mercados estadounidenses.
+Mi carrera en el ámbito del software comenzó hace casi 15 años, cuando cofundé Greygoo, donde dirigí la entrega de soluciones web y móviles para clientes como GM, la NCAA y el Instituto Paulson en los mercados estadounidenses.
 
-**Mi misión:** construir sistemas y equipos que escalen, reduzcan fricción y generen valor sostenible y repetible.
+**Mi misión:** crear sistemas y equipos que sean escalables, reduzcan las fricciones y aporten valor a largo plazo y repetible.
 
 ---
 
-### En Qué Me Enfoco
+### En qué me centro
 
-- **Arquitectura Frontend y Plataformas Composables**  
-  Ecosistemas escalables y modulares en React/Next.js diseñados para distribución global.
+- **Arquitectura front-end y plataformas componibles**  
+  Ecosistemas React/Next.js escalables y modulares, diseñados para una implementación global.
 
-- **Design Systems y Gobernanza UI**  
-  Librerías de componentes, tokens, accesibilidad y consistencia multisuperficie.
+- **Sistemas de diseño y gobernanza de la interfaz de usuario**  
+  Bibliotecas de componentes, tokens, accesibilidad y coherencia en múltiples superficies.
 
-- **Developer Experience y Optimización de Flujos**  
-  Automatización CI/CD, guardrails de calidad, frameworks de onboarding y tooling.
+- **Experiencia del desarrollador y optimización del flujo de trabajo**  
+  Automatización de CI/CD, medidas de control de la calidad del código, marcos de incorporación y herramientas.
 
-- **Liderazgo de Ingeniería y Colaboración Multifuncional**  
-  Dirección de equipos distribuidos, definición de estrategia y alineación entre producto, diseño e ingeniería.
+- **Liderazgo en ingeniería y colaboración interfuncional**  
+  Dirección de equipos distribuidos, definición de la estrategia y alineación entre producto, diseño e ingeniería.
 
-- **Rendimiento, Accesibilidad y SEO Técnico**  
-  Core Web Vitals, edge delivery, cumplimiento WCAG 2.1 y optimización de búsqueda.
+- **Rendimiento, accesibilidad y SEO técnico**  
+  Core Web Vitals, distribución en el borde, cumplimiento de las WCAG 2.1 y optimización para motores de búsqueda.

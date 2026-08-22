@@ -38,9 +38,8 @@ describe("i18n infrastructure", () => {
       const { result } = renderHook(() => useTranslations());
       const t = result.current;
 
-      // Since Spanish translations are empty in Task 1, it should fall back to English
-      const translation = t("nav.cv");
-      expect(translation).toBe("CV"); // Falls back to English translation
+      const translation = t("nav.about");
+      expect(translation).toBe("ACERCA DE");
     });
 
     it("should default to English when locale param is missing", async () => {
@@ -210,9 +209,8 @@ describe("i18n infrastructure", () => {
 
     it("should return translation function for Spanish", () => {
       const t = getTranslations("es");
-      // Spanish translations are empty in Task 1, so it should fall back to English
-      const translation = t("nav.cv");
-      expect(translation).toBe("CV"); // Falls back to English translation
+      const translation = t("nav.about");
+      expect(translation).toBe("ACERCA DE");
     });
 
     it("should handle interpolation in server function", () => {
