@@ -1,7 +1,7 @@
 ---
 name: Vicente Opaso
 title: Vicente Opaso
-slug: sobre
+slug: about
 tagline: Director de ingeniería web. Arquitecto de front-end. Líder de sistemas de diseño y DevEx.
 underhero: Más de 15 años impulsando plataformas web escalables y de alto rendimiento en los sectores empresarial, del comercio electrónico y de sistemas críticos.
 initials: VO

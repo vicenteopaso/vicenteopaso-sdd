@@ -6,7 +6,7 @@ slug: tech-stack
 
 ## Descripción general
 
-Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipos, optimizada para el rendimiento, la accesibilidad y la experiencia del desarrollador. La arquitectura sigue los principios del [desarrollo basado en especificaciones (SDD)](/es/gobernanza-técnica), con una documentación de gobernanza exhaustiva que orienta las decisiones de implementación.
+Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipos, optimizada para el rendimiento, la accesibilidad y la experiencia del desarrollador. La arquitectura sigue los principios del [desarrollo basado en especificaciones (SDD)](/es/technical-governance), con una documentación de gobernanza exhaustiva que orienta las decisiones de implementación.
 
 ## Marco principal y entorno de ejecución
 
@@ -128,10 +128,10 @@ Este proyecto sigue los principios del [Desarrollo basado en especificaciones (S
 - **[Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md)**: arquitectura técnica y diseño del sistema
 - **[Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md)** — Invariantes de gobernanza inmutables y orden de prioridad
 
-Para obtener más detalles sobre cómo estos documentos de gobernanza orientan el desarrollo y permiten flujos de trabajo asistidos por IA, consulta la página [Gobernanza técnica](/es/gobernanza-tecnica).
+Para obtener más detalles sobre cómo estos documentos de gobernanza orientan el desarrollo y permiten flujos de trabajo asistidos por IA, consulta la página [Gobernanza técnica](/es/technical-governance).
 
 ## Enlaces del proyecto
 
 - [Repositorio de GitHub](https://github.com/vicenteopaso/vicenteopaso-vibecode)
 - [Alojado en Vercel](https://vercel.com)
-- [Gobernanza técnica](/en/technical-governance) — Cómo el SDD y la ingeniería centrada en la documentación han dado forma a este proyecto
+- [Gobernanza técnica](/es/technical-governance) — Cómo el SDD y la ingeniería centrada en la documentación han dado forma a este proyecto

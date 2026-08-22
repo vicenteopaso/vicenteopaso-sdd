@@ -1,7 +1,7 @@
 ---
 name: Declaración de accesibilidad
 title: Declaración de accesibilidad
-slug: accesibilidad
+slug: accessibility
 description: Nuestro compromiso con la accesibilidad web y el cumplimiento de las WCAG 2.1 Nivel AA
 ---
 
