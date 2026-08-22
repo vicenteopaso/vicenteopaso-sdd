@@ -38,8 +38,8 @@ describe("i18n infrastructure", () => {
       const { result } = renderHook(() => useTranslations());
       const t = result.current;
 
-      const translation = t("nav.cv");
-      expect(translation).toBe("Currículum vitae");
+      const translation = t("nav.about");
+      expect(translation).toBe("ACERCA DE");
     });
 
     it("should default to English when locale param is missing", async () => {
@@ -209,8 +209,8 @@ describe("i18n infrastructure", () => {
 
     it("should return translation function for Spanish", () => {
       const t = getTranslations("es");
-      const translation = t("nav.cv");
-      expect(translation).toBe("Currículum vitae");
+      const translation = t("nav.about");
+      expect(translation).toBe("ACERCA DE");
     });
 
     it("should handle interpolation in server function", () => {
