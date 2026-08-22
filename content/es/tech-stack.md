@@ -1,17 +1,17 @@
 ---
-name: Pila tecnológica
-title: Pila tecnológica
+name: Tech Stack
+title: Tech Stack
 slug: tech-stack
 ---
 
 ## Descripción general
 
-Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipos, optimizada para el rendimiento, la accesibilidad y la experiencia del desarrollador. La arquitectura sigue los principios del [desarrollo basado en especificaciones (SDD)](/es/technical-governance), con una documentación de gobernanza exhaustiva que orienta las decisiones de implementación.
+Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipos (type-safe), optimizado para el rendimiento, la accesibilidad y la experiencia del desarrollador. La arquitectura sigue los principios del [desarrollo basado en especificaciones (Spec-Driven Development, SDD)](/es/technical-governance), con una documentación de gobernanza exhaustiva que orienta las decisiones de implementación.
 
 ## Marco principal y entorno de ejecución
 
-- **Next.js 16** — Enrutador de aplicaciones con componentes de servidor de React (RSC), generación de sitios estáticos (SSG) y rutas tipadas
-- **React 19.2** — Biblioteca de interfaz de usuario con componentes de servidor y mejora progresiva
+- **Next.js 16** — Enrutador de aplicaciones (App Router) con React Server Components (RSC), generación de sitios estáticos (SSG) y rutas tipadas
+- **React 19.2** — Biblioteca de interfaz de usuario (UI) con componentes de servidor (server components) y mejora progresiva
 - **TypeScript 6.0** — Verificación estricta de tipos de extremo a extremo
 - **Node.js 24** — Entorno de ejecución (LTS)
 
@@ -87,7 +87,7 @@ Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipo
 ## Rendimiento y SEO
 
 - **Generación de sitios estáticos (SSG)** — Páginas prerenderizadas en el momento de la compilación
-- **Componentes de servidor** — Reducción del JavaScript del lado del cliente
+- **Componentes de servidor (server components)** — Reducción del JavaScript del lado del cliente
 - **Optimización de imágenes** — Optimización automática de imágenes con Next.js
 - **Optimización de fuentes** — Google Fonts a través de `next/font/google`: Instrument Serif y JetBrains Mono, con `font-display: swap`
 - **Datos estructurados JSON-LD** — Marcado Schema.org para SEO

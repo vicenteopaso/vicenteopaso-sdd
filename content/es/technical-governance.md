@@ -323,7 +323,7 @@ Este enfoque centrado en la documentación se adapta bien a la escalabilidad:
 
 Para desarrolladores y colaboradores:
 
-- [Pila tecnológica](/es/tech-stack) — Descripción general completa de la pila tecnológica y las herramientas
+- [Tech Stack](/es/tech-stack) — Descripción general completa de la pila tecnológica y las herramientas
 - [Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) — Exposición exhaustiva de la filosofía de ingeniería
 - [Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) — Arquitectura técnica
 - [Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md) — Gobernanza del repositorio
