@@ -45,7 +45,7 @@
   "contact.email": "→ vicente@opa.so",
   "contact.linkedin": "→ linkedin.com/in/vicenteopaso",
   "contact.github": "→ github.com/vicenteopaso",
-  "cv.header": "◈ Currículum vítae · v2026.08",
+  "cv.header": "◈ Currículum vitae · v2026.08",
   "cv.metaLocation": "UBICACIÓN",
   "cv.metaAvailability": "DISPONIBILIDAD",
   "cv.metaLanguages": "IDIOMAS",
@@ -140,7 +140,7 @@
   "language.toggle": "Idioma",
   "language.en": "EN",
   "language.es": "ES",
-  "footer.warp": "Urdimbre",
+  "footer.warp": "Warp",
   "footer.cursor": "Cursor",
   "footer.copyrightName": "© {year} VICENTE OPASO",
   "footer.copyrightTagline": "DISEÑADO Y DESARROLLADO CON IA, SDD Y ❤"
