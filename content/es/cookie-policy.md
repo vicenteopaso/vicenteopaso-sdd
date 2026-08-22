@@ -26,7 +26,7 @@ opa.so utiliza **dos categorías** de cookies:
 - **Finalidad**: Recuerda tu preferencia de idioma (inglés o español) para que, en tu próxima visita, se muestre la configuración regional correcta sin necesidad de redireccionamiento.
 - **Establecida por**: El propio sitio web (componente `LocaleProvider`) cuando visita cualquier página.
 - **Caducidad**: 1 año (`max-age=31536000`).
-- **Datos personales tratados**: Ninguno; solo almacena `«en»` o `«es»`.
+- **Datos personales tratados**: Ninguno; solo almacena `en` o `es`.
 - **Base jurídica**: **Interés legítimo** (artículo 6, apartado 1, letra f) del RGPD): necesario para garantizar una redirección coherente según el idioma.
 
 ### Sin cookies de análisis, marketing ni seguimiento
