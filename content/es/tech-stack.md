@@ -81,8 +81,8 @@ Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipo
 
 - **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal para el flujo de trabajo de desarrollo
 - **[Cursor](https://cursor.com)** — Editor de código asistido por IA
-- **PostCSS 8.4** — Procesamiento de CSS
-- **autoprefixer 10.4** — Prefijos de proveedor para CSS
+- **PostCSS 8.5** — Procesamiento de CSS
+- **autoprefixer 10.5** — Prefijos de proveedor para CSS
 
 ## Rendimiento y SEO
 
