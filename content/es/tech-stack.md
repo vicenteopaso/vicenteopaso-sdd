@@ -46,36 +46,36 @@ Este sitio web se ha desarrollado con una pila moderna y segura en cuanto a tipo
 
 - **Vitest 4.1** — Marco de pruebas unitarias con entorno jsdom
 - **@vitest/coverage-v8** — Informes de cobertura de código
-- **Playwright 1.59** — Pruebas de extremo a extremo
+- **Playwright 1.62** — Pruebas de extremo a extremo
 - **@testing-library/react** — Utilidades de pruebas de componentes de React
 - **@testing-library/jest-dom** — Comparadores DOM para pruebas
 - **@testing-library/dom** — Utilidades de pruebas del DOM
 
 ## Calidad del código y análisis sintáctico
 
-- **ESLint 10.3** — Análisis sintáctico del código con:
+- **ESLint 10.8** — Análisis sintáctico del código con:
   - `eslint-config-next` — Reglas recomendadas por Next.js
   - `@typescript-eslint/eslint-plugin`: reglas específicas de TypeScript
   - `eslint-plugin-jsx-a11y`: validación de accesibilidad
   - `eslint-plugin-security`: reglas centradas en la seguridad
   - `eslint-plugin-simple-import-sort`: ordenación de importaciones
   - `eslint-config-prettier`: integración con Prettier
-- **Prettier 3.8**: formateo de código
+- **Prettier 3.9**: formateo de código
 - **Husky 9.1** — Hooks de Git
-- **lint-staged 16.4** — Validación y formateo previos al commit
+- **lint-staged 17.3** — Validación y formateo previos al commit
 
 ## Observabilidad y monitorización
 
 - **Vercel Analytics** — Visitas a la página e interacciones de los usuarios
 - **Vercel Speed Insights** — Core Web Vitals y métricas de rendimiento
-- **Sentry (@sentry/nextjs 10.49)** — Seguimiento de errores, reproducción de sesiones y alertas
+- **Sentry (@sentry/nextjs 10.70)** — Seguimiento de errores, reproducción de sesiones y alertas
 - **Vercel Logs** — Registros de errores del lado del servidor
 
 ## Compilación e implementación
 
 - **Vercel** — Alojamiento, CDN e implementación en red perimetral
 - **next-sitemap 4.2** — Generación automática de mapas del sitio y del archivo robots.txt
-- **pnpm 10.32** — Gestor de paquetes
+- **pnpm 11.2** — Gestor de paquetes
 
 ## Herramientas de desarrollo
 
