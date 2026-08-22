@@ -1,347 +1,347 @@
 ---
-name: Gobernanza Técnica
-title: Technical Governance
+nombre: Gobernanza técnica
+título: Gobernanza técnica
 slug: technical-governance
-description: Cómo Spec-Driven Development (SDD) y la ingeniería basada en documentación dieron forma a este proyecto, habilitando desarrollo asistido por IA con una arquitectura guiada por gobernanza.
+descripción: Cómo el desarrollo basado en especificaciones (SDD) y la ingeniería «documentación primero» han dado forma a este proyecto, permitiendo un desarrollo asistido por IA con una arquitectura basada en la gobernanza.
 ---
 
-## Ingeniería Basada en Documentación
+## Ingeniería «documentación primero»
 
-Este proyecto se construyó utilizando un enfoque de **Documentación-First**, en el cual documentos exhaustivos de gobernanza, especificaciones de arquitectura y estándares de ingeniería se redactaron antes y durante el desarrollo. Estos documentos sirven como base tanto para la toma de decisiones humanas como para la implementación asistida por IA.
+Este proyecto se ha desarrollado utilizando un enfoque **«primero la documentación»**, en el que se redactaron documentos de gobernanza exhaustivos, especificaciones de arquitectura y estándares de ingeniería antes y durante el desarrollo. Estos documentos sirvieron de base tanto para la toma de decisiones humanas como para la implementación asistida por IA.
 
-### La Filosofía
+### La filosofía
 
-En lugar de escribir código primero y documentar después, este proyecto invierte el flujo de trabajo tradicional:
+En lugar de escribir primero el código y documentarlo después, este proyecto invierte el flujo de trabajo tradicional:
 
-1. **Definir la Intención** — Los estándares de ingeniería, decisiones de arquitectura y principios de gobernanza se capturan en documentos markdown
-2. **Establecer Gobernanza** — Se documentan reglas claras, quality gates y marcos de toma de decisiones
-3. **Construir con Guía** — El código se escribe con estos documentos como fuente de verdad, asegurando consistencia y alineación
-4. **IA como Co-Piloto** — Las herramientas de IA (como [Cursor](https://cursor.com)) usan estos documentos para entender el contexto, hacer sugerencias informadas y mantener la integridad arquitectónica
+1. **Definir la intención**: las normas de ingeniería, las decisiones de arquitectura y los principios de gobernanza se recogen en documentos Markdown
+2. **Establecer la gobernanza**: se documentan reglas claras, controles de calidad y marcos de toma de decisiones
+3. **Desarrollar con orientación**: el código se escribe tomando estos documentos como fuente de referencia, lo que garantiza la coherencia y la alineación
+4. **La IA como copiloto**: las herramientas de IA (como [Cursor](https://cursor.com)) utilizan estos documentos para comprender el contexto, realizar sugerencias fundamentadas y mantener la integridad arquitectónica
 
-## Spec-Driven Development (SDD) en Práctica
+## El desarrollo basado en especificaciones (SDD) en la práctica
 
-### Documentos Clave de Gobernanza
+### Documentos fundamentales de gobernanza
 
 La gobernanza técnica del proyecto se define a través de varios documentos clave:
 
-#### Engineering Standards (`docs/ENGINEERING_STANDARDS.md`)
+#### Normas de ingeniería (`docs/ENGINEERING_STANDARDS.md`)
 
-Un documento **north-star** exhaustivo que captura la intención de ingeniería en:
+Un documento exhaustivo que sirve de **guía** y recoge la intención de ingeniería en los siguientes ámbitos:
 
-- **Fundamentos Arquitectónicos** — Principios de arquitectura modular basada en componentes
-- **Estándares de Ingeniería Frontend** — Calidad de código, ingeniería de componentes y guías de design system
-- **Accesibilidad (A11y)** — Objetivos WCAG 2.1 AA, prácticas de testing y tooling
-- **Fortalecimiento de Seguridad** — Seguridad en runtime, checks en build-time y patrones de autenticación
-- **Performance & Web Vitals** — Objetivos de Core Web Vitals, umbrales de Lighthouse y estrategias de optimización
-- **SEO & Descubribilidad** — SEO técnico, structured data y optimización de contenido
-- **Estándares de Testing** — Expectativas de testing unitario, integración y E2E con umbrales de coverage
-- **Estándares de Design System** — Design tokens, guías de componentes y prácticas de documentación
+- **Fundamentos arquitectónicos**: principios de arquitectura modular y basada en componentes
+- **Normas de ingeniería front-end**: calidad del código, ingeniería de componentes y directrices del sistema de diseño
+- **Accesibilidad (A11y)**: objetivos WCAG 2.1 AA, prácticas de pruebas y herramientas
+- **Fortalecimiento de la seguridad**: seguridad en tiempo de ejecución, comprobaciones en tiempo de compilación y patrones de autenticación
+- **Rendimiento y Web Vitals**: objetivos de Core Web Vitals, umbrales de Lighthouse y estrategias de optimización
+- **SEO y visibilidad**: SEO técnico, datos estructurados y optimización de contenidos
+- **Normas de pruebas**: expectativas de pruebas unitarias, de integración y de extremo a extremo (E2E) con umbrales de cobertura
+- **Normas del sistema de diseño** — Tokens de diseño, directrices para componentes y prácticas de documentación
 
-Este documento sirve como **fuente única de verdad** para qué significa "bueno" en esta base de código.
+Este documento sirve como **fuente única de referencia** para definir qué se considera «bueno» en este código base.
 
-### Política Agnóstica de Solución, Constitution y SDD
+### Política independiente de soluciones, Constitución y SDD
 
-- **Supremacía**: `docs/CONSTITUTION.md` define los invariantes inmutables y la precedencia de resolución de conflictos para este repositorio.
-- Dentro de esas restricciones, el SDD legible por máquina en `/sdd.yaml` es autoritativo para principios, límites y expectativas de CI.
-- La gobernanza y los estándares son agnósticos de solución: las elecciones tecnológicas pueden evolucionar, pero los principios deben permanecer intactos.
-- Cualquier cambio que afecte la arquitectura o preocupaciones transversales debe actualizar el SDD y la documentación relevante en el mismo PR.
+- **Supremacía**: `docs/CONSTITUTION.md` define las invariantes inmutables y la jerarquía de resolución de conflictos para este repositorio.
+- Dentro de esas restricciones, el SDD legible por máquina en `/sdd.yaml` es la referencia definitiva en cuanto a principios, límites y expectativas de CI.
+- La gobernanza y los estándares son independientes de la solución: las elecciones tecnológicas pueden evolucionar, pero los principios deben permanecer intactos.
+- Cualquier cambio que afecte a la arquitectura o a aspectos transversales debe actualizar el SDD y la documentación pertinente en la misma solicitud de incorporación de cambios (PR).
 
-#### Architecture Overview (`docs/ARCHITECTURE.md`)
+#### Descripción general de la arquitectura (`docs/ARCHITECTURE.md`)
 
-Define la arquitectura técnica incluyendo:
+Define la arquitectura técnica, incluyendo:
 
 - Componentes del sistema y sus relaciones
-- Decisiones de stack tecnológico (Next.js, React, Tailwind, etc.)
-- Arquitectura de contenido (Markdown + validación Zod de frontmatter)
-- Modelo de deployment (Vercel)
-- Flujos de datos clave e integraciones
+- Decisiones sobre la pila tecnológica (Next.js, React, Tailwind, etc.)
+- Arquitectura de contenidos (Markdown + frontmatter validado por Zod)
+- Modelo de despliegue (Vercel)
+- Flujos de datos e integraciones clave
 
-#### Engineering Constitution (`docs/CONSTITUTION.md`)
+#### Constitución de ingeniería (`docs/CONSTITUTION.md`)
 
-Define los **invariantes inmutables** del repositorio y el **orden de precedencia** de gobernanza.
+Define las **invariantes inmutables** del repositorio y el **orden de prioridad** de la gobernanza.
 
-- Es intencionalmente corto y estable (solo declaraciones MUST / MUST NOT / NEVER).
-- El SDD (`sdd.yaml`) y los ADRs proveen los detalles cambiables y la justificación.
+- Es intencionadamente breve y estable (solo contiene declaraciones del tipo «DEBE», «NO DEBE» y «NUNCA»).
+- El SDD (`sdd.yaml`) y los ADR proporcionan los detalles modificables y la justificación.
 
-#### Documentos Adicionales de Gobernanza
+#### Documentos adicionales de gobernanza
 
-- **Architecture Decision Records** (`docs/adr/`) — Registros ligeros de decisiones arquitectónicas con contexto, alternativas y consecuencias
-- **AI Guardrails** (`docs/AI_GUARDRAILS.md`) — Reglas de codificación IA, prácticas requeridas, patrones prohibidos y checklist de revisión
-- **Design System** (`docs/DESIGN_SYSTEM.md`) — Tokens de diseño visual, patrones de componentes, guías de uso
-- **Accessibility Guidelines** (`docs/ACCESSIBILITY.md`) — Prácticas técnicas de accesibilidad y tooling
-- **SEO Guide** (`docs/SEO_GUIDE.md`) — Patrones de implementación SEO y mejores prácticas
-- **Error Handling** (`docs/ERROR_HANDLING.md`) — Error boundaries, logging y estrategias de monitoreo
-- **Security Policy** (`docs/SECURITY_POLICY.md`) — Prácticas de seguridad y reporte de vulnerabilidades
+- **Registros de decisiones de arquitectura** (`docs/adr/`) — Registros sencillos de decisiones arquitectónicas con contexto, alternativas y consecuencias
+- **Límites de seguridad para la IA** (`docs/AI_GUARDRAILS.md`) — Normas de programación de IA, prácticas obligatorias, patrones prohibidos y lista de verificación para la revisión
+- **Sistema de diseño** (`docs/DESIGN_SYSTEM.md`) — Tokens de diseño visual, patrones de componentes y directrices de uso
+- **Directrices de accesibilidad** (`docs/ACCESSIBILITY.md`) — Prácticas técnicas de accesibilidad y herramientas
+- **Guía de SEO** (`docs/SEO_GUIDE.md`) — Patrones de implementación de SEO y mejores prácticas
+- **Gestión de errores** (`docs/ERROR_HANDLING.md`) — Límites de error, registro de eventos y estrategias de supervisión
+- **Política de seguridad** (`docs/SECURITY_POLICY.md`) — Prácticas de seguridad y notificación de vulnerabilidades
 
-## Architecture Decision Records (ADRs)
+## Registros de decisiones de arquitectura (ADR)
 
-Para complementar la documentación exhaustiva, este proyecto usa **Architecture Decision Records (ADRs)** para capturar decisiones arquitectónicas significativas con su contexto y consecuencias.
+Para complementar la documentación exhaustiva, este proyecto utiliza **registros de decisiones de arquitectura (ADR)** para plasmar las decisiones arquitectónicas significativas junto con su contexto y sus consecuencias.
 
-### Propósito
+### Objetivo
 
-Los ADRs proveen documentación ligera y buscable que:
+Los ADR proporcionan una documentación sencilla y consultable que:
 
-- **Captura Contexto** — Documenta por qué se tomaron las decisiones, no solo qué se implementó
-- **Preserva Justificación** — Previene que futuros contribuidores deshagan buenas decisiones
-- **Muestra Alternativas** — Registra qué opciones se consideraron y por qué no se eligieron
-- **Rastrea Consecuencias** — Documenta explícitamente trade-offs y limitaciones conocidas
-- **Habilita Contexto IA** — Provee contexto arquitectónico estructurado para desarrollo asistido por IA
+- **Recoge el contexto** — Documenta por qué se tomaron las decisiones, no solo lo que se implementó
+- **Preserva la justificación** — Evita que futuros colaboradores reviertan buenas decisiones
+- **Muestra alternativas** — Registra qué opciones se barajaron y por qué no se eligieron
+- **Realiza un seguimiento de las consecuencias**: documenta explícitamente las compensaciones y las limitaciones conocidas
+- **Proporciona contexto para la IA**: ofrece un contexto arquitectónico estructurado para el desarrollo asistido por IA
 
-### Cuándo Escribir un ADR
+### Cuándo redactar un ADR
 
-Crea un ADR para decisiones sobre:
+Crea un ADR para decisiones relacionadas con:
 
-- **Cambios de arquitectura** — Estructura del sistema, límites o patrones
-- **Elecciones tecnológicas** — Adopción de nuevas librerías, frameworks o herramientas
-- **Preocupaciones transversales** — Error handling, logging, seguridad, performance
-- **Breaking changes** — Cambios en APIs, contratos
-- **Patrones de diseño** — Nuevos patrones o deprecación de existentes
+- **Cambios en la arquitectura**: estructura del sistema, límites o patrones
+- **Elecciones tecnológicas**: adopción de nuevas bibliotecas, marcos de trabajo o herramientas
+- **Aspectos transversales**: gestión de errores, registro de eventos, seguridad, rendimiento
+- **Cambios que rompen la compatibilidad**: cambios en la API, modificaciones de contratos
+- **Patrones de diseño**: nuevos patrones o obsolescencia de los existentes
 
-Ver `docs/adr/README.md` para el proceso completo de ADR y template.
+Consulta `docs/adr/README.md` para ver el proceso completo del ADR y la plantilla.
 
-### Integración de ADR
+### Integración de los ADR
 
-Los ADRs se integran con el flujo de trabajo de desarrollo:
+Los ADR se integran en el flujo de trabajo de desarrollo:
 
-1. **Proponer Decisión** — Borrador de ADR con estado "Proposed" antes de la implementación
-2. **Abrir PR** — Link al ADR en la descripción del PR
-3. **Revisar Juntos** — Revisar tanto el código como el ADR
-4. **Aceptar Decisión** — Actualizar el estado del ADR a "Accepted" después del merge
-5. **Referenciar Después** — Futuros PRs y agentes IA referencian ADRs para contexto
+1. **Proponer una decisión**: redactar un ADR con el estado «Propuesto» antes de la implementación
+2. **Abrir una solicitud de incorporación de cambios (PR)**: incluir un enlace al ADR en la descripción de la PR
+3. **Revisar conjuntamente**: revisar tanto el código como el ADR
+4. **Aceptar la decisión** — Actualizar el estado del ADR a «Aceptado» tras la fusión
+5. **Referenciar más adelante** — Las futuras solicitudes de incorporación de cambios (PR) y los agentes de IA hacen referencia a los ADR para contextualizar
 
-## Cómo Funciona el Desarrollo Asistido por IA
+## Cómo funciona el desarrollo asistido por IA
 
-### Desarrollo Consciente del Contexto
+### Desarrollo sensible al contexto
 
-Con documentación exhaustiva y ADRs en su lugar, las herramientas de IA pueden:
+Con una documentación exhaustiva y los ADR en vigor, las herramientas de IA pueden:
 
-1. **Entender la Intención** — Leyendo `ENGINEERING_STANDARDS.md`, la IA entiende el nivel de calidad, patrones arquitectónicos y estándares de codificación
-2. **Aprender de Decisiones** — Leyendo ADRs, la IA entiende decisiones arquitectónicas pasadas y su justificación
-3. **Mantener Consistencia** — Al sugerir código, la IA referencia el design system, guías de accesibilidad y estándares de testing
-4. **Aplicar Gobernanza** — La IA puede señalar desviaciones de los estándares documentados y sugerir correcciones
-5. **Generar Tests** — Las expectativas de testing y umbrales de coverage en el SDD/CI guían a la IA para generar suites de test apropiadas
-6. **Documentar Decisiones** — La IA ayuda a mantener la documentación y escribir ADRs a medida que el código evoluciona
+1. **Comprender la intención** — Al leer `ENGINEERING_STANDARDS.md`, la IA comprende los criterios de calidad, los patrones arquitectónicos y las normas de codificación
+2. **Aprender de las decisiones** — Al leer los ADR, la IA comprende las decisiones arquitectónicas tomadas anteriormente y su justificación
+3. **Mantener la coherencia** — Al sugerir código, la IA hace referencia al sistema de diseño, las directrices de accesibilidad y los estándares de pruebas
+4. **Aplicar la gobernanza** — La IA puede señalar desviaciones respecto a los estándares documentados y sugerir correcciones
+5. **Generar pruebas** — Las expectativas de pruebas y los umbrales de cobertura en la guía de SDD/CI guían a la IA para que genere conjuntos de pruebas adecuados
+6. **Documentar decisiones** — La IA ayuda a mantener la documentación y a redactar ADR a medida que evoluciona el código
 
-### Flujo de Trabajo de Ejemplo
+### Ejemplo de flujo de trabajo
 
-Al implementar una nueva característica:
+Al implementar una nueva funcionalidad:
 
-1. **Referenciar Estándares** — La IA lee `ENGINEERING_STANDARDS.md` para entender patrones de componentes, requisitos de accesibilidad y expectativas de testing
-2. **Revisar Decisiones Pasadas** — La IA consulta ADRs en `docs/adr/` para entender elecciones arquitectónicas previas y su justificación
-3. **Verificar Arquitectura** — La IA consulta `ARCHITECTURE.md` para asegurar que la implementación se alinea con el diseño del sistema
-4. **Aplicar Design System** — La IA usa `DESIGN_SYSTEM.md` para sugerir design tokens y patrones de componentes apropiados
-5. **Documentar Decisión** — Si la característica requiere una decisión arquitectónica, la IA ayuda a redactar un ADR
-6. **Generar Tests** — La IA crea tests que cumplen umbrales de coverage aplicados en el SDD/CI
-7. **Mantener Documentación** — La IA ayuda a actualizar documentos relevantes si la característica introduce nuevos patrones
+1. **Consultar estándares** — La IA lee `ENGINEERING_STANDARDS.md` para comprender los patrones de componentes, los requisitos de accesibilidad y las expectativas de pruebas
+2. **Revisar decisiones anteriores** — La IA consulta los ADR en `docs/adr/` para comprender las elecciones arquitectónicas previas y su justificación
+3. **Comprobar la arquitectura** — La IA consulta `ARCHITECTURE.md` para garantizar que la implementación se ajusta al diseño del sistema
+4. **Aplicar el sistema de diseño** — La IA utiliza `DESIGN_SYSTEM.md` para sugerir tokens de diseño y patrones de componentes adecuados
+5. **Documentar la decisión** — Si la funcionalidad requiere una decisión arquitectónica, la IA ayuda a redactar un ADR.
+6. **Generar pruebas** — La IA crea pruebas que cumplen los umbrales de cobertura exigidos en el SDD/CI.
+7. **Mantener la documentación** — La IA ayuda a actualizar la documentación pertinente si la funcionalidad introduce nuevos patrones.
 
-## Beneficios de Este Enfoque
+## Ventajas de este enfoque
 
-### Para Desarrollo
+### Para el desarrollo
 
-- **Onboarding Más Rápido** — Nuevos contribuidores (humanos o IA) pueden entender el proyecto rápidamente a través de la documentación
-- **Calidad Consistente** — Los estándares son explícitos, no implícitos, reduciendo la varianza en la calidad del código
-- **Deuda Técnica Reducida** — Las decisiones están documentadas, facilitando entender el "por qué" y evitar regresiones
-- **Mejor Asistencia IA** — Las herramientas de IA tienen contexto rico para proveer sugerencias más precisas
+- **Incorporación más rápida** — Los nuevos colaboradores (humanos o IA) pueden comprender el proyecto rápidamente a través de la documentación
+- **Calidad constante** — Las normas son explícitas, no implícitas, lo que reduce la variabilidad en la calidad del código
+- **Reducción de la deuda técnica**: las decisiones se documentan, lo que facilita comprender el «porqué» y evitar regresiones
+- **Mejor asistencia de la IA**: las herramientas de IA disponen de un contexto rico para ofrecer sugerencias más precisas
 
-### Para Mantenimiento
+### Para el mantenimiento
 
-- **Historial Claro de Decisiones** — Las decisiones arquitectónicas están capturadas, no perdidas en mensajes de commit
-- **Refactoring Más Fácil** — Entender la intención original ayuda a hacer cambios seguros
-- **Quality Gates** — CI/CD aplica estándares documentados automáticamente
-- **Documentación Viva** — Los documentos evolucionan con la base de código, manteniéndose actuales
+- **Historial claro de decisiones**: las decisiones de arquitectura quedan registradas y no se pierden en los mensajes de commit
+- **Refactorización más sencilla**: comprender la intención original ayuda a realizar cambios seguros
+- **Controles de calidad**: CI/CD aplica automáticamente los estándares documentados
+- **Documentación viva**: la documentación evoluciona con el código fuente, manteniéndose actualizada
 
-### Para Colaboración
+### Para la colaboración
 
-- **Entendimiento Compartido** — Todos (incluyendo la IA) trabajan desde la misma fuente de verdad
-- **Trade-offs Explícitos** — Las decisiones y su justificación están documentadas
-- **Gobernanza como Código** — Los estándares están versionados y son revisables
-- **Transparencia** — La estructura del proyecto y las expectativas de calidad son claras
+- **Entendimiento compartido** — Todo el mundo (incluida la IA) trabaja a partir de la misma fuente de verdad
+- **Compensaciones explícitas** — Se documentan las decisiones y su justificación
+- **Gobernanza como código** — Los estándares están sujetos a control de versiones y se pueden revisar
+- **Transparencia** — La estructura del proyecto y las expectativas de calidad están claras
 
-## Detalles de Implementación
+## Detalles de implementación
 
-### Estructura de Documentación
+### Estructura de la documentación
 
-Todos los documentos de gobernanza viven en el directorio `docs/`:
+Todos los documentos de gobernanza se encuentran en el directorio `docs/`:
 
 ```
 docs/
-├── adr/ # Architecture Decision Records
-│ ├── README.md # Proceso de ADR e índice
-│ ├── 0000-adr-template.md # Template para nuevos ADRs
-│ └── 0001-adopt-architecture-decision-records.md
-├── ENGINEERING_STANDARDS.md # Intención de ingeniería north-star
+├── adr/ # Registros de decisiones de arquitectura
+│   ├── README.md # Proceso e índice de los ADR
+│   ├── 0000-adr-template.md # Plantilla para nuevos ADR
+│   └── 0001-adopt-architecture-decision-records.md
+├── ENGINEERING_STANDARDS.md  # Objetivo principal de ingeniería
 ├── ARCHITECTURE.md # Arquitectura técnica
 ├── CONSTITUTION.md # Gobernanza del repositorio
 ├── DESIGN_SYSTEM.md # Sistema de diseño visual
-├── ACCESSIBILITY.md # Guías A11y
-├── SEO_GUIDE.md # Prácticas SEO
+├── ACCESSIBILITY.md # Directrices de accesibilidad
+├── SEO_GUIDE.md # Prácticas de SEO
 ├── ERROR_HANDLING.md # Gestión de errores
 └── SECURITY_POLICY.md # Prácticas de seguridad
 ```
 
-### Integración CI/CD
+### Integración de CI/CD
 
-Los estándares de documentación se aplican a través de:
+Las normas de documentación se aplican mediante:
 
-- **Linting** — Reglas ESLint aplican estándares de calidad de código
-- **Type Checking** — TypeScript strict mode asegura seguridad de tipos
-- **Testing** — Umbrales de coverage aplican estándares de testing
-- **Accesibilidad** — Checks automatizados de a11y en CI
-- **Seguridad** — CodeQL y escaneo de dependencias
-- **Performance** — Lighthouse CI aplica presupuestos de performance
+- **Linting** — Las reglas de ESLint garantizan el cumplimiento de los estándares de calidad del código
+- **Comprobación de tipos** — El modo estricto de TypeScript garantiza la seguridad de tipos
+- **Pruebas** — Los umbrales de cobertura garantizan el cumplimiento de los estándares de pruebas
+- **Accesibilidad** — Comprobaciones automatizadas de accesibilidad en CI
+- **Seguridad** — CodeQL y análisis de dependencias
+- **Rendimiento** — Lighthouse CI garantiza los límites de rendimiento
 
-### Control de Versiones
+### Control de versiones
 
 Toda la documentación es:
 
-- **Versionada** — Rastreada en Git junto al código
-- **Revisable** — Los cambios pasan por revisión de PR
-- **Enlazada** — Los documentos se referencian entre sí para contexto
-- **Viva** — Actualizada a medida que el proyecto evoluciona
+- **Controlada por versiones** — Se gestiona en Git junto con el código
+- **Revisable** — Los cambios se someten a revisión mediante pull requests
+- **Enlazada** — Los documentos se remiten entre sí para proporcionar contexto
+- **Dinámica** — Se actualiza a medida que evoluciona el proyecto
 
-## Modelo de Gobernanza IA
+## Modelo de gobernanza de la IA
 
 ### Principios
 
-Este proyecto abraza **desarrollo IA-first con guardrails fuertes**:
+Este proyecto adopta un **desarrollo centrado en la IA con sólidas medidas de protección**:
 
-1. **IA como Acelerador, No Tomador de Decisiones** — Las herramientas de IA sugieren implementaciones, pero las decisiones arquitectónicas permanecen guiadas por humanos y documentadas
-2. **Documentación como Contexto IA** — Documentos exhaustivos permiten a la IA entender la intención y mantener consistencia
-3. **Quality Gates Son No-Negociables** — Todo código generado por IA debe pasar los mismos checks rigurosos que el código humano
-4. **Restricciones de Seguridad Son Obligatorias** — La IA no puede evadir controles de seguridad o introducir vulnerabilidades
-5. **Supervisión Humana para Cambios Críticos** — Cambios sensibles a seguridad y arquitectónicos requieren revisión manual
+1. **La IA como acelerador, no como responsable de la toma de decisiones** — Las herramientas de IA sugieren implementaciones, pero las decisiones arquitectónicas siguen siendo tomadas por personas y se documentan
+2. **La documentación como contexto de la IA** — Una documentación exhaustiva permite a la IA comprender la intención y mantener la coherencia
+3. **Los controles de calidad son innegociables** — Todo el código generado por la IA debe superar los mismos controles rigurosos que el código humano
+4. **Las restricciones de seguridad son obligatorias** — La IA no puede eludir los controles de seguridad ni introducir vulnerabilidades
+5. **Supervisión humana para los cambios críticos** — Los cambios relacionados con la seguridad y la arquitectura requieren una revisión manual
 
 ### Responsabilidades
 
-**Herramientas IA (Copilot, Cursor):**
+**Herramientas de IA (Copilot, Cursor):**
 
-- Referenciar documentos de gobernanza para contexto (`docs/CONSTITUTION.md`, `sdd.yaml`, `ENGINEERING_STANDARDS.md`, `ARCHITECTURE.md`)
-- Sugerir código siguiendo patrones documentados
-- Generar tests cumpliendo requisitos de coverage
-- Actualizar documentación al introducir nuevos patrones
-- Ejecutar checks de validación antes de hacer commit
+- Consultar la documentación de gobernanza para conocer el contexto (`docs/CONSTITUTION.md`, `sdd.yaml`, `ENGINEERING_STANDARDS.md`, `ARCHITECTURE.md`)
+- Sugerir código que siga los patrones documentados
+- Generar pruebas que cumplan los requisitos de cobertura
+- Actualizar la documentación al introducir nuevos patrones
+- Realizar comprobaciones de validación antes de realizar el commit
 
-**Revisores Humanos:**
+**Revisores humanos:**
 
-- Verificar alineación arquitectónica
-- Evaluar implicaciones de seguridad
-- Validar mantenibilidad
-- Aprobar/rechazar sugerencias de IA
-- Actualizar documentos de gobernanza según sea necesario
+- Verificar la coherencia arquitectónica
+- Evaluar las implicaciones de seguridad
+- Validar la facilidad de mantenimiento
+- Aprobar o rechazar las sugerencias de la IA
+- Actualizar la documentación de gobernanza según sea necesario
 
-**CI/CD Automatizado:**
+**CI/CD automatizada:**
 
-- Aplicar linting, type checking, test coverage
-- Ejecutar escaneos de seguridad (CodeQL, auditoría de dependencias)
-- Validar accesibilidad (WCAG 2.1 AA)
-- Verificar performance (presupuestos Lighthouse)
-- Bloquear merge en caso de fallos
+- Aplicar linting, comprobación de tipos y cobertura de pruebas
+- Ejecutar análisis de seguridad (CodeQL, auditorías de dependencias)
+- Validar la accesibilidad (WCAG 2.1 AA)
+- Comprobar el rendimiento (límites de Lighthouse)
+- Bloquear la fusión en caso de fallos
 
-### Guardrails y Restricciones
+### Barreras de seguridad y restricciones
 
-**Guardrails obligatorios** previenen que la IA:
+**Las barreras de seguridad obligatorias** impiden que la IA:
 
-- Evada controles de seguridad (Turnstile, rate limiting, validación de input)
-- Debilite accesibilidad (navegación por teclado, ARIA, contraste de color)
-- Viole límites arquitectónicos (imports cross-layer, estado mutable compartido)
-- Introduzca patrones prohibidos (secrets hard-coded, HTML sin sanitizar, tests omitidos)
+- Eluda los controles de seguridad (Turnstile, limitación de tasa, validación de entradas)
+- Debilitar la accesibilidad (navegación por teclado, ARIA, contraste de colores)
+- Violar los límites de la arquitectura (importaciones entre capas, estado mutable compartido)
+- Introducir patrones prohibidos (secretos codificados, HTML sin sanitizar, pruebas omitidas)
 
-**Quality gates** que todos los cambios deben pasar:
+**Controles de calidad** que deben superar todos los cambios:
 
-- Linting (`pnpm lint`) y formateo (Prettier)
-- Type checking (`pnpm typecheck`) en modo strict
-- Tests unitarios con 90% de coverage de líneas
-- Tests E2E para cambios de cara al usuario
+- Análisis sintáctico (`pnpm lint`) y formateo (Prettier)
+- Comprobación de tipos (`pnpm typecheck`) en modo estricto
+- Pruebas unitarias con una cobertura de líneas del 90 %
+- Pruebas de extremo a extremo (E2E) para los cambios que afectan al usuario
 - Auditoría de accesibilidad
-- Escaneo de seguridad (CodeQL, npm audit)
-- Lighthouse performance ≥90, accessibility ≥90, SEO ≥95
+- Análisis de seguridad (CodeQL, npm audit)
+- Rendimiento de Lighthouse ≥90, accesibilidad ≥90, SEO ≥95
 
-Ver **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** para restricciones completas.
+Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** para conocer todas las restricciones.
 
-### Proceso de Revisión
+### Proceso de revisión
 
-**Todos los PRs** (IA o humanos) siguen el mismo flujo de revisión:
+**Todas las PR** (ya sean de IA o humanas) siguen el mismo flujo de trabajo de revisión:
 
-1. **Auto-Revisión** — El autor valida cambios contra [Review Checklist](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
-2. **Validación CI** — Los checks automatizados deben pasar (ver `.github/workflows/`)
-3. **Revisión Humana** — Revisión arquitectónica y de seguridad (requerida para cambios sensibles)
-4. **Decisión de Merge** — Auto-merge elegible para cambios seguros, aprobación manual en otros casos
+1. **Autorrevisión**: el autor valida los cambios según la [lista de comprobación de revisión](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
+2. **Validación de CI**: deben superarse las comprobaciones automatizadas (véase `.github/workflows/`)
+3. **Revisión humana**: revisión arquitectónica y de seguridad (obligatoria para cambios sensibles)
+4. **Decisión de fusión**: los cambios seguros pueden fusionarse automáticamente; en los demás casos, se requiere aprobación manual
 
-**Elegible para auto-merge** (con label `copilot-automerge`):
+**Cualificados para la fusión automática** (con la etiqueta `copilot-automerge`):
 
-- Cambios solo de documentación
+- Cambios que afectan únicamente a la documentación
 - Actualizaciones de dependencias (Dependabot)
-- Actualizaciones de tests sin cambios de comportamiento
-- Fixes de formateo/linting
+- Actualizaciones de pruebas sin cambios de comportamiento
+- Correcciones de formato o de linting
 
 **Requiere revisión manual:**
 
-- Cambios relacionados con seguridad (rutas API, auth, validación)
-- Cambios arquitectónicos (límites, patrones)
-- Breaking changes
+- Cambios relacionados con la seguridad (rutas de API, autenticación, validación)
+- Cambios de arquitectura (límites, patrones)
+- Cambios que rompen la compatibilidad
 - Nuevas dependencias
 
-### Ruta de Escalación
+### Vía de escalación
 
-**Cuando las cosas salen mal:**
+**Cuando algo sale mal:**
 
-1. **Fallo CI** — Revisar logs, arreglar localmente, re-ejecutar checks, push de fixes
-2. **Vulnerabilidad de Seguridad** — Detener inmediatamente, revisar [Security Policy](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/SECURITY_POLICY.md), arreglar vulnerabilidad, re-escanear
-3. **Regresión de Accesibilidad** — Revisar [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md), probar con teclado/lector de pantalla, arreglar
-4. **Violación de Arquitectura** — Revisar `sdd.yaml` y `ARCHITECTURE.md`, refactorizar para alinear, obtener aprobación humana
+1. **Fallo de CI** — Revisar los registros, corregir localmente, volver a ejecutar las comprobaciones, enviar las correcciones
+2. **Vulnerabilidad de seguridad**: detén el proceso inmediatamente, revisa la [Política de seguridad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/SECURITY_POLICY.md), corrige la vulnerabilidad y vuelve a escanear
+3. **Regresión en la accesibilidad** — Revisar las [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md), probar con teclado o lector de pantalla, corregir
+4. **Incumplimiento de la arquitectura** — Revisar `sdd.yaml` y `ARCHITECTURE.md`, refactorizar para alinearlos y obtener aprobación humana
 
 **Condiciones de parada de emergencia:**
 
-- Vulnerabilidades de seguridad altas/críticas
-- Spike de errores de producción
-- Ruptura severa de accesibilidad
+- Vulnerabilidades de seguridad graves o críticas
+- Pico de errores en producción
+- Fallos graves de accesibilidad
 - Pérdida o corrupción de datos
-- Secrets expuestos en commits
+- Información confidencial expuesta en las confirmaciones
 
 **Contactos de escalación:**
 
 - Propietario del repositorio: @vicenteopaso
-- Problemas de seguridad: GitHub Security Advisories (reporte privado)
+- Problemas de seguridad: Avisos de seguridad de GitHub (notificación privada)
 
-### Documentación de Gobernanza
+### Documentación sobre gobernanza
 
-- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** — Restricciones y quality gates para desarrollo IA
-- **[Forbidden Patterns](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Anti-patrones y cambios prohibidos
-- **[Review Checklist](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)** — Checklist de validación pre-merge
+- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** — Restricciones y controles de calidad para el desarrollo de IA
+- **[Patrones prohibidos](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Antipatrones y cambios prohibidos
+- **[Lista de comprobación para la revisión](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)** — Lista de comprobación de validación previa a la fusión
 
-## Consideraciones Futuras
+## Consideraciones futuras
 
-Este enfoque documentation-first escala bien:
+Este enfoque centrado en la documentación se adapta bien a la escalabilidad:
 
-- **Crecimiento del Equipo** — Nuevos miembros del equipo pueden incorporarse rápidamente
-- **Evolución IA** — A medida que las herramientas de IA mejoran, un contexto más rico produce mejores resultados
-- **Preservación de Conocimiento** — El conocimiento institucional se captura, no se pierde
-- **Cumplimiento** — Los estándares pueden ser auditados y verificados
-- **Tooling** — La documentación puede impulsar herramientas automatizadas y checks
+- **Crecimiento del equipo** — Los nuevos miembros del equipo pueden incorporarse rápidamente
+- **Evolución de la IA** — A medida que mejoran las herramientas de IA, un contexto más rico ofrece mejores resultados
+- **Conservación del conocimiento** — El conocimiento institucional se captura y no se pierde
+- **Cumplimiento normativo** — Las normas pueden ser auditadas y verificadas
+- **Herramientas** — La documentación puede impulsar herramientas y comprobaciones automatizadas
 
-## Documentación Relacionada
+## Documentación relacionada
 
-Para desarrolladores y contribuidores:
+Para desarrolladores y colaboradores:
 
-- [Tech Stack](/es/tech-stack) — Stack tecnológico completo y resumen de tooling
-- [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) — Intención de ingeniería exhaustiva
-- [Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) — Arquitectura técnica
-- [Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md) — Gobernanza del repositorio
-- [Design System](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) — Tokens de diseño visual y patrones
-- [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) — Prácticas técnicas de a11y
+- [Pila tecnológica](/en/tech-stack) — Descripción general completa de la pila tecnológica y las herramientas
+- [Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) — Exposición exhaustiva de la filosofía de ingeniería
+- [Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) — Arquitectura técnica
+- [Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md) — Gobernanza del repositorio
+- [Sistema de diseño](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) — Tokens y patrones de diseño visual
+- [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) — Prácticas técnicas de accesibilidad
 
-## Plantillas de Issues y Feedback de la Comunidad
+## Plantillas de incidencias y comentarios de la comunidad
 
-El repositorio usa plantillas de issues estructuradas para facilitar reportes de bugs, solicitudes de características y mejoras de documentación:
+El repositorio utiliza plantillas de incidencias estructuradas para facilitar los informes de errores, las solicitudes de funcionalidades y las mejoras en la documentación:
 
-- **Reportes de Bugs** — Formulario estructurado para reportar problemas funcionales con contexto de navegador/dispositivo
-- **Solicitudes de Características** — Template para proponer mejoras con caso de uso y evaluación de prioridad
-- **Problemas de Documentación** — Formulario para reportar gaps de documentación o mejoras
+- **Informes de errores** — Formulario estructurado para informar de problemas funcionales en el contexto del navegador o dispositivo
+- **Solicitudes de funcionalidades** — Plantilla para proponer mejoras con casos de uso y evaluación de prioridades
+- **Problemas de documentación** — Formulario para informar de lagunas o mejoras en la documentación
 
-Las plantillas de issues aseguran consistencia, capturan el contexto necesario e integran con flujos de trabajo CI/CD a través de etiquetado automático. Las vulnerabilidades de seguridad deben reportarse privadamente a través de GitHub Security Advisories en lugar de issues públicos.
+Las plantillas de incidencias garantizan la coherencia, recogen el contexto necesario y se integran con los flujos de trabajo de CI/CD mediante el etiquetado automático. Las vulnerabilidades de seguridad deben notificarse de forma privada a través de los avisos de seguridad de GitHub, en lugar de mediante incidencias públicas.
 
-Ver `.github/ISSUE_TEMPLATE/` para definiciones de plantillas y guías de uso.
+Consulta `.github/ISSUE_TEMPLATE/` para ver las definiciones de las plantillas y las directrices de uso.
 
-## Última Actualización
+## Última actualización
 
-Esta documentación de gobernanza técnica fue revisada y actualizada por última vez el 15 de enero de 2025.
+Esta documentación sobre gobernanza técnica se revisó y actualizó por última vez el 3 de mayo de 2026.

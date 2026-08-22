@@ -1,84 +1,84 @@
 ---
-name: Declaración de Accesibilidad
-title: Declaración de Accesibilidad
-slug: accessibility
-description: Nuestro compromiso con la accesibilidad web y la conformidad WCAG 2.1 AA
+nombre: Declaración de accesibilidad
+título: Declaración de accesibilidad
+slug: accesibilidad
+descripción: Nuestro compromiso con la accesibilidad web y el cumplimiento de las WCAG 2.1 Nivel AA
 ---
 
-## Compromiso con la Accesibilidad
+## Compromiso con la accesibilidad
 
-Este sitio está comprometido con garantizar la accesibilidad digital para personas con discapacidades. Mejoramos continuamente la experiencia de usuario para todas las personas y aplicamos los estándares de accesibilidad relevantes.
+Este sitio web se compromete a garantizar la accesibilidad digital para las personas con discapacidad. Mejoramos continuamente la experiencia de usuario para todos y aplicamos las normas de accesibilidad pertinentes.
 
-## Objetivo de Conformidad
+## Objetivo de conformidad
 
-Este sitio web busca cumplir con los estándares **WCAG 2.1 Nivel AA** publicados por la Web Accessibility Initiative (W3C).
+Este sitio web tiene como objetivo cumplir con las normas **WCAG 2.1 Nivel AA** publicadas por la Iniciativa de Accesibilidad Web (W3C).
 
 ### Qué significa esto
 
 - El contenido es perceptible para todos los usuarios, independientemente de cómo accedan a la web
-- Los componentes de la interfaz y la navegación son operables mediante teclado y tecnologías de asistencia
+- Los componentes de la interfaz y la navegación se pueden manejar mediante el teclado y tecnologías de apoyo
 - La información y las operaciones de la interfaz son comprensibles
-- El contenido es lo suficientemente robusto para funcionar con tecnologías de asistencia actuales y futuras
+- El contenido es lo suficientemente robusto como para funcionar con tecnologías de apoyo actuales y futuras
 
-## Funcionalidades de Accesibilidad
+## Funciones de accesibilidad
 
-### Navegación por Teclado
+### Navegación con el teclado
 
-Todos los elementos interactivos son completamente accesibles mediante teclado:
+Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 
-- Usar **Tab** para avanzar por los elementos interactivos
-- Usar **Shift + Tab** para retroceder
-- Usar **Enter** o **Space** para activar botones y enlaces
-- Usar **Escape** para cerrar diálogos y modales
-- Un enlace de salto visible aparece al recibir foco para ir directamente al contenido principal
+- Utiliza la tecla **Tab** para avanzar por los elementos interactivos
+- Utiliza **Shift + Tab** para retroceder
+- Utiliza **Enter** o **Espacio** para activar botones y enlaces
+- Utiliza **Esc** para cerrar cuadros de diálogo y ventanas modales
+- Al recibir el foco del teclado, aparece un enlace de salto visible para ir directamente al contenido principal
 
-### Compatibilidad con Lectores de Pantalla
+### Compatibilidad con lectores de pantalla
 
-- Estructura HTML semántica con jerarquía correcta de encabezados
-- Etiquetas y roles ARIA cuando el HTML semántico por sí solo no es suficiente
-- Texto alternativo para todas las imágenes con significado
-- Etiquetas de formularios y mensajes de error correctamente asociados
-- Regiones landmark (`header`, `main`, `nav`, `footer`) para facilitar la navegación
+- Estructura HTML semántica con una jerarquía de encabezados adecuada
+- Etiquetas y roles ARIA cuando el HTML semántico no es suficiente
+- Texto alternativo para todas las imágenes significativas
+- Etiquetas de formulario y mensajes de error correctamente asociados
+- Regiones de referencia (`header`, `main`, `nav`, `footer`) para facilitar la navegación
 
-### Diseño Visual
+### Diseño visual
 
-- Relación de contraste mínima de 4.5:1 para texto normal (WCAG AA)
-- Relación mínima de 3:1 para texto grande (WCAG AA)
-- El texto puede redimensionarse hasta un 200% sin pérdida de funcionalidad
-- No se depende únicamente del color para transmitir información
-- Los indicadores de foco son claramente visibles con contornos de 2px
+- Relación de contraste mínima de 4,5:1 para el texto normal (WCAG AA)
+- Relación de contraste mínima de 3:1 para el texto grande (WCAG AA)
+- El texto se puede ampliar hasta un 200 % sin pérdida de funcionalidad
+- No se recurre exclusivamente al color para transmitir información
+- Los indicadores de foco son claramente visibles con contornos de 2 píxeles
 
-### Movimiento y Animación
+### Movimiento y animación
 
-- Las animaciones son sutiles y no distractoras
+- Las animaciones son sutiles y no distraen
 - Se respetan las preferencias de movimiento reducido mediante `prefers-reduced-motion`
-- No existe contenido que parpadee más de 3 veces por segundo
+- Ningún contenido parpadea más de 3 veces por segundo
 
 ### Formularios
 
-- Todos los campos tienen etiquetas visibles
-- Los mensajes de error son descriptivos y están asociados con sus campos
+- Todos los campos de los formularios tienen etiquetas visibles
+- Los mensajes de error son descriptivos y están asociados a los campos
 - Los campos obligatorios están claramente marcados
-- El desafío Cloudflare Turnstile es accesible por teclado
+- El desafío de Cloudflare Turnstile es accesible mediante el teclado
 
-## Prácticas de Pruebas
+## Prácticas de pruebas
 
-### Pruebas Automatizadas
+### Pruebas automatizadas
 
 - ESLint con `eslint-plugin-jsx-a11y` detecta problemas comunes durante el desarrollo
-- Un script automatizado de auditoría de accesibilidad (`scripts/audit-a11y.mjs`) se ejecuta en CI/CD
-- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA, incluido el contraste de color) en cada página, en ambos idiomas y en los temas claro y oscuro, además de verificaciones específicas de reflujo a 320px de ancho y la anulación de espaciado de texto de WCAG 1.4.12, con advertencias informativas sobre tamaño de texto, interlineado y grosor de fuente
+- El script de auditoría de accesibilidad automatizada (`scripts/audit-a11y.mjs`) se ejecuta en CI/CD
+- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA, incluido el contraste de colores) en todas las páginas, en ambos idiomas y en los temas claro y oscuro, además de comprobaciones específicas del reajuste de contenido a un ancho de 320 píxeles y la anulación del espaciado de texto según WCAG 1.4.12, con advertencias de legibilidad sobre el tamaño del texto, la altura de línea y el grosor de la fuente
 
-### Pruebas Manuales
+### Pruebas manuales
 
 Realizamos pruebas periódicas con:
 
-- **Navegación con teclado**: verificación de accesibilidad completa mediante teclado
+- **Navegación por teclado**: nos aseguramos de que todas las funciones sean accesibles mediante el teclado
 - **Lectores de pantalla**: pruebas con NVDA (Windows) y VoiceOver (macOS/iOS)
-- **Zoom del navegador**: verificación de diseño y funcionalidad al 200%
-- **Analizadores de contraste**: validación de contraste en texto y elementos UI
+- **Zoom del navegador**: verificamos el diseño y la funcionalidad con un zoom del 200 %
+- **Analizadores de contraste de color**: validamos los índices de contraste del texto y de los elementos de la interfaz de usuario
 
-### Tecnologías de Asistencia Probadas
+### Tecnologías de asistencia probadas
 
 - NVDA (Windows)
 - JAWS (Windows)
@@ -86,73 +86,73 @@ Realizamos pruebas periódicas con:
 - TalkBack (Android)
 - Navegación solo con teclado (todas las plataformas)
 
-## Limitaciones Conocidas
+## Limitaciones conocidas
 
-Aunque buscamos la máxima accesibilidad, somos conscientes de lo siguiente:
+Aunque nos esforzamos por lograr una accesibilidad total, somos conscientes de lo siguiente:
 
-- **Servicios de terceros**: Cloudflare Turnstile (protección de spam) y Formspree (servicio de correo) son servicios externos que no controlamos por completo, aunque hemos verificado que cumplen con estándares básicos de accesibilidad
-- **Contenido dinámico**: Algunas animaciones podrían no respetar todas las preferencias de movimiento en navegadores antiguos
+- **Servicios de terceros**: Cloudflare Turnstile (protección contra el spam) y Formspree (servicio de correo electrónico) son servicios externos sobre los que no tenemos control total, aunque hemos comprobado que cumplen con los estándares básicos de accesibilidad
+- **Contenido dinámico**: es posible que algunas animaciones no respeten todas las preferencias de movimiento del usuario en navegadores más antiguos
 
-## Mejora Continua
+## Mejora continua
 
 La accesibilidad es un esfuerzo continuo. Nosotros:
 
-- Revisamos accesibilidad en cada pull request
-- Ejecutamos verificaciones automatizadas en CI/CD
-- Realizamos auditorías manuales periódicas
-- Actualizamos componentes cuando se identifican problemas
-- Nos mantenemos al día con las guías WCAG y mejores prácticas
+- Revisamos la accesibilidad en cada solicitud de incorporación de cambios
+- Realizamos comprobaciones automáticas de accesibilidad en CI/CD
+- Llevamos a cabo auditorías manuales periódicas
+- Actualizamos los componentes cuando se identifican problemas de accesibilidad
+- Nos mantenemos al día con las directrices WCAG y las mejores prácticas
 
-## Comentarios y Contacto
+## Comentarios y contacto
 
-Agradecemos comentarios sobre la accesibilidad de este sitio. Si encuentra barreras:
+Agradecemos cualquier comentario sobre la accesibilidad de este sitio web. Si te encuentras con barreras de accesibilidad:
 
-**Contacto**: Use el botón “Contact” en la navegación del sitio para enviarnos un mensaje mediante nuestro formulario accesible.
+**Contacto**: Utiliza el botón «Contacto» en la navegación del sitio web para ponerte en contacto con nosotros a través de nuestro formulario de contacto accesible.
 
-Incluya:
+Por favor, incluye:
 
-- La URL de la página donde ocurrió el problema
-- Descripción del problema
-- La tecnología de asistencia utilizada (si aplica)
-- Navegador y sistema operativo
+- La URL de la página en la que has detectado el problema
+- Una descripción del problema
+- La tecnología de apoyo que utilizas (si procede)
+- Su navegador y sistema operativo
 
-Nos comprometemos a responder en un plazo de 2 días hábiles y trabajaremos para resolver los problemas reportados con prontitud.
+Nuestro objetivo es responder en un plazo de 2 días laborables y nos esforzaremos por resolver rápidamente los problemas notificados.
 
-## Especificaciones Técnicas
+## Especificaciones técnicas
 
 - **HTML**: HTML5 semántico
-- **CSS**: Tailwind CSS con design tokens personalizados
+- **CSS**: Tailwind CSS con tokens de diseño personalizados
 - **JavaScript**: React 19 con Next.js 16 (mejora progresiva)
-- **ARIA**: Aplicado cuando el HTML semántico no es suficiente
-- **Frameworks**: Radix UI para componentes accesibles
+- **ARIA**: Aplicado cuando el HTML semántico resulta insuficiente
+- **Marcos de trabajo**: Radix UI para componentes primitivos accesibles
 
-## Quejas Formales de Accesibilidad
+## Reclamaciones formales sobre accesibilidad
 
-Este sitio web es operado por Vicente Opaso. Si desea presentar una queja formal sobre accesibilidad:
+Este sitio web está gestionado por Vicente Opaso. Si desea presentar una reclamación formal sobre accesibilidad:
 
-1. Contáctenos mediante el formulario con los detalles del problema
-2. Confirmaremos la recepción en un plazo de 2 días hábiles
-3. Investigaremos y responderemos en 10 días hábiles con hallazgos y la solución propuesta
+1. Póngase en contacto con nosotros a través del formulario de contacto, indicando los detalles del problema
+2. Acusaremos recibo de su reclamación en un plazo de 2 días laborables
+3. Investigaremos el caso y le responderemos en un plazo de 10 días laborables con nuestras conclusiones y la solución propuesta
 
-## Estándares y Guías
+## Normas y directrices
 
-Esta declaración hace referencia a los siguientes estándares:
+Esta declaración hace referencia a las siguientes normas:
 
-- [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Accessible Rich Internet Applications (WAI-ARIA) 1.2](https://www.w3.org/TR/wai-aria-1.2/)
-- [Section 508 Standards](https://www.section508.gov/) (EE. UU.)
-- [European Accessibility Act (EAA)](https://ec.europa.eu/social/main.jsp?catId=1202)
+- [Pautas de Accesibilidad al Contenido Web (WCAG) 2.1](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Aplicaciones de Internet enriquecidas accesibles (WAI-ARIA) 1.2](https://www.w3.org/TR/wai-aria-1.2/)
+- [Normas de la Sección 508](https://www.section508.gov/) (EE. UU.)
+- [Ley Europea de Accesibilidad (EAA)](https://ec.europa.eu/social/main.jsp?catId=1202)
 
-## Última Actualización
+## Última actualización
 
-Esta declaración de accesibilidad fue revisada y actualizada el 3 de mayo de 2026.
+Esta declaración de accesibilidad se revisó y actualizó por última vez el 3 de mayo de 2026.
 
 ---
 
-### Documentación Relacionada
+### Documentación relacionada
 
-Para desarrolladores que contribuyen a este proyecto:
+Para los desarrolladores que colaboran en este proyecto:
 
-- [docs/ACCESSIBILITY.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) - Guías técnicas de accesibilidad
-- [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) - Design tokens y patrones de componentes
-- [docs/ENGINEERING_STANDARDS.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) - Estándares de calidad de código
+- [docs/ACCESSIBILITY.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) - Directrices técnicas de accesibilidad
+- [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) - Tokens de diseño y patrones de componentes
+- [docs/ENGINEERING_STANDARDS.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) - Normas de calidad del código

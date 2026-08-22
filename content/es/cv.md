@@ -1,5 +1,5 @@
 ---
-name: Vicente Opaso
-title: Vicente Opaso
+nombre: Vicente Opaso
+título: Vicente Opaso
 slug: cv
 ---

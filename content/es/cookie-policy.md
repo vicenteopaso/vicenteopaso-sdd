@@ -1,46 +1,46 @@
 ---
-name: Política de Cookies
-title: Política de Cookies
+nombre: Política de cookies
+título: Política de cookies
 slug: cookie-policy
 ---
 
-## ¿Qué son las Cookies?
+## ¿Qué son las cookies?
 
-Las cookies son pequeños archivos de texto almacenados en tu dispositivo. Algunas son esenciales para la seguridad o el funcionamiento del sitio web; otras (no utilizadas aquí) sirven para analizar comportamiento o para publicidad.
+Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo. Algunas son esenciales para la seguridad o el funcionamiento del sitio web; otras (que no se utilizan aquí) registran el comportamiento con fines analíticos o publicitarios.
 
-## Cookies Utilizadas en Este Sitio
+## Cookies utilizadas en este sitio web
 
 opa.so utiliza **solo una categoría** de cookies:
 
-### 1. Cookie de Seguridad Estrictamente Necesaria (Cloudflare Turnstile)
+### 1. Cookie de seguridad estrictamente necesaria (Cloudflare Turnstile)
 
-- Propósito: Verificar visitantes legítimos y bloquear bots.
+- Finalidad: verificar a los visitantes legítimos y bloquear a los bots.
 - Ejemplo de cookie: `cf_clearance`
-- Datos personales procesados: datos técnicos mínimos necesarios para la verificación.
-- Necesidad: Requerida para la seguridad y funcionalidad del sitio.
-- Base legal: **Interés Legítimo** (Artículo 6(1)(f) del RGPD).
+- Datos personales tratados: datos técnicos mínimos necesarios para la verificación.
+- Necesidad: necesaria para la seguridad y el funcionamiento del sitio web.
+- Base jurídica: **Interés legítimo** (artículo 6, apartado 1, letra f) del RGPD).
 
-### 2. Cookie Funcional (Preferencia de Idioma)
+### 2. Cookie funcional (preferencia de configuración regional)
 
 - **Nombre**: `preferred-locale`
-- **Propósito**: Recuerda tu preferencia de idioma (inglés o español) para que se sirva el idioma correcto en tu próxima visita sin necesidad de redirección.
-- **Establecida por**: El propio sitio (componente `LocaleProvider`) al visitar cualquier página.
+- **Finalidad**: Recuerda tu preferencia de idioma (inglés o español) para que, en tu próxima visita, se muestre la configuración regional correcta sin necesidad de redireccionamiento.
+- **Establecida por**: El propio sitio web (componente `LocaleProvider`) cuando visita cualquier página.
 - **Caducidad**: 1 año (`max-age=31536000`).
-- **Datos personales procesados**: Ninguno — almacena únicamente `"en"` o `"es"`.
-- **Base legal**: **Interés Legítimo** (Artículo 6(1)(f) RGPD) — necesario para el enrutamiento de idioma consistente.
+- **Datos personales tratados**: Ninguno; solo almacena `«en»` o `«es»`.
+- **Base jurídica**: **Interés legítimo** (artículo 6, apartado 1, letra f) del RGPD): necesario para garantizar una redirección coherente según el idioma.
 
-### Sin Cookies de Analítica, Marketing o Seguimiento
+### Sin cookies de análisis, marketing ni seguimiento
 
 No utilizamos Google Analytics, rastreadores de marketing ni cookies publicitarias de terceros.
 
-## Gestión de Cookies
+## Gestión de cookies
 
-La cookie de Turnstile es esencial para la protección contra bots y no puede deshabilitarse sin afectar el funcionamiento del sitio.
+La cookie de Turnstile es esencial para la protección contra bots y no se puede desactivar sin afectar al funcionamiento del sitio web.
 
-## Más Información
+## Más información
 
 Cookies de Cloudflare: https://www.cloudflare.com/cookies/  
-Privacidad de Cloudflare: https://www.cloudflare.com/privacypolicy/  
+Política de privacidad de Cloudflare: https://www.cloudflare.com/privacypolicy/  
 Seguridad de Formspree: https://formspree.io/security/
 
 _Última actualización: 3 de mayo de 2026_
