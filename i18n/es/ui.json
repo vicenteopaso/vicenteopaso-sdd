@@ -7,7 +7,7 @@
   "nav.brand": "OPA.SO",
   "nav.version": "/V2026",
   "nav.location": "● MÁLAGA, ES",
-  "footer.copyright": "© {año} VICENTE OPASO · DISEÑADO Y DESARROLLADO CON IA, SDD Y ❤",
+  "footer.copyright": "© {year} VICENTE OPASO · DISEÑADO Y DESARROLLADO CON IA, SDD Y ❤",
   "footer.builtWith": "CREADO CON SDD ↗",
   "footer.privacyPolicy": "Política de privacidad",
   "footer.cookiePolicy": "Política de cookies",
@@ -142,6 +142,6 @@
   "language.es": "ES",
   "footer.warp": "Urdimbre",
   "footer.cursor": "Cursor",
-  "footer.copyrightName": "© {año} VICENTE OPASO",
+  "footer.copyrightName": "© {year} VICENTE OPASO",
   "footer.copyrightTagline": "DISEÑADO Y DESARROLLADO CON IA, SDD Y ❤"
 }

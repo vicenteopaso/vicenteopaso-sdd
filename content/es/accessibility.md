@@ -1,8 +1,8 @@
 ---
-nombre: Declaración de accesibilidad
-título: Declaración de accesibilidad
+name: Declaración de accesibilidad
+title: Declaración de accesibilidad
 slug: accesibilidad
-descripción: Nuestro compromiso con la accesibilidad web y el cumplimiento de las WCAG 2.1 Nivel AA
+description: Nuestro compromiso con la accesibilidad web y el cumplimiento de las WCAG 2.1 Nivel AA
 ---
 
 ## Compromiso con la accesibilidad

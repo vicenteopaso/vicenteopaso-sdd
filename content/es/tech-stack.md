@@ -1,6 +1,6 @@
 ---
-nombre: Pila tecnológica
-título: Pila tecnológica
+name: Pila tecnológica
+title: Pila tecnológica
 slug: tech-stack
 ---
 

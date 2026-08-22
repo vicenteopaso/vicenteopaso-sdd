@@ -1,6 +1,6 @@
 ---
-nombre: Política de cookies
-título: Política de cookies
+name: Política de cookies
+title: Política de cookies
 slug: cookie-policy
 ---
 

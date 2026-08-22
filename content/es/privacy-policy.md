@@ -1,6 +1,6 @@
 ---
-nombre: Política de privacidad
-título: Política de privacidad
+name: Política de privacidad
+title: Política de privacidad
 slug: privacy-policy
 ---
 

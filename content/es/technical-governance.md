@@ -1,8 +1,8 @@
 ---
-nombre: Gobernanza técnica
-título: Gobernanza técnica
+name: Gobernanza técnica
+title: Gobernanza técnica
 slug: technical-governance
-descripción: Cómo el desarrollo basado en especificaciones (SDD) y la ingeniería «documentación primero» han dado forma a este proyecto, permitiendo un desarrollo asistido por IA con una arquitectura basada en la gobernanza.
+description: Cómo el desarrollo basado en especificaciones (SDD) y la ingeniería «documentación primero» han dado forma a este proyecto, permitiendo un desarrollo asistido por IA con una arquitectura basada en la gobernanza.
 ---
 
 ## Ingeniería «documentación primero»
