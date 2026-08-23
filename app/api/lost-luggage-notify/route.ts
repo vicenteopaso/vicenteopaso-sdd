@@ -102,6 +102,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  let parsed: z.infer<typeof notifySchema>;
+  try {
+    const json = await request.json();
+    parsed = notifySchema.parse(json);
+  } catch {
+    // Malformed payloads are rejected before touching the rate limiter, so
+    // they can't be used to burn a legitimate visitor's quota.
+    return NextResponse.json({ ok: true });
+  }
+
   const ipFromHeader =
     request.headers.get("x-forwarded-for") ||
     request.headers.get("cf-connecting-ip") ||
@@ -118,14 +128,6 @@ export async function POST(request: NextRequest) {
         "Retry-After": String(retryAfterSeconds),
       },
     });
-  }
-
-  let parsed: z.infer<typeof notifySchema>;
-  try {
-    const json = await request.json();
-    parsed = notifySchema.parse(json);
-  } catch {
-    return NextResponse.json({ ok: true });
   }
 
   const message = buildMessage({

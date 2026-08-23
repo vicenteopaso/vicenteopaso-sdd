@@ -241,6 +241,30 @@ describe("app/api/lost-luggage-notify/route POST", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("does not consume the rate-limit quota for malformed payloads", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true } as Response);
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const POST = await createPostHandler();
+    const ip = "198.51.100.30";
+
+    // Five malformed requests from the same IP...
+    for (let i = 0; i < 5; i += 1) {
+      const res = await POST(
+        createRequest({ locale: "fr" }, { "x-forwarded-for": ip }),
+      );
+      expect(res.status).toBe(200);
+    }
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    // ...should not have burned the quota for a real, valid request after.
+    const validRes = await POST(
+      createRequest(basePayload, { "x-forwarded-for": ip }),
+    );
+    expect(validRes.status).toBe(200);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
   it("returns ok without calling any service when Origin doesn't match the request host", async () => {
     const fetchMock = vi.fn();
     global.fetch = fetchMock as unknown as typeof fetch;
