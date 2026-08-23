@@ -47,6 +47,26 @@ describe("LostLuggageNotifier", () => {
     expect(body.referrer).toBeUndefined();
   });
 
+  it("omits an oversized referrer instead of sending a truncated URL", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true } as Response);
+    global.fetch = fetchMock as unknown as typeof fetch;
+    const oversizedReferrer = `https://example.com/${"x".repeat(500)}`;
+    expect(oversizedReferrer.length).toBeGreaterThan(500);
+    Object.defineProperty(document, "referrer", {
+      value: oversizedReferrer,
+      configurable: true,
+    });
+
+    render(<LostLuggageNotifier locale="en" />);
+
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+
+    const [, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse((init as { body: string }).body);
+    expect(body.locale).toBe("en");
+    expect(body.referrer).toBeUndefined();
+  });
+
   it("swallows a failed notify without throwing", async () => {
     const fetchMock = vi.fn().mockRejectedValue(new Error("network down"));
     global.fetch = fetchMock as unknown as typeof fetch;
