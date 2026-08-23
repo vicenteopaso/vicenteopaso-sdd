@@ -31,6 +31,10 @@ module.exports = {
     "/*/icon",
     "/apple-icon",
     "/*/apple-icon",
+    // Lost-luggage QR code page: publicly reachable by direct link only,
+    // intentionally not advertised via nav/footer or search indexing.
+    "/lost-luggage",
+    "/*/lost-luggage",
     // Unlisted article: publicly reachable by direct link, intentionally
     // not advertised via nav/footer or search indexing.
     "/*/articles/8-agent-job-search-system",
