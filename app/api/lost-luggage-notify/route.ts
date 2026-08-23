@@ -19,6 +19,15 @@ const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const FORMSPREE_KEY = process.env.NEXT_PUBLIC_FORMSPREE_KEY;
 
+const MAX_FIELD_LENGTH = 200;
+
+// Collapses newlines and bounds length so request-controlled fields (referrer,
+// user-agent, geo headers) can't inject extra lines into the Telegram/Formspree
+// message or blow past their size limits.
+function sanitizeField(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").slice(0, MAX_FIELD_LENGTH);
+}
+
 function buildMessage(params: {
   locale: string;
   referrer: string | undefined;
@@ -32,9 +41,9 @@ function buildMessage(params: {
     "Someone opened the lost-luggage page.",
     `Time: ${timestamp}`,
     `Locale: ${locale}`,
-    `Location: ${city}, ${country}`,
-    `Referrer: ${referrer || "(none)"}`,
-    `User agent: ${userAgent}`,
+    `Location: ${sanitizeField(city)}, ${sanitizeField(country)}`,
+    `Referrer: ${referrer ? sanitizeField(referrer) : "(none)"}`,
+    `User agent: ${sanitizeField(userAgent)}`,
   ].join("\n");
 }
 
@@ -83,6 +92,16 @@ async function notifyFormspree(message: string): Promise<void> {
 }
 
 export async function POST(request: NextRequest) {
+  // Best-effort CSRF/spam guard: browsers send Origin on POST requests, so
+  // reject cross-site callers when it's present but doesn't match the origin
+  // the request actually arrived at (works across dev/preview/prod without
+  // hardcoding a domain). Requests without an Origin header (e.g.
+  // server-to-server) are unaffected.
+  const origin = request.headers.get("origin");
+  if (origin && origin !== request.nextUrl.origin) {
+    return NextResponse.json({ ok: true });
+  }
+
   const ipFromHeader =
     request.headers.get("x-forwarded-for") ||
     request.headers.get("cf-connecting-ip") ||
