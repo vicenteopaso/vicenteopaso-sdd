@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 
+import type { Locale } from "@/lib/i18n";
+
 // Fires a best-effort beacon to /api/lost-luggage-notify on page view so a
 // real visit pages Vicente. Keeps the page itself statically generated —
 // only this client component runs per-visit.
-export function LostLuggageNotifier({ locale }: { locale: string }) {
+export function LostLuggageNotifier({ locale }: { locale: Locale }) {
   useEffect(() => {
     fetch("/api/lost-luggage-notify", {
       method: "POST",

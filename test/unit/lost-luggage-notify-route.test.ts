@@ -143,7 +143,7 @@ describe("app/api/lost-luggage-notify/route POST", () => {
     expect(warnSpy).toHaveBeenCalled();
   });
 
-  it("returns ok without calling any service on invalid input", async () => {
+  it("returns ok without calling any service when locale is not a valid type", async () => {
     const fetchMock = vi.fn();
     global.fetch = fetchMock as unknown as typeof fetch;
 
@@ -160,7 +160,41 @@ describe("app/api/lost-luggage-notify/route POST", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("rate limits repeated requests from the same IP without erroring", async () => {
+  it("returns ok without calling any service when locale is not a supported locale", async () => {
+    const fetchMock = vi.fn();
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const POST = await createPostHandler();
+    const req = createRequest(
+      { locale: "fr" },
+      { "x-forwarded-for": "203.0.113.10" },
+    );
+
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    const json = (await res.json()) as { ok: boolean };
+    expect(json.ok).toBe(true);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("returns ok without calling any service when referrer is not a valid URL", async () => {
+    const fetchMock = vi.fn();
+    global.fetch = fetchMock as unknown as typeof fetch;
+
+    const POST = await createPostHandler();
+    const req = createRequest(
+      { locale: "en", referrer: "not-a-url" },
+      { "x-forwarded-for": "203.0.113.11" },
+    );
+
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    const json = (await res.json()) as { ok: boolean };
+    expect(json.ok).toBe(true);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("returns 429 with Retry-After once the per-IP rate limit is exceeded", async () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true } as Response);
     global.fetch = fetchMock as unknown as typeof fetch;
 
@@ -179,9 +213,10 @@ describe("app/api/lost-luggage-notify/route POST", () => {
     const blockedRes = await POST(
       createRequest(basePayload, { "x-forwarded-for": ip }),
     );
-    expect(blockedRes.status).toBe(200);
-    const blockedJson = (await blockedRes.json()) as { ok: boolean };
-    expect(blockedJson.ok).toBe(true);
+    expect(blockedRes.status).toBe(429);
+    expect(blockedRes.headers.get("Retry-After")).toBeDefined();
+    const blockedJson = (await blockedRes.json()) as { error: string };
+    expect(blockedJson.error.toLowerCase()).toContain("too many requests");
     // No additional external calls once rate-limited.
     expect(fetchMock.mock.calls.length).toBe(callsAfterFive);
   });

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { logWarning } from "@/lib/error-logging";
+import { locales } from "@/lib/i18n";
 import { checkRateLimitForKey } from "@/lib/rate-limit";
 
 // Fires a best-effort notification (Telegram + Formspree) whenever the
@@ -10,8 +11,8 @@ import { checkRateLimitForKey } from "@/lib/rate-limit";
 // directly. Failures here never surface to the visitor.
 
 const notifySchema = z.object({
-  locale: z.string().max(10),
-  referrer: z.string().max(500).optional(),
+  locale: z.enum(locales),
+  referrer: z.string().url().max(500).optional(),
 });
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -90,9 +91,14 @@ export async function POST(request: NextRequest) {
 
   const rateLimitResult = checkRateLimitForKey(`lost-luggage:${clientIp}`);
   if (!rateLimitResult.allowed) {
-    // Silently accept — a rate-limited notify attempt shouldn't error out
-    // for the visitor, it just won't page Vicente again this window.
-    return NextResponse.json({ ok: true });
+    const { retryAfterSeconds } = rateLimitResult;
+    return new NextResponse(JSON.stringify({ error: "Too many requests." }), {
+      status: 429,
+      headers: {
+        "Content-Type": "application/json",
+        "Retry-After": String(retryAfterSeconds),
+      },
+    });
   }
 
   let parsed: z.infer<typeof notifySchema>;
