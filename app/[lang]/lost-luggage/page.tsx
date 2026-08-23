@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 
 import { ContentPageShell } from "@/app/components/ContentPageShell";
 import { LostLuggageNotifier } from "@/app/components/LostLuggageNotifier";
@@ -37,6 +37,13 @@ interface PageProps {
   params: Promise<{ lang: string }>;
 }
 
+// react-markdown's default URL sanitizer only allows http(s)/mailto/irc(s)/xmpp
+// and strips everything else (including tel:), so the phone contact link
+// needs an explicit allowance here.
+function urlTransform(url: string): string {
+  return url.startsWith("tel:") ? url : defaultUrlTransform(url);
+}
+
 export default async function LostLuggagePage({ params }: PageProps) {
   const { lang } = await params;
   const locale = getLocaleFromParams({ lang });
@@ -58,7 +65,7 @@ export default async function LostLuggagePage({ params }: PageProps) {
           )}
         </header>
         <div className="prose prose-sm max-w-none sm:prose-base">
-          <ReactMarkdown components={markdownComponents}>
+          <ReactMarkdown components={markdownComponents} urlTransform={urlTransform}>
             {content}
           </ReactMarkdown>
         </div>
