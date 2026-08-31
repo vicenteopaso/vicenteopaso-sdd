@@ -1,23 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../../app/components/LostLuggageNotifier", () => ({
-  LostLuggageNotifier: ({ locale }: { locale: string }) => (
+vi.mock("../../app/components/FoundLuggageNotifier", () => ({
+  FoundLuggageNotifier: ({ locale }: { locale: string }) => (
     <div data-testid="notifier" data-locale={locale} />
   ),
 }));
 
-import LostLuggagePage, {
+import FoundLuggagePage, {
   generateMetadata,
-} from "../../app/[lang]/lost-luggage/page";
+} from "../../app/[lang]/found-luggage/page";
 
 afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("LostLuggagePage", () => {
+describe("FoundLuggagePage", () => {
   it("renders the English contact details and fires the notifier", async () => {
-    const ui = await LostLuggagePage({
+    const ui = await FoundLuggagePage({
       params: Promise.resolve({ lang: "en" }),
     });
 
@@ -45,7 +45,7 @@ describe("LostLuggagePage", () => {
   });
 
   it("renders the Spanish contact details", async () => {
-    const ui = await LostLuggagePage({
+    const ui = await FoundLuggagePage({
       params: Promise.resolve({ lang: "es" }),
     });
 

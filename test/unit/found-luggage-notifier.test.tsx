@@ -1,13 +1,13 @@
 import { render } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { LostLuggageNotifier } from "../../app/components/LostLuggageNotifier";
+import { FoundLuggageNotifier } from "../../app/components/FoundLuggageNotifier";
 
 afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("LostLuggageNotifier", () => {
+describe("FoundLuggageNotifier", () => {
   it("fires a beacon to the notify endpoint on mount with locale and referrer", async () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true } as Response);
     global.fetch = fetchMock as unknown as typeof fetch;
@@ -16,12 +16,12 @@ describe("LostLuggageNotifier", () => {
       configurable: true,
     });
 
-    render(<LostLuggageNotifier locale="es" />);
+    render(<FoundLuggageNotifier locale="es" />);
 
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
 
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe("/api/lost-luggage-notify");
+    expect(url).toBe("/api/found-luggage-notify");
     expect(init).toMatchObject({ method: "POST", keepalive: true });
     const body = JSON.parse((init as { body: string }).body);
     expect(body).toEqual({
@@ -38,7 +38,7 @@ describe("LostLuggageNotifier", () => {
       configurable: true,
     });
 
-    render(<LostLuggageNotifier locale="en" />);
+    render(<FoundLuggageNotifier locale="en" />);
 
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
 
@@ -57,7 +57,7 @@ describe("LostLuggageNotifier", () => {
       configurable: true,
     });
 
-    render(<LostLuggageNotifier locale="en" />);
+    render(<FoundLuggageNotifier locale="en" />);
 
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
 
@@ -71,7 +71,7 @@ describe("LostLuggageNotifier", () => {
     const fetchMock = vi.fn().mockRejectedValue(new Error("network down"));
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    expect(() => render(<LostLuggageNotifier locale="en" />)).not.toThrow();
+    expect(() => render(<FoundLuggageNotifier locale="en" />)).not.toThrow();
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
   });
 
@@ -79,7 +79,7 @@ describe("LostLuggageNotifier", () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true } as Response);
     global.fetch = fetchMock as unknown as typeof fetch;
 
-    const { container } = render(<LostLuggageNotifier locale="en" />);
+    const { container } = render(<FoundLuggageNotifier locale="en" />);
     expect(container).toBeEmptyDOMElement();
   });
 });

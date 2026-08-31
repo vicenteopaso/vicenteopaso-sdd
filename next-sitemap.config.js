@@ -31,8 +31,11 @@ module.exports = {
     "/*/icon",
     "/apple-icon",
     "/*/apple-icon",
-    // Lost-luggage QR code page: publicly reachable by direct link only,
+    // Found-luggage QR code page: publicly reachable by direct link only,
     // intentionally not advertised via nav/footer or search indexing.
+    // /lost-luggage is the old URL, kept as a redirect for already-printed tags.
+    "/found-luggage",
+    "/*/found-luggage",
     "/lost-luggage",
     "/*/lost-luggage",
     // Unlisted article: publicly reachable by direct link, intentionally

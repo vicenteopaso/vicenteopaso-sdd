@@ -241,7 +241,7 @@ export default [
       "app/components/CvRefCard.tsx",
       "app/components/AnalyticsWrapper.tsx",
       "app/components/LocaleProvider.tsx",
-      "app/components/LostLuggageNotifier.tsx",
+      "app/components/FoundLuggageNotifier.tsx",
       "app/global-error.tsx",
       "app/components/ErrorBoundary.tsx",
     ],
