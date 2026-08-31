@@ -7,7 +7,7 @@ import { locales } from "@/lib/i18n";
 import { checkRateLimitForKey } from "@/lib/rate-limit";
 
 // Fires a best-effort notification (Telegram + Formspree) whenever the
-// unlisted /lost-luggage page is viewed, so a real visit reaches Vicente
+// unlisted /found-luggage page is viewed, so a real visit reaches Vicente
 // directly. Failures here never surface to the visitor.
 
 const notifySchema = z.object({
@@ -38,7 +38,7 @@ function buildMessage(params: {
 }): string {
   const { locale, referrer, userAgent, country, city, timestamp } = params;
   return [
-    "Someone opened the lost-luggage page.",
+    "Someone opened the found-luggage page.",
     `Time: ${timestamp}`,
     `Locale: ${locale}`,
     `Location: ${sanitizeField(city)}, ${sanitizeField(country)}`,
@@ -81,7 +81,7 @@ async function notifyFormspree(message: string): Promise<void> {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      subject: "Lost luggage page viewed",
+      subject: "Found luggage page viewed",
       message,
     }),
   });
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
     undefined;
   const clientIp = ipFromHeader?.split(",")[0].trim() ?? "unknown";
 
-  const rateLimitResult = checkRateLimitForKey(`lost-luggage:${clientIp}`);
+  const rateLimitResult = checkRateLimitForKey(`found-luggage:${clientIp}`);
   if (!rateLimitResult.allowed) {
     const { retryAfterSeconds } = rateLimitResult;
     return new NextResponse(JSON.stringify({ error: "Too many requests." }), {
@@ -146,8 +146,8 @@ export async function POST(request: NextRequest) {
 
   for (const result of results) {
     if (result.status === "rejected") {
-      logWarning("Lost luggage notify failed", {
-        component: "lost-luggage-notify",
+      logWarning("Found luggage notify failed", {
+        component: "found-luggage-notify",
         metadata: { reason: String(result.reason) },
       });
     }

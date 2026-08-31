@@ -12,7 +12,7 @@ interface MockRequestInit {
 async function createPostHandler() {
   // Reload module fresh for each test so env changes are picked up.
   vi.resetModules();
-  const mod = await import("../../app/api/lost-luggage-notify/route");
+  const mod = await import("../../app/api/found-luggage-notify/route");
   return mod.POST as (req: NextRequest) => Promise<Response>;
 }
 
@@ -36,7 +36,7 @@ const basePayload = {
   referrer: "https://example.com/qr",
 };
 
-describe("app/api/lost-luggage-notify/route POST", () => {
+describe("app/api/found-luggage-notify/route POST", () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {

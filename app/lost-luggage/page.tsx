@@ -1,35 +1,13 @@
 import type { Route } from "next";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { defaultLocale, isValidLocale, type Locale } from "@/lib/i18n";
+// /lost-luggage was the original no-locale entry point for the QR code on
+// the luggage tag, renamed to /found-luggage since the page is addressed to
+// whoever *found* the bag. Kept as a permanent redirect so tags already
+// printed with the old URL keep working; /found-luggage still does the
+// Accept-Language-based locale detection.
+export const dynamic = "force-static";
 
-// No-locale entry point for the QR code on the luggage tag. Detects the
-// visitor's preferred locale from Accept-Language and redirects into the
-// localized page; falls back to English when nothing matches.
-export const dynamic = "force-dynamic";
-
-function pickLocale(acceptLanguage: string | null): Locale {
-  if (!acceptLanguage) {
-    return defaultLocale;
-  }
-
-  const preferred = acceptLanguage
-    .split(",")
-    .map((part) => part.split(";")[0].trim().toLowerCase().slice(0, 2));
-
-  for (const lang of preferred) {
-    if (isValidLocale(lang)) {
-      return lang;
-    }
-  }
-
-  return defaultLocale;
-}
-
-export default async function LostLuggageRedirectPage() {
-  const headerList = await headers();
-  const locale = pickLocale(headerList.get("accept-language"));
-
-  redirect(`/${locale}/lost-luggage` as Route);
+export default function LostLuggageRedirectPage() {
+  redirect("/found-luggage" as Route);
 }
