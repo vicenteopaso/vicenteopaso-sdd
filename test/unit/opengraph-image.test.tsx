@@ -234,7 +234,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     expect(textContent).toContain("TL;DR");
     expect(textContent).toContain("Open to roles");
     expect(textContent).toContain(
-      "Web Engineering Manager & Frontend Architect",
+      "Frontend Architect & Technical Leader",
     );
   });
 
