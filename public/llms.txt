@@ -3,7 +3,7 @@
 <!-- 
   MAINTENANCE NOTE: This file provides AI agent context.
   Keep in sync with README.md and site content.
-  Last updated: 2026-02-22
+  Last updated: 2026-08-31
 -->
 
 > Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems, and Developer Experience (DevEx).

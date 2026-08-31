@@ -3,7 +3,7 @@
 <!-- 
   MAINTENANCE NOTE: This file provides comprehensive AI agent context.
   Keep in sync with README.md, cv.json, and site content.
-  Last updated: 2026-02-22
+  Last updated: 2026-08-31
 -->
 
 > Frontend Architect & Technical Leader | Composable Platforms, Design Systems & DevEx
