@@ -1,7 +1,7 @@
 {
   "$schema": "https://modelcontextprotocol.io/schemas/mcp.json",
   "name": "opa.so",
-  "description": "Vicente Opaso's portfolio and CV - Web Engineering Manager & Frontend Architect",
+  "description": "Vicente Opaso's portfolio and CV - Frontend Architect & Technical Leader",
   "version": "1.0.0",
   "provider": {
     "name": "Vicente Opaso",

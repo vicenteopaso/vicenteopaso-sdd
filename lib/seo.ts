@@ -5,7 +5,7 @@ export const siteConfig = {
   domain: "opa.so",
   url: "https://opa.so",
   description:
-    "Web Engineering Manager & Frontend Architect specializing in Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso.",
+    "Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso.",
 };
 
 /**
@@ -89,8 +89,7 @@ export function getPersonJsonLd() {
     "@type": "Person",
     name: siteConfig.name,
     url: siteConfig.url,
-    jobTitle:
-      "Web Engineering Manager & Frontend Architect specializing in Composable Platforms, Design Systems and Developer Experience (DevEx).",
+    jobTitle: "Frontend Architect & Technical Leader",
     description:
       "Technology leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments.",
     knowsAbout: [
@@ -155,7 +154,7 @@ export function getCvJsonLd() {
       "@type": "Person",
       name: siteConfig.name,
       url: siteConfig.url,
-      jobTitle: "Web Engineering Manager & Frontend Architect",
+      jobTitle: "Frontend Architect & Technical Leader",
       description:
         "15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments.",
       hasCredential: [

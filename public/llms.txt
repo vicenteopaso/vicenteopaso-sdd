@@ -6,7 +6,7 @@
   Last updated: 2026-02-22
 -->
 
-> Web Engineering Manager & Frontend Architect specializing in Composable Platforms, Design Systems, and Developer Experience (DevEx).
+> Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems, and Developer Experience (DevEx).
 
 Personal site with CV, technical governance, and contact details.
 

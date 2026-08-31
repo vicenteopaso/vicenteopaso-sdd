@@ -6,12 +6,12 @@
   Last updated: 2026-02-22
 -->
 
-> Web Engineering Manager & Frontend Architect | Composable Platforms, Design Systems & DevEx
+> Frontend Architect & Technical Leader | Composable Platforms, Design Systems & DevEx
 
 ## Profile
 
 **Name:** Vicente Opaso  
-**Title:** Web Engineering Manager & Frontend Architect  
+**Title:** Frontend Architect & Technical Leader  
 **Location:** Europe  
 **Languages:** Spanish (Native), English (C2)
 

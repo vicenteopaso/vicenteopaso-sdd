@@ -88,7 +88,7 @@ const homeContentByLocale: Record<
       "15 years shipping on the web. 10 in telecom before that. Currently open to my ",
     highlightedWord: "next challenge.",
     subtitle:
-      "Web Engineering Manager & Frontend Architect — composable platforms, design systems, and the teams behind them.",
+      "Frontend Architect & Technical Leader — composable platforms, design systems, and the teams behind them.",
     basedLabel: "BASED",
     statusLabel: "STATUS",
     status: "Open to roles",
