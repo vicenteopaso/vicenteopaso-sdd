@@ -104,7 +104,8 @@ describe("CvRefsGrid", () => {
 
     // Collapse happens when mouse leaves the grid, not individual cards
     fireEvent.mouseLeave(
-      firstCard.closest('[class*="v3-cv-refs"]') ?? firstCard.parentElement!,
+      firstCard.closest('[class*="v3-cv-refs"]') ??
+        (firstCard.parentElement as HTMLElement),
     );
     expect(getTruncated(firstCard)).not.toHaveAttribute("aria-hidden");
     expect(secondCard).toHaveStyle({ opacity: "1" });
