@@ -48,7 +48,10 @@ function mockCvFs({
         return cvContent;
       }
 
-      return realReadFileSync(filePath, options as never) as string;
+      const fallbackContent = realReadFileSync(filePath, options as never);
+      return typeof fallbackContent === "string"
+        ? fallbackContent
+        : fallbackContent.toString("utf8");
   });
 }
 
