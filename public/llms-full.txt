@@ -3,15 +3,15 @@
 <!-- 
   MAINTENANCE NOTE: This file provides comprehensive AI agent context.
   Keep in sync with README.md, cv.json, and site content.
-  Last updated: 2026-02-22
+  Last updated: 2026-08-31
 -->
 
-> Web Engineering Manager & Frontend Architect | Composable Platforms, Design Systems & DevEx
+> Frontend Architect & Technical Leader | Composable Platforms, Design Systems & DevEx
 
 ## Profile
 
 **Name:** Vicente Opaso  
-**Title:** Web Engineering Manager & Frontend Architect  
+**Title:** Frontend Architect & Technical Leader  
 **Location:** Europe  
 **Languages:** Spanish (Native), English (C2)
 

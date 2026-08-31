@@ -1346,7 +1346,7 @@ export default async function CVPage({ params }: PageProps) {
   const label =
     cv.basics?.label ??
     data.tagline ??
-    "Web Engineering Manager · Frontend Architect";
+    "Frontend Architect & Technical Leader";
 
   return (
     <div

@@ -234,7 +234,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     expect(textContent).toContain("TL;DR");
     expect(textContent).toContain("Open to roles");
     expect(textContent).toContain(
-      "Web Engineering Manager & Frontend Architect",
+      "Frontend Architect & Technical Leader",
     );
   });
 
@@ -250,9 +250,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     expect(textContent).toContain("PERFIL");
     expect(textContent).toContain("RESUMEN");
     expect(textContent).toContain("Abierto a roles");
-    expect(textContent).toContain(
-      "Gerente de Ingeniería Web y Arquitecto Frontend",
-    );
+    expect(textContent).toContain("Arquitecto Frontend y Líder Técnico");
   });
 });
 

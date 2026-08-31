@@ -82,13 +82,13 @@ const homeContentByLocale: Record<
   en: {
     navAbout: "ABOUT",
     navContact: "CONTACT",
-    roleLabel: "FRONTEND ARCHITECT × ENG. MANAGER",
+    roleLabel: "FRONTEND ARCHITECT & TECHNICAL LEADER",
     summaryLabel: "TL;DR",
     summaryPrefix:
       "15 years shipping on the web. 10 in telecom before that. Currently open to my ",
     highlightedWord: "next challenge.",
     subtitle:
-      "Web Engineering Manager & Frontend Architect — composable platforms, design systems, and the teams behind them.",
+      "Frontend Architect & Technical Leader — composable platforms, design systems, and the teams behind them.",
     basedLabel: "BASED",
     statusLabel: "STATUS",
     status: "Open to roles",
@@ -97,13 +97,13 @@ const homeContentByLocale: Record<
   es: {
     navAbout: "PERFIL",
     navContact: "CONTACTO",
-    roleLabel: "ARQUITECTO FRONTEND × GERENTE DE ING.",
+    roleLabel: "ARQUITECTO FRONTEND Y LÍDER TÉCNICO",
     summaryLabel: "RESUMEN",
     summaryPrefix:
       "15 años creando para la web. 10 en telecom antes de eso. Actualmente abierto a mi ",
     highlightedWord: "próximo reto.",
     subtitle:
-      "Gerente de Ingeniería Web y Arquitecto Frontend — plataformas componibles, design systems y los equipos detrás de ellas.",
+      "Arquitecto Frontend y Líder Técnico — plataformas componibles, design systems y los equipos detrás de ellas.",
     basedLabel: "BASE",
     statusLabel: "ESTADO",
     status: "Abierto a roles",
