@@ -11,7 +11,7 @@ import type { Locale } from "@/lib/i18n";
 const MAX_REFERRER_LENGTH = 500;
 
 // Fires a best-effort beacon to /api/found-luggage-notify on page view so a
-// real visit pages Vicente. Keeps the page itself statically generated —
+// real visit notifies Vicente. Keeps the page itself statically generated —
 // only this client component runs per-visit.
 export function FoundLuggageNotifier({ locale }: { locale: Locale }) {
   useEffect(() => {
