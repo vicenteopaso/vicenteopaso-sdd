@@ -1,5 +1,5 @@
 ---
-name: Lost Luggage
+name: Found Luggage
 title: You found my luggage!
 slug: found-luggage
 description: Contact info for whoever found this bag — thank you for scanning the QR code.

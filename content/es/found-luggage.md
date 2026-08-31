@@ -1,5 +1,5 @@
 ---
-name: Equipaje Perdido
+name: Equipaje Encontrado
 title: ¡Encontraste mi equipaje!
 slug: found-luggage
 description: Información de contacto para quien encontró esta maleta — gracias por escanear el código QR.

@@ -1,16 +1,16 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-const redirectMock = vi.fn((url: string) => {
+const permanentRedirectMock = vi.fn((url: string) => {
   throw new Error(`REDIRECT:${url}`);
 });
 
 vi.mock("next/navigation", () => ({
-  redirect: (url: string) => redirectMock(url),
+  permanentRedirect: (url: string) => permanentRedirectMock(url),
 }));
 
 afterEach(() => {
   vi.restoreAllMocks();
-  redirectMock.mockClear();
+  permanentRedirectMock.mockClear();
 });
 
 describe("LostLuggageRedirectPage (no-locale)", () => {
