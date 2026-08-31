@@ -250,9 +250,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     expect(textContent).toContain("PERFIL");
     expect(textContent).toContain("RESUMEN");
     expect(textContent).toContain("Abierto a roles");
-    expect(textContent).toContain(
-      "Gerente de Ingeniería Web y Arquitecto Frontend",
-    );
+    expect(textContent).toContain("Arquitecto Frontend y Líder Técnico");
   });
 });
 

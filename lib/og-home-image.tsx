@@ -103,7 +103,7 @@ const homeContentByLocale: Record<
       "15 años creando para la web. 10 en telecom antes de eso. Actualmente abierto a mi ",
     highlightedWord: "próximo reto.",
     subtitle:
-      "Gerente de Ingeniería Web y Arquitecto Frontend — plataformas componibles, design systems y los equipos detrás de ellas.",
+      "Arquitecto Frontend y Líder Técnico — plataformas componibles, design systems y los equipos detrás de ellas.",
     basedLabel: "BASE",
     statusLabel: "ESTADO",
     status: "Abierto a roles",
