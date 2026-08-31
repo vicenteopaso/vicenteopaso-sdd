@@ -36,18 +36,19 @@ function mockCvFs({
   const cvContent =
     typeof cvJson === "string" ? cvJson : JSON.stringify(cvJson);
 
-  vi.spyOn(fs, "readFileSync").mockImplementation((filePath, options) => {
-    const file = String(filePath);
+  vi.spyOn(fs, "readFileSync").mockImplementation(
+    (filePath, options): string => {
+      const file = String(filePath);
 
-    if (file.endsWith(`${locale}/cv.md`)) {
-      return metaRaw;
-    }
+      if (file.endsWith(`${locale}/cv.md`)) {
+        return metaRaw;
+      }
 
-    if (file.endsWith(`${locale}/cv.json`)) {
-      return cvContent;
-    }
+      if (file.endsWith(`${locale}/cv.json`)) {
+        return cvContent;
+      }
 
-    return realReadFileSync(filePath, options as never);
+      return realReadFileSync(filePath, options as never) as string;
   });
 }
 
