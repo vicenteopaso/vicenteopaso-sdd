@@ -83,10 +83,11 @@ Create an ADR when making decisions about:
 
 ## ADR Index
 
-| ADR                                                   | Title                               | Status   | Date       |
-| ----------------------------------------------------- | ----------------------------------- | -------- | ---------- |
-| [0000](./0000-adr-template.md)                        | ADR Template                        | Template | -          |
-| [0001](./0001-adopt-architecture-decision-records.md) | Adopt Architecture Decision Records | Accepted | 2025-12-13 |
+| ADR                                                       | Title                                          | Status   | Date       |
+| --------------------------------------------------------- | ---------------------------------------------- | -------- | ---------- |
+| [0000](./0000-adr-template.md)                            | ADR Template                                   | Template | -          |
+| [0001](./0001-adopt-architecture-decision-records.md)     | Adopt Architecture Decision Records            | Accepted | 2025-12-13 |
+| [0003](./0003-high-contrast-mode-conforming-alternate.md) | High Contrast Mode as the Conforming Alternate | Proposed | 2026-09-11 |
 
 ## Process Integration
 

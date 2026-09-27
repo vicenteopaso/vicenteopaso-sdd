@@ -27,6 +27,14 @@ export async function setThemeDark(page: Page): Promise<void> {
   await page.emulateMedia({ colorScheme: "dark" });
 }
 
+// High Contrast mode (lib/contrast.ts): seed the stored preference before load,
+// the way a returning visitor who switched it on arrives.
+export async function setContrastHigh(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    localStorage.setItem("contrast", "more");
+  });
+}
+
 export async function setFixedProfilePhotoIndex(
   page: Page,
   index: number,

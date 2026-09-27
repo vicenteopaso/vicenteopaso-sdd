@@ -42,11 +42,19 @@ All interactive elements are fully keyboard accessible:
 
 ### Visual Design
 
-- Minimum contrast ratio of 4.5:1 for normal text (WCAG AA)
+- Minimum contrast ratio of 4.5:1 for normal text (WCAG AA). In the dark theme's default palette, small red accent text relies on High Contrast mode, described below
 - Minimum contrast ratio of 3:1 for large text (WCAG AA)
 - Text is resizable up to 200% without loss of functionality
 - No reliance on color alone to convey information
 - Focus indicators are clearly visible with 2px outlines
+
+### High Contrast Mode
+
+The default dark theme uses a deep accent red whose small text falls below a 4.5:1 contrast ratio. The **High contrast** button in the top navigation, on every page, switches to a palette that meets WCAG 2.1 AA for all text:
+
+- The button works with a keyboard (**Tab**, then **Enter** or **Space**) and announces whether High Contrast is on
+- Your choice is remembered across pages and visits
+- If your operating system asks for more contrast (for example, **Increase contrast** on macOS and iOS), High Contrast turns on automatically
 
 ### Motion & Animation
 
@@ -67,7 +75,7 @@ All interactive elements are fully keyboard accessible:
 
 - ESLint with `eslint-plugin-jsx-a11y` catches common issues during development
 - Automated accessibility audit script (`scripts/audit-a11y.mjs`) runs in CI/CD
-- A dedicated Playwright suite (`test/a11y/`) runs a full `axe-core` scan (WCAG 2.1 A/AA, including color contrast) across every page, in both languages and both light/dark themes, plus dedicated checks for reflow at 320px width and the WCAG 1.4.12 text-spacing override, with advisory readability warnings for text size, line-height, and font weight
+- A dedicated Playwright suite (`test/a11y/`) runs a full `axe-core` scan (WCAG 2.1 A/AA) across every page, in both languages and both light/dark themes, with High Contrast mode off and on. Color contrast is checked everywhere except the default dark palette, whose small red accent text is covered by High Contrast mode, and every page must include a High Contrast button that passes the scan itself. The suite also checks reflow at 320px width and the WCAG 1.4.12 text-spacing override, with advisory readability warnings for text size, line-height, and font weight
 
 ### Manual Testing
 
@@ -145,7 +153,7 @@ This statement references the following standards:
 
 ## Last Updated
 
-This accessibility statement was last reviewed and updated on May 3, 2026.
+This accessibility statement was last reviewed and updated on September 11, 2026.
 
 ---
 

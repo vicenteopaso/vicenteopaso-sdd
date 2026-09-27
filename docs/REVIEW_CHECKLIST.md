@@ -528,7 +528,7 @@ This checklist helps reviewers consistently evaluate AI-authored and human-autho
 - [ ] **Form labels**: All form inputs have associated `<label>` elements or `aria-label`.
 - [ ] **Error announcements**: Error messages are associated with form fields via `aria-describedby` or `aria-live` regions.
 - [ ] **Skip link**: A "Skip to main content" link is present and functional (already implemented in root layout).
-- [ ] **Theme support**: Changes work in both light and dark modes. Color contrast is sufficient in both themes.
+- [ ] **Theme support**: Changes work in both light and dark modes, with High Contrast mode off and on. Color contrast is sufficient in both themes. The one documented exception is small red accent text in the default dark palette, which relies on High Contrast mode ([ADR-0003](./adr/0003-high-contrast-mode-conforming-alternate.md)).
 - [ ] **Reduced motion**: Animations respect `prefers-reduced-motion` media query where applicable.
 - [ ] **Accessibility tests**: Changes pass ESLint a11y rules (`eslint-plugin-jsx-a11y`). Run `pnpm lint` to check. Visual tests include keyboard navigation and focus states where relevant.
 

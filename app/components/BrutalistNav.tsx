@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 import { useTranslations } from "@/lib/i18n";
 
+import { ContrastToggle } from "./ContrastToggle";
 import { useLocale } from "./LocaleProvider";
 
 const imageCacheVersion = process.env.NEXT_PUBLIC_IMAGES_CACHE_DATE;
@@ -156,6 +157,7 @@ export function BrutalistNav() {
             color: "var(--v3-muted)",
           }}
         >
+          <ContrastToggle />
           <button
             type="button"
             onClick={switchLocale}
