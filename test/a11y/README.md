@@ -23,9 +23,16 @@ conformance level published on the site's own
 contrast plus the rest of axe's rule set: ARIA usage, form labels, heading order,
 landmark uniqueness, link/button accessible names, and more.
 
-Runs across every route × both locales (`en`, `es`) × both themes (light, dark) —
-28 scans total. Dark-mode-specific contrast regressions (a common miss when only
-testing the default theme) are caught here.
+Runs across every route × both locales (`en`, `es`) × four presentations (light,
+dark, light High Contrast, dark High Contrast), 56 scans in total. Dark-mode contrast
+regressions (a common miss when only testing the default theme) are caught here.
+
+The default dark palette deliberately uses an accent red below 4.5:1 for small text,
+so the `color-contrast` rule is skipped there. The dark High Contrast presentation
+is the contrast gate instead (WCAG technique G174, see
+[ADR-0003](../../docs/adr/0003-high-contrast-mode-conforming-alternate.md)). Every
+scan also asserts that the High Contrast toggle is on the page, reports its state,
+and passes axe itself.
 
 ### `typography.spec.ts`
 
@@ -65,7 +72,7 @@ offending element selector(s) — enough to reproduce and fix without re-running
 ## Adding a new route
 
 Add an entry to the shared `ROUTES` array in both `axe.spec.ts` and
-`typography.spec.ts` — it'll automatically be covered by every locale/theme
+`typography.spec.ts` — it'll automatically be covered by every locale/presentation
 combination.
 
 ## Relationship to `scripts/audit-a11y.mjs`

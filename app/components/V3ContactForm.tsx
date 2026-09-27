@@ -378,7 +378,10 @@ export function V3ContactForm() {
               disabled || !turnstileToken
                 ? "var(--v3-muted)"
                 : "var(--v3-accent)",
-            color: "var(--v3-bg)",
+            color:
+              disabled || !turnstileToken
+                ? "var(--v3-bg)"
+                : "var(--v3-on-accent)",
             border: "none",
             padding: "10px 18px",
             fontSize: 12,

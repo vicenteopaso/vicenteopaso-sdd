@@ -61,8 +61,20 @@ vi.mock("next/headers", () => ({
 }));
 
 import RootLayout from "../../app/layout";
+import { contrastInitScript } from "../../lib/contrast";
 
 describe("RootLayout", () => {
+  it("applies the High Contrast preference with an inline head script", async () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    render(await RootLayout({ children: <div /> }));
+    consoleSpy.mockRestore();
+
+    const scripts = Array.from(document.querySelectorAll("script"));
+    expect(
+      scripts.some((script) => script.textContent === contrastInitScript),
+    ).toBe(true);
+  });
+
   it("wraps children in main content area and includes shell components", async () => {
     // Suppress hydration warning for <html> element in test environment
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});

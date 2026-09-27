@@ -33,6 +33,15 @@ This project targets **WCAG 2.1 AA** compliance as a minimum standard.
 - UI components: ≥ 3:1 contrast ratio
 - Never rely on color alone to convey information
 
+#### High Contrast mode (conforming alternate)
+
+The default dark-theme accent red (`#b3141c`, 3.0:1 on black) is deliberately below 4.5:1 for small text. WCAG 2.1 AA for that text comes from High Contrast mode, per technique G174 ([ADR-0003](./adr/0003-high-contrast-mode-conforming-alternate.md)):
+
+- The [ContrastToggle](./components/ContrastToggle.md) in the top navigation is on every page. It's keyboard operable, reports its state with `aria-pressed`, and meets AA contrast itself.
+- It switches every page to the High Contrast palette (`<html data-contrast="more">`), which meets AA for all text. The choice persists across pages and visits.
+- Visitors whose OS asks for more contrast (`prefers-contrast: more`) get High Contrast automatically until they choose otherwise.
+- New colors must meet AA in High Contrast mode in both themes. In the default palette they must meet AA everywhere except small red accent text in the dark theme.
+
 ### Images
 
 - Decorative images: `alt=""`
@@ -75,7 +84,7 @@ All UI components in `app/components/` must:
 - `pnpm lint` includes `eslint-plugin-jsx-a11y`
 - `scripts/audit-a11y.mjs` checks image alt text (fast, no build required — runs in `.github/workflows/accessibility.yml`)
 - `pnpm test:a11y` (`test/a11y/`) runs against the built app in CI's Build & Verify job:
-  - `axe.spec.ts`: full `axe-core` scan tagged to WCAG 2.1 A/AA (contrast, ARIA, labels, heading order, landmarks, link names, etc.) across every route, both locales, and both themes
+  - `axe.spec.ts`: full `axe-core` scan tagged to WCAG 2.1 A/AA (contrast, ARIA, labels, heading order, landmarks, link names, etc.) across every route and both locales, in four presentations: light, dark, and both themes in High Contrast mode. Color contrast is checked everywhere except the default dark palette (see High Contrast mode above). On every page, the High Contrast toggle must be present and pass the scan itself.
   - `typography.spec.ts`: reflow at 320px width (WCAG 1.4.10) and the WCAG 1.4.12 text-spacing override check are hard gates; font size, line-height, and font-weight are advisory (non-blocking) warnings, since the site's design intentionally uses small mono labels/meta text in places
 - Lighthouse accessibility score ≥ 90
 

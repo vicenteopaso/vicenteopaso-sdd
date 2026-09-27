@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   ArrowUpIcon,
+  ContrastIcon,
   DownloadIcon,
   GitHubIcon,
   LinkedInIcon,
@@ -12,6 +13,14 @@ import {
 } from "../../app/components/icons";
 
 describe("Icon components", () => {
+  it("renders ContrastIcon as a decorative SVG that forwards props", () => {
+    const { container } = render(<ContrastIcon className="icon" />);
+    const svg = container.querySelector("svg");
+    expect(svg).toHaveAttribute("viewBox", "0 0 24 24");
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(svg).toHaveClass("icon");
+  });
+
   it("renders GitHubIcon with correct SVG", () => {
     const { container } = render(<GitHubIcon />);
     const svg = container.querySelector("svg");

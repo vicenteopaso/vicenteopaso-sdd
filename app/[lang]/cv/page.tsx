@@ -346,7 +346,7 @@ function CvBtn({
       style={{
         display: "inline-block",
         background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "var(--v3-bg)" : "var(--v3-fg)",
+        color: primary ? "var(--v3-on-accent)" : "var(--v3-fg)",
         border: primary ? "none" : "1px solid var(--v3-fg)",
         padding: "12px 20px",
         fontSize: 12,
@@ -1244,7 +1244,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             style={{ ...big, fontSize: 56, lineHeight: 0.95 }}
           >
             {t("cv.endcta.headline")}{" "}
-            <span style={{ color: "var(--v3-accent-text)" }}>
+            <span style={{ color: "var(--v3-accent-inverse)" }}>
               {t("cv.endcta.accent")}
             </span>
             .
@@ -1279,7 +1279,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             aria-label={t("cv.endcta.email.ariaLabel")}
             style={{
               background: "var(--v3-accent)",
-              color: "var(--v3-bg)",
+              color: "var(--v3-on-accent)",
               padding: "12px 20px",
               fontSize: 12,
               fontWeight: 600,
@@ -1344,9 +1344,7 @@ export default async function CVPage({ params }: PageProps) {
 
   const name = cv.basics?.name ?? data.name;
   const label =
-    cv.basics?.label ??
-    data.tagline ??
-    "Frontend Architect & Technical Leader";
+    cv.basics?.label ?? data.tagline ?? "Frontend Architect & Technical Leader";
 
   return (
     <div

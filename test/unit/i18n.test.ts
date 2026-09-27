@@ -245,6 +245,7 @@ describe("i18n infrastructure", () => {
       expect(t("nav.cv")).toBeTruthy();
       expect(t("nav.contact")).toBeTruthy();
       expect(t("nav.themeToggle")).toBeTruthy();
+      expect(t("nav.highContrast")).toBeTruthy();
     });
 
     it("should have all expected footer keys", () => {

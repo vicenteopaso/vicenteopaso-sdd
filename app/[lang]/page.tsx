@@ -261,7 +261,7 @@ function HeroBtn({
       style={{
         display: "inline-block",
         background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "var(--v3-bg)" : "var(--v3-fg)",
+        color: primary ? "var(--v3-on-accent)" : "var(--v3-fg)",
         border: primary ? "none" : "1px solid var(--v3-fg)",
         padding: "12px 20px",
         fontSize: 12,
@@ -364,7 +364,7 @@ function TlDrSection({
             §01
           </div>
           <div style={{ ...big, fontSize: 48, lineHeight: 0.95, marginTop: 8 }}>
-            TL;<span style={{ color: "var(--v3-accent-text)" }}>DR</span>
+            TL;<span style={{ color: "var(--v3-accent-inverse)" }}>DR</span>
           </div>
           <div
             style={{
