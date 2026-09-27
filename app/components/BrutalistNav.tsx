@@ -58,50 +58,14 @@ export function BrutalistNav() {
     { label: t("nav.contact"), href: `/${locale}#contact` },
   ];
 
-  const s = {
-    root: {
-      borderBottom: "2px solid var(--v3-fg)",
-      fontFamily: "var(--f-mono)",
-      fontSize: 11,
-      letterSpacing: "0.12em",
-      background: "var(--v3-bg)",
-      color: "var(--v3-fg)",
-      position: "sticky" as const,
-      top: 0,
-      zIndex: 50,
-    },
-    inner: {
-      display: "flex" as const,
-      alignItems: "center" as const,
-      justifyContent: "space-between" as const,
-      maxWidth: 1180,
-      margin: "0 auto",
-      padding: "14px 32px",
-      width: "100%",
-    },
-  };
-
   return (
-    <header style={s.root}>
-      <div style={s.inner} className="v3-nav-inner">
+    <header className="v3-nav">
+      <div className="v3-nav-inner">
         {/* Brand */}
-        <div
-          style={{
-            display: "flex",
-            gap: 18,
-            color: "var(--v3-muted)",
-            alignItems: "center",
-          }}
-        >
+        <div className="v3-nav-brand">
           <Link
             href={`/${locale}` as Route}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              width: 40,
-              height: 40,
-              textDecoration: "none",
-            }}
+            className="v3-nav-logo"
             aria-label={t("nav.brand")}
           >
             <Image
@@ -110,38 +74,24 @@ export function BrutalistNav() {
               width={40}
               height={40}
               priority
-              style={{ transform: "translateY(-4px)" }}
+              className="v3-nav-logo-img"
             />
           </Link>
           <span className="v3-nav-meta">{t("nav.version")}</span>
           <span className="v3-nav-meta">—</span>
-          <span
-            className="v3-nav-meta"
-            style={{ color: "var(--v3-accent-text)" }}
-          >
+          <span className="v3-nav-meta v3-accent-text">
             {t("nav.location")}
           </span>
         </div>
 
         {/* Primary nav */}
-        <nav
-          aria-label="Main navigation"
-          className="v3-nav-links"
-          style={{ display: "flex", gap: 24, color: "var(--v3-muted)" }}
-        >
+        <nav aria-label="Main navigation" className="v3-nav-links">
           {navLinks.map((l) => (
             <Link
               key={l.label}
               href={l.href as Route}
-              style={{
-                color: isActive(l.href) ? "var(--v3-fg)" : "inherit",
-                textDecoration: "none",
-                fontWeight: isActive(l.href) ? 600 : 400,
-                borderBottom: isActive(l.href)
-                  ? "2px solid var(--v3-accent)"
-                  : "none",
-                paddingBottom: 2,
-              }}
+              className="v3-nav-link"
+              aria-current={isActive(l.href) ? "page" : undefined}
             >
               {l.label}
             </Link>
@@ -149,28 +99,12 @@ export function BrutalistNav() {
         </nav>
 
         {/* Right controls */}
-        <div
-          style={{
-            display: "flex",
-            gap: 10,
-            alignItems: "center",
-            color: "var(--v3-muted)",
-          }}
-        >
+        <div className="v3-nav-controls">
           <ContrastToggle />
           <button
             type="button"
             onClick={switchLocale}
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--f-mono)",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              color: "var(--v3-muted)",
-              padding: 0,
-            }}
+            className="v3-nav-btn"
             aria-label={`${t("nav.switchLanguage")}: ${locale === "en" ? t("language.es") : t("language.en")}`}
           >
             {locale === "en" ? t("language.es") : t("language.en")}
@@ -179,16 +113,7 @@ export function BrutalistNav() {
           <button
             type="button"
             onClick={toggleTheme}
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--f-mono)",
-              fontSize: 14,
-              color: "var(--v3-muted)",
-              padding: 0,
-              lineHeight: 1,
-            }}
+            className="v3-nav-btn v3-nav-theme-btn"
             aria-label={t("nav.themeToggle")}
           >
             {displayTheme === "dark" ? "☼" : "☾"}

@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useTranslations } from "@/lib/i18n";
@@ -20,37 +21,7 @@ declare global {
   }
 }
 
-const mono: React.CSSProperties = { fontFamily: "var(--f-mono)" };
-
 type FormState = "idle" | "submitting" | "success" | "error";
-
-const inputStyle: React.CSSProperties = {
-  background: "transparent",
-  border: "none",
-  borderLeft: "1px solid var(--v3-rule)",
-  padding: 14,
-  fontSize: 14,
-  fontFamily: "inherit",
-  color: "var(--v3-fg)",
-  outline: "none",
-  width: "100%",
-  boxSizing: "border-box" as const,
-};
-
-const labelRowStyle: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: "110px 1fr",
-  borderBottom: "1px solid var(--v3-rule)",
-  alignItems: "center",
-};
-
-const labelKeyStyle: React.CSSProperties = {
-  ...mono,
-  paddingLeft: 16,
-  fontSize: 10,
-  color: "var(--v3-muted)",
-  letterSpacing: "0.14em",
-};
 
 export function V3ContactForm() {
   const t = useTranslations();
@@ -172,49 +143,14 @@ export function V3ContactForm() {
   }
 
   const disabled = formState === "submitting" || formState === "success";
+  const submitDisabled = disabled || !turnstileToken;
 
   if (formState === "success") {
     return (
-      <div
-        style={{
-          border: "1px solid var(--v3-rule)",
-          display: "flex",
-          flexDirection: "column" as const,
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 16,
-          padding: "48px 32px",
-          textAlign: "center" as const,
-        }}
-      >
-        <div
-          style={{
-            ...mono,
-            fontSize: 11,
-            color: "var(--v3-accent-text)",
-            letterSpacing: "0.18em",
-          }}
-        >
-          {t("form.successLabel")}
-        </div>
-        <div
-          style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.01em" }}
-        >
-          {t("form.successMessage")}
-        </div>
-        <button
-          onClick={reset}
-          style={{
-            ...mono,
-            fontSize: 10,
-            color: "var(--v3-muted)",
-            background: "none",
-            border: "1px solid var(--v3-rule)",
-            padding: "8px 16px",
-            cursor: "pointer",
-            letterSpacing: "0.1em",
-          }}
-        >
+      <div className="v3-form-success">
+        <div className="v3-form-success-label">{t("form.successLabel")}</div>
+        <div className="v3-form-success-msg">{t("form.successMessage")}</div>
+        <button onClick={reset} className="v3-form-reset">
           {t("form.sendAnother")}
         </button>
       </div>
@@ -222,11 +158,7 @@ export function V3ContactForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      style={{ display: "grid", gap: 0, border: "1px solid var(--v3-rule)" }}
-    >
+    <form onSubmit={handleSubmit} noValidate className="v3-form">
       {/* Honeypot — hidden from users, filled only by bots */}
       <input
         type="text"
@@ -235,35 +167,25 @@ export function V3ContactForm() {
         onChange={(e) => setHoneypot(e.target.value)}
         tabIndex={-1}
         autoComplete="off"
-        style={{ display: "none" }}
+        className="v3-form-honeypot"
         aria-hidden="true"
       />
       {/* NAME */}
-      <label style={labelRowStyle}>
-        <span style={labelKeyStyle}>{t("form.name")}</span>
+      <label className="v3-form-row">
+        <span className="v3-form-key">{t("form.name")}</span>
         <input
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           disabled={disabled}
-          style={inputStyle}
+          className="v3-form-input"
           autoComplete="name"
         />
       </label>
 
       {/* EMAIL */}
-      <label
-        style={{
-          ...labelRowStyle,
-          ...(emailError ? { borderColor: "var(--v3-accent)" } : {}),
-        }}
-      >
-        <span
-          style={{
-            ...labelKeyStyle,
-            ...(emailError ? { color: "var(--v3-accent-text)" } : {}),
-          }}
-        >
+      <label className={clsx("v3-form-row", emailError && "has-error")}>
+        <span className={clsx("v3-form-key", emailError && "has-error")}>
           {t("form.email")} {emailError ? `— ${emailError}` : "*"}
         </span>
         <input
@@ -274,41 +196,37 @@ export function V3ContactForm() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={disabled}
           required
-          style={{
-            ...inputStyle,
-            ...(emailError ? { color: "var(--v3-accent-text)" } : {}),
-          }}
+          className={clsx("v3-form-input", emailError && "has-error")}
           autoComplete="email"
         />
       </label>
 
       {/* SUBJECT */}
-      <label style={labelRowStyle}>
-        <span style={labelKeyStyle}>{t("form.subject")}</span>
+      <label className="v3-form-row">
+        <span className="v3-form-key">{t("form.subject")}</span>
         <input
           name="subject"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           disabled={disabled}
-          style={inputStyle}
+          className="v3-form-input"
         />
       </label>
 
       {/* MESSAGE */}
       <label
-        style={{
-          ...labelRowStyle,
-          alignItems: "start",
-          ...(msgError ? { borderColor: "var(--v3-accent)" } : {}),
-        }}
+        className={clsx(
+          "v3-form-row",
+          "v3-form-row-start",
+          msgError && "has-error",
+        )}
       >
         <span
-          style={{
-            ...labelKeyStyle,
-            paddingTop: 14,
-            paddingBottom: 14,
-            ...(msgError ? { color: "var(--v3-accent-text)" } : {}),
-          }}
+          className={clsx(
+            "v3-form-key",
+            "v3-form-key-multiline",
+            msgError && "has-error",
+          )}
         >
           {t("form.message")} {msgError ? `— ${msgError}` : "*"}
         </span>
@@ -323,12 +241,7 @@ export function V3ContactForm() {
           aria-invalid={!!msgError}
           aria-describedby={msgError ? "v3-contact-message-error" : undefined}
           rows={5}
-          style={{
-            ...inputStyle,
-            borderLeft: "1px solid var(--v3-rule)",
-            resize: "none",
-            paddingTop: 14,
-          }}
+          className="v3-form-input v3-form-textarea"
         />
         {msgError && (
           <span id="v3-contact-message-error" role="alert" className="sr-only">
@@ -338,60 +251,23 @@ export function V3ContactForm() {
       </label>
 
       {/* Turnstile */}
-      <div
-        style={{
-          borderBottom: "1px solid var(--v3-rule)",
-          padding: "12px 16px",
-        }}
-      >
-        <div ref={turnstileRef} style={{ minHeight: 65 }} />
+      <div className="v3-form-turnstile-row">
+        <div ref={turnstileRef} className="v3-form-turnstile" />
       </div>
 
       {/* Footer: error + submit */}
-      <div
-        style={{
-          padding: "12px 16px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
+      <div className="v3-form-footer">
         <span
           role="status"
           aria-live="polite"
-          style={{
-            ...mono,
-            fontSize: 10,
-            color: errorMsg ? "var(--v3-accent-text)" : "var(--v3-muted)",
-            letterSpacing: "0.1em",
-            flex: 1,
-          }}
+          className={clsx("v3-form-status", errorMsg && "has-error")}
         >
           {errorMsg ?? t("form.footer")}
         </span>
         <button
           type="submit"
-          disabled={disabled || !turnstileToken}
-          style={{
-            background:
-              disabled || !turnstileToken
-                ? "var(--v3-muted)"
-                : "var(--v3-accent)",
-            color:
-              disabled || !turnstileToken
-                ? "var(--v3-bg)"
-                : "var(--v3-on-accent)",
-            border: "none",
-            padding: "10px 18px",
-            fontSize: 12,
-            fontWeight: 600,
-            fontFamily: "var(--f-mono)",
-            letterSpacing: "0.08em",
-            cursor: disabled || !turnstileToken ? "not-allowed" : "pointer",
-            transition: "background 0.15s ease",
-            whiteSpace: "nowrap" as const,
-          }}
+          disabled={submitDisabled}
+          className="v3-form-submit"
         >
           {formState === "submitting" ? t("form.sending") : t("form.send")}
         </button>

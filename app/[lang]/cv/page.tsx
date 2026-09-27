@@ -103,35 +103,14 @@ type CvJson = {
   }>;
 };
 
-// ─── Style helpers ─────────────────────────────────────────────────────────────
-const mono: React.CSSProperties = { fontFamily: "var(--f-mono)" };
-const big: React.CSSProperties = {
-  fontFamily: "var(--f-sans)",
-  fontWeight: 800,
-  letterSpacing: "-0.045em",
-};
-const rule2: React.CSSProperties = { borderBottom: "2px solid var(--v3-fg)" };
-const MAX_W = 1180;
-
 type T = ReturnType<typeof getTranslations>;
 
 function SecHead({ n, label }: { n: string; label: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-      <span
-        style={{
-          ...mono,
-          fontSize: 11,
-          color: "var(--v3-accent-text)",
-          letterSpacing: "0.14em",
-        }}
-      >
-        §{n}
-      </span>
-      <span style={{ ...big, fontSize: 18, letterSpacing: "-0.015em" }}>
-        {label}
-      </span>
-      <span style={{ flex: 1, height: 2, background: "var(--v3-fg)" }} />
+    <div className="v3-sec-head">
+      <span className="v3-sec-head-num">§{n}</span>
+      <span className="v3-sec-head-label">{label}</span>
+      <span className="v3-sec-head-rule" />
     </div>
   );
 }
@@ -182,65 +161,24 @@ function CvMasthead({
   ] as const;
 
   return (
-    <section
-      className="v3-cv-masthead-section"
-      style={{ padding: "20px 32px 32px", ...rule2 }}
-    >
-      <div
-        className="v3-cv-masthead-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 180px",
-          gap: 32,
-          alignItems: "start",
-        }}
-      >
+    <section className="v3-cv-masthead-section">
+      <div className="v3-cv-masthead-grid">
         {/* Headline */}
         <div>
-          <div
-            style={{
-              ...mono,
-              fontSize: 11,
-              color: "var(--v3-muted)",
-              letterSpacing: "0.14em",
-              marginBottom: 18,
-            }}
-          >
-            {t("cv.header")}
-          </div>
-          <h1
-            className="v3-cv-h1"
-            style={{ ...big, fontSize: 72, lineHeight: 0.9, margin: 0 }}
-          >
+          <div className="v3-cv-header-label">{t("cv.header")}</div>
+          <h1 className="v3-cv-h1">
             {name.split(" ")[0]}
             <br />
-            <span style={{ color: "var(--v3-accent-text)" }}>
+            <span className="v3-accent-text">
               {name.split(" ").slice(1).join(" ")}
             </span>
             .
           </h1>
-          <div
-            style={{
-              fontSize: 16,
-              fontWeight: 500,
-              marginTop: 18,
-              letterSpacing: "-0.005em",
-            }}
-          >
-            {label}
-          </div>
-          <div
-            style={{
-              fontSize: 14,
-              color: "var(--v3-muted)",
-              marginTop: 10,
-              maxWidth: 440,
-              lineHeight: 1.65,
-            }}
-          >
+          <div className="v3-cv-label">{label}</div>
+          <div className="v3-cv-subtitle">
             {t("cv.subtitle1")} {t("cv.subtitle2")}
           </div>
-          <div style={{ display: "flex", gap: 8, marginTop: 22 }}>
+          <div className="v3-cv-ctas">
             <CvBtn
               href={cvDownloadPath}
               primary
@@ -255,14 +193,7 @@ function CvMasthead({
         </div>
 
         {/* Portrait */}
-        <div
-          className="v3-cv-portrait"
-          style={{
-            aspectRatio: "4 / 5",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
+        <div className="v3-cv-portrait">
           <Image
             src="/assets/images/profile-red-transparent.png"
             alt="Vicente Opaso"
@@ -276,45 +207,12 @@ function CvMasthead({
       </div>
 
       {/* Meta row */}
-      <div
-        className="v3-cv-meta-row"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          gap: 0,
-          marginTop: 32,
-          paddingTop: 18,
-          borderTop: "1px solid var(--v3-rule)",
-        }}
-      >
-        {meta.map(([k, v], i) => (
-          <div
-            key={k}
-            style={{
-              paddingLeft: i > 0 ? 14 : 0,
-              borderLeft: i > 0 ? "1px solid var(--v3-rule)" : "none",
-            }}
-          >
+      <div className="v3-cv-meta-row">
+        {meta.map(([k, v]) => (
+          <div key={k} className="v3-cv-meta-cell">
+            <div className="v3-cv-meta-key">{k}</div>
             <div
-              style={{
-                ...mono,
-                fontSize: 10,
-                color: "var(--v3-muted)",
-                letterSpacing: "0.14em",
-                marginBottom: 6,
-              }}
-            >
-              {k}
-            </div>
-            <div
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color:
-                  k === t("cv.metaAvailability")
-                    ? "var(--v3-accent-text)"
-                    : "inherit",
-              }}
+              className={`v3-cv-meta-value${k === t("cv.metaAvailability") ? " is-accent" : ""}`}
             >
               {v}
             </div>
@@ -343,19 +241,7 @@ function CvBtn({
       href={href}
       download={download}
       aria-label={ariaLabel}
-      style={{
-        display: "inline-block",
-        background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "var(--v3-on-accent)" : "var(--v3-fg)",
-        border: primary ? "none" : "1px solid var(--v3-fg)",
-        padding: "12px 20px",
-        fontSize: 12,
-        fontWeight: 600,
-        fontFamily: "var(--f-mono)",
-        letterSpacing: "0.08em",
-        textDecoration: "none",
-        cursor: "pointer",
-      }}
+      className={`v3-btn ${primary ? "v3-btn-primary" : "v3-btn-outline"}`}
     >
       {children}
     </a>
@@ -371,70 +257,17 @@ function CvToc({
   tocEntries: Array<{ n: string; id: string; t: string; s: string }>;
 }) {
   return (
-    <section style={{ padding: "32px 32px", ...rule2 }}>
-      <div
-        style={{
-          ...mono,
-          fontSize: 11,
-          letterSpacing: "0.18em",
-          color: "var(--v3-muted)",
-          marginBottom: 12,
-        }}
-      >
-        {t("cv.contents")}
-      </div>
-      <div style={{ border: "1px solid var(--v3-rule)" }}>
-        {tocEntries.map((entry, i) => (
-          <a
-            key={entry.n}
-            href={`#${entry.id}`}
-            className="v3-cv-toc-row"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "60px 1fr auto",
-              alignItems: "center",
-              padding: "14px 16px",
-              borderBottom:
-                i < tocEntries.length - 1 ? "1px solid var(--v3-rule)" : "none",
-              color: "var(--v3-fg)",
-              textDecoration: "none",
-            }}
-          >
-            <span
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-accent-text)",
-                letterSpacing: "0.1em",
-              }}
-            >
-              §{entry.n}
-            </span>
+    <section className="v3-cv-toc-section">
+      <div className="v3-toc-title">{t("cv.contents")}</div>
+      <div className="v3-toc">
+        {tocEntries.map((entry) => (
+          <a key={entry.n} href={`#${entry.id}`} className="v3-cv-toc-row">
+            <span className="v3-toc-num">§{entry.n}</span>
             <span>
-              <span
-                className="v3-cv-toc-label"
-                style={{
-                  fontSize: 16,
-                  fontWeight: 700,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {entry.t}
-              </span>
-              <span
-                className="v3-cv-toc-sub"
-                style={{
-                  fontSize: 13,
-                  color: "var(--v3-muted)",
-                  marginLeft: 12,
-                }}
-              >
-                — {entry.s}
-              </span>
+              <span className="v3-cv-toc-label">{entry.t}</span>
+              <span className="v3-cv-toc-sub">— {entry.s}</span>
             </span>
-            <span style={{ ...mono, fontSize: 14, color: "var(--v3-muted)" }}>
-              ↓
-            </span>
+            <span className="v3-toc-arrow">↓</span>
           </a>
         ))}
       </div>
@@ -445,42 +278,12 @@ function CvToc({
 // ─── Impact strip ─────────────────────────────────────────────────────────────
 function ImpactStrip({ impact }: { impact: Array<{ k: string; v: string }> }) {
   return (
-    <section style={{ ...rule2 }}>
-      <div
-        className="v3-impact-grid"
-        style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
-      >
+    <section className="v3-impact">
+      <div className="v3-impact-grid">
         {impact.map((x, i) => (
-          <div
-            key={i}
-            style={{
-              padding: "32px 24px",
-              borderRight: i < 3 ? "1px solid var(--v3-rule)" : "none",
-            }}
-          >
-            <div
-              className="v3-impact-stat"
-              style={{
-                ...big,
-                fontSize: 56,
-                color: i === 0 ? "var(--v3-accent-text)" : "var(--v3-fg)",
-                lineHeight: 1,
-              }}
-            >
-              {x.k}
-            </div>
-            <div
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-muted)",
-                marginTop: 10,
-                lineHeight: 1.5,
-                letterSpacing: "0.02em",
-              }}
-            >
-              {x.v}
-            </div>
+          <div key={i} className="v3-impact-cell">
+            <div className="v3-impact-stat">{x.k}</div>
+            <div className="v3-impact-caption">{x.v}</div>
           </div>
         ))}
       </div>
@@ -499,78 +302,25 @@ function SummarySection({
   tldr: readonly string[];
 }) {
   return (
-    <section id="cv-summary" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-summary" className="v3-cv-section">
       <SecHead n="01" label={t("cv.section.summary")} />
-      <div
-        className="v3-cv-summary-grid"
-        style={{
-          marginTop: 28,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "0 48px",
-          alignItems: "start",
-        }}
-      >
+      <div className="v3-cv-summary-grid">
         {/* Left: prose */}
         <div>
           {summary && (
-            <p
-              style={{
-                fontSize: 15,
-                lineHeight: 1.8,
-                color: "var(--v3-fg)",
-                margin: 0,
-              }}
-            >
+            <p className="v3-cv-summary-prose">
               {stripHtmlLikeDelimiters(summary)}
             </p>
           )}
         </div>
         {/* Right: TL;DR */}
-        <div style={{ borderLeft: "2px solid var(--v3-fg)", paddingLeft: 28 }}>
-          <div
-            style={{
-              ...mono,
-              fontSize: 10,
-              color: "var(--v3-muted)",
-              letterSpacing: "0.18em",
-              marginBottom: 12,
-            }}
-          >
-            {t("tldr.header")}
-          </div>
-          <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        <div className="v3-cv-summary-tldr">
+          <div className="v3-cv-summary-tldr-title">{t("tldr.header")}</div>
+          <ol className="v3-list-reset">
             {tldr.map((item, i) => (
-              <li
-                key={i}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "28px 1fr",
-                  alignItems: "baseline",
-                  padding: "7px 0",
-                  gap: 8,
-                  borderBottom: "1px solid var(--v3-rule)",
-                }}
-              >
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    color: "var(--v3-accent-text)",
-                    letterSpacing: "0.08em",
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <span
-                  style={{
-                    fontSize: 13.5,
-                    letterSpacing: "-0.005em",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {item}
-                </span>
+              <li key={i} className="v3-cv-summary-tldr-item">
+                <span className="v3-cv-summary-tldr-num">0{i + 1}</span>
+                <span className="v3-cv-summary-tldr-text">{item}</span>
               </li>
             ))}
           </ol>
@@ -596,56 +346,21 @@ type WorkEntry = {
 
 function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
   return (
-    <section id="cv-experience" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-experience" className="v3-cv-section">
       <SecHead n="02" label={t("cv.section.experience")} />
-      <div style={{ marginTop: 24, border: "1px solid var(--v3-rule)" }}>
+      <div className="v3-cv-exp-table">
         {/* Header row */}
-        <div
-          className="v3-cv-exp-grid-row"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "100px 1fr 130px",
-            padding: "10px 14px",
-            borderBottom: "1px solid var(--v3-rule)",
-            ...mono,
-            fontSize: 10,
-            letterSpacing: "0.14em",
-            color: "var(--v3-muted)",
-          }}
-        >
+        <div className="v3-cv-exp-grid-row v3-cv-exp-header">
           <span>{t("cv.exp.colYears")}</span>
           <span>{t("cv.exp.colCompany")}</span>
           <span className="v3-cv-exp-loc">{t("cv.exp.colLocation")}</span>
         </div>
 
         {work.map((company, ci) => (
-          <div
-            key={ci}
-            style={{
-              borderBottom:
-                ci < work.length - 1 ? "2px solid var(--v3-fg)" : "none",
-            }}
-          >
+          <div key={ci} className="v3-cv-exp-company-group">
             {/* Company row */}
-            <div
-              className="v3-cv-exp-grid-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "100px 1fr 130px",
-                padding: "14px 14px 10px",
-                alignItems: "baseline",
-                gap: 12,
-                borderBottom: "1px solid var(--v3-rule)",
-              }}
-            >
-              <span
-                style={{
-                  ...mono,
-                  fontSize: 10.5,
-                  color: "var(--v3-muted)",
-                  letterSpacing: "0.06em",
-                }}
-              >
+            <div className="v3-cv-exp-grid-row v3-cv-exp-company-row">
+              <span className="v3-cv-exp-company-dates">
                 {company.positions[
                   company.positions.length - 1
                 ]?.startDate?.slice(0, 4) ?? ""}
@@ -654,18 +369,8 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                   ? company.positions[0].endDate.slice(0, 4)
                   : t("exp.now")}
               </span>
-              <span style={{ ...big, fontSize: 22, letterSpacing: "-0.02em" }}>
-                {company.company}
-              </span>
-              <span
-                className="v3-cv-exp-loc"
-                style={{
-                  ...mono,
-                  fontSize: 10.5,
-                  color: "var(--v3-muted)",
-                  letterSpacing: "0.06em",
-                }}
-              >
+              <span className="v3-cv-exp-company-name">{company.company}</span>
+              <span className="v3-cv-exp-loc">
                 {(company.location ?? "").toUpperCase()}
               </span>
             </div>
@@ -678,102 +383,43 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
               return (
                 <div
                   key={ri}
-                  className="v3-cv-exp-grid-row"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "100px 1fr 130px",
-                    padding: "14px 14px",
-                    gap: 12,
-                    borderBottom:
-                      ri < company.positions.length - 1
-                        ? "1px dashed var(--v3-rule)"
-                        : "none",
-                  }}
+                  className={`v3-cv-exp-grid-row v3-cv-exp-position-row${
+                    ri < company.positions.length - 1 ? " has-more" : ""
+                  }`}
                 >
                   <div
-                    style={{
-                      ...mono,
-                      fontSize: 10,
-                      color: isCurrent
-                        ? "var(--v3-accent-text)"
-                        : "var(--v3-muted)",
-                      letterSpacing: "0.04em",
-                      lineHeight: 1.55,
-                    }}
+                    className={`v3-cv-exp-position-dates${isCurrent ? " is-current" : ""}`}
                   >
                     {role.startDate ?? ""}
                     {"\n→\n"}
                     {role.endDate ?? "Present"}
                     {isCurrent && (
-                      <div style={{ marginTop: 4 }}>{t("cv.exp.current")}</div>
+                      <div className="v3-cv-exp-current-label">
+                        {t("cv.exp.current")}
+                      </div>
                     )}
                   </div>
                   <div>
-                    <div
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 700,
-                        letterSpacing: "-0.01em",
-                        marginBottom: 4,
-                      }}
-                    >
+                    <div className="v3-cv-exp-position-title">
                       {role.position}
                     </div>
                     {role.summary && (
-                      <div
-                        style={{
-                          fontSize: 13.5,
-                          color: "var(--v3-muted)",
-                          lineHeight: 1.6,
-                          marginBottom: highlights.length ? 10 : 0,
-                        }}
-                      >
+                      <div className="v3-cv-exp-position-summary">
                         {stripHtmlLikeDelimiters(role.summary)}
                       </div>
                     )}
                     {highlights.length > 0 && (
-                      <ul
-                        style={{
-                          margin: "6px 0 0",
-                          padding: 0,
-                          listStyle: "none",
-                          display: "grid",
-                          gap: 4,
-                        }}
-                      >
+                      <ul className="v3-cv-exp-highlights">
                         {highlights.map((h, hi) => (
-                          <li
-                            key={hi}
-                            style={{
-                              display: "grid",
-                              gridTemplateColumns: "16px 1fr",
-                              gap: 6,
-                              fontSize: 13,
-                              lineHeight: 1.55,
-                            }}
-                          >
-                            <span
-                              style={{
-                                ...mono,
-                                color: "var(--v3-accent-text)",
-                              }}
-                            >
-                              →
-                            </span>
+                          <li key={hi} className="v3-cv-exp-highlight">
+                            <span className="v3-cv-exp-highlight-arrow">→</span>
                             <span>{stripHtmlLikeDelimiters(h)}</span>
                           </li>
                         ))}
                       </ul>
                     )}
                     {role.skills && role.skills.length > 0 && (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap" as const,
-                          gap: 5,
-                          marginTop: 10,
-                        }}
-                      >
+                      <div className="v3-chip-list" style={{ marginTop: 10 }}>
                         {role.skills.map((s) => (
                           <span key={s} className="v3-chip">
                             {s}
@@ -819,61 +465,27 @@ function SkillsSection({
     });
 
   return (
-    <section id="cv-skills" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-skills" className="v3-cv-section">
       <SecHead n="03" label={t("cv.section.skills")} />
-      <div
-        className="v3-cv-skills-grid"
-        style={{
-          marginTop: 24,
-          border: "1px solid var(--v3-rule)",
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-        }}
-      >
+      <div className="v3-cv-skills-grid">
         {sortedSkills.map((g, i) => (
           <div
             key={g.name}
-            style={{
-              padding: "16px 18px",
-              borderRight: i % 2 === 0 ? "1px solid var(--v3-rule)" : "none",
-              borderBottom:
-                i <
-                sortedSkills.length - (sortedSkills.length % 2 === 0 ? 2 : 1)
-                  ? "1px solid var(--v3-rule)"
-                  : "none",
-            }}
+            className={`v3-cv-skills-cell${i % 2 === 0 ? " is-left-col" : ""}${
+              i < sortedSkills.length - (sortedSkills.length % 2 === 0 ? 2 : 1)
+                ? " has-bottom-border"
+                : ""
+            }`}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                marginBottom: 10,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {g.name}
-              </span>
+            <div className="v3-cv-skills-head">
+              <span className="v3-cv-skills-name">{g.name}</span>
               {g.level && (
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 9.5,
-                    color: "var(--v3-accent-text)",
-                    letterSpacing: "0.14em",
-                  }}
-                >
+                <span className="v3-cv-skills-level">
                   {g.level.toUpperCase()}
                 </span>
               )}
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 5 }}>
+            <div className="v3-chip-list">
               {(g.keywords ?? []).map((kw) => (
                 <span key={kw} className="v3-chip">
                   {kw}
@@ -904,108 +516,38 @@ function EducationSection({
   t: T;
 }) {
   return (
-    <section id="cv-education" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-education" className="v3-cv-section">
       <SecHead n="04" label={t("cv.section.educationLanguages")} />
-      <div
-        className="v3-cv-edu-grid"
-        style={{
-          marginTop: 24,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          border: "1px solid var(--v3-rule)",
-        }}
-      >
-        <div
-          style={{
-            padding: "18px 18px",
-            borderRight: "1px solid var(--v3-rule)",
-          }}
-        >
-          <div
-            style={{
-              ...mono,
-              fontSize: 10,
-              color: "var(--v3-muted)",
-              letterSpacing: "0.18em",
-              marginBottom: 10,
-            }}
-          >
-            {t("cv.edu.education")}
-          </div>
+      <div className="v3-cv-edu-grid">
+        <div className="v3-cv-edu-col">
+          <div className="v3-cv-edu-col-title">{t("cv.edu.education")}</div>
           {education.map((ed, i) => (
             <div
               key={i}
-              style={{ marginBottom: i < education.length - 1 ? 16 : 0 }}
+              className={i < education.length - 1 ? "v3-cv-edu-item" : ""}
             >
-              <div
-                style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {ed.institution}
-              </div>
+              <div className="v3-cv-edu-institution">{ed.institution}</div>
               {(ed.studyType || ed.area) && (
-                <div
-                  style={{
-                    fontSize: 13,
-                    color: "var(--v3-muted)",
-                    marginTop: 4,
-                  }}
-                >
+                <div className="v3-cv-edu-program">
                   {[ed.studyType, ed.area].filter(Boolean).join(" in ")}
                 </div>
               )}
               {(ed.startDate || ed.endDate) && (
-                <div
-                  style={{
-                    ...mono,
-                    fontSize: 10.5,
-                    color: "var(--v3-muted)",
-                    marginTop: 8,
-                    letterSpacing: "0.06em",
-                  }}
-                >
+                <div className="v3-cv-edu-dates">
                   {ed.startDate} → {ed.endDate}
                 </div>
               )}
             </div>
           ))}
         </div>
-        <div style={{ padding: "18px 18px" }}>
-          <div
-            style={{
-              ...mono,
-              fontSize: 10,
-              color: "var(--v3-muted)",
-              letterSpacing: "0.18em",
-              marginBottom: 10,
-            }}
-          >
-            {t("cv.edu.languages")}
-          </div>
-          <div style={{ display: "grid", gap: 8 }}>
+        <div className="v3-cv-edu-col">
+          <div className="v3-cv-edu-col-title">{t("cv.edu.languages")}</div>
+          <div className="v3-cv-lang-list">
             {languages.map(({ language, fluency }) => (
-              <div
-                key={language}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  fontSize: 14,
-                }}
-              >
-                <span style={{ fontWeight: 600 }}>{language}</span>
+              <div key={language} className="v3-cv-lang-row">
+                <span className="v3-cv-lang-name">{language}</span>
                 {fluency && (
-                  <span
-                    style={{
-                      ...mono,
-                      fontSize: 10.5,
-                      color: "var(--v3-muted)",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
+                  <span className="v3-cv-lang-fluency">
                     {fluency.toUpperCase()}
                   </span>
                 )}
@@ -1032,9 +574,9 @@ function PublicationsSection({
   t: T;
 }) {
   return (
-    <section id="cv-publications" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-publications" className="v3-cv-section">
       <SecHead n="05" label={t("cv.section.publications")} />
-      <div style={{ marginTop: 24, border: "1px solid var(--v3-rule)" }}>
+      <div className="v3-cv-pub-list">
         {publications.map((pub, i) => (
           <a
             key={i}
@@ -1042,67 +584,17 @@ function PublicationsSection({
             target="_blank"
             rel="noreferrer"
             className="v3-cv-pub-row"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "100px 1fr 80px",
-              padding: "14px 14px",
-              gap: 16,
-              alignItems: "baseline",
-              textDecoration: "none",
-              color: "var(--v3-fg)",
-              borderBottom:
-                i < publications.length - 1
-                  ? "1px solid var(--v3-rule)"
-                  : "none",
-            }}
           >
-            <span
-              className="v3-cv-pub-date"
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-muted)",
-                letterSpacing: "0.06em",
-              }}
-            >
-              {pub.releaseDate ?? ""}
-            </span>
+            <span className="v3-cv-pub-date">{pub.releaseDate ?? ""}</span>
             <span>
-              <span
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  letterSpacing: "-0.005em",
-                }}
-              >
-                {pub.name}
-              </span>
+              <span className="v3-cv-pub-name">{pub.name}</span>
               {pub.publisher && (
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 10,
-                    color: "var(--v3-muted)",
-                    marginLeft: 10,
-                    letterSpacing: "0.12em",
-                  }}
-                >
+                <span className="v3-cv-pub-publisher">
                   · {pub.publisher.toUpperCase()}
                 </span>
               )}
             </span>
-            <span
-              className="v3-cv-pub-arrow"
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-accent-text)",
-                textAlign: "right" as const,
-                letterSpacing: "0.1em",
-              }}
-            >
-              {t("cv.pub.read")}
-            </span>
+            <span className="v3-cv-pub-arrow">{t("cv.pub.read")}</span>
           </a>
         ))}
       </div>
@@ -1119,58 +611,21 @@ function GovernanceSection({
   t: T;
 }) {
   return (
-    <section id="cv-governance" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-governance" className="v3-cv-section">
       <SecHead n="06" label={t("cv.section.governance")} />
-      <div style={{ marginTop: 24, border: "1px solid var(--v3-rule)" }}>
+      <div className="v3-cv-gov-list">
         {governance.map((g, i) => (
-          <div
-            key={i}
-            style={{
-              padding: "16px 18px",
-              borderBottom:
-                i < governance.length - 1 ? "1px solid var(--v3-rule)" : "none",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                flexWrap: "wrap" as const,
-                gap: 8,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {g.group}
-              </span>
+          <div key={i} className="v3-cv-gov-item">
+            <div className="v3-cv-gov-head">
+              <span className="v3-cv-gov-name">{g.group}</span>
               {g.organization && (
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 10.5,
-                    color: "var(--v3-muted)",
-                    letterSpacing: "0.08em",
-                  }}
-                >
+                <span className="v3-cv-gov-org">
                   {g.organization.toUpperCase()}
                 </span>
               )}
             </div>
             {g.summary && (
-              <div
-                style={{
-                  fontSize: 13.5,
-                  color: "var(--v3-muted)",
-                  lineHeight: 1.6,
-                  marginTop: 8,
-                }}
-              >
+              <div className="v3-cv-gov-summary">
                 {stripHtmlLikeDelimiters(g.summary)}
               </div>
             )}
@@ -1199,7 +654,7 @@ function ReferencesSection({
     };
   });
   return (
-    <section id="cv-references" style={{ padding: "48px 32px", ...rule2 }}>
+    <section id="cv-references" className="v3-cv-section">
       <SecHead n="07" label={t("cv.section.references")} />
       <CvRefsGrid refs={refs} />
     </section>
@@ -1209,85 +664,24 @@ function ReferencesSection({
 // ─── End CTA ─────────────────────────────────────────────────────────────────
 function EndCta({ locale, t }: { locale: string; t: T }) {
   return (
-    <section
-      id="contact"
-      style={{
-        background: "var(--v3-fg)",
-        color: "var(--v3-bg)",
-        padding: "40px 32px",
-        borderBottom: "2px solid var(--v3-fg)",
-      }}
-    >
-      <div
-        className="v3-cv-endcta-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          alignItems: "end",
-          gap: 24,
-        }}
-      >
+    <section id="contact" className="v3-cv-endcta">
+      <div className="v3-cv-endcta-grid">
         <div>
-          <div
-            style={{
-              ...mono,
-              fontSize: 11,
-              opacity: 0.75,
-              letterSpacing: "0.18em",
-              marginBottom: 12,
-            }}
-          >
-            {t("cv.endcta.label")}
-          </div>
-          <div
-            className="v3-cv-endcta-h"
-            style={{ ...big, fontSize: 56, lineHeight: 0.95 }}
-          >
+          <div className="v3-cv-endcta-label">{t("cv.endcta.label")}</div>
+          <div className="v3-cv-endcta-h">
             {t("cv.endcta.headline")}{" "}
-            <span style={{ color: "var(--v3-accent-inverse)" }}>
-              {t("cv.endcta.accent")}
-            </span>
-            .
+            <span className="v3-accent-inverse">{t("cv.endcta.accent")}</span>.
           </div>
-          <div
-            style={{ fontSize: 13, opacity: 0.7, marginTop: 12, maxWidth: 520 }}
-          >
-            {t("cv.endcta.description")}
-          </div>
+          <div className="v3-cv-endcta-desc">{t("cv.endcta.description")}</div>
         </div>
-        <div
-          style={{ display: "flex", flexDirection: "column" as const, gap: 8 }}
-        >
-          <a
-            href={`/${locale}#contact`}
-            style={{
-              background: "var(--v3-bg)",
-              color: "var(--v3-fg)",
-              padding: "12px 20px",
-              fontSize: 12,
-              fontWeight: 600,
-              fontFamily: "var(--f-mono)",
-              letterSpacing: "0.08em",
-              textDecoration: "none",
-              textAlign: "center" as const,
-            }}
-          >
+        <div className="v3-cv-endcta-ctas">
+          <a href={`/${locale}#contact`} className="v3-btn v3-btn-inverse">
             {t("cv.endcta.getInTouch")}
           </a>
           <a
             href="mailto:vicente@opa.so"
             aria-label={t("cv.endcta.email.ariaLabel")}
-            style={{
-              background: "var(--v3-accent)",
-              color: "var(--v3-on-accent)",
-              padding: "12px 20px",
-              fontSize: 12,
-              fontWeight: 600,
-              fontFamily: "var(--f-mono)",
-              letterSpacing: "0.08em",
-              textDecoration: "none",
-              textAlign: "center" as const,
-            }}
+            className="v3-btn v3-btn-primary"
           >
             {t("cv.endcta.email")}
           </a>
@@ -1295,18 +689,7 @@ function EndCta({ locale, t }: { locale: string; t: T }) {
             href="https://linkedin.com/in/vicenteopaso"
             target="_blank"
             rel="noreferrer"
-            style={{
-              background: "transparent",
-              color: "var(--v3-bg)",
-              border: "1px solid var(--v3-bg)",
-              padding: "12px 20px",
-              fontSize: 12,
-              fontWeight: 600,
-              fontFamily: "var(--f-mono)",
-              letterSpacing: "0.08em",
-              textDecoration: "none",
-              textAlign: "center" as const,
-            }}
+            className="v3-btn v3-btn-inverse-outline"
           >
             {t("cv.endcta.linkedin")}
           </a>
@@ -1347,10 +730,7 @@ export default async function CVPage({ params }: PageProps) {
     cv.basics?.label ?? data.tagline ?? "Frontend Architect & Technical Leader";
 
   return (
-    <div
-      className="v3-page"
-      style={{ maxWidth: MAX_W, margin: "0 auto", width: "100%" }}
-    >
+    <div className="v3-page v3-cv-page">
       <CvMasthead name={name} label={label} lang={locale} t={t} />
       <CvToc t={t} tocEntries={siteData.cvToc} />
       <ImpactStrip impact={siteData.impact} />

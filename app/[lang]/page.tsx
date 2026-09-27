@@ -51,38 +51,15 @@ export async function generateMetadata({
   };
 }
 
-// ─── Shared style helpers ─────────────────────────────────────────────────────
-
-const mono: React.CSSProperties = { fontFamily: "var(--f-mono)" };
-const big: React.CSSProperties = {
-  fontFamily: "var(--f-sans)",
-  fontWeight: 800,
-  letterSpacing: "-0.045em",
-};
-const rule2: React.CSSProperties = { borderBottom: "2px solid var(--v3-fg)" };
-const rule1: React.CSSProperties = { borderBottom: "1px solid var(--v3-rule)" };
-const MAX_W = 1180;
-
 type T = ReturnType<typeof getTranslations>;
 
 // ─── Section heading: §NN ── LABEL ─────── ───────────────────────────────────
 function SecHead({ n, label }: { n: string; label: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-      <span
-        style={{
-          ...mono,
-          fontSize: 11,
-          color: "var(--v3-accent-text)",
-          letterSpacing: "0.14em",
-        }}
-      >
-        §{n}
-      </span>
-      <span style={{ ...big, fontSize: 18, letterSpacing: "-0.015em" }}>
-        {label}
-      </span>
-      <span style={{ flex: 1, height: 2, background: "var(--v3-fg)" }} />
+    <div className="v3-sec-head">
+      <span className="v3-sec-head-num">§{n}</span>
+      <span className="v3-sec-head-label">{label}</span>
+      <span className="v3-sec-head-rule" />
     </div>
   );
 }
@@ -98,69 +75,22 @@ function HeroA4({
   tocEntries: Array<{ n: string; id: string; t: string; s: string }>;
 }) {
   return (
-    <section
-      className="v3-section v3-hero-section"
-      style={{
-        padding: "64px 32px 32px",
-        ...rule2,
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
-      <div
-        className="v3-hero-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 64,
-          alignItems: "start",
-        }}
-      >
+    <section className="v3-section v3-hero-section">
+      <div className="v3-hero-grid">
         {/* Left: headline + sub + CTAs */}
         <div>
-          <div
-            className="v3-hero-label"
-            style={{
-              ...mono,
-              fontSize: 11,
-              color: "var(--v3-muted)",
-              letterSpacing: "0.14em",
-              marginBottom: 20,
-            }}
-          >
-            {t("hero.label")}
-          </div>
-          <h1
-            className="v3-hero-h1"
-            style={{ ...big, fontSize: 80, lineHeight: 0.92, margin: 0 }}
-          >
+          <div className="v3-hero-label">{t("hero.label")}</div>
+          <h1 className="v3-hero-h1">
             {t("hero.headline1")}
             <br />
             {t("hero.headline2")}
             <br />
-            <span style={{ color: "var(--v3-accent-text)" }}>
-              {t("hero.headline3")}
-            </span>
+            <span className="v3-accent-text">{t("hero.headline3")}</span>
             <br />
             {t("hero.headline4")}
           </h1>
-          <p
-            className="v3-hero-sub"
-            style={{
-              fontSize: 15,
-              color: "var(--v3-muted)",
-              marginTop: 24,
-              maxWidth: 440,
-              lineHeight: 1.65,
-            }}
-          >
-            {t("hero.sub")}
-          </p>
-          <div
-            className="v3-hero-ctas"
-            style={{ display: "flex", gap: 10, marginTop: 28 }}
-          >
+          <p className="v3-hero-sub">{t("hero.sub")}</p>
+          <div className="v3-hero-ctas">
             <HeroBtn href={`/${locale}/cv`} primary>
               {t("hero.readCv")}
             </HeroBtn>
@@ -170,73 +100,18 @@ function HeroA4({
 
         {/* Right: TOC */}
         <div>
-          <div
-            style={{
-              ...mono,
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              color: "var(--v3-muted)",
-              marginBottom: 12,
-            }}
-          >
-            {t("hero.contents")}
-          </div>
-          <div style={{ border: "1px solid var(--v3-rule)" }}>
-            {tocEntries.map((entry, i) => (
-              <a
-                key={entry.n}
-                href={`#${entry.id}`}
-                className="v3-cv-toc-row"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "60px 1fr auto",
-                  alignItems: "center",
-                  padding: "14px 16px",
-                  borderBottom:
-                    i < tocEntries.length - 1
-                      ? "1px solid var(--v3-rule)"
-                      : "none",
-                  color: "var(--v3-fg)",
-                  textDecoration: "none",
-                }}
-              >
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    color: "var(--v3-accent-text)",
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  §{entry.n}
-                </span>
+          <div className="v3-toc-title">{t("hero.contents")}</div>
+          <div className="v3-toc">
+            {tocEntries.map((entry) => (
+              <a key={entry.n} href={`#${entry.id}`} className="v3-cv-toc-row">
+                <span className="v3-toc-num">§{entry.n}</span>
                 <span>
-                  <span
-                    className="v3-cv-toc-label"
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 700,
-                      letterSpacing: "-0.01em",
-                    }}
-                  >
-                    {entry.t}
-                  </span>
-                  <span
-                    className="v3-cv-toc-sub"
-                    style={{
-                      fontSize: 13,
-                      color: "var(--v3-fg)",
-                      marginLeft: 12,
-                    }}
-                  >
+                  <span className="v3-cv-toc-label">{entry.t}</span>
+                  <span className="v3-cv-toc-sub v3-toc-sub-strong">
                     — {entry.s}
                   </span>
                 </span>
-                <span
-                  style={{ ...mono, fontSize: 14, color: "var(--v3-muted)" }}
-                >
-                  ↓
-                </span>
+                <span className="v3-toc-arrow">↓</span>
               </a>
             ))}
           </div>
@@ -258,19 +133,7 @@ function HeroBtn({
   return (
     <Link
       href={href as Route}
-      style={{
-        display: "inline-block",
-        background: primary ? "var(--v3-accent)" : "transparent",
-        color: primary ? "var(--v3-on-accent)" : "var(--v3-fg)",
-        border: primary ? "none" : "1px solid var(--v3-fg)",
-        padding: "12px 20px",
-        fontSize: 12,
-        fontWeight: 600,
-        fontFamily: "var(--f-mono)",
-        letterSpacing: "0.08em",
-        textDecoration: "none",
-        cursor: "pointer",
-      }}
+      className={`v3-btn ${primary ? "v3-btn-primary" : "v3-btn-outline"}`}
     >
       {children}
     </Link>
@@ -280,44 +143,12 @@ function HeroBtn({
 // ─── Impact 4-stat strip ──────────────────────────────────────────────────────
 function ImpactStrip({ impact }: { impact: Array<{ k: string; v: string }> }) {
   return (
-    <section
-      style={{ ...rule2, maxWidth: MAX_W, margin: "0 auto", width: "100%" }}
-    >
-      <div
-        className="v3-impact-grid"
-        style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
-      >
+    <section className="v3-impact v3-container">
+      <div className="v3-impact-grid">
         {impact.map((x, i) => (
-          <div
-            key={i}
-            style={{
-              padding: "32px 24px",
-              borderRight: i < 3 ? "1px solid var(--v3-rule)" : "none",
-            }}
-          >
-            <div
-              className="v3-impact-stat"
-              style={{
-                ...big,
-                fontSize: 56,
-                color: i === 0 ? "var(--v3-accent-text)" : "var(--v3-fg)",
-                lineHeight: 1,
-              }}
-            >
-              {x.k}
-            </div>
-            <div
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-muted)",
-                marginTop: 10,
-                lineHeight: 1.5,
-                letterSpacing: "0.02em",
-              }}
-            >
-              {x.v}
-            </div>
+          <div key={i} className="v3-impact-cell">
+            <div className="v3-impact-stat">{x.k}</div>
+            <div className="v3-impact-caption">{x.v}</div>
           </div>
         ))}
       </div>
@@ -336,46 +167,15 @@ function TlDrSection({
   tldrLabels: readonly string[];
 }) {
   return (
-    <section
-      id="tl-dr"
-      style={{ ...rule2, maxWidth: MAX_W, margin: "0 auto", width: "100%" }}
-    >
-      <div
-        className="v3-tldr-grid"
-        style={{ display: "grid", gridTemplateColumns: "260px 1fr", ...rule1 }}
-      >
+    <section id="tl-dr" className="v3-tldr v3-container">
+      <div className="v3-tldr-grid">
         {/* Inverted sidebar */}
-        <div
-          className="v3-tldr-sidebar"
-          style={{
-            background: "var(--v3-fg)",
-            color: "var(--v3-bg)",
-            padding: "32px 24px",
-          }}
-        >
-          <div
-            style={{
-              ...mono,
-              fontSize: 11,
-              opacity: 0.6,
-              letterSpacing: "0.18em",
-            }}
-          >
-            §01
+        <div className="v3-tldr-sidebar">
+          <div className="v3-tldr-sidebar-num">§01</div>
+          <div className="v3-tldr-sidebar-h">
+            TL;<span className="v3-accent-inverse">DR</span>
           </div>
-          <div style={{ ...big, fontSize: 48, lineHeight: 0.95, marginTop: 8 }}>
-            TL;<span style={{ color: "var(--v3-accent-inverse)" }}>DR</span>
-          </div>
-          <div
-            style={{
-              ...mono,
-              fontSize: 11,
-              opacity: 0.75,
-              letterSpacing: "0.06em",
-              marginTop: 14,
-              lineHeight: 1.7,
-            }}
-          >
+          <div className="v3-tldr-sidebar-sub">
             {t("tldr.subtitle1")}
             <br />
             {t("tldr.subtitle2")}
@@ -385,53 +185,12 @@ function TlDrSection({
         </div>
 
         {/* Numbered list */}
-        <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        <ol className="v3-list-reset">
           {tldr.map((item, i) => (
-            <li
-              key={i}
-              className="v3-tldr-item"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "56px 1fr 80px",
-                alignItems: "baseline",
-                padding: "18px 24px",
-                borderBottom:
-                  i < tldr.length - 1 ? "1px solid var(--v3-rule)" : "none",
-                gap: 16,
-              }}
-            >
-              <span
-                style={{
-                  ...mono,
-                  fontSize: 11,
-                  color: "var(--v3-accent-text)",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                0{i + 1} —
-              </span>
-              <span
-                style={{
-                  fontSize: 16,
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1.5,
-                  fontWeight: 400,
-                }}
-              >
-                {item}
-              </span>
-              <span
-                className="v3-tldr-label"
-                style={{
-                  ...mono,
-                  fontSize: 10,
-                  color: "var(--v3-muted)",
-                  letterSpacing: "0.14em",
-                  textAlign: "right" as const,
-                }}
-              >
-                {tldrLabels[i]}
-              </span>
+            <li key={i} className="v3-tldr-item">
+              <span className="v3-tldr-item-num">0{i + 1} —</span>
+              <span className="v3-tldr-item-text">{item}</span>
+              <span className="v3-tldr-label">{tldrLabels[i]}</span>
             </li>
           ))}
         </ol>
@@ -449,69 +208,14 @@ function FocusStrip({
   focus: Array<{ h: string; b: string }>;
 }) {
   return (
-    <section
-      id="what-i-do"
-      className="v3-section"
-      style={{
-        padding: "48px 32px",
-        ...rule2,
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
+    <section id="what-i-do" className="v3-section">
       <SecHead n="02" label={t("section.whatIDo")} />
-      <div
-        className="v3-focus-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 0,
-          marginTop: 24,
-          border: "1px solid var(--v3-rule)",
-        }}
-      >
+      <div className="v3-focus-grid">
         {focus.map((f, i) => (
-          <div
-            key={i}
-            className="v3-focus-item"
-            style={{
-              padding: "20px 18px",
-              borderRight: i % 3 !== 2 ? "1px solid var(--v3-rule)" : "none",
-              borderBottom: i < 3 ? "1px solid var(--v3-rule)" : "none",
-            }}
-          >
-            <div
-              style={{
-                ...mono,
-                fontSize: 10,
-                color: "var(--v3-accent-text)",
-                letterSpacing: "0.14em",
-                marginBottom: 8,
-              }}
-            >
-              0{i + 1}
-            </div>
-            <div
-              style={{
-                fontSize: 15,
-                fontWeight: 700,
-                letterSpacing: "-0.015em",
-                marginBottom: 8,
-                lineHeight: 1.2,
-              }}
-            >
-              {f.h}
-            </div>
-            <div
-              style={{
-                fontSize: 12.5,
-                color: "var(--v3-muted)",
-                lineHeight: 1.55,
-              }}
-            >
-              {f.b}
-            </div>
+          <div key={i} className="v3-focus-item">
+            <div className="v3-focus-item-num">0{i + 1}</div>
+            <div className="v3-focus-item-h">{f.h}</div>
+            <div className="v3-focus-item-b">{f.b}</div>
           </div>
         ))}
       </div>
@@ -545,38 +249,14 @@ function ExperienceTable({
   t: T;
 }) {
   return (
-    <section
-      id="experience"
-      className="v3-section"
-      style={{
-        padding: "48px 32px",
-        ...rule2,
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
+    <section id="experience" className="v3-section">
       <SecHead n="03" label={t("section.whereWorked")} />
-      <div style={{ marginTop: 24, border: "1px solid var(--v3-rule)" }}>
-        <div
-          className="v3-exp-header"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "130px 1fr 200px 80px",
-            padding: "10px 16px",
-            borderBottom: "1px solid var(--v3-rule)",
-            ...mono,
-            fontSize: 10,
-            letterSpacing: "0.14em",
-            color: "var(--v3-muted)",
-          }}
-        >
+      <div className="v3-exp-table">
+        <div className="v3-exp-header">
           <span>{t("exp.colDates")}</span>
           <span>{t("exp.colRole")}</span>
           <span className="v3-exp-loc">{t("exp.colLocation")}</span>
-          <span className="v3-exp-read" style={{ textAlign: "right" as const }}>
-            →
-          </span>
+          <span className="v3-exp-read">→</span>
         </div>
         {work.map((company, ci) =>
           company.positions.map((role, ri) => {
@@ -584,57 +264,23 @@ function ExperienceTable({
             const nowLabel = t("exp.now");
             const dateStr = `${fmtDate(role.startDate, nowLabel)} – ${isCurrent ? nowLabel : fmtDate(role.endDate, nowLabel)}`;
             return (
-              <div
-                key={`${ci}-${ri}`}
-                className="v3-exp-row"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "130px 1fr 200px 80px",
-                  padding: "14px 16px",
-                  borderBottom:
-                    ci < work.length - 1 || ri < company.positions.length - 1
-                      ? "1px solid var(--v3-rule)"
-                      : "none",
-                  alignItems: "center",
-                }}
-              >
+              <div key={`${ci}-${ri}`} className="v3-exp-row">
                 <span
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    color: isCurrent
-                      ? "var(--v3-accent-text)"
-                      : "var(--v3-muted)",
-                    whiteSpace: "nowrap",
-                    paddingRight: 16,
-                  }}
+                  className={`v3-exp-dates${isCurrent ? " is-current" : ""}`}
                 >
                   {dateStr}
                 </span>
-                <span style={{ fontSize: 14 }}>
-                  <span style={{ fontWeight: 600 }}>{role.position}</span>
-                  <span style={{ color: "var(--v3-muted)" }}>
+                <span className="v3-exp-role">
+                  <span className="v3-exp-role-title">{role.position}</span>
+                  <span className="v3-exp-role-company">
                     {" "}
                     · {company.company}
                   </span>
                 </span>
-                <span
-                  className="v3-exp-loc"
-                  style={{ ...mono, fontSize: 11, color: "var(--v3-muted)" }}
-                >
-                  {company.location ?? ""}
-                </span>
+                <span className="v3-exp-loc">{company.location ?? ""}</span>
                 <Link
                   href={`/${locale}/cv#cv-experience` as Route}
                   className="v3-exp-read"
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    color: "var(--v3-fg)",
-                    textDecoration: "none",
-                    textAlign: "right" as const,
-                    letterSpacing: "0.1em",
-                  }}
                 >
                   {t("exp.read")}
                 </Link>
@@ -661,186 +307,53 @@ type WhatIBuildData = {
   projects: WhatIBuildProject[];
 };
 
+const buildMarkdownComponents = {
+  p: ({ children }: { children?: React.ReactNode }) => <p>{children}</p>,
+  ul: ({ children }: { children?: React.ReactNode }) => <ul>{children}</ul>,
+  li: ({ children }: { children?: React.ReactNode }) => (
+    <li className="v3-build-bullet">{children}</li>
+  ),
+  strong: ({ children }: { children?: React.ReactNode }) => (
+    <strong>{children}</strong>
+  ),
+  code: ({ children }: { children?: React.ReactNode }) => (
+    <code>{children}</code>
+  ),
+};
+
 function WhatIBuildSection({ t, data }: { t: T; data: WhatIBuildData }) {
   return (
-    <section
-      id="what-i-build"
-      className="v3-section"
-      style={{
-        padding: "48px 32px",
-        ...rule2,
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
+    <section id="what-i-build" className="v3-section">
       <SecHead n="04" label={t("section.whatIBuild")} />
-      <p
-        style={{
-          fontSize: 14,
-          color: "var(--v3-muted)",
-          maxWidth: 760,
-          lineHeight: 1.7,
-          margin: "20px 0 24px",
-        }}
-      >
-        {data.intro}
-      </p>
-      <div
-        className="v3-build-list"
-        style={{ border: "1px solid var(--v3-rule)" }}
-      >
-        {data.projects.map((project, i) => (
-          <div
-            key={project.title}
-            className="v3-build-row"
-            style={{
-              borderBottom:
-                i < data.projects.length - 1
-                  ? "1px solid var(--v3-rule)"
-                  : "none",
-            }}
-          >
+      <p className="v3-build-intro">{data.intro}</p>
+      <div className="v3-build-list">
+        {data.projects.map((project) => (
+          <div key={project.title} className="v3-build-row">
             {/* Left: title + subtitle + tags */}
-            <div
-              className="v3-build-row-left"
-              style={{
-                padding: "24px 22px",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  letterSpacing: "-0.015em",
-                  marginBottom: 4,
-                }}
-              >
-                {project.title}
-              </div>
+            <div className="v3-build-row-left">
+              <div className="v3-build-title">{project.title}</div>
               {project.subtitle && (
-                <div
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    color: "var(--v3-muted)",
-                    marginBottom: 10,
-                  }}
-                >
-                  {project.subtitle}
-                </div>
+                <div className="v3-build-subtitle">{project.subtitle}</div>
               )}
-              <div
-                style={{
-                  ...mono,
-                  fontSize: 10,
-                  color: "var(--v3-accent-text)",
-                  letterSpacing: "0.12em",
-                  lineHeight: 1.7,
-                }}
-              >
-                {project.tags}
-              </div>
+              <div className="v3-build-tags">{project.tags}</div>
             </div>
 
             {/* Right: body + links */}
-            <div style={{ padding: "24px 22px" }}>
-              <div
-                style={{
-                  marginBottom: project.links.length > 0 ? 14 : 0,
-                }}
-              >
-                <ReactMarkdown
-                  components={{
-                    p: ({ children }) => (
-                      <p
-                        style={{
-                          fontSize: 13,
-                          color: "var(--v3-muted)",
-                          lineHeight: 1.65,
-                          margin: "0 0 10px",
-                        }}
-                      >
-                        {children}
-                      </p>
-                    ),
-                    ul: ({ children }) => (
-                      <ul
-                        style={{
-                          listStyle: "disc",
-                          paddingLeft: 18,
-                          margin: 0,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 10,
-                        }}
-                      >
-                        {children}
-                      </ul>
-                    ),
-                    li: ({ children }) => (
-                      <li
-                        className="v3-build-bullet"
-                        style={{
-                          fontSize: 13,
-                          color: "var(--v3-muted)",
-                          lineHeight: 1.65,
-                        }}
-                      >
-                        {children}
-                      </li>
-                    ),
-                    strong: ({ children }) => (
-                      <strong
-                        style={{
-                          fontWeight: 700,
-                          color: "var(--v3-fg)",
-                        }}
-                      >
-                        {children}
-                      </strong>
-                    ),
-                    code: ({ children }) => (
-                      <code
-                        style={{
-                          fontFamily: "var(--f-mono)",
-                          fontSize: 11,
-                          color: "var(--v3-accent-text)",
-                          backgroundColor: "var(--v3-bg)",
-                        }}
-                      >
-                        {children}
-                      </code>
-                    ),
-                  }}
-                >
+            <div className="v3-build-row-right">
+              <div className="v3-build-body">
+                <ReactMarkdown components={buildMarkdownComponents}>
                   {project.body}
                 </ReactMarkdown>
               </div>
               {project.links.length > 0 && (
-                <div
-                  style={{
-                    ...mono,
-                    fontSize: 11,
-                    display: "flex",
-                    gap: 14,
-                    flexWrap: "wrap" as const,
-                    borderTop: "1px solid var(--v3-rule)",
-                    paddingTop: 10,
-                  }}
-                >
+                <div className="v3-build-links">
                   {project.links.map((link) => {
                     const isInternal = link.href.startsWith("/");
-                    const linkStyle = {
-                      color: "var(--v3-fg)",
-                      textDecoration: "none",
-                      letterSpacing: "0.06em",
-                    };
                     return isInternal ? (
                       <Link
                         key={link.href}
                         href={link.href as Route}
-                        style={linkStyle}
+                        className="v3-build-link"
                       >
                         {link.label} <span aria-hidden="true">↗</span>
                       </Link>
@@ -850,7 +363,7 @@ function WhatIBuildSection({ t, data }: { t: T; data: WhatIBuildData }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={linkStyle}
+                        className="v3-build-link"
                       >
                         {link.label} <span aria-hidden="true">↗</span>
                       </a>
@@ -871,78 +384,20 @@ type SkillGroup = { name: string; level?: string; keywords?: string[] };
 
 function StackGrid({ skills, t }: { skills: SkillGroup[]; t: T }) {
   return (
-    <section
-      id="tech-tools"
-      className="v3-section"
-      style={{
-        padding: "48px 32px",
-        ...rule2,
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
+    <section id="tech-tools" className="v3-section">
       <SecHead n="05" label={t("section.techTools")} />
-      <div
-        className="v3-stack-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 0,
-          marginTop: 24,
-          border: "1px solid var(--v3-rule)",
-        }}
-      >
-        {skills.map((g, i) => (
-          <div
-            key={g.name}
-            style={{
-              padding: "20px 18px",
-              borderRight: i % 3 !== 2 ? "1px solid var(--v3-rule)" : "none",
-              borderBottom:
-                i < skills.length - (skills.length % 3 || 3)
-                  ? "1px solid var(--v3-rule)"
-                  : "none",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-                marginBottom: 10,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {g.name}
-              </span>
+      <div className="v3-stack-grid">
+        {skills.map((g) => (
+          <div key={g.name} className="v3-stack-cell">
+            <div className="v3-stack-cell-head">
+              <span className="v3-stack-cell-name">{g.name}</span>
               {g.level && (
-                <span
-                  style={{
-                    ...mono,
-                    fontSize: 9,
-                    color: "var(--v3-accent-text)",
-                    letterSpacing: "0.14em",
-                  }}
-                >
+                <span className="v3-stack-cell-level">
                   {g.level.toUpperCase()}
                 </span>
               )}
             </div>
-            <div
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: "var(--v3-muted)",
-                lineHeight: 1.75,
-              }}
-            >
+            <div className="v3-stack-cell-keywords">
               {(g.keywords ?? []).join(" · ")}
             </div>
           </div>
@@ -955,50 +410,21 @@ function StackGrid({ skills, t }: { skills: SkillGroup[]; t: T }) {
 // ─── §06 Contact ──────────────────────────────────────────────────────────────
 function ContactBlock({ t }: { t: T }) {
   return (
-    <section
-      id="contact"
-      className="v3-section"
-      style={{
-        padding: "56px 32px",
-        maxWidth: MAX_W,
-        margin: "0 auto",
-        width: "100%",
-      }}
-    >
-      <div
-        className="v3-contact-grid"
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}
-      >
+    <section id="contact" className="v3-contact-section v3-container">
+      <div className="v3-contact-grid">
         {/* Left: info */}
         <div>
           <SecHead n="06" label={t("section.getInTouch")} />
-          <h2
-            style={{ ...big, fontSize: 64, lineHeight: 0.95, margin: "16px 0" }}
-          >
+          <h2 className="v3-contact-h">
             {t("contact.headline")}
             <br />{" "}
-            <span style={{ color: "var(--v3-accent-text)" }}>
+            <span className="v3-accent-text">
               {t("contact.headlineAccent")}
             </span>
             .
           </h2>
-          <p
-            style={{
-              fontSize: 14,
-              color: "var(--v3-muted)",
-              maxWidth: 380,
-              lineHeight: 1.7,
-              margin: 0,
-            }}
-          >
-            {t("contact.description")}
-          </p>
-          <div
-            style={{
-              marginTop: 28,
-              borderTop: "1px solid var(--v3-rule)",
-            }}
-          >
+          <p className="v3-contact-desc">{t("contact.description")}</p>
+          <div className="v3-contact-links">
             {(
               [
                 {
@@ -1025,25 +451,9 @@ function ContactBlock({ t }: { t: T }) {
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 className="v3-contact-link"
-                style={{
-                  ...mono,
-                  fontSize: 11,
-                  letterSpacing: "0.08em",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "13px 0",
-                  borderBottom: "1px solid var(--v3-rule)",
-                  color: "var(--v3-fg)",
-                  textDecoration: "none",
-                  minHeight: 44,
-                }}
               >
                 <span>{label}</span>
-                <span
-                  aria-hidden="true"
-                  style={{ color: "var(--v3-accent-text)", fontSize: 14 }}
-                >
+                <span aria-hidden="true" className="v3-contact-link-arrow">
                   ↗
                 </span>
               </a>
