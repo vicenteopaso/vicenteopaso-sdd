@@ -39,49 +39,28 @@ describe("CvRefsGrid", () => {
     const cards = getCards();
     expect(cards).toHaveLength(4);
 
-    // jsdom's computed-style resolution doesn't reliably preserve var() inside
-    // shorthand-adjacent properties like border-right, so check the raw style
-    // attribute string directly rather than jest-dom's toHaveStyle here.
-    expect(cards[0].getAttribute("style")).toContain(
-      "border-right: 1px solid var(--v3-rule)",
-    );
-    expect(cards[0].getAttribute("style")).toContain(
-      "border-bottom: 1px solid var(--v3-rule)",
-    );
-    expect(cards[0]).toHaveStyle({ opacity: "1" });
+    // Layout modifier classes drive the grid's right/bottom borders in CSS
+    // (styles/v3/cv-ref-card.css); assert the class, not computed style —
+    // jsdom doesn't apply external stylesheets.
+    // Card 0: left col (has right border), top row (has bottom border)
+    expect(cards[0]).toHaveClass("is-right-col");
+    expect(cards[0]).not.toHaveClass("is-last-row");
+    expect(cards[0]).not.toHaveClass("is-dimmed");
     // Card 1: right col (no right border), top row (has bottom border)
-    expect(cards[1].getAttribute("style")).not.toContain(
-      "border-right: 1px solid",
-    );
-    expect(cards[1].getAttribute("style")).toContain(
-      "border-bottom: 1px solid var(--v3-rule)",
-    );
+    expect(cards[1]).not.toHaveClass("is-right-col");
+    expect(cards[1]).not.toHaveClass("is-last-row");
     // Card 2: left col (has right border), last row (no bottom border)
-    expect(cards[2].getAttribute("style")).toContain(
-      "border-right: 1px solid var(--v3-rule)",
-    );
-    expect(cards[2].getAttribute("style")).not.toContain(
-      "border-bottom: 1px solid",
-    );
+    expect(cards[2]).toHaveClass("is-right-col");
+    expect(cards[2]).toHaveClass("is-last-row");
     // Card 3: right col + last row (no right or bottom border)
-    expect(cards[3].getAttribute("style")).not.toContain(
-      "border-right: 1px solid",
-    );
-    expect(cards[3].getAttribute("style")).not.toContain(
-      "border-bottom: 1px solid",
-    );
+    expect(cards[3]).not.toHaveClass("is-right-col");
+    expect(cards[3]).toHaveClass("is-last-row");
 
     const firstOverlay = getOverlay(cards[0]);
-    expect(firstOverlay).toHaveStyle({ top: "0px" });
-    expect(firstOverlay).toHaveStyle({
-      transform: "translateY(-6px) scale(0.99)",
-    });
+    expect(firstOverlay).not.toHaveClass("is-last-row");
 
     const lastRowOverlay = getOverlay(cards[2]);
-    expect(lastRowOverlay).toHaveStyle({ bottom: "0px" });
-    expect(lastRowOverlay).toHaveStyle({
-      transform: "translateY(6px) scale(0.99)",
-    });
+    expect(lastRowOverlay).toHaveClass("is-last-row");
 
     expect(cards[0]).toHaveTextContent("❝ REF · 01");
     expect(cards[0]).toHaveTextContent("Ada Lovelace");
@@ -99,24 +78,24 @@ describe("CvRefsGrid", () => {
     fireEvent.mouseEnter(firstCard);
     expect(getTruncated(firstCard)).toHaveAttribute("aria-hidden", "true");
     expect(getOverlay(firstCard)).not.toHaveAttribute("aria-hidden");
-    expect(firstCard).toHaveStyle({ zIndex: "10", opacity: "1" });
-    expect(secondCard).toHaveStyle({ opacity: "0.35" });
+    expect(firstCard).toHaveClass("is-expanded");
+    expect(secondCard).toHaveClass("is-dimmed");
 
     // Collapse happens when mouse leaves the grid, not individual cards
     fireEvent.mouseLeave(
-      firstCard.closest('[class*="v3-cv-refs"]') ??
+      firstCard.closest(".v3-cv-refs-grid") ??
         (firstCard.parentElement as HTMLElement),
     );
     expect(getTruncated(firstCard)).not.toHaveAttribute("aria-hidden");
-    expect(secondCard).toHaveStyle({ opacity: "1" });
+    expect(secondCard).not.toHaveClass("is-dimmed");
 
     fireEvent.focus(firstCard);
     expect(getTruncated(firstCard)).toHaveAttribute("aria-hidden", "true");
-    expect(secondCard).toHaveStyle({ opacity: "0.35" });
+    expect(secondCard).toHaveClass("is-dimmed");
 
     fireEvent.blur(firstCard);
     expect(getTruncated(firstCard)).not.toHaveAttribute("aria-hidden");
-    expect(secondCard).toHaveStyle({ opacity: "1" });
+    expect(secondCard).not.toHaveClass("is-dimmed");
   });
 
   it("toggles expanded state via the show more/less controls", () => {

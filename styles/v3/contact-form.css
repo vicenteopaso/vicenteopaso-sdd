@@ -1,0 +1,153 @@
+/* ═══════════════════════════════════════════════════════════
+   v3 inline contact form — app/components/V3ContactForm.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+  .v3-form {
+    display: grid;
+    gap: 0;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-form-honeypot {
+    display: none;
+  }
+
+  .v3-form-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-form-row.has-error {
+    border-color: var(--v3-accent);
+  }
+
+  .v3-form-row-start {
+    align-items: start;
+  }
+
+  .v3-form-key {
+    padding-left: 16px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--v3-muted);
+  }
+
+  .v3-form-key.has-error {
+    color: var(--v3-accent-text);
+  }
+
+  .v3-form-key-multiline {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .v3-form-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-left: 1px solid var(--v3-rule);
+    background: transparent;
+    color: var(--v3-fg);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .v3-form-input.has-error {
+    color: var(--v3-accent-text);
+  }
+
+  .v3-form-textarea {
+    padding-top: 14px;
+    resize: none;
+  }
+
+  .v3-form-turnstile-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-form-turnstile {
+    min-height: 65px;
+  }
+
+  .v3-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .v3-form-status {
+    flex: 1;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--v3-muted);
+  }
+
+  .v3-form-status.has-error {
+    color: var(--v3-accent-text);
+  }
+
+  .v3-form-submit {
+    padding: 10px 18px;
+    border: none;
+    background: var(--v3-accent);
+    color: var(--v3-on-accent);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .v3-form-submit:disabled {
+    background: var(--v3-muted);
+    color: var(--v3-bg);
+    cursor: not-allowed;
+  }
+
+  .v3-form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 32px;
+    border: 1px solid var(--v3-rule);
+    text-align: center;
+  }
+
+  .v3-form-success-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--v3-accent-text);
+  }
+
+  .v3-form-success-msg {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-form-reset {
+    padding: 8px 16px;
+    border: 1px solid var(--v3-rule);
+    background: none;
+    color: var(--v3-muted);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+}

@@ -5,24 +5,10 @@ export const dynamic = "force-static";
 
 export default function NotFound() {
   return (
-    <section
-      style={{
-        minHeight: "60vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-        fontFamily: "var(--f-mono)",
-        textAlign: "center",
-      }}
-    >
-      <h1 style={{ fontSize: "3rem", margin: 0 }}>404</h1>
-      <p style={{ marginTop: "1rem" }}>Page not found.</p>
-      <Link
-        href={"/" as Route}
-        style={{ marginTop: "1.5rem", textDecoration: "underline" }}
-      >
+    <section className="v3-not-found">
+      <h1 className="v3-not-found-code">404</h1>
+      <p className="v3-not-found-text">Page not found.</p>
+      <Link href={"/" as Route} className="v3-not-found-link">
         Go home
       </Link>
     </section>

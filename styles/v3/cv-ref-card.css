@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════
+   v3 CV references grid — app/components/CvRefCard.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+  .v3-cv-refs-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-ref-card {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+    text-align: left;
+    transition: opacity 0.2s ease;
+  }
+
+  .v3-cv-ref-card.is-right-col {
+    border-right: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-ref-card:not(.is-last-row) {
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-ref-card.is-expanded {
+    z-index: 10;
+  }
+
+  .v3-cv-ref-card.is-dimmed {
+    opacity: 0.35;
+  }
+
+  .v3-cv-ref-card-truncated.is-expanded {
+    visibility: hidden;
+  }
+
+  .v3-cv-ref-card-toggle {
+    display: block;
+    margin-top: 10px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--v3-accent-text);
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .v3-cv-ref-card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 20px;
+    background: var(--v3-bg);
+    border: 1px solid var(--v3-fg);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.99);
+    transition:
+      opacity 0.2s ease,
+      transform 0.22s ease;
+    pointer-events: none;
+  }
+
+  .v3-cv-ref-card-overlay.is-last-row {
+    bottom: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+
+  .v3-cv-ref-card-overlay:not(.is-last-row) {
+    top: 0;
+  }
+
+  .v3-cv-ref-card-overlay.is-expanded {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .v3-cv-ref-card-eyebrow {
+    margin-bottom: 10px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--v3-accent-text);
+  }
+
+  .v3-cv-ref-card-text {
+    margin-bottom: 14px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--v3-fg);
+  }
+
+  .v3-cv-ref-card-attribution {
+    padding-top: 10px;
+    border-top: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-ref-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+
+  .v3-cv-ref-card-name-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .v3-cv-ref-card-role {
+    margin-top: 2px;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--v3-muted);
+  }
+
+  @media (max-width: 768px) {
+    .v3-cv-refs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -561,6 +561,9 @@ body {
   --f-mono:
     var(--font-jetbrains-mono, ui-monospace, "SFMono-Regular", Menlo), monospace;
 
+  /* v3 shared layout constant — section/nav/footer max content width */
+  --v3-max-w: 1180px;
+
   /* v3 color tokens — light */
   --v3-bg: #faf8f5;
   --v3-bg-soft: #f3efe8;
@@ -568,8 +571,15 @@ body {
   --v3-muted: #6b6760;
   --v3-rule: #e3ded4;
   --v3-elevated: #efeadf;
-  --v3-accent: #b91c1c;
-  --v3-accent-text: #b91c1c;
+  /* Default accent: a deeper, bloodier red (7.9:1 on --v3-bg). */
+  --v3-accent: #9b1219;
+  --v3-accent-text: var(--v3-accent);
+  /* Red text on inverted surfaces (background: var(--v3-fg), near-black in
+     this theme). The deep default red is 2.3:1 there, below the 3:1 floor
+     for the large headings that use it; #b91c1c is 3.0:1. */
+  --v3-accent-inverse: #b91c1c;
+  /* Text on accent-filled surfaces (primary buttons, CTAs). */
+  --v3-on-accent: var(--v3-bg);
   --v3-sec: #1d4ed8;
 }
 
@@ -581,376 +591,48 @@ body {
   --v3-muted: #8a847a;
   --v3-rule: #26231e;
   --v3-elevated: #1a1814;
-  /* One red for everything in dark mode — the light theme already uses a
-     single #b91c1c for both background and text uses; #b91c1c itself fails
-     4.5:1 text contrast on dark backgrounds, so this is pushed only as far
-     as that requires (button text uses --v3-bg, not white, precisely so
-     this can stay as deep/dark as the text-contrast floor allows — pure
-     black --v3-bg lowers that floor slightly, letting this go a bit
-     darker/richer than it could against the previous #0d0c0a). */
-  --v3-accent: #e13232;
-  --v3-accent-text: var(--v3-accent);
+  /* Default dark accent, deliberately deep. Red text on --v3-bg is 3.0:1:
+     enough for large text and UI accents, below 4.5:1 for small text. WCAG
+     2.1 AA for small red text comes from the High Contrast palette below,
+     reachable from the nav toggle on every page (technique G174; see
+     docs/adr/0003-high-contrast-mode-conforming-alternate.md). Filled
+     buttons use cream text, 6.2:1 on this red, so they stay AA. */
+  --v3-accent: #b3141c;
+  /* Inverted surfaces are cream here, where the accent itself reads well:
+     6.2:1 by default, 4.0:1 in High Contrast (large headings only). */
+  --v3-accent-inverse: var(--v3-accent);
+  --v3-on-accent: var(--v3-fg);
   --v3-sec: #1d4ed8;
 }
 
-/* Brutalist base: full-width, dark bg, custom type scale */
-.v3-page {
-  background: var(--v3-bg);
-  color: var(--v3-fg);
-  font-family: var(--f-sans);
-  line-height: 1.55;
-  min-height: 100vh;
+/* ── v3 High Contrast palette ─────────────────────────────────────────────
+   Active while <html data-contrast="more">: set before first paint by the
+   inline script in app/layout.tsx, toggled by ContrastToggle. The accents
+   are the ones from before the default was deepened, verified at 4.5:1 or
+   more for all red text. */
+:root[data-contrast="more"] {
+  --v3-accent: #b91c1c; /* 6.1:1 on --v3-bg */
 }
 
-/* Typography utilities */
-.v3-big {
-  font-family: var(--f-sans);
-  font-weight: 800;
-  letter-spacing: -0.045em;
+:root.dark[data-contrast="more"] {
+  /* 4.7:1 on the pure-black --v3-bg. Black button text on it is 4.7:1 too,
+     where cream would only reach 4.0:1. */
+  --v3-accent: #e13232;
+  --v3-on-accent: var(--v3-bg);
+  /* Lighter secondary text: 8.4:1 on --v3-bg and 7.1:1 on --v3-elevated
+     (AAA), up from 5.7:1 and 4.8:1. */
+  --v3-muted: #aaa398;
 }
 
-.v3-mono {
-  font-family: var(--f-mono);
-}
-
-.v3-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 9px;
-  font-size: 10.5px;
-  border: 1px solid var(--v3-fg);
-  font-family: var(--f-mono);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-/* Section heading — § number + label + full-bleed rule */
-.v3-sec-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Cursor blink animation for terminal hero */
-@keyframes v3blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-/* Portrait theme switching */
-.portrait-light {
-  display: block;
-}
-.portrait-dark {
-  display: none;
-}
-.dark .portrait-light {
-  display: none;
-}
-.dark .portrait-dark {
-  display: block;
-}
-
-/* ── v3 What I Build ────────────────────────────────────────────────────── */
-.v3-build-row {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-}
-.v3-build-row-left {
-  border-right: 1px solid var(--v3-rule);
-}
-.v3-build-bullet::marker {
-  color: var(--v3-accent-text);
-}
-
-/* ── v3 Responsive ──────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  /* Nav */
-  .v3-nav-meta {
-    display: none !important;
-  }
-  .v3-nav-links {
-    gap: 16px !important;
-  }
-  .v3-nav-inner {
-    padding: 12px 16px !important;
-  }
-
-  /* Section horizontal padding */
-  .v3-section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  /* Hero: stack columns, reduce top padding */
-  .v3-hero-section {
-    padding-top: 16px !important;
-    padding-bottom: 16px !important;
-  }
-  .v3-hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-  .v3-hero-h1 {
-    font-size: 40px !important;
-  }
-  .v3-hero-label {
-    margin-bottom: 10px !important;
-  }
-  .v3-hero-sub {
-    margin-top: 14px !important;
-  }
-  .v3-hero-ctas {
-    margin-top: 16px !important;
-  }
-
-  /* Impact strip: 2×2 */
-  .v3-impact-grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-  .v3-impact-grid > div:nth-child(2) {
-    border-right: none !important;
-  }
-  .v3-impact-grid > div:nth-child(1),
-  .v3-impact-grid > div:nth-child(2) {
-    border-bottom: 1px solid var(--v3-rule) !important;
-  }
-  .v3-impact-stat {
-    font-size: 40px !important;
-  }
-
-  /* TL;DR: stack sidebar above list */
-  .v3-tldr-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-tldr-sidebar {
-    padding: 20px 16px !important;
-  }
-  .v3-tldr-sidebar .v3-big {
-    font-size: 36px !important;
-  }
-  .v3-tldr-item {
-    grid-template-columns: 44px 1fr !important;
-    padding: 14px 16px !important;
-    gap: 12px !important;
-  }
-  .v3-tldr-label {
-    display: none !important;
-  }
-
-  /* Focus (What I Do): 2-col */
-  .v3-focus-grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-  .v3-focus-item:nth-child(even) {
-    border-right: none !important;
-  }
-  .v3-focus-item:nth-child(odd) {
-    border-right: 1px solid var(--v3-rule) !important;
-  }
-  .v3-focus-item {
-    border-bottom: 1px solid var(--v3-rule) !important;
-  }
-  .v3-focus-item:nth-last-child(-n + 2) {
-    border-bottom: none !important;
-  }
-
-  /* Experience table: 2-col, hide location+read */
-  .v3-exp-header,
-  .v3-exp-row {
-    grid-template-columns: auto 1fr !important;
-    column-gap: 16px !important;
-  }
-  .v3-exp-loc,
-  .v3-exp-read {
-    display: none !important;
-  }
-
-  /* Tech & Tools grid: 2-col */
-  .v3-stack-grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-
-  /* What I Build: stack to single column */
-  .v3-build-row {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-build-row-left {
-    border-right: none !important;
-    border-bottom: 1px solid var(--v3-rule);
-  }
-
-  /* Contact: stack */
-  .v3-contact-grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .v3-focus-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-focus-item {
-    border-right: none !important;
-    border-bottom: 1px solid var(--v3-rule) !important;
-  }
-  .v3-focus-item:last-child {
-    border-bottom: none !important;
-  }
-  .v3-stack-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-hero-h1 {
-    font-size: 36px !important;
-  }
-}
-
-.v3-contact-link:hover {
-  color: var(--v3-accent-text) !important;
-}
-.v3-contact-link span:last-child {
-  transition: transform 0.15s ease;
-}
-.v3-contact-link:hover span:last-child {
-  transform: translate(2px, -2px);
-}
-
-/* ── v3 CV Mobile ────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  /* Section padding: all CV sections */
-  .v3-page section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  /* CV Masthead — mobile */
-  .v3-cv-masthead-section {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
-  }
-  .v3-cv-masthead-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-  .v3-cv-portrait {
-    width: 280px !important;
-    height: 350px !important;
-    margin: 0 auto !important;
-  }
-  .v3-cv-h1 {
-    font-size: 48px !important;
-  }
-  .v3-cv-meta-row {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px 16px !important;
-  }
-  .v3-cv-meta-row > div {
-    border-left: none !important;
-    padding-left: 0 !important;
-  }
-  .v3-cv-meta-row > div:nth-child(4) {
-    display: none !important;
-  }
-
-  /* CV TOC — compact rows */
-  .v3-cv-toc-row {
-    padding: 9px 12px !important;
-  }
-  .v3-cv-toc-label {
-    font-size: 12px !important;
-  }
-  .v3-cv-toc-sub {
-    font-size: 10px !important;
-    margin-left: 6px !important;
-  }
-
-  /* CV Impact strip — reuses v3-impact-grid shared rules above */
-
-  /* CV Summary */
-  .v3-cv-summary-grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-  }
-  .v3-cv-summary-grid > div:last-child {
-    border-left: none !important;
-    padding-left: 0 !important;
-    border-top: 2px solid var(--v3-fg);
-    padding-top: 20px;
-  }
-
-  /* CV Experience */
-  .v3-cv-exp-grid-row {
-    grid-template-columns: 1fr !important;
-    gap: 6px !important;
-  }
-  .v3-cv-exp-loc {
-    display: none !important;
-  }
-
-  /* CV Skills */
-  .v3-cv-skills-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-cv-skills-grid > div {
-    border-right: none !important;
-  }
-
-  /* CV Education */
-  .v3-cv-edu-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-cv-edu-grid > div:first-child {
-    border-right: none !important;
-    border-bottom: 1px solid var(--v3-rule) !important;
-  }
-
-  /* CV Publications */
-  .v3-cv-pub-row {
-    grid-template-columns: 1fr !important;
-  }
-  .v3-cv-pub-date,
-  .v3-cv-pub-arrow {
-    display: none !important;
-  }
-
-  /* CV References */
-  .v3-cv-refs-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* CV End CTA */
-  .v3-cv-endcta-grid {
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
-  }
-  .v3-cv-endcta-h {
-    font-size: 40px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .v3-cv-h1 {
-    font-size: 38px !important;
-  }
-  .v3-cv-endcta-h {
-    font-size: 32px !important;
-  }
-}
-
-/* ── Footer Mobile ───────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .v3-footer-copyright {
-    justify-content: center !important;
-    text-align: center !important;
-  }
-  .v3-footer-links {
-    justify-content: center !important;
-  }
-}
+/* ═══════════════════════════════════════════════════════════
+   V3 Brutalist Design System — component styles, split by area.
+   Tokens (above) stay here since :root/.dark/[data-contrast] are shared
+   across every partial. See docs/DESIGN_SYSTEM.md.
+   ═══════════════════════════════════════════════════════════ */
+@import "./v3/base.css";
+@import "./v3/nav.css";
+@import "./v3/footer.css";
+@import "./v3/home.css";
+@import "./v3/cv.css";
+@import "./v3/contact-form.css";
+@import "./v3/cv-ref-card.css";

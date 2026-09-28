@@ -25,75 +25,24 @@ export function BrutalistFooter() {
   ];
 
   return (
-    <footer
-      style={{
-        background: "var(--v3-bg)",
-        color: "var(--v3-fg)",
-        fontFamily: "var(--f-mono)",
-        borderTop: "2px solid var(--v3-fg)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          padding: "24px 32px 28px",
-          display: "grid",
-          gap: 14,
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            fontSize: 10,
-            color: "var(--v3-muted)",
-            letterSpacing: "0.14em",
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-          className="v3-footer-copyright"
-        >
+    <footer className="v3-footer">
+      <div className="v3-footer-inner">
+        <div className="v3-footer-copyright">
           <span>{t("footer.copyrightName", { year })}</span>
           <span>{t("footer.copyrightTagline")}</span>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "4px 14px",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          className="v3-footer-links"
-        >
+        <div className="v3-footer-links">
           {footerLinks.map((l, i) => (
             <React.Fragment key={l.path}>
               <Link
                 href={`/${locale}/${l.path}` as Route}
-                style={{
-                  fontSize: 10.5,
-                  color: "var(--v3-accent-text)",
-                  textDecoration: "underline",
-                  textUnderlineOffset: 3,
-                  letterSpacing: "0.06em",
-                  fontFamily: "var(--f-mono)",
-                }}
+                className="v3-footer-link"
               >
                 {t(l.labelKey)}
               </Link>
               {i < footerLinks.length - 1 && (
-                <span
-                  style={{
-                    fontSize: 10.5,
-                    color: "var(--v3-muted)",
-                    fontFamily: "var(--f-mono)",
-                  }}
-                >
-                  |
-                </span>
+                <span className="v3-footer-sep">|</span>
               )}
             </React.Fragment>
           ))}

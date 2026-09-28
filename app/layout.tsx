@@ -5,6 +5,7 @@ import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import React from "react";
 
+import { contrastInitScript } from "../lib/contrast";
 import { baseMetadata } from "../lib/seo";
 import { AnalyticsWrapper } from "./components/AnalyticsWrapper";
 import { BrutalistFooter } from "./components/BrutalistFooter";
@@ -94,6 +95,11 @@ export default function RootLayout({
             __html:
               "(function(){try{var s=location.pathname.split('/')[1];if(s==='es'){document.documentElement.lang='es';}}catch(e){}})();",
           }}
+        />
+        <script
+          // Applies the High Contrast preference before paint, so those
+          // visitors never see the default palette flash (lib/contrast.ts).
+          dangerouslySetInnerHTML={{ __html: contrastInitScript }}
         />
       </head>
       <body

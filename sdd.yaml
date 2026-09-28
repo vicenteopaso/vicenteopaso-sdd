@@ -68,12 +68,18 @@ standards:
 accessibility:
   targets:
     - wcag-2.1-aa
+  conformance:
+    color-contrast: >
+      The default dark-theme accent (#b3141c) is below 4.5:1 for small text.
+      AA is met through the High Contrast mode toggle on every page (WCAG
+      technique G174). See docs/adr/0003-high-contrast-mode-conforming-alternate.md.
   checks:
     manual:
       - keyboard-navigation
       - screen-reader-labeling
     automated:
       - "node scripts/audit-a11y.mjs"
+      - "pnpm test:a11y (axe in light/dark x default/High Contrast; color-contrast gated on High Contrast for the dark theme)"
 
 performance:
   budgets:

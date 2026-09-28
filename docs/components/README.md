@@ -6,7 +6,8 @@ This directory contains detailed documentation for all reusable components in th
 
 ### Layout Components (v3 Brutalist)
 
-- **[BrutalistNav](./BrutalistNav.md)** - Primary site navigation: logo, nav links, locale toggle, theme toggle
+- **[BrutalistNav](./BrutalistNav.md)** - Primary site navigation: logo, nav links, High Contrast toggle, locale toggle, theme toggle
+- **[ContrastToggle](./ContrastToggle.md)** - High Contrast switch in the nav; the WCAG G174 control for the deeper default reds
 - **[BrutalistFooter](./BrutalistFooter.md)** - Primary site footer with locale-prefixed policy links
 - **[Header](./Header.md)** - Legacy site header (superseded by BrutalistNav in v3)
 - **[Footer](./Footer.md)** - Legacy site footer (superseded by BrutalistFooter in v3)

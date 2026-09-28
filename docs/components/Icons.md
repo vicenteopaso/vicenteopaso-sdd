@@ -40,6 +40,14 @@ Download arrow icon (arrow pointing down with base line)
 <DownloadIcon className="h-5 w-5" />
 ```
 
+### ContrastIcon
+
+Contrast icon (a circle with its left half filled), used by the [ContrastToggle](./ContrastToggle.md)
+
+```tsx
+<ContrastIcon className="h-4 w-4" />
+```
+
 ## Props
 
 All icons accept standard SVG props (`SVGProps<SVGSVGElement>`):

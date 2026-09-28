@@ -42,11 +42,19 @@ Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 
 ### Diseño visual
 
-- Relación de contraste mínima de 4,5:1 para el texto normal (WCAG AA)
+- Relación de contraste mínima de 4,5:1 para el texto normal (WCAG AA). En la paleta predeterminada del tema oscuro, el texto pequeño en rojo de acento depende del modo de alto contraste, que se describe a continuación
 - Relación de contraste mínima de 3:1 para el texto grande (WCAG AA)
 - El texto se puede ampliar hasta un 200 % sin pérdida de funcionalidad
 - No se recurre exclusivamente al color para transmitir información
 - Los indicadores de foco son claramente visibles con contornos de 2 píxeles
+
+### Modo de alto contraste
+
+El tema oscuro predeterminado utiliza un rojo de acento intenso cuyo texto pequeño no alcanza una relación de contraste de 4,5:1. El botón **Alto contraste** de la navegación superior, presente en todas las páginas, cambia a una paleta que cumple las WCAG 2.1 Nivel AA en todo el texto:
+
+- El botón funciona con el teclado (**Tab** y, después, **Enter** o **Espacio**) e indica si el alto contraste está activado
+- Tu elección se recuerda entre páginas y visitas
+- Si tu sistema operativo solicita más contraste (por ejemplo, **Aumentar contraste** en macOS e iOS), el alto contraste se activa automáticamente
 
 ### Movimiento y animación
 
@@ -67,7 +75,7 @@ Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 
 - ESLint con `eslint-plugin-jsx-a11y` detecta problemas comunes durante el desarrollo
 - El script de auditoría de accesibilidad automatizada (`scripts/audit-a11y.mjs`) se ejecuta en CI/CD
-- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA, incluido el contraste de colores) en todas las páginas, en ambos idiomas y en los temas claro y oscuro, además de comprobaciones específicas del reajuste de contenido a un ancho de 320 píxeles y la anulación del espaciado de texto según WCAG 1.4.12, con advertencias de legibilidad sobre el tamaño del texto, la altura de línea y el grosor de la fuente
+- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA) en todas las páginas, en ambos idiomas y en los temas claro y oscuro, con el modo de alto contraste desactivado y activado. El contraste de colores se comprueba en todas las presentaciones salvo la paleta predeterminada del tema oscuro, cuyo texto pequeño en rojo de acento queda cubierto por el modo de alto contraste, y todas las páginas deben incluir un botón de alto contraste que supere el análisis. La suite también comprueba el reajuste de contenido a un ancho de 320 píxeles y la anulación del espaciado de texto según WCAG 1.4.12, con advertencias de legibilidad sobre el tamaño del texto, la altura de línea y el grosor de la fuente
 
 ### Pruebas manuales
 
@@ -145,7 +153,7 @@ Esta declaración hace referencia a las siguientes normas:
 
 ## Última actualización
 
-Esta declaración de accesibilidad se revisó y actualizó por última vez el 3 de mayo de 2026.
+Esta declaración de accesibilidad se revisó y actualizó por última vez el 11 de septiembre de 2026.
 
 ---
 

@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════════════
+   v3 shared primitives — page shell, typography utilities, section
+   frames, buttons, table of contents, impact strip.
+   Imported by styles/globals.css. Tokens live there.
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* ── Page shell ────────────────────────────────────────────────────────── */
+  .v3-page {
+    min-height: 100vh;
+    background: var(--v3-bg);
+    color: var(--v3-fg);
+    font-family: var(--f-sans);
+    line-height: 1.55;
+  }
+
+  .v3-container {
+    width: 100%;
+    max-width: var(--v3-max-w);
+    margin: 0 auto;
+  }
+
+  /* ── Typography utilities ──────────────────────────────────────────────── */
+  .v3-accent-text {
+    color: var(--v3-accent-text);
+  }
+
+  /* Red on inverted surfaces — see the token comment in globals.css. */
+  .v3-accent-inverse {
+    color: var(--v3-accent-inverse);
+  }
+
+  .v3-list-reset {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v3-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px;
+    border: 1px solid var(--v3-fg);
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .v3-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  /* ── Section frame ─────────────────────────────────────────────────────── */
+  .v3-section {
+    width: 100%;
+    max-width: var(--v3-max-w);
+    margin: 0 auto;
+    padding: 48px 32px;
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  /* ── Section heading: §NN ── LABEL ─────────── ────────────────────────── */
+  .v3-sec-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .v3-sec-head-num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--v3-accent-text);
+  }
+
+  .v3-sec-head-label {
+    font-family: var(--f-sans);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+
+  .v3-sec-head-rule {
+    flex: 1;
+    height: 2px;
+    background: var(--v3-fg);
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────────────────── */
+  .v3-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border: none;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .v3-btn-primary {
+    background: var(--v3-accent);
+    color: var(--v3-on-accent);
+  }
+
+  .v3-btn-outline {
+    border: 1px solid var(--v3-fg);
+    background: transparent;
+    color: var(--v3-fg);
+  }
+
+  /* On inverted surfaces (background: var(--v3-fg)). */
+  .v3-btn-inverse {
+    background: var(--v3-bg);
+    color: var(--v3-fg);
+  }
+
+  .v3-btn-inverse-outline {
+    border: 1px solid var(--v3-bg);
+    background: transparent;
+    color: var(--v3-bg);
+  }
+
+  /* ── Table of contents (home and CV) ───────────────────────────────────── */
+  .v3-toc-title {
+    margin-bottom: 12px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--v3-muted);
+  }
+
+  .v3-toc {
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-toc-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    padding: 14px 16px;
+    color: var(--v3-fg);
+    text-decoration: none;
+  }
+
+  .v3-cv-toc-row:not(:last-child) {
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-toc-num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--v3-accent-text);
+  }
+
+  .v3-cv-toc-label {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-cv-toc-sub {
+    margin-left: 12px;
+    font-size: 13px;
+    color: var(--v3-muted);
+  }
+
+  /* The home page's contents list uses full-strength text for the summary. */
+  .v3-toc-sub-strong {
+    color: var(--v3-fg);
+  }
+
+  .v3-toc-arrow {
+    font-family: var(--f-mono);
+    font-size: 14px;
+    color: var(--v3-muted);
+  }
+
+  /* ── Impact strip (home and CV) ────────────────────────────────────────── */
+  .v3-impact {
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  .v3-impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .v3-impact-cell {
+    padding: 32px 24px;
+  }
+
+  .v3-impact-cell:not(:last-child) {
+    border-right: 1px solid var(--v3-rule);
+  }
+
+  .v3-impact-stat {
+    font-family: var(--f-sans);
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    color: var(--v3-fg);
+  }
+
+  .v3-impact-cell:first-child .v3-impact-stat {
+    color: var(--v3-accent-text);
+  }
+
+  .v3-impact-caption {
+    margin-top: 10px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--v3-muted);
+  }
+
+  /* ── 404 ───────────────────────────────────────────────────────────────── */
+  .v3-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 2rem;
+    font-family: var(--f-mono);
+    text-align: center;
+  }
+
+  .v3-not-found-code {
+    margin: 0;
+    font-size: 3rem;
+  }
+
+  .v3-not-found-text {
+    margin-top: 1rem;
+  }
+
+  .v3-not-found-link {
+    margin-top: 1.5rem;
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .v3-section {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .v3-cv-toc-row {
+      padding: 9px 12px;
+    }
+
+    .v3-cv-toc-label {
+      font-size: 12px;
+    }
+
+    .v3-cv-toc-sub {
+      margin-left: 6px;
+      font-size: 10px;
+    }
+
+    .v3-impact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .v3-impact-cell:nth-child(2) {
+      border-right: none;
+    }
+
+    .v3-impact-cell:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--v3-rule);
+    }
+
+    .v3-impact-stat {
+      font-size: 40px;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+/* ═══════════════════════════════════════════════════════════
+   v3 footer — app/components/BrutalistFooter.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+  .v3-footer {
+    border-top: 2px solid var(--v3-fg);
+    background: var(--v3-bg);
+    color: var(--v3-fg);
+    font-family: var(--f-mono);
+  }
+
+  .v3-footer-inner {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+    max-width: var(--v3-max-w);
+    margin: 0 auto;
+    padding: 24px 32px 28px;
+  }
+
+  .v3-footer-copyright {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--v3-muted);
+  }
+
+  .v3-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 14px;
+  }
+
+  .v3-footer-link {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--v3-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .v3-footer-sep {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    color: var(--v3-muted);
+  }
+
+  @media (max-width: 768px) {
+    .v3-footer-copyright {
+      justify-content: center;
+      text-align: center;
+    }
+  }
+}

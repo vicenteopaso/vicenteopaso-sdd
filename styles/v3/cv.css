@@ -1,0 +1,627 @@
+/* ═══════════════════════════════════════════════════════════
+   v3 CV page — app/[lang]/cv/page.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+@layer components {
+  .v3-cv-page {
+    width: 100%;
+    max-width: var(--v3-max-w);
+    margin: 0 auto;
+  }
+
+  .v3-cv-section {
+    padding: 48px 32px;
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  /* ── Masthead ──────────────────────────────────────────────────────────── */
+  .v3-cv-masthead-section {
+    padding: 20px 32px 32px;
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  .v3-cv-masthead-grid {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    align-items: start;
+    gap: 32px;
+  }
+
+  .v3-cv-header-label {
+    margin-bottom: 18px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-h1 {
+    margin: 0;
+    font-family: var(--f-sans);
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+  }
+
+  .v3-cv-label {
+    margin-top: 18px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+
+  .v3-cv-subtitle {
+    max-width: 440px;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-ctas {
+    display: flex;
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .v3-cv-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .v3-cv-meta-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-meta-cell:not(:first-child) {
+    padding-left: 14px;
+    border-left: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-meta-key {
+    margin-bottom: 6px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: inherit;
+  }
+
+  .v3-cv-meta-value.is-accent {
+    color: var(--v3-accent-text);
+  }
+
+  /* ── TOC ───────────────────────────────────────────────────────────────── */
+  .v3-cv-toc-section {
+    padding: 32px 32px;
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  /* ── Summary ───────────────────────────────────────────────────────────── */
+  .v3-cv-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 0 48px;
+    margin-top: 28px;
+  }
+
+  .v3-cv-summary-prose {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--v3-fg);
+  }
+
+  .v3-cv-summary-tldr {
+    padding-left: 28px;
+    border-left: 2px solid var(--v3-fg);
+  }
+
+  .v3-cv-summary-tldr-title {
+    margin-bottom: 12px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-summary-tldr-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    align-items: baseline;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-summary-tldr-num {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--v3-accent-text);
+  }
+
+  .v3-cv-summary-tldr-text {
+    font-size: 13.5px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── Experience ────────────────────────────────────────────────────────── */
+  .v3-cv-exp-table {
+    margin-top: 24px;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-exp-grid-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 130px;
+  }
+
+  .v3-cv-exp-header {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--v3-rule);
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-exp-company-group:not(:last-child) {
+    border-bottom: 2px solid var(--v3-fg);
+  }
+
+  .v3-cv-exp-company-row {
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-exp-company-dates {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-exp-company-name {
+    font-family: var(--f-sans);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .v3-cv-exp-loc {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-exp-position-row {
+    gap: 12px;
+    padding: 14px 14px;
+  }
+
+  .v3-cv-exp-position-row.has-more {
+    border-bottom: 1px dashed var(--v3-rule);
+  }
+
+  .v3-cv-exp-position-dates {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-exp-position-dates.is-current {
+    color: var(--v3-accent-text);
+  }
+
+  .v3-cv-exp-current-label {
+    margin-top: 4px;
+  }
+
+  .v3-cv-exp-position-title {
+    margin-bottom: 4px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-cv-exp-position-summary {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-exp-highlights {
+    display: grid;
+    gap: 4px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v3-cv-exp-highlight {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 6px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .v3-cv-exp-highlight-arrow {
+    font-family: var(--f-mono);
+    color: var(--v3-accent-text);
+  }
+
+  /* ── Skills ────────────────────────────────────────────────────────────── */
+  .v3-cv-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 24px;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-skills-cell {
+    padding: 16px 18px;
+  }
+
+  .v3-cv-skills-cell.is-left-col {
+    border-right: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-skills-cell.has-bottom-border {
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-skills-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .v3-cv-skills-name {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-cv-skills-level {
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    color: var(--v3-accent-text);
+  }
+
+  /* ── Education & Languages ─────────────────────────────────────────────── */
+  .v3-cv-edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 24px;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-edu-col {
+    padding: 18px 18px;
+  }
+
+  .v3-cv-edu-col:first-child {
+    border-right: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-edu-col-title {
+    margin-bottom: 10px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-edu-item:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .v3-cv-edu-institution {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-cv-edu-program {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-edu-dates {
+    margin-top: 8px;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-lang-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .v3-cv-lang-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .v3-cv-lang-name {
+    font-weight: 600;
+  }
+
+  .v3-cv-lang-fluency {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--v3-muted);
+  }
+
+  /* ── Publications ──────────────────────────────────────────────────────── */
+  .v3-cv-pub-list {
+    margin-top: 24px;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-pub-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 80px;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 14px;
+    color: var(--v3-fg);
+    text-decoration: none;
+  }
+
+  .v3-cv-pub-row:not(:last-child) {
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-pub-date {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-pub-name {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+
+  .v3-cv-pub-publisher {
+    margin-left: 10px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-pub-arrow {
+    text-align: right;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--v3-accent-text);
+  }
+
+  /* ── Governance ────────────────────────────────────────────────────────── */
+  .v3-cv-gov-list {
+    margin-top: 24px;
+    border: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-gov-item {
+    padding: 16px 18px;
+  }
+
+  .v3-cv-gov-item:not(:last-child) {
+    border-bottom: 1px solid var(--v3-rule);
+  }
+
+  .v3-cv-gov-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .v3-cv-gov-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .v3-cv-gov-org {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--v3-muted);
+  }
+
+  .v3-cv-gov-summary {
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--v3-muted);
+  }
+
+  /* ── End CTA ───────────────────────────────────────────────────────────── */
+  .v3-cv-endcta {
+    padding: 40px 32px;
+    border-bottom: 2px solid var(--v3-fg);
+    background: var(--v3-fg);
+    color: var(--v3-bg);
+  }
+
+  .v3-cv-endcta-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+
+  .v3-cv-endcta-label {
+    margin-bottom: 12px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    opacity: 0.75;
+  }
+
+  .v3-cv-endcta-h {
+    font-family: var(--f-sans);
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .v3-cv-endcta-desc {
+    max-width: 520px;
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  .v3-cv-endcta-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .v3-cv-page section {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .v3-cv-masthead-section {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .v3-cv-masthead-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .v3-cv-portrait {
+      width: 280px;
+      height: 350px;
+      margin: 0 auto;
+    }
+
+    .v3-cv-h1 {
+      font-size: 48px;
+    }
+
+    .v3-cv-meta-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 16px;
+    }
+
+    .v3-cv-meta-cell {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .v3-cv-meta-cell:nth-child(4) {
+      display: none;
+    }
+
+    .v3-cv-summary-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .v3-cv-summary-tldr {
+      border-left: none;
+      padding-left: 0;
+      padding-top: 20px;
+      border-top: 2px solid var(--v3-fg);
+    }
+
+    .v3-cv-exp-grid-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .v3-cv-exp-loc {
+      display: none;
+    }
+
+    .v3-cv-skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .v3-cv-skills-cell.is-left-col {
+      border-right: none;
+    }
+
+    .v3-cv-edu-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .v3-cv-edu-col:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--v3-rule);
+    }
+
+    .v3-cv-pub-row {
+      grid-template-columns: 1fr;
+    }
+
+    .v3-cv-pub-date,
+    .v3-cv-pub-arrow {
+      display: none;
+    }
+
+    .v3-cv-endcta-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .v3-cv-endcta-h {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .v3-cv-h1 {
+      font-size: 38px;
+    }
+
+    .v3-cv-endcta-h {
+      font-size: 32px;
+    }
+  }
+}
