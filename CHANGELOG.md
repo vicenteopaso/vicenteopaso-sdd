@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-10-05
+
+### Added
+
+- High Contrast toggle in the top navigation. The default accent reds are
+  deeper, and High Contrast mode restores the higher-contrast accents and a
+  lighter dark-theme muted grey so every page still meets WCAG 2.1 AA (#428)
+- Unlisted article route `/articles/8-agent-job-search-system` (EN/ES),
+  reachable by direct link only: `noindex` and excluded from the sitemap (#416)
+- Unlisted, QR-code-only `/found-luggage` page (EN/ES) with best-effort,
+  rate-limited Telegram/Formspree visit alerts; `/lost-luggage` permanently
+  redirects to it (#417, #420)
+
+### Changed
+
+- v3 component inline styles moved into `styles/v3/` CSS partials, cutting
+  `!important` in `globals.css` from 89 to 3 (#429)
+- Job-matching profile data rebalanced toward IC and technical-leadership
+  roles (#408)
+- Tag line, bio and ES CV label/summary now read "Frontend Architect &
+  Technical Leader" (#423, #425)
+
+### Fixed
+
+- Stale CV subtitle replaced and CV version bumped to v2026.08 (#413)
+- CV and website-entry details: Greygoo end date, Opaso LLC and Prizm Tech
+  Group naming (#421, #422, #426)
+- Flaky local visual tests: Playwright `expect` timeout raised to 10s (#407)
+
+### Security
+
+- `baseline-browser-mapping` DoS fixed by dropping a stale pin (#432)
+- Patched axios, ip-address, qs and basic-ftp via pnpm overrides, resolving
+  12 Dependabot alerts, and removed 7 overrides that were no longer needed
+  (#437)
+
 ## [1.4.1] - 2026-07-29
 
 ### Fixed
