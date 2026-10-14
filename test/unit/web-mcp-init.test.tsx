@@ -3,6 +3,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { WebMcpInit } from "../../app/components/WebMcpInit";
 
+const { loadWebMcpPolyfill, logError } = vi.hoisted(() => ({
+  loadWebMcpPolyfill: vi.fn<() => Promise<void>>(),
+  logError: vi.fn(),
+}));
+
+vi.mock("../../lib/webmcp", () => ({ loadWebMcpPolyfill }));
+vi.mock("../../lib/error-logging", () => ({ logError }));
+
 type RegisteredTool = {
   name: string;
   execute: (input: unknown) => Promise<unknown> | unknown;
@@ -15,6 +23,8 @@ describe("WebMcpInit", () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    loadWebMcpPolyfill.mockReset();
+    loadWebMcpPolyfill.mockResolvedValue(undefined);
     Object.defineProperty(globalThis, "fetch", {
       value: vi.fn(),
       writable: true,
@@ -77,10 +87,9 @@ describe("WebMcpInit", () => {
     );
   });
 
-  it("retries registration until modelContext becomes available", () => {
+  it("loads the polyfill when idle and registers once it installs modelContext", async () => {
     let modelContext: unknown = null;
     const registerTool = vi.fn();
-
     Object.defineProperty(globalThis, "navigator", {
       value: {
         get modelContext() {
@@ -89,102 +98,112 @@ describe("WebMcpInit", () => {
       },
       configurable: true,
     });
+    loadWebMcpPolyfill.mockImplementation(async () => {
+      modelContext = { registerTool };
+    });
 
     render(<WebMcpInit />);
-    expect(registerTool).not.toHaveBeenCalled();
+    // Nothing loads during the initial render; it waits for an idle slot.
+    expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
 
-    modelContext = { registerTool };
-    act(() => {
-      vi.advanceTimersByTime(250);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
     });
+    expect(loadWebMcpPolyfill).toHaveBeenCalledTimes(1);
     expect(registerTool).toHaveBeenCalled();
+    expect(
+      (globalThis.window as Window & { __opaWebMcpRegistered?: boolean })
+        .__opaWebMcpRegistered,
+    ).toBe(true);
   });
 
-  it("handles invalid modelContext and cancels retries on unmount", () => {
+  it("does not load the polyfill when WebMCP is native", async () => {
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: { registerTool: vi.fn() } },
+      configurable: true,
+    });
+
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
+  });
+
+  it("cancels the pending polyfill load on unmount", async () => {
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: null },
+      configurable: true,
+    });
+
+    const { unmount } = render(<WebMcpInit />);
+    unmount();
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
+  });
+
+  it("skips registration when the polyfill leaves no usable modelContext", async () => {
     const registerTool = vi.fn();
     Object.defineProperty(globalThis, "navigator", {
       value: { modelContext: { registerTool: "not-a-function" } },
       configurable: true,
     });
 
-    const { unmount } = render(<WebMcpInit />);
-    act(() => {
-      vi.advanceTimersByTime(250 * 3);
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
     });
+    expect(loadWebMcpPolyfill).toHaveBeenCalledTimes(1);
     expect(registerTool).not.toHaveBeenCalled();
-
-    unmount();
-    act(() => {
-      vi.advanceTimersByTime(250 * 3);
-    });
-    expect(registerTool).not.toHaveBeenCalled();
+    expect(
+      (globalThis.window as Window & { __opaWebMcpRegistered?: boolean })
+        .__opaWebMcpRegistered,
+    ).toBeUndefined();
   });
 
-  it("stops retrying after max attempts when modelContext never becomes available", () => {
-    const timerSpy = vi.spyOn(globalThis, "setTimeout");
-
+  it("schedules the polyfill with requestIdleCallback when available", () => {
     Object.defineProperty(globalThis, "navigator", {
       value: { modelContext: null },
       configurable: true,
     });
+    const requestIdleCallback = vi.fn(() => 7);
+    const cancelIdleCallback = vi.fn();
+    Object.assign(window, { requestIdleCallback, cancelIdleCallback });
 
-    render(<WebMcpInit />);
-
-    act(() => {
-      vi.advanceTimersByTime(250 * 20);
-    });
-
-    expect(timerSpy).toHaveBeenCalledTimes(9);
+    try {
+      const { unmount } = render(<WebMcpInit />);
+      expect(requestIdleCallback).toHaveBeenCalledWith(expect.any(Function), {
+        timeout: 5000,
+      });
+      unmount();
+      expect(cancelIdleCallback).toHaveBeenCalledWith(7);
+    } finally {
+      const idleWindow = window as Partial<
+        Pick<Window, "requestIdleCallback" | "cancelIdleCallback">
+      >;
+      delete idleWindow.requestIdleCallback;
+      delete idleWindow.cancelIdleCallback;
+    }
   });
 
-  it("keeps retrying when navigator/modelContext are invalid guard values", () => {
-    let modelContext: unknown = "invalid";
-    const registerTool = vi.fn();
-
+  it("logs when the polyfill fails to load", async () => {
     Object.defineProperty(globalThis, "navigator", {
-      value: {
-        get modelContext() {
-          return modelContext;
-        },
-      },
+      value: { modelContext: null },
       configurable: true,
     });
+    const failure = new Error("chunk failed");
+    loadWebMcpPolyfill.mockRejectedValue(failure);
 
     render(<WebMcpInit />);
-    act(() => {
-      vi.advanceTimersByTime(250);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
     });
-    expect(registerTool).not.toHaveBeenCalled();
-
-    modelContext = { registerTool };
-    act(() => {
-      vi.advanceTimersByTime(250);
+    expect(logError).toHaveBeenCalledWith(failure, {
+      component: "WebMcpInit",
+      action: "loadWebMcpPolyfill",
     });
-    expect(registerTool).toHaveBeenCalled();
-  });
-
-  it("retries when navigator is temporarily undefined", () => {
-    let navigatorValue: unknown = undefined;
-    const registerTool = vi.fn();
-
-    Object.defineProperty(globalThis, "navigator", {
-      get() {
-        return navigatorValue;
-      },
-      configurable: true,
-    });
-
-    render(<WebMcpInit />);
-    act(() => {
-      vi.advanceTimersByTime(250);
-    });
-    expect(registerTool).not.toHaveBeenCalled();
-
-    navigatorValue = { modelContext: { registerTool } };
-    act(() => {
-      vi.advanceTimersByTime(250);
-    });
-    expect(registerTool).toHaveBeenCalled();
   });
 
   it("tool handlers return expected responses for success and error paths", async () => {

@@ -402,7 +402,7 @@ Browser enforces policies
 
 **CSP Configuration** (from `next.config.mjs`):
 
-- Scripts: self, Turnstile, inline Next.js
+- Scripts: self, Turnstile, Sentry CDN (lazy-loaded Session Replay), inline Next.js. The WebMCP polyfill is bundled (`lib/webmcp.ts`), not loaded from a third-party CDN.
 - Styles: self, inline (Tailwind)
 - Images: self, data URIs
 - Frames: Turnstile only

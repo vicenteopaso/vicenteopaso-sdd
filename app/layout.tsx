@@ -2,7 +2,6 @@ import "../styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import Script from "next/script";
 import React from "react";
 
 import { contrastInitScript } from "../lib/contrast";
@@ -112,13 +111,6 @@ export default function RootLayout({
             <a href="#main-content" className="skip-link">
               Skip to main content
             </a>
-            <Script
-              id="webmcp-polyfill"
-              src="https://unpkg.com/@mcp-b/global@2.2.0/dist/index.iife.js"
-              integrity="sha384-jyZCmImLqKAc1cMBR6ywp/DUtANftm05MVpAvhlBYCmr+H/7W8IUP5FjRdEf6X41"
-              crossOrigin="anonymous"
-              strategy="afterInteractive"
-            />
             <style>{`::selection { background-color: var(--v3-accent); color: #fff; }`}</style>
             <SeoJsonLd />
             <BrutalistNav />

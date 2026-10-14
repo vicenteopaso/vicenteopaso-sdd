@@ -12,11 +12,15 @@ overrides:
   ip-address@<10.7.1: '>=10.7.1 <11.0.0'
   qs@<6.16.0: '>=6.16.0 <7.0.0'
   basic-ftp@<6.2.1: '>=6.2.1 <7.0.0'
+  '@mcp-b/transports>zod': ^4.6.5
 
 importers:
 
   .:
     dependencies:
+      '@mcp-b/global':
+        specifier: 2.2.0
+        version: 2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))(zod@4.6.5)
       '@radix-ui/react-avatar':
         specifier: ^1.2.6
         version: 1.2.6(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -71,6 +75,9 @@ importers:
       zod:
         specifier: ^4.6.5
         version: 4.6.5
+      zod-to-json-schema:
+        specifier: ^3.25.2
+        version: 3.25.2(zod@4.6.5)
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.13.0
@@ -305,6 +312,9 @@ packages:
 
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
+
+  '@cfworker/json-schema@4.1.1':
+    resolution: {integrity: sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==}
 
   '@corex/deepmerge@4.0.43':
     resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
@@ -651,6 +661,32 @@ packages:
 
   '@lhci/utils@0.15.1':
     resolution: {integrity: sha512-WclJnUQJeOMY271JSuaOjCv/aA0pgvuHZS29NFNdIeI14id8eiFsjith85EGKYhljgoQhJ2SiW4PsVfFiakNNw==}
+
+  '@mcp-b/global@2.2.0':
+    resolution: {integrity: sha512-3+FNuVXPGyhzYsVPL5UItMkTF+GD6E3iHEmuJY0yydjjpWtlqrUw7b7PLhyuymKcc1+jTMunyrr3Zps0uPEfiw==}
+    engines: {node: '>=18'}
+
+  '@mcp-b/transports@2.2.0':
+    resolution: {integrity: sha512-zSqYekrmou72z67GF5jXaDnQdhT84Hlmi4meshm0zMn71GlaYmHhXfb3UsgW3xQ7Y5CexQ4U9L9IrdG6/+MTfA==}
+
+  '@mcp-b/webmcp-polyfill@2.2.0':
+    resolution: {integrity: sha512-as49JP4MHXVMMVNzD8938EsiU2tEzWNk7Un6c6C/xK5rstkIrQZQsVLbH7NFtmgMb6bbryzSqg9JWSFIxkU27Q==}
+    engines: {node: '>=18'}
+
+  '@mcp-b/webmcp-ts-sdk@2.2.0':
+    resolution: {integrity: sha512-IzjwqrpbbASbAJxpr5k5m1ryiELGdnohDXzpLuB7UK2VI1rsAwQ04j59uRkMvaqZ4iwvxHTzKk+AajRB57OcPw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25 || ^4.0
+      zod-to-json-schema: ^3.25.0
+    peerDependenciesMeta:
+      zod:
+        optional: true
+      zod-to-json-schema:
+        optional: true
+
+  '@mcp-b/webmcp-types@2.2.0':
+    resolution: {integrity: sha512-1/UYAwQKBkqRgK18GkbGR4m6Cn9vz6Qy6pTL5LIIinUOhR5dMLaNl/blH/tJT+nJleMmgDoFZWGAmmr+fAz2PQ==}
 
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     resolution: {integrity: sha512-oTXEIha4SsuXdTA4Iyskj0kpdx2yVXdhd75c2v3xGrHFfVMsbhTPZU/nMPL4sWKo4pBHm3aucLaqGlF696dTyQ==}
@@ -3416,8 +3452,8 @@ packages:
   launder@1.7.2:
     resolution: {integrity: sha512-DLg3HPnHUfBi5/MxMLmJD12dmlMpFEC2HgMW6vkZ/9JR0RU00kXoRGvDxAvFmdO0o610OA77i4FgNTLucmhDVg==}
 
-  legacy-javascript@0.0.1:
-    resolution: {integrity: sha512-lPyntS4/aS7jpuvOlitZDFifBCb4W8L/3QU0PLbUTUj+zYah8rfVjYic88yG7ZKTxhS5h9iz7duT8oUXKszLhg==}
+  legacy-javascript@0.0.3:
+    resolution: {integrity: sha512-1r6MT4dVaJyXt4G07Cm2cQ0AUaLJdefiEp4SmIAylA++gnEQ82YvmzE58RkM5EP0fk5hROLCslUPGnwIYdZQVA==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -5061,6 +5097,11 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod-to-json-schema@3.25.2:
+    resolution: {integrity: sha512-O/PgfnpT1xKSDeQYSCfRI5Gy3hPf91mKVDuYLUHZJMiDFptvP41MSnWofm8dnCm0256ZNfZIM7DSzuSMAFnjHA==}
+    peerDependencies:
+      zod: ^3.25.28 || ^4
+
   zod-validation-error@4.0.2:
     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
     engines: {node: '>=18.0.0'}
@@ -5221,6 +5262,8 @@ snapshots:
     dependencies:
       hashery: 1.5.1
       keyv: 5.6.0
+
+  '@cfworker/json-schema@4.1.1': {}
 
   '@corex/deepmerge@4.0.43': {}
 
@@ -5543,6 +5586,39 @@ snapshots:
       - utf-8-validate
       - yauzl
 
+  '@mcp-b/global@2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))(zod@4.6.5)':
+    dependencies:
+      '@mcp-b/transports': 2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))
+      '@mcp-b/webmcp-polyfill': 2.2.0
+      '@mcp-b/webmcp-ts-sdk': 2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))(zod@4.6.5)
+      '@mcp-b/webmcp-types': 2.2.0
+    transitivePeerDependencies:
+      - zod
+      - zod-to-json-schema
+
+  '@mcp-b/transports@2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))':
+    dependencies:
+      '@mcp-b/webmcp-ts-sdk': 2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))(zod@4.6.5)
+      zod: 4.6.5
+    transitivePeerDependencies:
+      - zod-to-json-schema
+
+  '@mcp-b/webmcp-polyfill@2.2.0':
+    dependencies:
+      '@cfworker/json-schema': 4.1.1
+      '@mcp-b/webmcp-types': 2.2.0
+      '@standard-schema/spec': 1.1.0
+
+  '@mcp-b/webmcp-ts-sdk@2.2.0(zod-to-json-schema@3.25.2(zod@4.6.5))(zod@4.6.5)':
+    dependencies:
+      '@mcp-b/webmcp-polyfill': 2.2.0
+      '@mcp-b/webmcp-types': 2.2.0
+    optionalDependencies:
+      zod: 4.6.5
+      zod-to-json-schema: 3.25.2(zod@4.6.5)
+
+  '@mcp-b/webmcp-types@2.2.0': {}
+
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
 
@@ -5719,7 +5795,7 @@ snapshots:
 
   '@paulirish/trace_engine@0.0.53':
     dependencies:
-      legacy-javascript: 0.0.1
+      legacy-javascript: 0.0.3
       third-party-web: 0.30.0
 
   '@playwright/test@1.63.0':
@@ -8293,7 +8369,7 @@ snapshots:
     dependencies:
       dayjs: 1.11.23
 
-  legacy-javascript@0.0.1: {}
+  legacy-javascript@0.0.3: {}
 
   levn@0.4.1:
     dependencies:
@@ -10224,6 +10300,10 @@ snapshots:
       yargs-parser: 22.0.0
 
   yocto-queue@0.1.0: {}
+
+  zod-to-json-schema@3.25.2(zod@4.6.5):
+    dependencies:
+      zod: 4.6.5
 
   zod-validation-error@4.0.2(zod@4.6.5):
     dependencies:

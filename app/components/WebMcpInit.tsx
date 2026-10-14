@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 
 import { CONTENT_SLUGS } from "@/lib/content-slugs";
+import { logError } from "@/lib/error-logging";
+import { loadWebMcpPolyfill } from "@/lib/webmcp";
 
 type ToolInputSchema = {
   type: "object";
@@ -231,6 +233,22 @@ function registerTools(modelContext: ModelContext) {
     }),
   });
 }
+
+/** Runs `callback` once the main thread is idle, keeping it off the load path. */
+function whenIdle(callback: () => void): () => void {
+  const scope = globalThis as typeof globalThis &
+    Partial<Pick<Window, "requestIdleCallback" | "cancelIdleCallback">>;
+  if (
+    typeof scope.requestIdleCallback === "function" &&
+    typeof scope.cancelIdleCallback === "function"
+  ) {
+    const id = scope.requestIdleCallback(callback, { timeout: 5000 });
+    return () => scope.cancelIdleCallback?.(id);
+  }
+  const id = scope.setTimeout(callback, 1);
+  return () => scope.clearTimeout(id);
+}
+
 export function WebMcpInit() {
   useEffect(() => {
     const globalScope = globalThis as typeof globalThis & {
@@ -251,33 +269,41 @@ export function WebMcpInit() {
     }
 
     let cancelled = false;
-    let attempts = 0;
-    const maxAttempts = 10;
-    const delayMs = 250;
 
     const tryRegister = () => {
-      if (cancelled) {
-        return;
-      }
-
       const modelContext = getModelContext();
-      if (modelContext) {
-        registerTools(modelContext);
-        globalWindow[MCP_REGISTRATION_FLAG] = true;
-        return;
+      if (!modelContext) {
+        return false;
       }
-
-      attempts += 1;
-      if (attempts < maxAttempts) {
-        const scheduleTimeout = globalScope.setTimeout ?? setTimeout;
-        scheduleTimeout(tryRegister, delayMs);
-      }
+      registerTools(modelContext);
+      globalWindow[MCP_REGISTRATION_FLAG] = true;
+      return true;
     };
 
-    tryRegister();
+    // Native WebMCP: register straight away.
+    if (tryRegister()) {
+      return;
+    }
+
+    // No native support: load the polyfill once the page is idle, then register.
+    const cancelIdle = whenIdle(() => {
+      loadWebMcpPolyfill()
+        .then(() => {
+          if (!cancelled && !globalWindow[MCP_REGISTRATION_FLAG]) {
+            tryRegister();
+          }
+        })
+        .catch((error: unknown) => {
+          logError(error, {
+            component: "WebMcpInit",
+            action: "loadWebMcpPolyfill",
+          });
+        });
+    });
 
     return () => {
       cancelled = true;
+      cancelIdle();
     };
   }, []);
 
