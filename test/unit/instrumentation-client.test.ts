@@ -2,7 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sentryClientMock = vi.hoisted(() => ({
   init: vi.fn(),
-  replayIntegration: vi.fn(() => ({ name: "ReplayIntegrationMock" })),
+  addIntegration: vi.fn(),
+  lazyLoadIntegration: vi.fn(),
   captureRouterTransitionStart: vi.fn(() => ({ type: "router-transition" })),
 }));
 
@@ -15,7 +16,7 @@ interface InitOptions {
   tracesSampleRate: number;
   replaysSessionSampleRate: number;
   replaysOnErrorSampleRate: number;
-  integrations: (integrations: { name: string }[]) => { name: string }[];
+  integrations?: unknown;
 }
 
 // Helper to import the client instrumentation fresh per test with new env.
@@ -27,12 +28,23 @@ async function importClientInstrumentation() {
 describe("instrumentation-client Sentry init", () => {
   let warnSpy: ReturnType<typeof vi.spyOn>;
   let debugSpy: ReturnType<typeof vi.spyOn>;
+  // Each fresh import adds window listeners; track them so one test's
+  // listeners can't fire during the next.
+  const windowListeners: [string, EventListenerOrEventListenerObject][] = [];
+  const realAddEventListener = window.addEventListener.bind(window);
 
   beforeEach(() => {
+    vi.spyOn(window, "addEventListener").mockImplementation(
+      (type, listener, options) => {
+        windowListeners.push([type, listener]);
+        realAddEventListener(type, listener, options);
+      },
+    );
     warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     debugSpy = vi.spyOn(console, "debug").mockImplementation(() => {});
     sentryClientMock.init.mockClear();
-    sentryClientMock.replayIntegration.mockClear();
+    sentryClientMock.addIntegration.mockClear();
+    sentryClientMock.lazyLoadIntegration.mockReset();
     sentryClientMock.captureRouterTransitionStart.mockClear();
     delete process.env.VITEST;
     delete process.env.NEXT_PUBLIC_SENTRY_DSN;
@@ -40,6 +52,10 @@ describe("instrumentation-client Sentry init", () => {
   });
 
   afterEach(() => {
+    for (const [type, listener] of windowListeners.splice(0)) {
+      window.removeEventListener(type, listener);
+    }
+    vi.mocked(window.addEventListener).mockRestore();
     warnSpy.mockRestore();
     debugSpy.mockRestore();
     delete process.env.NEXT_PUBLIC_SENTRY_DSN;
@@ -93,7 +109,7 @@ describe("instrumentation-client Sentry init", () => {
     expect(warnSpy).not.toHaveBeenCalled();
   });
 
-  it("initializes Sentry with valid public DSN and replay integration", async () => {
+  it("initializes Sentry with valid public DSN, without bundling Replay", async () => {
     process.env = { ...process.env, NODE_ENV: "production" };
     process.env.NEXT_PUBLIC_SENTRY_DSN =
       "https://1234567890abcdef1234567890abcdef@o123456.ingest.sentry.io/9999999";
@@ -109,11 +125,50 @@ describe("instrumentation-client Sentry init", () => {
     expect(initArg.tracesSampleRate).toBe(0.1);
     expect(initArg.replaysSessionSampleRate).toBe(0.1);
     expect(initArg.replaysOnErrorSampleRate).toBe(1.0);
-    expect(typeof initArg.integrations).toBe("function");
-    const resultIntegrations = initArg.integrations([{ name: "Existing" }]);
-    const integrationNames = resultIntegrations.map((i) => i.name);
-    expect(integrationNames).toContain("Existing");
-    expect(integrationNames).toContain("ReplayIntegrationMock");
+    expect(initArg.integrations).toBeUndefined();
+    expect(sentry.lazyLoadIntegration).not.toHaveBeenCalled();
+  });
+
+  it("lazy-loads Session Replay once, on the first interaction", async () => {
+    process.env = { ...process.env, NODE_ENV: "production" };
+    process.env.NEXT_PUBLIC_SENTRY_DSN =
+      "https://1234567890abcdef1234567890abcdef@o123456.ingest.sentry.io/9999999";
+    const replay = { name: "Replay" };
+    const replayIntegration = vi.fn(() => replay);
+    sentryClientMock.lazyLoadIntegration.mockResolvedValue(replayIntegration);
+
+    await importClientInstrumentation();
+    const sentry =
+      (await import("@sentry/nextjs")) as unknown as SentryClientMock;
+
+    window.dispatchEvent(new Event("pointerdown"));
+    window.dispatchEvent(new Event("keydown"));
+    await vi.waitFor(() => {
+      expect(sentry.addIntegration).toHaveBeenCalledWith(replay);
+    });
+    expect(sentry.lazyLoadIntegration).toHaveBeenCalledTimes(1);
+    expect(sentry.lazyLoadIntegration).toHaveBeenCalledWith(
+      "replayIntegration",
+    );
+  });
+
+  it("warns instead of throwing when Session Replay fails to load", async () => {
+    process.env = { ...process.env, NODE_ENV: "production" };
+    process.env.NEXT_PUBLIC_SENTRY_DSN =
+      "https://1234567890abcdef1234567890abcdef@o123456.ingest.sentry.io/9999999";
+    const failure = new Error("blocked");
+    sentryClientMock.lazyLoadIntegration.mockRejectedValue(failure);
+
+    await importClientInstrumentation();
+    window.dispatchEvent(new Event("scroll"));
+
+    await vi.waitFor(() => {
+      expect(warnSpy).toHaveBeenCalledWith(
+        "[Sentry] Session Replay failed to load.",
+        failure,
+      );
+    });
+    expect(sentryClientMock.addIntegration).not.toHaveBeenCalled();
   });
 
   it("initializes Sentry with a region-scoped DSN (e.g. EU/DE data residency)", async () => {

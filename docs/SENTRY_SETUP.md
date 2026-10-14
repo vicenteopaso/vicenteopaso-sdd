@@ -272,6 +272,11 @@ The project uses the following default sampling rates:
   - Records 100% of sessions where an error occurs
   - Provides full context for debugging errors
 
+- **Replay loading**: on first interaction, from the Sentry CDN
+  - `instrumentation-client.ts` calls `Sentry.lazyLoadIntegration("replayIntegration")` on the first `pointerdown`/`keydown`/`scroll`/`touchstart`, so rrweb isn't part of the initial bundle
+  - Recording therefore starts at that interaction; anything before it (or a visit with no interaction) is not replayed
+  - Requires `https://browser.sentry-cdn.com` in the CSP `script-src` (`next.config.mjs`)
+
 ### CSP Configuration
 
 **Important:** The Content Security Policy (CSP) headers are already configured to allow Sentry connections in production. The CSP includes:

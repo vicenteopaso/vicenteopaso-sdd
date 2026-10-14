@@ -11,8 +11,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Scripts: Next.js, Cloudflare Turnstile, inline Next/scripts
-      "script-src 'self' https://challenges.cloudflare.com https://unpkg.com 'unsafe-inline'",
+      // Scripts: Next.js, Cloudflare Turnstile, inline Next/scripts, and the
+      // Sentry CDN (Session Replay is lazy-loaded from there — see
+      // instrumentation-client.ts)
+      "script-src 'self' https://challenges.cloudflare.com https://unpkg.com https://browser.sentry-cdn.com 'unsafe-inline'",
       // Styles from self + inline (for Next.js style tags and Tailwind)
       "style-src 'self' 'unsafe-inline'",
       // Images from this origin or inlined as data URIs
