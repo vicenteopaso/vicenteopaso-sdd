@@ -12,6 +12,8 @@ overrides:
   ip-address@<10.7.1: ">=10.7.1 <11.0.0"
   qs@<6.16.0: ">=6.16.0 <7.0.0"
   basic-ftp@<6.2.1: ">=6.2.1 <7.0.0"
+  proxy-addr@<2.0.8: ">=2.0.8 <3.0.0"
+  compression@<1.8.2: ">=1.8.2 <2.0.0"
   # @mcp-b/transports declares zod 3.25 but never imports it; that pin made the
   # WebMCP SDK resolve a second zod whose eval probe ignores our jitless config
   # (lib/webmcp.ts). Share the app's zod 4 instead.
