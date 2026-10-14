@@ -152,6 +152,8 @@ export const config = {
     // they ever reached this proxy, so the suspicious-pattern block below
     // never ran on them. We now exclude only known-safe asset extensions
     // so probe-style dotted paths fall through to be 404'd here.
-    "/((?!api/|_next/static|_next/image|opengraph-image|.*\\.(?:png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|css|js|mjs|map|webmanifest|xml|txt|json|pdf|mp4|webm|mp3|wav)$).*)",
+    // `monitoring` is the Sentry tunnelRoute (next.config.mjs); it must reach
+    // the Sentry rewrite unprefixed, not be redirected to /{locale}/monitoring.
+    "/((?!api/|_next/static|_next/image|opengraph-image|monitoring(?:/|$)|.*\\.(?:png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|css|js|mjs|map|webmanifest|xml|txt|json|pdf|mp4|webm|mp3|wav)$).*)",
   ],
 };
