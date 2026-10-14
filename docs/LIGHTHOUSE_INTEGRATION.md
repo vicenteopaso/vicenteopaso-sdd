@@ -69,10 +69,7 @@ Already installed via `@sentry/nextjs`. Add to `sentry.client.config.ts`:
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   tracesSampleRate: 1.0, // Adjust based on traffic
-  integrations: [
-    Sentry.browserTracingIntegration(),
-    Sentry.replayIntegration(),
-  ],
+  integrations: [Sentry.browserTracingIntegration()],
   // Enable performance monitoring
   enableTracing: true,
   // Track Web Vitals
@@ -82,6 +79,8 @@ Sentry.init({
   },
 });
 ```
+
+Session Replay is deliberately not bundled: `instrumentation-client.ts` loads it from the Sentry CDN with `Sentry.lazyLoadIntegration("replayIntegration")` on the visitor's first interaction, keeping rrweb off the initial-load path.
 
 **View reports:** Sentry Dashboard → Performance tab
 

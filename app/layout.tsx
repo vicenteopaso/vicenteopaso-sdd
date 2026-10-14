@@ -1,8 +1,7 @@
 import "../styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import Script from "next/script";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import React from "react";
 
 import { contrastInitScript } from "../lib/contrast";
@@ -16,6 +15,13 @@ import { LocaleProvider } from "./components/LocaleProvider";
 import { SeoJsonLd } from "./components/SeoJsonLd";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { WebMcpInit } from "./components/WebMcpInit";
+
+const inter = Inter({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -85,7 +91,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <script
@@ -112,18 +118,6 @@ export default function RootLayout({
             <a href="#main-content" className="skip-link">
               Skip to main content
             </a>
-            <Script
-              id="cf-turnstile"
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-              strategy="afterInteractive"
-            />
-            <Script
-              id="webmcp-polyfill"
-              src="https://unpkg.com/@mcp-b/global@2.2.0/dist/index.iife.js"
-              integrity="sha384-jyZCmImLqKAc1cMBR6ywp/DUtANftm05MVpAvhlBYCmr+H/7W8IUP5FjRdEf6X41"
-              crossOrigin="anonymous"
-              strategy="afterInteractive"
-            />
             <style>{`::selection { background-color: var(--v3-accent); color: #fff; }`}</style>
             <SeoJsonLd />
             <BrutalistNav />

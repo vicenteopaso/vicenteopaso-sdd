@@ -19,7 +19,7 @@ The contact form implements defense-in-depth with multiple validation layers:
 ```
 User opens contact dialog
   ↓
-ContactDialog loads Cloudflare Turnstile widget
+User focuses the form → Cloudflare Turnstile script loads and widget renders
   ↓
 User fills form (email, message, optional phone)
   ↓
@@ -53,8 +53,8 @@ Return success/error to client
 
 **Client-side:**
 
-- Script loaded in `app/layout.tsx`
-- Widget rendered in ContactDialog
+- Script loaded on demand by `lib/turnstile.ts` (`loadTurnstile()`), the first time a visitor focuses the form, so pages where nobody uses the form never download Turnstile or receive its `_cfuvid` cookie
+- Widget rendered in `V3ContactForm` (home page) and ContactDialog
 - Token passed via `window.onTurnstileSuccess`
 
 **Server-side:**

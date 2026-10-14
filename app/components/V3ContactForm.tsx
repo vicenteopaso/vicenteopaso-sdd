@@ -3,7 +3,9 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { logError } from "@/lib/error-logging";
 import { useTranslations } from "@/lib/i18n";
+import { loadTurnstile } from "@/lib/turnstile";
 
 declare global {
   interface Window {
@@ -31,6 +33,7 @@ export function V3ContactForm() {
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileRequested, setTurnstileRequested] = useState(false);
   const [formState, setFormState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -38,26 +41,39 @@ export function V3ContactForm() {
   const turnstileRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
+  // Turnstile is loaded on the first interaction with the form rather than on
+  // page load, so visitors who never use it skip its script and cookie.
   useEffect(() => {
+    if (!turnstileRequested) return;
     const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-    if (!siteKey || !turnstileRef.current) return;
+    if (!siteKey) return;
 
-    const tryRender = () => {
-      if (!turnstileRef.current || !window.turnstile?.render) return false;
-      window.turnstile.render(turnstileRef.current, {
-        sitekey: siteKey,
-        callback: (token) => setTurnstileToken(token),
-        size: "flexible",
+    let cancelled = false;
+    loadTurnstile()
+      .then(() => {
+        if (cancelled || !turnstileRef.current || !window.turnstile?.render) {
+          return;
+        }
+        window.turnstile.render(turnstileRef.current, {
+          sitekey: siteKey,
+          callback: (token) => setTurnstileToken(token),
+          size: "flexible",
+        });
+      })
+      .catch((error: unknown) => {
+        logError(error, {
+          component: "V3ContactForm",
+          action: "loadTurnstile",
+        });
+        // Let the next focus retry the load.
+        if (!cancelled) setTurnstileRequested(false);
       });
-      return true;
+    return () => {
+      cancelled = true;
     };
+  }, [turnstileRequested]);
 
-    if (tryRender()) return;
-    const id = window.setInterval(() => {
-      if (tryRender()) window.clearInterval(id);
-    }, 200);
-    return () => window.clearInterval(id);
-  }, []);
+  const requestTurnstile = useCallback(() => setTurnstileRequested(true), []);
 
   const reset = useCallback(() => {
     setName("");
@@ -158,7 +174,12 @@ export function V3ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="v3-form">
+    <form
+      onSubmit={handleSubmit}
+      onFocus={requestTurnstile}
+      noValidate
+      className="v3-form"
+    >
       {/* Honeypot — hidden from users, filled only by bots */}
       <input
         type="text"

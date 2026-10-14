@@ -11,18 +11,20 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Scripts: Next.js, Cloudflare Turnstile, inline Next/scripts
-      "script-src 'self' https://challenges.cloudflare.com https://unpkg.com 'unsafe-inline'",
+      // Scripts: Next.js, Cloudflare Turnstile, inline Next/scripts, and the
+      // Sentry CDN (Session Replay is lazy-loaded from there — see
+      // instrumentation-client.ts)
+      "script-src 'self' https://challenges.cloudflare.com https://browser.sentry-cdn.com 'unsafe-inline'",
       // Styles from self + inline (for Next.js style tags and Tailwind)
       "style-src 'self' 'unsafe-inline'",
       // Images from this origin or inlined as data URIs
       "img-src 'self' data:",
       // Fonts from self or inlined
       "font-src 'self' data:",
-      // The WebMCP polyfill (@mcp-b/global, loaded from unpkg above) spins up
-      // a blob: worker internally. Without worker-src, that falls back to
-      // script-src, which doesn't include 'blob:' and blocks it — so this is
-      // scoped narrowly to same-origin + blob: rather than widened globally.
+      // The WebMCP polyfill (@mcp-b/global, lib/webmcp.ts) spins up a blob:
+      // worker internally. Without worker-src, that falls back to script-src,
+      // which doesn't include 'blob:' and blocks it — so this is scoped
+      // narrowly to same-origin + blob: rather than widened globally.
       "worker-src 'self' blob:",
       // Allow Turnstile frames
       "frame-src https://challenges.cloudflare.com",
@@ -73,7 +75,11 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {},
+  experimental: {
+    // Inline the (small, ~20 KB gzipped) global stylesheet into the HTML so
+    // first paint doesn't wait on a render-blocking CSS round trip.
+    inlineCss: true,
+  },
   typedRoutes: true,
   turbopack: {
     // Explicitly tell Turbopack that the project root (where next/package.json lives)

@@ -5,7 +5,9 @@ import type { FormEvent, ReactNode } from "react";
 import React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { logError } from "@/lib/error-logging";
 import { useTranslations } from "@/lib/i18n";
+import { loadTurnstile } from "@/lib/turnstile";
 
 import { ContactInfo } from "./ContactInfo";
 import { Modal } from "./Modal";
@@ -136,6 +138,12 @@ export function ContactDialog({
       );
       return;
     }
+
+    // The Turnstile script is no longer loaded globally (see lib/turnstile.ts);
+    // the polling below picks up window.turnstile once this resolves.
+    loadTurnstile().catch((error: unknown) => {
+      logError(error, { component: "ContactDialog", action: "loadTurnstile" });
+    });
 
     const tryRenderTurnstile = () => {
       if (!turnstileContainerRef.current || !window.turnstile?.render) {

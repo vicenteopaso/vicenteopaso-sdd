@@ -23,7 +23,8 @@ function isLikelyPublicDSN(dsn: string | undefined): boolean {
   return publicDsnPattern.test(dsn);
 }
 
-const isTestEnv = process.env.NODE_ENV === "test" || Boolean(process.env.VITEST);
+const isTestEnv =
+  process.env.NODE_ENV === "test" || Boolean(process.env.VITEST);
 
 if (isTestEnv) {
   // Actually skip Sentry initialization during unit tests to avoid
@@ -60,10 +61,32 @@ if (isTestEnv) {
       tracesSampleRate: 0.1,
       replaysSessionSampleRate: 0.1,
       replaysOnErrorSampleRate: 1.0,
-      integrations: (integrations) => [
-        ...integrations,
-        Sentry.replayIntegration(),
-      ],
     });
+    deferReplayUntilInteraction();
+  }
+}
+
+/**
+ * Session Replay (rrweb) is the bulk of the Sentry client bundle. Bundling it
+ * cost ~120 KB of mostly-unused JS and main-thread time on every page load,
+ * so it is pulled from Sentry's CDN on the visitor's first interaction
+ * instead. Visits with no interaction have nothing worth replaying.
+ */
+function deferReplayUntilInteraction() {
+  const scope = globalThis;
+  if (typeof scope.addEventListener !== "function") return;
+
+  const events = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
+  const load = () => {
+    for (const type of events) scope.removeEventListener(type, load);
+    Sentry.lazyLoadIntegration("replayIntegration")
+      .then((replayIntegration) => Sentry.addIntegration(replayIntegration()))
+      .catch((error: unknown) => {
+        // eslint-disable-next-line no-console
+        console.warn("[Sentry] Session Replay failed to load.", error);
+      });
+  };
+  for (const type of events) {
+    scope.addEventListener(type, load, { once: true, passive: true });
   }
 }

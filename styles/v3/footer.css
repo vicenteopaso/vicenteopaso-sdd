@@ -34,10 +34,14 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 4px 14px;
+    gap: 0 14px;
   }
 
   .v3-footer-link {
+    /* 24px min touch target (WCAG 2.2 SC 2.5.8) without changing the type size */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     font-family: var(--f-mono);
     font-size: 10.5px;
     letter-spacing: 0.06em;

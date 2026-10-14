@@ -2,6 +2,8 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { config } from "../../proxy";
+
 // Mock the locales module
 vi.mock("../../lib/i18n/locales", () => ({
   locales: ["en", "es"],
@@ -427,14 +429,31 @@ describe("proxy (middleware)", () => {
       "/debug.log",
       "/data.db",
       "/store.sqlite",
-    ])(
-      "should block probe-style extension path %s with 404",
-      (probePath) => {
-        const req = createMockRequest(probePath);
-        const response = proxy(req);
+    ])("should block probe-style extension path %s with 404", (probePath) => {
+      const req = createMockRequest(probePath);
+      const response = proxy(req);
 
-        expect(response).toBeInstanceOf(NextResponse);
-        expect((response as NextResponse).status).toBe(404);
+      expect(response).toBeInstanceOf(NextResponse);
+      expect((response as NextResponse).status).toBe(404);
+    });
+  });
+
+  describe("Matcher", () => {
+    // Next compiles the matcher source into an anchored regex; mirror that.
+    // eslint-disable-next-line security/detect-non-literal-regexp -- static source from proxy config
+    const matcher = new RegExp(`^${config.matcher[0]}$`);
+
+    it.each(["/monitoring", "/monitoring/"])(
+      "skips the Sentry tunnel route %s so it is not locale-redirected",
+      (pathname) => {
+        expect(matcher.test(pathname)).toBe(false);
+      },
+    );
+
+    it.each(["/", "/cv", "/en", "/en/monitoring-notes", "/wp-login.php"])(
+      "still runs on %s",
+      (pathname) => {
+        expect(matcher.test(pathname)).toBe(true);
       },
     );
   });
