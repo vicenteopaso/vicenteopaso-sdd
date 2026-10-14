@@ -113,11 +113,6 @@ export default function RootLayout({
               Skip to main content
             </a>
             <Script
-              id="cf-turnstile"
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-              strategy="afterInteractive"
-            />
-            <Script
               id="webmcp-polyfill"
               src="https://unpkg.com/@mcp-b/global@2.2.0/dist/index.iife.js"
               integrity="sha384-jyZCmImLqKAc1cMBR6ywp/DUtANftm05MVpAvhlBYCmr+H/7W8IUP5FjRdEf6X41"
