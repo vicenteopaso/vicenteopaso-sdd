@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import React from "react";
 
 import { contrastInitScript } from "../lib/contrast";
@@ -15,6 +15,13 @@ import { LocaleProvider } from "./components/LocaleProvider";
 import { SeoJsonLd } from "./components/SeoJsonLd";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { WebMcpInit } from "./components/WebMcpInit";
+
+const inter = Inter({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -84,7 +91,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <script

@@ -75,7 +75,11 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {},
+  experimental: {
+    // Inline the (small, ~20 KB gzipped) global stylesheet into the HTML so
+    // first paint doesn't wait on a render-blocking CSS round trip.
+    inlineCss: true,
+  },
   typedRoutes: true,
   turbopack: {
     // Explicitly tell Turbopack that the project root (where next/package.json lives)

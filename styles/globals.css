@@ -9,24 +9,7 @@
   --color-neutral-900: #171717; /* Tailwind's default neutral-900 */
 }
 
-/* Custom fonts */
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf")
-    format("truetype");
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
+/* Custom fonts — Inter is self-hosted via next/font (app/layout.tsx) */
 @font-face {
   font-family: "DM Sans";
   src: url("/fonts/dm-sans/DMSans-VariableFont_opsz,wght.ttf")
@@ -556,7 +539,7 @@ body {
 
 :root {
   /* Font stacks — vars populated by next/font in layout.tsx */
-  --f-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --f-sans: var(--font-inter, "Inter"), system-ui, -apple-system, sans-serif;
   --f-serif: var(--font-instrument-serif, "Times New Roman"), serif;
   --f-mono:
     var(--font-jetbrains-mono, ui-monospace, "SFMono-Regular", Menlo), monospace;
