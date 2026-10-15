@@ -130,6 +130,54 @@ describe("WebMcpInit", () => {
     expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
   });
 
+  it("skips the polyfill on phones reported by User-Agent Client Hints", async () => {
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: null, userAgentData: { mobile: true } },
+      configurable: true,
+    });
+
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
+  });
+
+  it("skips the polyfill on touch-only devices without Client Hints", async () => {
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: null },
+      configurable: true,
+    });
+    const matchMedia = vi.fn((query: string) => ({
+      matches: query === "(hover: none) and (pointer: coarse)",
+    }));
+    vi.stubGlobal("matchMedia", matchMedia);
+
+    try {
+      render(<WebMcpInit />);
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(10);
+      });
+      expect(matchMedia).toHaveBeenCalled();
+      expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("still loads the polyfill on desktop per Client Hints", async () => {
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: null, userAgentData: { mobile: false } },
+      configurable: true,
+    });
+
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
+    });
+    expect(loadWebMcpPolyfill).toHaveBeenCalledTimes(1);
+  });
+
   it("cancels the pending polyfill load on unmount", async () => {
     Object.defineProperty(globalThis, "navigator", {
       value: { modelContext: null },
