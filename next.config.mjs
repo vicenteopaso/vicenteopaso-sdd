@@ -75,11 +75,10 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    // Inline the (small, ~20 KB gzipped) global stylesheet into the HTML so
-    // first paint doesn't wait on a render-blocking CSS round trip.
-    inlineCss: true,
-  },
+  // experimental.inlineCss is deliberately off. Besides the <style> tag it
+  // serialises the ~110 KB stylesheet into the RSC payload, so every page
+  // shipped the CSS twice and mobile spent ~700 ms parsing the HTML document.
+  experimental: {},
   typedRoutes: true,
   turbopack: {
     // Explicitly tell Turbopack that the project root (where next/package.json lives)
