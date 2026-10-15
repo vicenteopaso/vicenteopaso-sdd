@@ -234,6 +234,24 @@ function registerTools(modelContext: ModelContext) {
   });
 }
 
+/**
+ * The polyfill only serves desktop agent extensions (e.g. MCP-B), which phones
+ * don't run. On a mid-range Android its ~330 KB of JS cost ~140 ms of
+ * main-thread blocking for no consumer, so phones skip it.
+ */
+function isMobileDevice(): boolean {
+  const userAgentData = (
+    navigator as Navigator & { userAgentData?: { mobile?: unknown } }
+  ).userAgentData;
+  if (typeof userAgentData?.mobile === "boolean") {
+    return userAgentData.mobile;
+  }
+  return (
+    typeof globalThis.matchMedia === "function" &&
+    globalThis.matchMedia("(hover: none) and (pointer: coarse)").matches
+  );
+}
+
 /** Runs `callback` once the main thread is idle, keeping it off the load path. */
 function whenIdle(callback: () => void): () => void {
   const scope = globalThis as typeof globalThis &
@@ -282,6 +300,10 @@ export function WebMcpInit() {
 
     // Native WebMCP: register straight away.
     if (tryRegister()) {
+      return;
+    }
+
+    if (isMobileDevice()) {
       return;
     }
 
