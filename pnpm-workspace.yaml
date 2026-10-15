@@ -7,13 +7,17 @@ allowBuilds:
 overrides:
   tmp@<0.2.6: ">=0.2.6"
   uuid@<11.1.1: ">=11.1.1"
+  # puppeteer-core pins @puppeteer/browsers 2.x, which pulls extract-zip <=2.0.1
+  # (GHSA-jmr9-qjv8-65gv, GHSA-7pqw-9j4j-h8q3; no patched release). 3.x drops it.
   "@puppeteer/browsers": "3.2.0"
-  axios@<1.20.0: ">=1.20.0 <2.0.0"
-  ip-address@<10.7.1: ">=10.7.1 <11.0.0"
   qs@<6.16.0: ">=6.16.0 <7.0.0"
   basic-ftp@<6.2.1: ">=6.2.1 <7.0.0"
-  proxy-addr@<2.0.8: ">=2.0.8 <3.0.0"
-  compression@<1.8.2: ">=1.8.2 <2.0.0"
+  # js-yaml 3 only uses argparse in its CLI bin (never run here); argparse 2
+  # drops the unpatched sprintf-js (GHSA-hp3w-g68c-fv3c).
+  "js-yaml@3>argparse": "^2.0.1"
+  # @tailwindcss/typography pins postcss-selector-parser 6.0.10 exactly
+  # (GHSA-rj75-hqrm-r3gf); 7.1.6 is the first patched release.
+  "@tailwindcss/typography>postcss-selector-parser": "^7.1.6"
   # @mcp-b/transports declares zod 3.25 but never imports it; that pin made the
   # WebMCP SDK resolve a second zod whose eval probe ignores our jitless config
   # (lib/webmcp.ts). Share the app's zod 4 instead.
