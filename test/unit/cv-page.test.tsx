@@ -52,7 +52,8 @@ function mockCvFs({
       return typeof fallbackContent === "string"
         ? fallbackContent
         : fallbackContent.toString("utf8");
-  });
+    },
+  );
 }
 
 afterEach(() => {
@@ -243,9 +244,9 @@ describe("CVPage", () => {
       screen.getByText(/Defined software design standards/i),
     ).toBeInTheDocument();
     expect(screen.getByText("Beacon Council")).toBeInTheDocument();
-    expect(screen.getAllByText("Reference Person").length).toBeGreaterThanOrEqual(
-      1,
-    );
+    expect(
+      screen.getAllByText("Reference Person").length,
+    ).toBeGreaterThanOrEqual(1);
   });
 
   it("handles minimal CV JSON and optional branches", async () => {
@@ -543,4 +544,33 @@ describe("CV Page Masthead Actions", () => {
       screen.getByRole("link", { name: /email vicente directly/i }),
     ).toHaveAttribute("href", "mailto:vicente@opa.so");
   });
+
+  // WCAG 2.5.3 Label in Name (axe: label-content-name-mismatch): an aria-label
+  // must contain the visible text, or voice-control users can't target it.
+  it.each(["en", "es"])(
+    "includes the visible email in the email CTAs' accessible names (%s)",
+    async (lang) => {
+      mockCvFs({
+        locale: lang,
+        cvJson: mockCVData,
+      });
+
+      const ui = await CVPage({ params: Promise.resolve({ lang }) });
+
+      render(ui);
+
+      const emailLinks = screen.getAllByRole("link", {
+        name: /vicente@opa\.so/i,
+      });
+      expect(emailLinks.map((link) => link.getAttribute("href"))).toEqual(
+        expect.arrayContaining(["#contact", "mailto:vicente@opa.so"]),
+      );
+      for (const link of emailLinks) {
+        const visible = link.textContent?.replace(/[^\w@.]/g, "") ?? "";
+        expect(link.getAttribute("aria-label")?.toLowerCase()).toContain(
+          visible.toLowerCase(),
+        );
+      }
+    },
+  );
 });
