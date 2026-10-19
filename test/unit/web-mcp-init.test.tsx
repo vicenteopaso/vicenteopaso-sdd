@@ -49,6 +49,7 @@ describe("WebMcpInit", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.clearAllMocks();
+    delete (document as Document & { modelContext?: unknown }).modelContext;
     Object.defineProperty(globalThis, "fetch", {
       value: originalFetch,
       writable: true,
@@ -115,6 +116,94 @@ describe("WebMcpInit", () => {
       (globalThis.window as Window & { __opaWebMcpRegistered?: boolean })
         .__opaWebMcpRegistered,
     ).toBe(true);
+  });
+
+  it("registers on document.modelContext once the polyfill installs it", async () => {
+    // @mcp-b/global v6+ follows the current WebMCP draft and installs the API
+    // on document.modelContext; navigator.modelContext stays undefined.
+    const registerTool = vi.fn(async (_tool: RegisteredTool) => undefined);
+    Object.defineProperty(globalThis, "navigator", {
+      value: { userAgentData: { mobile: false } },
+      configurable: true,
+    });
+    loadWebMcpPolyfill.mockImplementation(async () => {
+      Object.defineProperty(document, "modelContext", {
+        value: { registerTool },
+        configurable: true,
+      });
+    });
+
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1);
+    });
+
+    expect(loadWebMcpPolyfill).toHaveBeenCalledTimes(1);
+    expect(registerTool.mock.calls.map(([tool]) => tool.name)).toEqual([
+      "get_site_overview",
+      "get_site_context",
+      "get_content",
+      "get_profile",
+      "list_content_slugs",
+    ]);
+    expect(
+      (globalThis.window as Window & { __opaWebMcpRegistered?: boolean })
+        .__opaWebMcpRegistered,
+    ).toBe(true);
+  });
+
+  it("prefers document.modelContext over navigator.modelContext", () => {
+    const documentRegister = vi.fn();
+    const navigatorRegister = vi.fn();
+    Object.defineProperty(document, "modelContext", {
+      value: { registerTool: documentRegister },
+      configurable: true,
+    });
+    Object.defineProperty(globalThis, "navigator", {
+      value: { modelContext: { registerTool: navigatorRegister } },
+      configurable: true,
+    });
+
+    render(<WebMcpInit />);
+
+    expect(documentRegister).toHaveBeenCalled();
+    expect(navigatorRegister).not.toHaveBeenCalled();
+    expect(loadWebMcpPolyfill).not.toHaveBeenCalled();
+  });
+
+  it("logs registerTool failures, async or sync, without breaking the rest", async () => {
+    const rejection = new Error("duplicate tool");
+    const thrown = new Error("invalid schema");
+    const registerTool = vi.fn((tool: RegisteredTool) => {
+      if (tool.name === "get_site_overview") {
+        return Promise.reject(rejection);
+      }
+      if (tool.name === "get_content") {
+        throw thrown;
+      }
+      return Promise.resolve();
+    });
+    Object.defineProperty(document, "modelContext", {
+      value: { registerTool },
+      configurable: true,
+    });
+
+    render(<WebMcpInit />);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(0);
+    });
+
+    expect(registerTool).toHaveBeenCalledTimes(5);
+    expect(logError).toHaveBeenCalledWith(rejection, {
+      component: "WebMcpInit",
+      action: "registerTool",
+      metadata: { tool: "get_site_overview" },
+    });
+    expect(logError).toHaveBeenCalledWith(thrown, {
+      component: "WebMcpInit",
+      action: "registerTool",
+      metadata: { tool: "get_content" },
+    });
   });
 
   it("does not load the polyfill when WebMCP is native", async () => {

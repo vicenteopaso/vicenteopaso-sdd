@@ -21,24 +21,20 @@ type ToolRegistration = {
 };
 
 type ModelContext = {
-  registerTool: (tool: ToolRegistration) => void;
+  // The current WebMCP draft returns a Promise; older drafts returned void.
+  registerTool: (tool: ToolRegistration) => Promise<void> | void;
 };
 
-type ModelContextNavigator = Navigator & { modelContext?: unknown };
+type ModelContextHost = { modelContext?: unknown };
 
 const MCP_REGISTRATION_FLAG = "__opaWebMcpRegistered";
 
-function getModelContext(): ModelContext | null {
-  if (typeof navigator === "undefined") {
+function toModelContext(candidate: unknown): ModelContext | null {
+  if (!candidate || typeof candidate !== "object") {
     return null;
   }
 
-  const modelContext = (navigator as ModelContextNavigator).modelContext;
-  if (!modelContext || typeof modelContext !== "object") {
-    return null;
-  }
-
-  const context = modelContext as ModelContext;
+  const context = candidate as ModelContext;
   if (typeof context.registerTool !== "function") {
     return null;
   }
@@ -46,7 +42,51 @@ function getModelContext(): ModelContext | null {
   return context;
 }
 
-function registerTools(modelContext: ModelContext) {
+/**
+ * The current WebMCP draft (and @mcp-b/global v6+) exposes the API on
+ * `document.modelContext`; earlier drafts and native builds used
+ * `navigator.modelContext`. Prefer the document, fall back to the navigator.
+ */
+function getModelContext(): ModelContext | null {
+  // Reads the WebMCP global API, not the DOM tree, hence globalThis.document.
+  const globalDocument = (
+    globalThis as typeof globalThis & {
+      document?: Document & ModelContextHost;
+    }
+  ).document;
+  const fromDocument = toModelContext(globalDocument?.modelContext);
+  if (fromDocument) {
+    return fromDocument;
+  }
+
+  return typeof navigator === "undefined"
+    ? null
+    : toModelContext((navigator as Navigator & ModelContextHost).modelContext);
+}
+
+function registerTools(context: ModelContext) {
+  const modelContext = {
+    registerTool: (tool: ToolRegistration) => {
+      try {
+        void Promise.resolve(context.registerTool(tool)).catch(
+          (error: unknown) => {
+            logError(error, {
+              component: "WebMcpInit",
+              action: "registerTool",
+              metadata: { tool: tool.name },
+            });
+          },
+        );
+      } catch (error) {
+        logError(error, {
+          component: "WebMcpInit",
+          action: "registerTool",
+          metadata: { tool: tool.name },
+        });
+      }
+    },
+  };
+
   const fetchText = async (path: string) => {
     try {
       const response = await fetch(path);

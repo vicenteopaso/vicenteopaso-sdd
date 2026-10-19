@@ -1,6 +1,7 @@
 /**
  * Loads the WebMCP polyfill (@mcp-b/global) as a self-hosted, code-split
- * chunk. Browsers with native `navigator.modelContext` never call this.
+ * chunk. Browsers with native WebMCP (`document.modelContext`, or the older
+ * `navigator.modelContext`) never call this.
  *
  * zod v4 (used inside the polyfill) probes `new Function("")` to decide
  * whether to JIT-compile object parsers. Our CSP forbids eval, so that probe
@@ -12,6 +13,6 @@
 export async function loadWebMcpPolyfill(): Promise<void> {
   const { config } = await import("zod/v4/core");
   config({ jitless: true });
-  // Side-effect import: the polyfill installs navigator.modelContext.
+  // Side-effect import: the polyfill installs document.modelContext.
   await import("@mcp-b/global");
 }
