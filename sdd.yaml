@@ -1,7 +1,7 @@
 version: 1.0
 name: vicenteopaso-vibecode
 description: >
-  Personal site and CV built with Next.js App Router, Tailwind v4, Radix UI,
+  Personal site and CV built with Next.js App Router, Tailwind v4,
   and markdown/JSON content, with strong SEO, accessibility, and testing
   governance.
 
@@ -20,7 +20,6 @@ stack:
   language: typescript
   styling:
     - tailwindcss-v4
-    - radix-ui
   content:
     - markdown + gray-matter
     - zod-validated frontmatter (lib/content.ts)

@@ -19,7 +19,7 @@ test.describe("References Grid Visual Regression", () => {
     await expect(refsGrid).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(refsGrid).toHaveScreenshot("references-carousel-light.png", {
+    await expect(refsGrid).toHaveScreenshot("cv-references-light.png", {
       animations: "disabled",
     });
   });
@@ -33,7 +33,7 @@ test.describe("References Grid Visual Regression", () => {
     await expect(refsGrid).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(refsGrid).toHaveScreenshot("references-carousel-dark.png", {
+    await expect(refsGrid).toHaveScreenshot("cv-references-dark.png", {
       animations: "disabled",
     });
   });
@@ -48,7 +48,7 @@ test.describe("References Grid Visual Regression", () => {
     await expect(refsGrid).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(refsGrid).toHaveScreenshot("references-carousel-mobile.png", {
+    await expect(refsGrid).toHaveScreenshot("cv-references-mobile.png", {
       animations: "disabled",
     });
   });
@@ -65,7 +65,7 @@ test.describe("References Grid Card Visual Regression", () => {
       .first();
     await expect(firstCard).toBeVisible();
 
-    await expect(firstCard).toHaveScreenshot("references-carousel-dots.png", {
+    await expect(firstCard).toHaveScreenshot("cv-references-card.png", {
       animations: "disabled",
     });
   });

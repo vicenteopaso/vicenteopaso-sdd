@@ -132,7 +132,7 @@ We aim to respond within 2 business days and will work to resolve reported issue
 - **CSS**: Tailwind CSS with custom design tokens
 - **JavaScript**: React 19 with Next.js 16 (progressive enhancement)
 - **ARIA**: Applied where semantic HTML is insufficient
-- **Frameworks**: Radix UI for accessible component primitives
+- **Components**: Hand-built React components using native interactive elements (`<button>`, `<a>`, `<form>`) rather than a third-party widget library
 
 ## Formal Accessibility Complaints
 

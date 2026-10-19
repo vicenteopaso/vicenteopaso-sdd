@@ -6,7 +6,7 @@ Cookie Policy, Privacy Policy, and Tech Stack are now rendered as standalone pag
 
 ## Related Files
 
-- Footer links: see `app/components/Footer.tsx`
+- Footer links: see `app/components/BrutalistFooter.tsx`
 - Policy pages: see `app/[lang]/cookie-policy/page.tsx`, etc.
 - Content API: see `app/api/content/[[...parts]]/route.ts`
 
@@ -16,5 +16,5 @@ Cookie Policy, Privacy Policy, and Tech Stack are now rendered as standalone pag
 
 ## See Also
 
-- [Footer](./Footer.md)
+- [BrutalistFooter](./BrutalistFooter.md)
 - [Markdown Components](../../lib/markdown-components.tsx)

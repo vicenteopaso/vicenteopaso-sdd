@@ -17,7 +17,7 @@ test.describe("Impact Strip Visual Regression", () => {
     await expect(impactStrip).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(impactStrip).toHaveScreenshot("impact-cards-light.png", {
+    await expect(impactStrip).toHaveScreenshot("impact-strip-light.png", {
       animations: "disabled",
     });
   });
@@ -31,7 +31,7 @@ test.describe("Impact Strip Visual Regression", () => {
     await expect(impactStrip).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(impactStrip).toHaveScreenshot("impact-cards-dark.png", {
+    await expect(impactStrip).toHaveScreenshot("impact-strip-dark.png", {
       animations: "disabled",
     });
   });
@@ -46,7 +46,7 @@ test.describe("Impact Strip Visual Regression", () => {
     await expect(impactStrip).toBeVisible();
     await waitForStableHeight(page);
 
-    await expect(impactStrip).toHaveScreenshot("impact-cards-mobile.png", {
+    await expect(impactStrip).toHaveScreenshot("impact-strip-mobile.png", {
       animations: "disabled",
     });
   });
@@ -64,7 +64,7 @@ test.describe("Impact Strip Individual Card Visual Regression", () => {
     const firstCard = impactStrip.locator(".v3-impact-stat").first();
     await expect(firstCard).toBeVisible();
 
-    await expect(firstCard).toHaveScreenshot("impact-card-single-light.png", {
+    await expect(firstCard).toHaveScreenshot("impact-strip-single-light.png", {
       animations: "disabled",
     });
   });

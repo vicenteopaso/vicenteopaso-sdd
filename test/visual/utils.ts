@@ -1,8 +1,8 @@
 import type { Locator, Page } from "@playwright/test";
 
 // Shared selectors for visual tests
-export const PORTRAIT_SELECTOR = 'img[alt*="Portrait"]';
-export const REFERENCES_SECTION_SELECTOR = "#cv-references";
+const PORTRAIT_SELECTOR = 'img[alt*="Portrait"]';
+const REFERENCES_SECTION_SELECTOR = "#cv-references";
 const NEXT_DEVTOOLS_HOST_SELECTORS =
   "nextjs-portal, script[data-nextjs-dev-overlay]";
 
@@ -89,76 +89,6 @@ export async function waitForStableHeight(
   );
 }
 
-// Disable pointer events on carousels to prevent user-driven changes
-export async function freezeCarouselInteractions(
-  page: Page,
-  selector: string,
-): Promise<void> {
-  await page.evaluate((sel) => {
-    const el = document.querySelector(sel);
-    if (!el) return;
-    const buttons = el.querySelectorAll("button");
-    buttons.forEach((btn) => (btn.style.pointerEvents = "none"));
-  }, selector);
-}
-
-// Wait for a target element's transform to remain stable
-export async function waitForStableTransform(
-  page: Page,
-  selector: string,
-  consecutive: number = 3,
-  intervalMs: number = 100,
-): Promise<void> {
-  await page.evaluate(
-    (args) => {
-      const { selector, consecutive, intervalMs } = args as {
-        selector: string;
-        consecutive: number;
-        intervalMs: number;
-      };
-      const el = document.querySelector(selector) as HTMLElement | null;
-      if (!el) return;
-      return new Promise<void>((resolve) => {
-        let lastTransform = getComputedStyle(el).transform;
-        let stableCount = 0;
-        let iterations = 0;
-        const maxIterations = 50; // Max 5 seconds with 100ms interval
-        const check = setInterval(() => {
-          iterations++;
-          const currentTransform = getComputedStyle(el).transform;
-          if (currentTransform === lastTransform) {
-            stableCount++;
-            if (stableCount >= consecutive) {
-              clearInterval(check);
-              resolve();
-            }
-          } else {
-            stableCount = 0;
-            lastTransform = currentTransform;
-          }
-          if (iterations >= maxIterations) {
-            clearInterval(check);
-            resolve();
-          }
-        }, intervalMs);
-      });
-    },
-    { selector, consecutive, intervalMs },
-  );
-}
-
-// Freeze references carousel buttons to prevent auto-rotation during screenshots
-export async function freezeReferencesCarousel(page: Page): Promise<void> {
-  await page.evaluate((selector) => {
-    const section = document.querySelector(selector);
-    if (!section) return;
-    const buttons = section.querySelectorAll("button");
-    buttons.forEach((btn) => {
-      (btn as HTMLButtonElement).style.pointerEvents = "none";
-    });
-  }, REFERENCES_SECTION_SELECTOR);
-}
-
 // Get portrait mask locator for visual tests
 export function getPortraitMask(page: Page): Locator {
   return page.locator(PORTRAIT_SELECTOR);
@@ -178,7 +108,7 @@ export async function cvPageMasks(page: Page): Promise<Locator[]> {
 
 // Hide the Next.js devtools/issues indicator and overlay host during screenshots.
 // This keeps visual baselines stable even if dev-only tooling appears.
-export async function hideNextDevtools(page: Page): Promise<void> {
+async function hideNextDevtools(page: Page): Promise<void> {
   await page.evaluate((selectors) => {
     const globalWindow = window as Window & {
       __VISUAL_TEST_NEXTJS_UI_HIDDEN__?: boolean;

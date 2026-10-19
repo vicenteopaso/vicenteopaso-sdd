@@ -8,8 +8,8 @@ import {
   waitForHomepage,
 } from "../utils";
 
-test.describe("Profile Card Visual Regression", () => {
-  test.describe("Homepage Profile Card (with avatar)", () => {
+test.describe("Hero & CV Masthead Visual Regression", () => {
+  test.describe("Homepage hero", () => {
     test("renders profile card in light mode", async ({ page }) => {
       await setThemeLight(page);
       await page.goto("/");
@@ -22,13 +22,10 @@ test.describe("Profile Card Visual Regression", () => {
       // Mask the portrait image since it's randomly selected
       const portraitMask = getPortraitMask(page);
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-homepage-light.png",
-        {
-          animations: "disabled",
-          mask: [portraitMask],
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("hero-light.png", {
+        animations: "disabled",
+        mask: [portraitMask],
+      });
     });
 
     test("renders profile card in dark mode", async ({ page }) => {
@@ -41,13 +38,10 @@ test.describe("Profile Card Visual Regression", () => {
 
       const portraitMask = getPortraitMask(page);
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-homepage-dark.png",
-        {
-          animations: "disabled",
-          mask: [portraitMask],
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("hero-dark.png", {
+        animations: "disabled",
+        mask: [portraitMask],
+      });
     });
 
     test("renders profile card on mobile viewport", async ({ page }) => {
@@ -60,17 +54,14 @@ test.describe("Profile Card Visual Regression", () => {
 
       const portraitMask = getPortraitMask(page);
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-homepage-mobile.png",
-        {
-          animations: "disabled",
-          mask: [portraitMask],
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("hero-mobile.png", {
+        animations: "disabled",
+        mask: [portraitMask],
+      });
     });
   });
 
-  test.describe("CV Profile Card (without avatar)", () => {
+  test.describe("CV masthead", () => {
     test("renders CV header profile card in light mode", async ({ page }) => {
       await setThemeLight(page);
       await page.goto("/cv");
@@ -80,12 +71,9 @@ test.describe("Profile Card Visual Regression", () => {
       const profileSection = page.locator(".v3-cv-masthead-section");
       await expect(profileSection).toBeVisible();
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-cv-light.png",
-        {
-          animations: "disabled",
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("cv-masthead-light.png", {
+        animations: "disabled",
+      });
     });
 
     test("renders CV header profile card in dark mode", async ({ page }) => {
@@ -96,12 +84,9 @@ test.describe("Profile Card Visual Regression", () => {
       const profileSection = page.locator(".v3-cv-masthead-section");
       await expect(profileSection).toBeVisible();
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-cv-dark.png",
-        {
-          animations: "disabled",
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("cv-masthead-dark.png", {
+        animations: "disabled",
+      });
     });
 
     test("renders CV header profile card on mobile viewport", async ({
@@ -114,12 +99,9 @@ test.describe("Profile Card Visual Regression", () => {
       const profileSection = page.locator(".v3-cv-masthead-section");
       await expect(profileSection).toBeVisible();
 
-      await expect(profileSection).toHaveScreenshot(
-        "profile-card-cv-mobile.png",
-        {
-          animations: "disabled",
-        },
-      );
+      await expect(profileSection).toHaveScreenshot("cv-masthead-mobile.png", {
+        animations: "disabled",
+      });
     });
   });
 });

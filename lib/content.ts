@@ -12,7 +12,7 @@ import type { Locale } from "@/lib/i18n";
  * replacement for that schema check now that pages read the
  * filesystem directly.
  */
-export const pageFrontmatterSchema = z.object({
+const pageFrontmatterSchema = z.object({
   name: z.string().min(1),
   title: z.string().min(1),
   slug: z.string().min(1),
@@ -22,7 +22,7 @@ export const pageFrontmatterSchema = z.object({
   description: z.string().optional(),
 });
 
-export type PageFrontmatter = z.infer<typeof pageFrontmatterSchema>;
+type PageFrontmatter = z.infer<typeof pageFrontmatterSchema>;
 
 export interface ContentPage {
   data: PageFrontmatter;

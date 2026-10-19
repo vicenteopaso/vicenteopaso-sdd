@@ -4,14 +4,15 @@ This directory contains visual regression tests for individual UI components. Te
 
 ## Test Files
 
-| File                                 | Component          | Tests                                    |
-| ------------------------------------ | ------------------ | ---------------------------------------- |
-| `navigation.visual.spec.ts`          | NavigationMenu     | Light, dark, mobile, CV active state     |
-| `profile-card.visual.spec.ts`        | ProfileCard        | Homepage variant, CV variant (no avatar) |
-| `contact-dialog.visual.spec.ts`      | ContactDialog      | Light, dark, mobile                      |
-| `impact-cards.visual.spec.ts`        | ImpactCards        | Light, dark, mobile, single card         |
-| `references-carousel.visual.spec.ts` | ReferencesCarousel | Light, dark, mobile, navigation dots     |
-| `footer.visual.spec.ts`              | Footer             | Light, dark, mobile, CV page             |
+| File                                  | Section under test                           | Tests                                      |
+| ------------------------------------- | -------------------------------------------- | ------------------------------------------ |
+| `navigation.visual.spec.ts`           | `BrutalistNav` main navigation               | Light, dark, mobile, CV active state       |
+| `contrast-toggle.visual.spec.ts`      | Header with High Contrast toggle             | Light/dark × default/High Contrast, mobile |
+| `hero-and-cv-masthead.visual.spec.ts` | Home hero (`.v3-hero-section`), CV masthead  | Light, dark, mobile                        |
+| `impact-strip.visual.spec.ts`         | Home impact strip (`.v3-impact-grid`)        | Light, dark, mobile, single cell           |
+| `cv-references.visual.spec.ts`        | CV references grid (`CvRefCard`)             | Light, dark, mobile, single card           |
+| `contact-section.visual.spec.ts`      | Home `#contact` section with `V3ContactForm` | Light, dark, mobile                        |
+| `footer.visual.spec.ts`               | `BrutalistFooter`                            | Light, dark, mobile, CV page               |
 
 ## Running Tests
 
@@ -31,19 +32,19 @@ pnpm playwright test test/visual/components --update-snapshots
 All component tests follow these patterns:
 
 1. **Page-specific wait helpers**: Use `waitForHomepage()` or `waitForCVPage()` from `../utils.ts`
-2. **Shared low-level utilities**: Use `waitForStableHeight()`, `freezeCarouselInteractions()` for custom scenarios
+2. **Shared low-level utilities**: Use `waitForStableHeight()` for custom scenarios
 3. **Theme testing**: Each component is tested in light mode, dark mode, and mobile viewport
 4. **Masking dynamic content**: Use masks for randomly selected content (e.g., portrait images)
 
 ## Snapshot Naming Convention
 
-Snapshots follow the pattern: `{component}-{variant}-{theme/viewport}-linux.png`
+Snapshots follow the pattern: `{section}-{variant}-{theme/viewport}-{platform}.png`
 
 Examples:
 
 - `navigation-light-linux.png`
-- `profile-card-homepage-dark-linux.png`
-- `contact-dialog-mobile-linux.png`
+- `hero-dark-linux.png`
+- `contact-section-mobile-linux.png`
 
 ## Adding New Component Tests
 

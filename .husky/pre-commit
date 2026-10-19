@@ -3,6 +3,20 @@
 # Extend PATH for GUI clients (e.g. GitHub Desktop) that use a limited shell.
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
+# Husky sets a repo-local core.hooksPath, which shadows any global hooks
+# directory. Chain a global pre-commit (e.g. a personal secret-scan safety
+# net) so installing Husky never silently disables it.
+global_hooks=$(git config --global --get core.hooksPath 2>/dev/null)
+if [ -n "$global_hooks" ]; then
+  case "$global_hooks" in
+    "~"/*) global_hooks="$HOME/${global_hooks#\~/}" ;;
+  esac
+  global_hook="$global_hooks/pre-commit"
+  if [ -x "$global_hook" ]; then
+    "$global_hook" || exit $?
+  fi
+fi
+
 # Run lint-staged using the repo-pinned pnpm version when possible.
 # Prefer Corepack (which enforces the pnpm version from package.json),
 # but fall back to plain pnpm in environments where the `corepack` CLI

@@ -2,7 +2,6 @@
 
 import { useParams } from "next/navigation";
 
-import type { TranslationKey, UITranslations } from "./getTranslations";
 import { getTranslations } from "./getTranslations";
 import type { Locale } from "./locales";
 import { defaultLocale } from "./locales";
@@ -36,5 +35,3 @@ export function useTranslations() {
   // Use the server-side getTranslations function
   return getTranslations(locale);
 }
-
-export type { Locale, TranslationKey, UITranslations };
