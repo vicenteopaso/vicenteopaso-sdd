@@ -37,7 +37,7 @@
     "translate": "node scripts/translate.mjs"
   },
   "dependencies": {
-    "@mcp-b/global": "2.2.0",
+    "@mcp-b/global": "6.0.3",
     "@radix-ui/react-avatar": "^1.2.7",
     "@radix-ui/react-dialog": "^1.2.0",
     "@radix-ui/react-navigation-menu": "^1.3.0",
