@@ -144,5 +144,12 @@
   "footer.warp": "Warp",
   "footer.cursor": "Cursor",
   "footer.copyrightName": "© {year} VICENTE OPASO",
-  "footer.copyrightTagline": "DESIGNED AND DEVELOPED WITH AI, SDD, AND ❤"
+  "footer.copyrightTagline": "DESIGNED AND DEVELOPED WITH AI, SDD, AND ❤",
+  "cv.exp.present": "Present",
+  "cv.edu.programSeparator": " in ",
+  "a11y.skipToContent": "Skip to main content",
+  "nav.mainLabel": "Main navigation",
+  "notFound.text": "Page not found.",
+  "notFound.home": "Go home",
+  "meta.siteDescription": "Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso."
 }

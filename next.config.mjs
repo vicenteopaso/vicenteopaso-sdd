@@ -78,7 +78,11 @@ const nextConfig = {
   // experimental.inlineCss is deliberately off. Besides the <style> tag it
   // serialises the ~110 KB stylesheet into the RSC payload, so every page
   // shipped the CSS twice and mobile spent ~700 ms parsing the HTML document.
-  experimental: {},
+  experimental: {
+    // Required because the root layout lives under app/[lang] (per-locale
+    // <html lang>); app/global-not-found.tsx renders unmatched URLs. ADR-0004.
+    globalNotFound: true,
+  },
   typedRoutes: true,
   turbopack: {
     // Explicitly tell Turbopack that the project root (where next/package.json lives)

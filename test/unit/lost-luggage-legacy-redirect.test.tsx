@@ -13,19 +13,11 @@ afterEach(() => {
   permanentRedirectMock.mockClear();
 });
 
-describe("LostLuggageRedirectPage (no-locale)", () => {
-  it("redirects /lost-luggage to /found-luggage", async () => {
-    vi.resetModules();
-    const { default: Page } = await import("../../app/lost-luggage/page");
-
-    expect(() => Page()).toThrow("REDIRECT:/found-luggage");
-  });
-});
-
 describe("LostLuggageRedirectPage ([lang])", () => {
   it("redirects /en/lost-luggage to /en/found-luggage", async () => {
     vi.resetModules();
-    const { default: Page } = await import("../../app/[lang]/lost-luggage/page");
+    const { default: Page } =
+      await import("../../app/[lang]/lost-luggage/page");
 
     await expect(
       Page({ params: Promise.resolve({ lang: "en" }) }),
@@ -34,7 +26,8 @@ describe("LostLuggageRedirectPage ([lang])", () => {
 
   it("redirects /es/lost-luggage to /es/found-luggage", async () => {
     vi.resetModules();
-    const { default: Page } = await import("../../app/[lang]/lost-luggage/page");
+    const { default: Page } =
+      await import("../../app/[lang]/lost-luggage/page");
 
     await expect(
       Page({ params: Promise.resolve({ lang: "es" }) }),
@@ -43,7 +36,8 @@ describe("LostLuggageRedirectPage ([lang])", () => {
 
   it("falls back to the default locale for an invalid lang param", async () => {
     vi.resetModules();
-    const { default: Page } = await import("../../app/[lang]/lost-luggage/page");
+    const { default: Page } =
+      await import("../../app/[lang]/lost-luggage/page");
 
     await expect(
       Page({ params: Promise.resolve({ lang: "fr" }) }),

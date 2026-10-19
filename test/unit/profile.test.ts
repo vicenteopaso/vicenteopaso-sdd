@@ -31,7 +31,10 @@ describe("lib/profile", () => {
 
       if (pathText.endsWith("/content/en/cv.json")) {
         return toJson({
-          basics: { name: "Vicente Opaso" },
+          name: "Vicente Opaso",
+          title: "Vicente Opaso",
+          slug: "cv",
+          basics: { name: "Vicente Opaso", label: "Frontend Architect" },
           work: [
             {
               company: "Example Co",
@@ -125,7 +128,10 @@ describe("lib/profile", () => {
 
       if (pathText.endsWith("/content/en/cv.json")) {
         return toJson({
-          basics: { name: "Vicente Opaso" },
+          name: "Vicente Opaso",
+          title: "Vicente Opaso",
+          slug: "cv",
+          basics: { name: "Vicente Opaso", label: "Frontend Architect" },
           work: [
             {
               company: "Example Co",

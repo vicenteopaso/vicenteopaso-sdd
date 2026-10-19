@@ -7,17 +7,18 @@ const longText =
   "Vicente helped bring structure, clarity, and momentum to complex frontend work. ".repeat(
     5,
   );
+const paragraphs = [longText, "A second, shorter paragraph."];
 
 const refs = [
   {
     name: "Ada Lovelace",
     role: "Staff Engineer",
     href: "https://example.com/ada",
-    fullText: longText,
+    paragraphs,
   },
-  { name: "Grace Hopper", role: "Architect", fullText: longText },
-  { name: "Margaret Hamilton", role: "Director", fullText: longText },
-  { name: "Katherine Johnson", role: "VP Engineering", fullText: longText },
+  { name: "Grace Hopper", role: "Architect", paragraphs },
+  { name: "Margaret Hamilton", role: "Director", paragraphs },
+  { name: "Katherine Johnson", role: "VP Engineering", paragraphs },
 ];
 
 function getCards() {
@@ -132,5 +133,26 @@ describe("CvRefsGrid", () => {
     expect(getTruncated(card)).not.toHaveAttribute("aria-hidden");
     fireEvent.click(link);
     expect(getTruncated(card)).not.toHaveAttribute("aria-hidden");
+  });
+
+  it("renders each reference paragraph as its own <p> when expanded", () => {
+    render(<CvRefsGrid refs={refs} />);
+
+    const overlay = getOverlay(getCards()[0]);
+    const rendered = overlay.querySelectorAll(".v3-cv-ref-card-text p");
+    expect(Array.from(rendered, (p) => p.textContent)).toEqual(paragraphs);
+    // Regression: HTML line breaks used to be stripped to the letters "br /".
+    expect(overlay).not.toHaveTextContent("br /");
+  });
+
+  it("does not add an ellipsis to references shorter than the preview", () => {
+    render(
+      <CvRefsGrid
+        refs={[{ name: "Short", role: "Peer", paragraphs: ["Brief note."] }]}
+      />,
+    );
+
+    expect(getTruncated(getCards()[0])).toHaveTextContent("Brief note.");
+    expect(getTruncated(getCards()[0])).not.toHaveTextContent("…");
   });
 });

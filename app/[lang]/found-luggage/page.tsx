@@ -4,14 +4,14 @@ import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import { ContentPageShell } from "@/app/components/ContentPageShell";
 import { FoundLuggageNotifier } from "@/app/components/FoundLuggageNotifier";
 import { loadContentPage } from "@/lib/content";
+import { contentPageMetadata } from "@/lib/content-metadata";
 import { getLocaleFromParams } from "@/lib/i18n";
 
 import { markdownComponents } from "../../../lib/markdown-components";
-import { baseMetadata } from "../../../lib/seo";
 
 // Unlisted page: reachable only via the QR code on the luggage tag, not
 // linked from any nav or footer, and excluded from the sitemap (see
-// next-sitemap.config.js). /lost-luggage redirects here — that was the
+// app/sitemap.ts). /lost-luggage redirects here — that was the
 // original path, but the page is addressed to whoever *found* the bag.
 export const dynamic = "force-static";
 
@@ -19,18 +19,14 @@ export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "es" }];
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  return baseMetadata({
-    title: "Found Luggage",
-    description: "Contact info for whoever found this bag.",
-    robots: {
-      index: false,
-      follow: false,
-    },
-    openGraph: {
-      title: "Found Luggage",
-      description: "Contact info for whoever found this bag.",
-    },
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return contentPageMetadata(getLocaleFromParams({ lang }), "found-luggage", {
+    robots: { index: false, follow: false },
   });
 }
 
@@ -66,7 +62,10 @@ export default async function FoundLuggagePage({ params }: PageProps) {
           )}
         </header>
         <div className="prose prose-sm max-w-none sm:prose-base">
-          <ReactMarkdown components={markdownComponents} urlTransform={urlTransform}>
+          <ReactMarkdown
+            components={markdownComponents}
+            urlTransform={urlTransform}
+          >
             {content}
           </ReactMarkdown>
         </div>

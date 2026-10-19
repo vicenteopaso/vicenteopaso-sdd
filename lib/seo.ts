@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 
+import type { Cv } from "@/lib/cv";
+import type { Locale } from "@/lib/i18n/locales";
+import { defaultLocale, locales } from "@/lib/i18n/locales";
+
 export const siteConfig = {
   name: "Vicente Opaso",
   domain: "opa.so",
@@ -74,267 +78,224 @@ export function baseMetadata(overrides: Partial<Metadata> = {}): Metadata {
   };
 }
 
-export function getWebsiteJsonLd() {
+// ─── Localized URLs ──────────────────────────────────────────────────────────
+
+const OG_LOCALE: Record<Locale, string> = { en: "en_US", es: "es_ES" };
+
+/** Locale-prefixed, root-relative path, e.g. ("es", "/cv") → "/es/cv". */
+export function localizedPath(locale: Locale, path = ""): `/${string}` {
+  return `/${locale}${path}`;
+}
+
+/**
+ * Canonical + hreflang alternates for a page that exists in every locale.
+ * `path` is the locale-less path ("" for home, "/cv", "/tech-stack", …).
+ * Relative URLs resolve against `metadataBase`.
+ */
+export function localizedAlternates(
+  locale: Locale,
+  path = "",
+): NonNullable<Metadata["alternates"]> {
+  const languages: Record<string, string> = {};
+  for (const l of locales) {
+    languages[l] = localizedPath(l, path);
+  }
+  languages["x-default"] = localizedPath(defaultLocale, path);
+  return { canonical: localizedPath(locale, path), languages };
+}
+
+interface PageMetadataOptions {
+  locale: Locale;
+  /** Locale-less path, e.g. "" (home) or "/cv". */
+  path?: string;
+  /** Page title; the root template appends " — Vicente Opaso". */
+  title?: string;
+  description: string;
+  robots?: Metadata["robots"];
+  /** Override for the social image (defaults to the base OG image). */
+  images?: string;
+}
+
+/**
+ * Per-page metadata with canonical/hreflang alternates and locale-aware
+ * Open Graph fields. Every route under app/[lang] should use this instead of
+ * calling baseMetadata() directly.
+ */
+export function pageMetadata({
+  locale,
+  path = "",
+  title,
+  description,
+  robots,
+  images,
+}: PageMetadataOptions): Metadata {
+  const socialTitle = title ? `${title} · ${siteConfig.name}` : siteConfig.name;
+  return baseMetadata({
+    ...(title ? { title } : {}),
+    description,
+    ...(robots ? { robots } : {}),
+    alternates: localizedAlternates(locale, path),
+    openGraph: {
+      url: `${siteConfig.url}${localizedPath(locale, path)}`,
+      title: socialTitle,
+      description,
+      locale: OG_LOCALE[locale],
+      alternateLocale: locales
+        .filter((l) => l !== locale)
+        .map((l) => OG_LOCALE[l]),
+      ...(images
+        ? { images: [{ url: images, width: 1200, height: 630 }] }
+        : {}),
+    },
+    twitter: {
+      title: socialTitle,
+      description,
+      ...(images ? { images: [images] } : {}),
+    },
+  });
+}
+
+// ─── Structured data (JSON-LD) ───────────────────────────────────────────────
+
+const PERSON_ID = `${siteConfig.url}/#person`;
+const WEBSITE_ID = `${siteConfig.url}/#website`;
+
+const SAME_AS = [
+  "https://linkedin.com/in/vicenteopaso",
+  "https://github.com/vicenteopaso",
+  "https://twitter.com/vicenteopaso",
+] as const;
+
+/**
+ * Serializes JSON-LD for an inline <script>. Escaping "<" keeps a value
+ * containing "</script>" from closing the tag early (the pattern the Next.js
+ * JSON-LD guide recommends), so the output is safe for
+ * dangerouslySetInnerHTML.
+ */
+export function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/** The headline title is the first sentence of the CV label. */
+function jobTitleFrom(cv: Cv): string {
+  return cv.basics.label.split(".")[0].trim();
+}
+
+export function getWebsiteJsonLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": WEBSITE_ID,
     name: siteConfig.name,
-    url: siteConfig.url,
-  } as const;
+    url: `${siteConfig.url}${localizedPath(locale)}`,
+    inLanguage: locale,
+    publisher: { "@id": PERSON_ID },
+  };
 }
 
-export function getPersonJsonLd() {
+/**
+ * Person node derived from content/<locale>/cv.json, so structured data can't
+ * drift from the CV the page renders.
+ */
+export function getPersonJsonLd(locale: Locale, cv: Cv) {
+  // Only the most recent employer can be current; earlier entries always
+  // have an end date. No end date (or "Present") means the role is ongoing.
+  const latest = cv.work[0];
+  const latestEnd = latest?.positions[0]?.endDate;
+  const current =
+    latest && (!latestEnd || latestEnd === "Present") ? latest : undefined;
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    jobTitle: "Frontend Architect & Technical Leader",
-    description:
-      "Technology leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments.",
-    knowsAbout: [
-      "Frontend Architecture",
-      "Design Systems",
-      "Developer Experience",
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Composable Platforms",
-      "CI/CD Automation",
-      "Web Performance",
-      "Accessibility",
-    ],
-    sameAs: [
-      "https://linkedin.com/in/vicenteopaso",
-      "https://github.com/vicenteopaso",
-      "https://twitter.com/vicenteopaso",
-    ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Nexthink",
-      url: "https://nexthink.com",
-    },
-    alumniOf: [
-      {
-        "@type": "Organization",
-        name: "EUROCONTROL",
-      },
-      {
-        "@type": "Organization",
-        name: "Carlsberg Group",
-      },
-      {
-        "@type": "Organization",
-        name: "Nokia Networks",
-      },
-    ],
-    knowsLanguage: [
-      {
-        "@type": "Language",
-        name: "Spanish",
-        alternateName: "es",
-      },
-      {
-        "@type": "Language",
-        name: "English",
-        alternateName: "en",
-      },
-    ],
-  } as const;
+    "@id": PERSON_ID,
+    name: cv.basics.name,
+    url: `${siteConfig.url}${localizedPath(locale)}`,
+    jobTitle: jobTitleFrom(cv),
+    description: cv.basics.summary ?? cv.basics.label,
+    sameAs: [...SAME_AS],
+    knowsAbout: cv.skills.map((skill) => skill.name),
+    knowsLanguage: cv.languages.map((language) => language.language),
+    ...(current
+      ? { worksFor: { "@type": "Organization", name: current.company } }
+      : {}),
+    alumniOf: cv.education.map((education) => ({
+      "@type": "EducationalOrganization",
+      name: education.institution,
+    })),
+  };
 }
 
-/**
- * Enhanced JSON-LD for the CV page with professional credentials
- */
-export function getCvJsonLd() {
+/** CV page graph: ProfilePage about the Person, plus their publications. */
+export function getCvPageJsonLd(locale: Locale, cv: Cv) {
+  const { "@context": _context, ...person } = getPersonJsonLd(locale, cv);
   return {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    mainEntity: {
-      "@type": "Person",
-      name: siteConfig.name,
-      url: siteConfig.url,
-      jobTitle: "Frontend Architect & Technical Leader",
-      description:
-        "15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments.",
-      hasCredential: [
-        {
-          "@type": "EducationalOccupationalCredential",
-          credentialCategory: "degree",
-          name: "Bachelor in Graphic Design",
-          recognizedBy: {
-            "@type": "Organization",
-            name: "Universidad del Pacifico",
-          },
-        },
-      ],
-      hasOccupation: [
-        {
-          "@type": "Occupation",
-          name: "Web Engineering Manager",
-          occupationLocation: {
-            "@type": "Country",
-            name: "Switzerland",
-          },
-          skills:
-            "Next.js, GraphQL, Tailwind CSS, Hygraph CMS, Vercel, CI/CD, Team Leadership",
-        },
-        {
-          "@type": "Occupation",
-          name: "Technical Application Owner",
-          occupationLocation: {
-            "@type": "Country",
-            name: "Belgium",
-          },
-          skills:
-            "Design Systems, Frontend Architecture, Technical Governance, Aviation Systems",
-        },
-        {
-          "@type": "Occupation",
-          name: "Frontend Solutions Architect",
-          occupationLocation: {
-            "@type": "Country",
-            name: "Portugal",
-          },
-          skills:
-            "React, TypeScript, Design Systems, B2B Platforms, Enterprise Architecture",
-        },
-      ],
-    },
-  } as const;
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        url: `${siteConfig.url}${localizedPath(locale, "/cv")}`,
+        inLanguage: locale,
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: { "@id": PERSON_ID },
+      },
+      person,
+      ...cv.publications.map((publication) => ({
+        "@type": "Article",
+        headline: publication.name,
+        author: { "@id": PERSON_ID },
+        ...(publication.releaseDate
+          ? { datePublished: publication.releaseDate }
+          : {}),
+        ...(publication.url ? { url: publication.url } : {}),
+        ...(publication.publisher
+          ? {
+              publisher: {
+                "@type": "Organization",
+                name: publication.publisher,
+              },
+            }
+          : {}),
+      })),
+    ],
+  };
 }
 
-/**
- * JSON-LD for publications/articles
- */
-export function getPublicationsJsonLd() {
+export function getArticleJsonLd({
+  locale,
+  path,
+  headline,
+  description,
+}: {
+  locale: Locale;
+  path: string;
+  headline: string;
+  description?: string;
+}) {
   return {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Publications by Vicente Opaso",
-    itemListElement: [
-      {
-        "@type": "Article",
-        position: 1,
-        name: "Hardening Agentic Experience (AX) in an AI-First Codebase",
-        author: {
-          "@type": "Person",
-          name: siteConfig.name,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "LinkedIn",
-        },
-        datePublished: "2025-12-16",
-        url: "https://www.linkedin.com/pulse/hardening-agentic-experience-ax-ai-first-codebase-vicente-opaso-7ktae",
-      },
-      {
-        "@type": "Article",
-        position: 2,
-        name: "Building My Website Through Spec-Driven Development",
-        author: {
-          "@type": "Person",
-          name: siteConfig.name,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "LinkedIn",
-        },
-        datePublished: "2025-12-12",
-        url: "https://www.linkedin.com/pulse/building-my-website-through-spec-driven-development-real-world-opaso-5wyse",
-      },
-      {
-        "@type": "Article",
-        position: 3,
-        name: "Empowering Design Systems: How Communities of Practice Drive Innovation and Scalability",
-        author: {
-          "@type": "Person",
-          name: siteConfig.name,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "LinkedIn",
-        },
-        datePublished: "2024-10-02",
-        url: "https://www.linkedin.com/pulse/empowering-design-systems-how-communities-practice-drive-opaso-j0icf/",
-      },
-      {
-        "@type": "Article",
-        position: 4,
-        name: "Driving Innovation from the Ground Up: The Power of Communities of Practice",
-        author: {
-          "@type": "Person",
-          name: siteConfig.name,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "LinkedIn",
-        },
-        datePublished: "2024-09-30",
-        url: "https://www.linkedin.com/pulse/driving-innovation-from-ground-up-power-communities-practice-opaso-3msef/",
-      },
-    ],
-  } as const;
+    "@type": "Article",
+    headline,
+    ...(description ? { description } : {}),
+    url: `${siteConfig.url}${localizedPath(locale, path)}`,
+    inLanguage: locale,
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+  };
 }
 
+// ─── Sitemap ─────────────────────────────────────────────────────────────────
+
 /**
- * JSON-LD for skills taxonomy
+ * Locale-less paths of every indexable page (each exists in all locales).
+ * Unlisted pages (/found-luggage, /lost-luggage, /articles/*) are
+ * deliberately absent: they are noindex and reachable by direct link only.
  */
-export function getSkillsJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Professional Skills",
-    description: "Technical skills and expertise areas",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@type": "DefinedTerm",
-          name: "JavaScript/TypeScript",
-          description: "Node.js, ECMAScript, Micro Frontends",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        item: {
-          "@type": "DefinedTerm",
-          name: "Frontend Development",
-          description:
-            "React, Next.js, Angular, React Native, Gatsby, PWA, SSR, SSG, GraphQL",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        item: {
-          "@type": "DefinedTerm",
-          name: "Design Systems",
-          description:
-            "Figma, Storybook, Design Tokens, Inner-sourcing, Governance",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        item: {
-          "@type": "DefinedTerm",
-          name: "Developer Experience",
-          description:
-            "CI/CD Optimization, GitHub Actions, CodeQL, Onboarding Automation",
-        },
-      },
-      {
-        "@type": "ListItem",
-        position: 5,
-        item: {
-          "@type": "DefinedTerm",
-          name: "Cloud & Infrastructure",
-          description: "AWS, Vercel, S3, CloudFront, Lambda, Amplify",
-        },
-      },
-    ],
-  } as const;
-}
+export const INDEXABLE_PATHS = [
+  "",
+  "/cv",
+  "/accessibility",
+  "/cookie-policy",
+  "/privacy-policy",
+  "/tech-stack",
+  "/technical-governance",
+] as const;

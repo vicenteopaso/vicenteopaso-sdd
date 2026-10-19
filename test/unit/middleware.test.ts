@@ -297,52 +297,6 @@ describe("proxy (middleware)", () => {
     });
   });
 
-  describe("Sitemap redirects", () => {
-    it("should redirect /en/sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/en/sitemap.xml", "en-US");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /es/sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/es/sitemap.xml", "es-ES");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /en/sitemap-0.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/en/sitemap-0.xml", "en-US");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /es/news_sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/es/news_sitemap.xml", "es-ES");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-  });
-
   describe("Security - attack vector blocking", () => {
     it("should block WordPress login attempts with 404", () => {
       const req = createMockRequest("/wp-login.php");

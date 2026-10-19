@@ -2,6 +2,7 @@
 name: Privacy Policy
 title: Privacy Policy
 slug: privacy-policy
+description: "Privacy Policy for opa.so: what personal data is collected, how it is used and protected, and your rights under the GDPR."
 ---
 
 ## Introduction

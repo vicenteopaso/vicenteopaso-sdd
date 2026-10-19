@@ -46,47 +46,72 @@ vi.mock("../../app/components/ErrorBoundary", () => ({
   ),
 }));
 
-vi.mock("../../app/components/SeoJsonLd", () => ({
-  SeoJsonLd: () => <div data-testid="seo-jsonld" />,
-}));
-
 vi.mock("../../app/components/WebMcpInit", () => ({
   WebMcpInit: () => <div data-testid="webmcp-init" />,
 }));
 
-vi.mock("next/headers", () => ({
-  headers: () =>
-    Promise.resolve({
-      get: (key: string) => (key === "x-locale" ? "en" : null),
-    }),
-}));
+import { renderToStaticMarkup } from "react-dom/server";
 
-import RootLayout from "../../app/layout";
+import RootLayout, {
+  generateMetadata,
+  generateStaticParams,
+} from "../../app/[lang]/layout";
 import { contrastInitScript } from "../../lib/contrast";
 
-describe("RootLayout", () => {
-  it("applies the High Contrast preference with an inline head script", async () => {
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-    render(await RootLayout({ children: <div /> }));
-    consoleSpy.mockRestore();
+async function renderLayout(lang: string, children: React.ReactNode = <div />) {
+  return RootLayout({ children, params: Promise.resolve({ lang }) });
+}
 
-    const scripts = Array.from(document.querySelectorAll("script"));
-    expect(
-      scripts.some((script) => script.textContent === contrastInitScript),
-    ).toBe(true);
+describe("RootLayout ([lang])", () => {
+  it("prerenders one root layout per supported locale", () => {
+    expect(generateStaticParams()).toEqual([{ lang: "en" }, { lang: "es" }]);
+  });
+
+  it.each([
+    ["en", "Skip to main content"],
+    ["es", "Saltar al contenido principal"],
+  ])(
+    "serves <html lang=%s> and a localized skip link in the static HTML",
+    async (lang, skipText) => {
+      const html = renderToStaticMarkup(await renderLayout(lang));
+
+      expect(html).toContain(`<html lang="${lang}"`);
+      expect(html).toContain(`>${skipText}</a>`);
+    },
+  );
+
+  it("server-renders WebSite JSON-LD for the active locale", async () => {
+    const html = renderToStaticMarkup(await renderLayout("es"));
+    const match = html.match(
+      /<script type="application\/ld\+json">(.*?)<\/script>/,
+    );
+
+    const data = JSON.parse(match?.[1] ?? "null");
+    expect(data["@type"]).toBe("WebSite");
+    expect(data.inLanguage).toBe("es");
+    expect(data.url).toBe("https://opa.so/es");
+  });
+
+  it("points the manifest at the locale-specific route", async () => {
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ lang: "es" }),
+    });
+
+    expect(metadata.manifest).toBe("/es/manifest.webmanifest");
+  });
+
+  it("applies the High Contrast preference with an inline head script", async () => {
+    const html = renderToStaticMarkup(await renderLayout("en"));
+
+    expect(html).toContain(contrastInitScript);
   });
 
   it("wraps children in main content area and includes shell components", async () => {
     // Suppress hydration warning for <html> element in test environment
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-
-    // RootLayout is an async Server Component; call it directly to get resolved JSX,
-    // then render synchronously (JSDOM doesn't support async components natively).
-    const jsx = await RootLayout({
-      children: <div data-testid="child">Hello world</div>,
-    });
-    render(jsx);
-
+    render(
+      await renderLayout("en", <div data-testid="child">Hello world</div>),
+    );
     consoleSpy.mockRestore();
 
     expect(screen.getByTestId("theme-provider")).toBeInTheDocument();
@@ -95,7 +120,6 @@ describe("RootLayout", () => {
     expect(screen.getByTestId("header")).toBeInTheDocument();
     expect(screen.getByTestId("footer")).toBeInTheDocument();
     expect(screen.getByTestId("error-boundary")).toBeInTheDocument();
-    expect(screen.getByTestId("seo-jsonld")).toBeInTheDocument();
     expect(screen.getByTestId("webmcp-init")).toBeInTheDocument();
     expect(screen.getByTestId("analytics")).toBeInTheDocument();
 

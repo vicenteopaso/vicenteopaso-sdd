@@ -144,5 +144,12 @@
   "footer.warp": "3db7c958dfdf5ab8d6e5874200dba26597b825229e0ae2e1ba3fd74632f54aa8",
   "footer.cursor": "2c014f8f8986f1b274dbfa182498444da048b8caa48e5335d5cdf778352d7e6b",
   "footer.copyrightName": "a92dbc668cbd4f73a14600bca5dd37b689a51c993e22c09fa5e723d1746b8d4b",
-  "footer.copyrightTagline": "338d83ed8caa36d891e67e0ec6318d5a41122806005d3e88f4d260dbf49fec35"
+  "footer.copyrightTagline": "338d83ed8caa36d891e67e0ec6318d5a41122806005d3e88f4d260dbf49fec35",
+  "cv.exp.present": "43f9b89c0b9d22d8110ead813ea3949f20592a8bfc3c777d2d49e64da3b0cc9b",
+  "cv.edu.programSeparator": "2eb9d0d30d4ceaac52e60cce021ce7d3c04cff836bb0bd8dec4a4f54fa6cc97a",
+  "a11y.skipToContent": "c887f134c26ea8310e1fb4bd6fbab7b640393bd1b556e62691c7a442be92ec2a",
+  "nav.mainLabel": "eb355944b92d10582856f8aea34b3e319ba465b8aa4c294973cf53f665399a2c",
+  "notFound.text": "d53fc6cd36735a276a55d6193a312b1d0afe2bba8d7688731a61b3841215e246",
+  "notFound.home": "a0aac9145249f1675ee0380260d152d217a7abe140e85aad3871ec30da1c319b",
+  "meta.siteDescription": "2fa37e32b90070fa9a0631a58fb90b8b91c3e1d0afac70bfebacba972d59e820"
 }

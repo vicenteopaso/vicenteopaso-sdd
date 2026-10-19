@@ -103,20 +103,6 @@ export function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Redirect localized sitemap requests to root sitemap
-  if (
-    pathname === "/en/sitemap.xml" ||
-    pathname === "/es/sitemap.xml" ||
-    pathname === "/en/sitemap-0.xml" ||
-    pathname === "/es/sitemap-0.xml" ||
-    pathname === "/en/news_sitemap.xml" ||
-    pathname === "/es/news_sitemap.xml"
-  ) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/sitemap.xml";
-    return NextResponse.redirect(url, { status: 301 });
-  }
-
   if (
     SUSPICIOUS_PATTERNS.some((pattern) => pathname.startsWith(pattern)) ||
     SUSPICIOUS_EXTENSION_RE.test(pathname)

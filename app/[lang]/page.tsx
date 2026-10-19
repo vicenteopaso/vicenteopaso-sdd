@@ -1,14 +1,14 @@
-import fs from "fs";
 import type { Metadata } from "next";
 import type { Route } from "next";
 import Link from "next/link";
-import path from "path";
 import ReactMarkdown from "react-markdown";
 
+import { JsonLd } from "@/app/components/JsonLd";
 import { V3ContactForm } from "@/app/components/V3ContactForm";
-import { logWarning } from "@/lib/error-logging";
+import type { CvSkillGroup, CvWorkEntry } from "@/lib/cv";
+import { loadCv } from "@/lib/cv";
 import { getLocaleFromParams, getTranslations } from "@/lib/i18n";
-import { ogCacheVersion, siteConfig } from "@/lib/seo";
+import { getPersonJsonLd, ogCacheVersion, pageMetadata } from "@/lib/seo";
 import { getSiteData } from "@/lib/site-data";
 
 export const dynamic = "force-static";
@@ -25,30 +25,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const locale = getLocaleFromParams({ lang });
-  return {
-    openGraph: {
-      type: "website",
-      url: `${siteConfig.url}/${locale}`,
-      title: siteConfig.name,
-      description: siteConfig.description,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: `/${locale}/opengraph-image?v=${ogCacheVersion}`,
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: siteConfig.name,
-      description: siteConfig.description,
-      site: "@vicenteopaso",
-      creator: "@vicenteopaso",
-      images: [`/${locale}/opengraph-image?v=${ogCacheVersion}`],
-    },
-  };
+  return pageMetadata({
+    locale,
+    description: getTranslations(locale)("meta.siteDescription"),
+    images: `/${locale}/opengraph-image?v=${ogCacheVersion}`,
+  });
 }
 
 type T = ReturnType<typeof getTranslations>;
@@ -224,16 +205,6 @@ function FocusStrip({
 }
 
 // ─── §03 Experience table ─────────────────────────────────────────────────────
-type WorkEntry = {
-  company: string;
-  location?: string;
-  positions: Array<{
-    position: string;
-    startDate?: string;
-    endDate?: string;
-  }>;
-};
-
 function fmtDate(d?: string, nowLabel?: string): string {
   if (!d || d === "Present") return nowLabel ?? "NOW";
   return d.replace(/-(\d{2})$/, ".$1");
@@ -244,7 +215,7 @@ function ExperienceTable({
   locale,
   t,
 }: {
-  work: WorkEntry[];
+  work: CvWorkEntry[];
   locale: string;
   t: T;
 }) {
@@ -380,9 +351,7 @@ function WhatIBuildSection({ t, data }: { t: T; data: WhatIBuildData }) {
 }
 
 // ─── §05 Tech & Tools ────────────────────────────────────────────────────────
-type SkillGroup = { name: string; level?: string; keywords?: string[] };
-
-function StackGrid({ skills, t }: { skills: SkillGroup[]; t: T }) {
+function StackGrid({ skills, t }: { skills: CvSkillGroup[]; t: T }) {
   return (
     <section id="tech-tools" className="v3-section">
       <SecHead n="05" label={t("section.techTools")} />
@@ -480,26 +449,12 @@ export default async function HomePage({ params }: PageProps) {
   const t = getTranslations(locale);
   const siteData = getSiteData(locale);
 
-  // Load cv.json for work + skills
-  let work: WorkEntry[] = [];
-  let skills: SkillGroup[] = [];
-  try {
-    const cvPath = path.join(process.cwd(), "content", locale, "cv.json");
-    const cv = JSON.parse(fs.readFileSync(cvPath, "utf8")) as {
-      work?: WorkEntry[];
-      skills?: SkillGroup[];
-    };
-    work = cv.work ?? [];
-    skills = cv.skills ?? [];
-  } catch (err) {
-    logWarning(`Landing page CV JSON load failed for locale "${locale}"`, {
-      component: "app/[lang]/page",
-      metadata: { error: err instanceof Error ? err.message : String(err) },
-    });
-  }
+  const cv = loadCv(locale);
+  const { work, skills } = cv;
 
   return (
     <div className="v3-page">
+      <JsonLd data={getPersonJsonLd(locale, cv)} />
       <HeroA4 locale={locale} t={t} tocEntries={siteData.landingToc} />
       <ImpactStrip impact={siteData.impact} />
       <TlDrSection

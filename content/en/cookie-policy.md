@@ -2,6 +2,7 @@
 name: Cookie Policy
 title: Cookie Policy
 slug: cookie-policy
+description: "Cookie Policy for opa.so: which cookies and local storage the site uses, why, and how to manage them under the GDPR."
 ---
 
 ## What Are Cookies?
