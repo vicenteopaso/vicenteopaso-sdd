@@ -25,3 +25,13 @@ peerDependencyRules:
   ignoreMissing:
     - "@opentelemetry/api@>1.5.0"
     - next@>13
+auditConfig:
+  ignoreGhsas:
+    # braces <=3.0.3 stack-exhaustion DoS on deeply nested patterns. No
+    # patched release exists (advisory lists none; 3.0.3 is latest on npm).
+    # Only reachable via fast-glob/micromatch in build/dev tooling
+    # (next-sitemap, @next/eslint-plugin-next), which expand patterns from
+    # repo config — never from request input — so it is not exploitable here.
+    # Remove once braces ships a fix. Accepted 2026-10-19; see
+    # docs/SECURITY_POLICY.md "Accepted dependency advisories".
+    - GHSA-vfj7-8cjw-p6xm
