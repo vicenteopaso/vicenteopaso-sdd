@@ -111,8 +111,16 @@ If a secret is accidentally committed:
 ### Dependency Management
 
 - Dependencies should be kept up to date.
-- Automated security audits run weekly and on dependency changes (see `SECURITY.md`)
-- High and critical vulnerabilities block pull requests
+- `.github/workflows/security-audit.yml` runs `pnpm audit --audit-level=high` weekly, on PRs and on pushes to `main`. A high/critical finding fails the run (the weekly scheduled run opens an issue instead).
+- The `Dependency Audit` job is not yet a required status check in the `main` ruleset, so a failing audit does not block merges on its own — treat a red audit as a release blocker.
+
+#### Accepted dependency advisories
+
+An advisory may be ignored only when no patched release exists **and** the vulnerable code is not reachable from untrusted input. Each exception lives in `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml` with an inline rationale, and is listed here:
+
+| Advisory                                                                                       | Package                                               | Why accepted                                                                                                                                                                                                                                            | Exit criteria                                                 |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) (accepted 2026-10-19) | `braces` ≤3.0.3 — DoS on deeply nested brace patterns | No patched release published. Only pulled in by build/dev tooling (`next-sitemap`, `@next/eslint-plugin-next` via `fast-glob` → `micromatch`) that expands glob patterns from repo config, never from request input. Not shipped in the runtime bundle. | Remove the ignore as soon as a patched `braces` is published. |
 
 ### Additional Best Practices
 
