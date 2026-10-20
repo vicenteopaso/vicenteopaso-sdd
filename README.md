@@ -46,7 +46,7 @@ The project is optimized for readability, accessibility, and maintainability, wi
 - **Framework**: Next.js (App Router, `app/` directory, typed routes)
 - **Language**: TypeScript, React 19
 - **Styling**: Tailwind CSS v4, custom design tokens, utility classes (e.g. `shell`, `section-card`)
-- **UI primitives**: Radix UI (`@radix-ui/react-*`) for navigation, dialogs, avatars
+- **UI components**: hand-built React components on native elements (no third-party widget library)
 - **Theming**: `next-themes` for light/dark mode with `class` attribute on `<html>`
 - **Content**:
   - Markdown files organized by locale (`content/en/`, `content/es/`)
@@ -121,20 +121,20 @@ High‑level layout:
     - `tech-stack/page.tsx` – Technical stack documentation page.
     - `technical-governance/page.tsx` – Technical governance documentation page.
   - `components/`
-    - `BrutalistNav.tsx` – Primary v3 navigation: wordmark, nav links, locale toggle, theme toggle.
+    - `BrutalistNav.tsx` – Primary v3 navigation: logo, nav links, High Contrast toggle, locale toggle, theme toggle.
     - `BrutalistFooter.tsx` – Primary v3 footer with locale-prefixed policy links.
-    - `V3ContactForm.tsx` – Inline contact form (homepage `#contact` section) with Turnstile integration.
-    - `CvRefCard.tsx` / `CvRefsGrid` – CV references 2-column grid with hover-expand overlay (replaced `ReferencesCarousel`).
+    - `ContrastToggle.tsx` – High Contrast switch (WCAG G174 conforming alternate; see ADR-0003).
+    - `V3ContactForm.tsx` – Inline contact form (homepage `#contact` section); loads Turnstile on first interaction.
+    - `CvRefCard.tsx` / `CvRefsGrid` – CV references 2-column grid with hover-expand overlay.
+    - `ContentPageShell.tsx` – Shared wrapper for markdown-backed content pages.
     - `LocaleProvider.tsx` – Locale context; persists preference cookie and syncs `<html lang>`.
-    - `Header.tsx`, `Footer.tsx` – Legacy layout chrome (superseded by Brutalist variants in v3).
-    - `NavigationMenu.tsx` – Legacy Radix navigation menu (superseded by `BrutalistNav` in v3).
-    - `ProfileCard.tsx` – Hero/profile card, with stable portraits by theme and initials fallback.
-    - `Modal.tsx` – Shared Radix dialog wrapper with consistent styling and optional Vercel Analytics tracking on open.
-    - `ContactDialog.tsx` – Modal contact form dialog implemented on top of `Modal`, including Turnstile integration.
-    - `ImpactCards.tsx` – Rotating impact cards for the Home page.
-    - `ReferencesCarousel.tsx` – Legacy auto‑rotating carousel (superseded by `CvRefsGrid` in v3).
     - `ThemeProvider.tsx` – Wraps `next-themes` configuration.
-    - `icons.tsx` – Shared icon primitives (GitHub, LinkedIn, X, download, and small glyph icons).
+    - `ErrorBoundary.tsx`, `GlobalErrorHandler.tsx` – Client error capture routed through `lib/error-logging.ts`.
+    - `SeoJsonLd.tsx` – Site-wide JSON-LD.
+    - `AnalyticsWrapper.tsx` – Vercel Analytics + Speed Insights (skipped under Playwright).
+    - `WebMcpInit.tsx` – Registers read-only WebMCP tools for in-browser agents.
+    - `FoundLuggageNotifier.tsx` – Fires the found-luggage page visit notification.
+    - `icons.tsx` – Shared SVG icon primitives (currently `ContrastIcon`).
 
   - `api/contact/route.ts` – Validates and forwards contact form submissions (Turnstile verification + Formspree).
   - `api/content/[slug]/route.ts` – Serves markdown content (cookie policy, privacy policy, tech stack) as JSON `{ title, body }` for use by pages.
@@ -158,7 +158,6 @@ High‑level layout:
   - `seo.ts` – SEO configuration and metadata helpers
   - `error-logging.ts` – Centralized error logging with Sentry
   - `markdown-components.tsx` – Shared ReactMarkdown component mappings
-  - `sanitize-html.ts` – HTML sanitization for XSS prevention
   - `rate-limit.ts` – In-memory rate limiting for API routes
 - `styles/globals.css` – Tailwind CSS v4 setup, design tokens, global typography, layout utilities.
 - `scripts/`
@@ -167,7 +166,7 @@ High‑level layout:
   - `validate-links.mjs` – Validates internal markdown links against known app routes (run in the main `ci.yml` workflow).
 - Config:
   - `next.config.mjs` – Next.js config (Sentry wrapping when configured).
-  - `tailwind.config.js` – Tailwind content globs for `app/`, `components/`, and `content/`.
+  - `knip.jsonc` – Dead-code detection config (`pnpm deadcode`, run in CI).
   - `tsconfig.json` – Strict TS config with path mapping for `@/*`.
   - `eslint.config.mjs`, `.prettierrc`, `.husky/`, `.github/workflows/*.yml`, etc.
 

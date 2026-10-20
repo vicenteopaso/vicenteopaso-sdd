@@ -17,7 +17,7 @@ These instructions are for AI agents contributing to this repository. Follow the
 
 - **Framework**: Next.js (App Router, server components by default)
 - **Language**: TypeScript (strict mode), React 19
-- **Styling**: Tailwind CSS v4, Radix UI, theming via next-themes
+- **Styling**: Tailwind CSS v4, theming via next-themes
 - **Content**: Markdown files in `content/[locale]/` (About, CV, policies). CV uses frontmatter in `content/[locale]/cv.md` plus structured JSON in `content/[locale]/cv.json`
 - **Testing**: Vitest (unit, `test/unit/`), Playwright (E2E, `test/e2e/`), Playwright visual regression (`test/visual/`)
 - **Deployment**: Vercel (see `docs/DEPLOYMENT.md`)

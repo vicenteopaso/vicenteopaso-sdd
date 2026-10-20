@@ -18,14 +18,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 ## Estilo y componentes de interfaz de usuario
 
 - **Tailwind CSS v4** — Marco CSS basado en utilidades con tokens de diseño personalizados
-- **Radix UI** — Componentes básicos accesibles:
-  - `@radix-ui/react-dialog` — Diálogos modales
-  - `@radix-ui/react-navigation-menu` — Componentes de navegación
-  - `@radix-ui/react-avatar` — Componentes de avatar
-  - `@radix-ui/react-popover`: componentes de ventanas emergentes
 - **next-themes**: temas para los modos claro y oscuro con detección de las preferencias del sistema
-- **tailwindcss-animate**: utilidades de animación
-- **tailwindcss-radix** — Integración de Radix UI con Tailwind
 - **@tailwindcss/typography** — Complemento tipográfico para el estilo de la prosa
 
 ## Gestión de contenidos

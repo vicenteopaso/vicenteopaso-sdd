@@ -129,7 +129,7 @@ async function findLocaleSpecificFile(locale: Locale): Promise<string | null> {
   return null;
 }
 
-export async function resolveCvPdfAsset(locale: Locale): Promise<{
+async function resolveCvPdfAsset(locale: Locale): Promise<{
   absolutePath: string;
   fileName: string;
   resolvedLocale: Locale;

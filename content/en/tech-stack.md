@@ -18,14 +18,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 ## Styling & UI Components
 
 - **Tailwind CSS v4** — Utility-first CSS framework with custom design tokens
-- **Radix UI** — Accessible component primitives:
-  - `@radix-ui/react-dialog` — Modal dialogs
-  - `@radix-ui/react-navigation-menu` — Navigation components
-  - `@radix-ui/react-avatar` — Avatar components
-  - `@radix-ui/react-popover` — Popover components
 - **next-themes** — Light/dark mode theming with system preference detection
-- **tailwindcss-animate** — Animation utilities
-- **tailwindcss-radix** — Radix UI integration for Tailwind
 - **@tailwindcss/typography** — Typography plugin for prose styling
 
 ## Content Management

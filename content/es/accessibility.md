@@ -132,7 +132,7 @@ Nuestro objetivo es responder en un plazo de 2 días laborables y nos esforzarem
 - **CSS**: Tailwind CSS con tokens de diseño personalizados
 - **JavaScript**: React 19 con Next.js 16 (mejora progresiva)
 - **ARIA**: Aplicado cuando el HTML semántico resulta insuficiente
-- **Marcos de trabajo**: Radix UI para componentes primitivos accesibles
+- **Componentes**: Componentes React propios que usan elementos interactivos nativos (`<button>`, `<a>`, `<form>`) en lugar de una librería de widgets de terceros
 
 ## Reclamaciones formales sobre accesibilidad
 

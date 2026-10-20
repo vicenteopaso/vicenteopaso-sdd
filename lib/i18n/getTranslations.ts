@@ -9,7 +9,7 @@ type TranslationKey = keyof UITranslations;
 
 const dictionaries: Record<Locale, UITranslations> = {
   en: enUI,
-  es: esUI as UITranslations, // Spanish is empty for now, will be populated in Task 2
+  es: esUI as UITranslations,
 };
 
 /**
@@ -77,5 +77,5 @@ export function getTranslations(locale: Locale = defaultLocale) {
   };
 }
 
-export type { TranslationKey, UITranslations };
+export type { TranslationKey };
 export type { Locale } from "./locales";

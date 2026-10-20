@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-@plugin "tailwindcss-radix";
 @plugin "@tailwindcss/typography";
 
 @theme {

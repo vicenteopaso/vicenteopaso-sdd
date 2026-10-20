@@ -104,24 +104,11 @@ const nextConfig = {
       return [];
     }
 
-    const oneDaySeconds = 60 * 60 * 24;
-
     return [
       // Global security headers
       {
         source: "/(.*)",
         headers: securityHeaders,
-      },
-
-      // CV PDF: strong edge cache, 1-day browser cache
-      {
-        source: "/assets/vicente-opaso-cv-2026.pdf",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: `public, max-age=${oneDaySeconds}, s-maxage=31536000, stale-while-revalidate=60`,
-          },
-        ],
       },
 
       // Other static assets: long-lived, immutable
