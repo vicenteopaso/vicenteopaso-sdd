@@ -53,11 +53,12 @@ standards:
       lib:
         error-logging: "Centralized Sentry + console logging in lib/error-logging.ts."
         markdown: "Shared markdown component maps in lib/markdown-components.tsx."
-        seo: "Single source of truth for site config, metadata, and JSON-LD in lib/seo.ts."
+        seo: "Single source of truth for site config, per-page metadata (canonical + hreflang via pageMetadata), JSON-LD builders, and INDEXABLE_PATHS in lib/seo.ts. No fs access."
+        cv: "lib/cv.ts loadCv(locale) validates content/<locale>/cv.json with Zod (plain text only) and throws on invalid data; the only reader of cv.json."
       content:
         loading: "All content pages read via lib/content.ts's loadContentPage(), which validates required frontmatter (name/title/slug) with Zod and throws on invalid content."
-        about: "Frontmatter + markdown body in content/about.md."
-        cv: "Frontmatter in content/cv.md + structured JSON in content/cv.json."
+        cv: "Structured CV data in content/<locale>/cv.json, loaded via lib/cv.ts."
+        metadata: "Page titles/descriptions come from localized frontmatter via lib/content-metadata.ts contentPageMetadata()."
         i18n: "Locale detection and translations in lib/i18n/; opengraph images support en/es locales."
     prohibited:
       - shared mutable state across routes
@@ -172,8 +173,8 @@ ai-governance:
       AI Guardrails enforce test coverage: code changes in app/ or lib/ require test updates.
     architecture-decisions: |
       PRs labeled 'architecture-change' must link to an ADR in docs/adr/.
-      Use the ADR template (docs/adr/adr-template.md) to document rationale, alternatives, and consequences.
-      See ADR-0001 for an example: docs/adr/0001-implement-ai-guardrails.md
+      Use the ADR template (docs/adr/0000-adr-template.md) to document rationale, alternatives, and consequences.
+      See ADR-0004 for an example: docs/adr/0004-per-locale-root-layout.md
   rules:
     - "Prefer existing patterns and files when adding new functionality."
     - "When adding new dependencies, include justification in the PR description."

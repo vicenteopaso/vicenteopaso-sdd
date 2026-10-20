@@ -7,6 +7,7 @@ import { config } from "../../proxy";
 // Mock the locales module
 vi.mock("../../lib/i18n/locales", () => ({
   locales: ["en", "es"],
+  LOCALE_REQUEST_HEADER: "x-opaso-locale",
 }));
 
 describe("proxy (middleware)", () => {
@@ -50,6 +51,24 @@ describe("proxy (middleware)", () => {
       },
     } as NextRequest;
   }
+
+  describe("locale request header", () => {
+    it.each([
+      ["/es/nope", "es"],
+      ["/en", "en"],
+      ["/en/cv", "en"],
+    ])(
+      "forwards the path locale for %s so global-not-found can localize",
+      (path, locale) => {
+        const response = proxy(createMockRequest(path)) as NextResponse;
+
+        expect(response.status).toBe(200);
+        expect(
+          response.headers.get("x-middleware-request-x-opaso-locale"),
+        ).toBe(locale);
+      },
+    );
+  });
 
   describe("Spanish locale detection and redirect", () => {
     it("should prioritize preferred locale cookie over accept-language", () => {

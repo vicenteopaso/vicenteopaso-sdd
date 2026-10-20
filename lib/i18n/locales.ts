@@ -15,3 +15,9 @@ export const defaultLocale: Locale = "en";
 export function isValidLocale(locale: string): locale is Locale {
   return locales.includes(locale as Locale);
 }
+
+/**
+ * Request header proxy.ts sets on locale-prefixed requests, so routes that
+ * receive no params (app/global-not-found.tsx) can still localize.
+ */
+export const LOCALE_REQUEST_HEADER = "x-opaso-locale";

@@ -110,9 +110,10 @@ When contributing to this repo (as a human or AI):
 High‑level layout:
 
 - `app/`
-  - `layout.tsx` – Root HTML shell, global styles, SEO metadata, theme provider, and Sentry integration.
+  - `global-not-found.tsx` – Localized 404 for unmatched URLs (see ADR-0004).
+  - `sitemap.ts`, `robots.ts` – Generated `/sitemap.xml` (with hreflang) and `/robots.txt`.
   - `[lang]/` – Locale-specific routes (e.g., `/en/`, `/es/`)
-    - `layout.tsx` – Locale layout wrapper for i18n validation
+    - `layout.tsx` – Root layout: `<html lang>`, fonts, providers, nav/footer, WebSite JSON-LD.
     - `page.tsx` – Home route for each locale. Reads `content/[locale]/about.md` and renders it via `react-markdown` configured with `introComponents`/`aboutPageComponents` from `lib/markdown-components.tsx`, plus a profile card, intro section, rotating impact cards, social links, and a contact section.
     - `cv/page.tsx` – Reads `content/[locale]/cv.md`, parses the JSON CV body, and renders experience, skills, education, languages, interests, publications, and references.
     - `cookie-policy/page.tsx` – Markdown‑backed cookie policy page rendered with shared `markdownComponents`.
@@ -130,7 +131,7 @@ High‑level layout:
     - `LocaleProvider.tsx` – Locale context; persists preference cookie and syncs `<html lang>`.
     - `ThemeProvider.tsx` – Wraps `next-themes` configuration.
     - `ErrorBoundary.tsx`, `GlobalErrorHandler.tsx` – Client error capture routed through `lib/error-logging.ts`.
-    - `SeoJsonLd.tsx` – Site-wide JSON-LD.
+    - `JsonLd.tsx` – Server-rendered JSON-LD script.
     - `AnalyticsWrapper.tsx` – Vercel Analytics + Speed Insights (skipped under Playwright).
     - `WebMcpInit.tsx` – Registers read-only WebMCP tools for in-browser agents.
     - `FoundLuggageNotifier.tsx` – Fires the found-luggage page visit notification.
@@ -275,17 +276,7 @@ See **[docs/SECURITY_POLICY.md](./docs/SECURITY_POLICY.md)** for comprehensive s
 
 ## SEO and sitemaps
 
-The site includes sitemap generation via `next-sitemap`. The configuration is in `next-sitemap.config.js` and uses the canonical site URL from `lib/seo.ts`.
-
-- Generate the sitemap:
-  ```bash
-  pnpm build  # Build is required first
-  pnpm sitemap
-  ```
-- Output files:
-  - `public/sitemap.xml` – Main sitemap index.
-  - `public/sitemap-0.xml` – Sitemap containing all routes.
-- `public/robots.txt` references the sitemap URL, pointing search engines to the XML.
+`/sitemap.xml` and `/robots.txt` are generated at build time by `app/sitemap.ts` and `app/robots.ts`. The sitemap lists every path in `INDEXABLE_PATHS` (`lib/seo.ts`) for each locale, with hreflang alternates. Every page also emits a canonical URL and hreflang links. See [docs/SEO_GUIDE.md](./docs/SEO_GUIDE.md).
 
 ---
 

@@ -24,7 +24,7 @@ This directory contains detailed documentation for all reusable components in th
 
 - **[LocaleProvider](./LocaleProvider.md)** - Locale context provider; persists preference to cookie and syncs `<html lang>`
 - **[GlobalErrorHandler](./GlobalErrorHandler.md)** - Global error and promise rejection handler
-- **[SeoJsonLd](./SeoJsonLd.md)** - Structured data (JSON-LD) for SEO
+- **[JsonLd](./JsonLd.md)** - Server-rendered structured data (JSON-LD)
 - **[ThemeProvider](./ThemeProvider.md)** - Theme context provider (light/dark mode)
 - **[Icons](./Icons.md)** - UI icon components
 

@@ -327,8 +327,10 @@ graph LR
 ## SEO & Metadata
 
 - SEO is centralized in a small `lib/seo` layer (site config, base metadata, and JSON-LD helpers).
-- `app/layout.tsx` uses the Next.js Metadata API for titles, descriptions, and Open Graph tags.
-- JSON-LD for `WebSite` and `Person` schema is injected via a dedicated component used in the root layout.
+- The root layout is `app/[lang]/layout.tsx`, so every page's prerendered HTML has the correct `<html lang>` ([ADR-0004](./adr/0004-per-locale-root-layout.md)). Unmatched URLs render the localized `app/global-not-found.tsx` (HTTP 404).
+- Every page's `generateMetadata` uses `pageMetadata()` / `contentPageMetadata()`: localized title and description, canonical URL, and hreflang alternates.
+- JSON-LD is server-rendered by `app/components/JsonLd.tsx` from builders in `lib/seo.ts`, derived from `content/<locale>/cv.json`.
+- `app/sitemap.ts` and `app/robots.ts` generate `/sitemap.xml` (with hreflang alternates) and `/robots.txt` at build time.
 - Open Graph images are generated via locale-aware routes (`app/[lang]/opengraph-image.tsx` and `app/[lang]/cv/opengraph-image.tsx`).
   - Images are dynamically generated using Next.js ImageResponse API
   - Support both English (`/en/opengraph-image`) and Spanish (`/es/opengraph-image`) with translated content
@@ -338,14 +340,14 @@ graph LR
 
 - `lib/seo.ts` - single source of truth for site config (name, URL, description)
 - `baseMetadata()` - returns Next.js `Metadata` object with defaults
-- `getWebsiteJsonLd()` - generates WebSite schema JSON-LD
-- `getPersonJsonLd()` - generates Person schema JSON-LD
-- `app/components/SeoJsonLd.tsx` - injects JSON-LD scripts
+- `pageMetadata()` / `localizedAlternates()` - per-page metadata with canonical + hreflang
+- `getWebsiteJsonLd()`, `getPersonJsonLd()`, `getCvPageJsonLd()`, `getArticleJsonLd()` - JSON-LD builders
+- `app/components/JsonLd.tsx` - server-renders a JSON-LD script
 
 **Structured Data:**
 
-- `WebSite` schema on all routes
-- `Person` schema on `/about` and `/cv` only
+- `WebSite` on all routes (root layout)
+- `Person` on home; `ProfilePage` + `Person` + `Article`s (publications) on the CV; `Article` on article pages
 - See `docs/SEO_GUIDE.md` for full details
 
 ## Testing & Coverage
@@ -450,7 +452,7 @@ pnpm test:e2e         # Run Playwright E2E tests
    ├─ Compile TypeScript
    ├─ Generate static pages (SSG)
    ├─ Optimize assets
-   ├─ Generate sitemap (next-sitemap)
+   ├─ Generate /sitemap.xml and /robots.txt (app/sitemap.ts, app/robots.ts)
    └─ Output to .next/
 3. pnpm start              # Production server
 ```

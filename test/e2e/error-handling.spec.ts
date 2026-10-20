@@ -86,10 +86,29 @@ test.describe("Error Handling", () => {
     await expect(page.getByLabel("EMAIL *")).toBeVisible({ timeout: 15000 });
   });
 
-  test("displays custom 404 page for non-existent routes", async ({ page }) => {
-    const response = await page.goto("/en/non-existent-page");
-    expect(response?.status()).toBe(404);
-  });
+  // Regression: the 404 used to return the right status but render a blank
+  // page. Assert the visible, localized content too (ADR-0004).
+  for (const { locale, text, home } of [
+    { locale: "en", text: "Page not found.", home: "Go home" },
+    { locale: "es", text: "Página no encontrada.", home: "Ir al inicio" },
+  ]) {
+    test(`renders a localized 404 page for unknown /${locale} routes`, async ({
+      page,
+    }) => {
+      const response = await page.goto(`/${locale}/non-existent-page`);
+
+      expect(response?.status()).toBe(404);
+      await expect(page.locator("html")).toHaveAttribute("lang", locale);
+      await expect(
+        page.getByRole("heading", { level: 1, name: "404" }),
+      ).toBeVisible();
+      await expect(page.getByText(text)).toBeVisible();
+      await expect(page.getByRole("link", { name: home })).toHaveAttribute(
+        "href",
+        `/${locale}`,
+      );
+    });
+  }
 
   test("console errors are captured and logged", async ({ page }) => {
     const consoleMessages: Array<{ type: string; text: string }> = [];

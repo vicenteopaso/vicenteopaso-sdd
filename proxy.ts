@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { locales } from "./lib/i18n/locales";
+import { LOCALE_REQUEST_HEADER, locales } from "./lib/i18n/locales";
 
 // Block common attack vectors and bot probes
 const SUSPICIOUS_PATTERNS = [
@@ -110,13 +110,16 @@ export function proxy(req: NextRequest) {
     return new NextResponse(null, { status: 404 });
   }
 
-  // If locale is already in the path, continue without modification
-  const pathnameHasLocale = locales.some(
+  // Locale already in the path: continue, forwarding the locale as a request
+  // header for routes that get no params (app/global-not-found.tsx).
+  const pathLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
-  if (pathnameHasLocale) {
-    return NextResponse.next();
+  if (pathLocale) {
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set(LOCALE_REQUEST_HEADER, pathLocale);
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   // Detect locale and redirect
