@@ -1,7 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
-  // Config files consumed by tools knip can't trace from package.json:
-  // lighthouserc.js is read by treosh/lighthouse-ci-action (lighthouse-ci.yml),
-  // next-sitemap.config.js by the `sitemap` script's --config flag.
-  "ignore": ["lighthouserc.js", "next-sitemap.config.js"],
+  // lighthouserc.js is read by treosh/lighthouse-ci-action
+  // (lighthouse-ci.yml), which knip can't trace from package.json.
+  "ignore": ["lighthouserc.js"],
 }

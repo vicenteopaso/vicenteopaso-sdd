@@ -2,6 +2,7 @@
 name: Tech Stack
 title: Tech Stack
 slug: tech-stack
+description: "Stack tecnológico y herramientas detrás de opa.so: Next.js, React, TypeScript, Tailwind CSS v4, testing, observabilidad y CI/CD."
 ---
 
 ## Descripción general

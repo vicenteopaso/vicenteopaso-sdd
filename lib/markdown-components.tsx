@@ -13,8 +13,11 @@ import type { Components } from "react-markdown";
  * - Strong/bold text
  * - Horizontal rules
  */
+// react-markdown passes its hast `node` to every component. It is pulled out
+// of the rest props below so it is never spread onto DOM elements (where it
+// rendered as node="[object Object]").
 export const markdownComponents: Components = {
-  h2: ({ children, ...props }) => (
+  h2: ({ node: _node, children, ...props }) => (
     <h2
       className="mt-8 mb-4 text-2xl font-semibold text-[color:var(--text-primary)]"
       {...props}
@@ -22,7 +25,7 @@ export const markdownComponents: Components = {
       {children}
     </h2>
   ),
-  h3: ({ children, ...props }) => (
+  h3: ({ node: _node, children, ...props }) => (
     <h3
       className="mt-6 mb-3 text-xl font-semibold text-[color:var(--text-primary)]"
       {...props}
@@ -30,7 +33,7 @@ export const markdownComponents: Components = {
       {children}
     </h3>
   ),
-  h4: ({ children, ...props }) => (
+  h4: ({ node: _node, children, ...props }) => (
     <h4
       className="mt-4 mb-2 text-lg font-semibold text-[color:var(--text-primary)]"
       {...props}
@@ -38,7 +41,7 @@ export const markdownComponents: Components = {
       {children}
     </h4>
   ),
-  p: ({ children, ...props }) => (
+  p: ({ node: _node, children, ...props }) => (
     <p
       className="mb-4 break-words text-sm leading-relaxed text-[color:var(--text-primary)]"
       {...props}
@@ -46,7 +49,7 @@ export const markdownComponents: Components = {
       {children}
     </p>
   ),
-  ul: ({ children, ...props }) => (
+  ul: ({ node: _node, children, ...props }) => (
     <ul
       className="mb-4 space-y-1.5 pl-0 list-none text-sm text-[color:var(--text-primary)]"
       {...props}
@@ -54,7 +57,7 @@ export const markdownComponents: Components = {
       {children}
     </ul>
   ),
-  li: ({ children, ...props }) => (
+  li: ({ node: _node, children, ...props }) => (
     <li className="flex gap-2 items-baseline" {...props}>
       <span
         aria-hidden="true"
@@ -65,7 +68,7 @@ export const markdownComponents: Components = {
       <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
-  ol: ({ children, ...props }) => (
+  ol: ({ node: _node, children, ...props }) => (
     <ol
       className="list-decimal marker:text-[color:var(--secondary)] mb-4 space-y-2 pl-5 text-sm text-[color:var(--text-primary)]"
       {...props}
@@ -76,7 +79,7 @@ export const markdownComponents: Components = {
   hr: () => (
     <hr className="my-8 border-t border-[color:var(--border-subtle)]" />
   ),
-  a: ({ children, ...props }) => (
+  a: ({ node: _node, children, ...props }) => (
     <a
       className="font-medium text-[color:var(--v3-accent-text)] underline underline-offset-4 hover:opacity-80"
       {...props}
@@ -84,7 +87,7 @@ export const markdownComponents: Components = {
       {children}
     </a>
   ),
-  strong: ({ children, ...props }) => (
+  strong: ({ node: _node, children, ...props }) => (
     <strong
       className="font-semibold text-[color:var(--text-primary)]"
       {...props}
@@ -92,7 +95,7 @@ export const markdownComponents: Components = {
       {children}
     </strong>
   ),
-  pre: ({ children, ...props }) => (
+  pre: ({ node: _node, children, ...props }) => (
     <pre
       className="mb-4 overflow-x-auto rounded-md border border-[color:var(--v3-rule)] bg-[color:var(--code-bg)] p-4 text-[color:var(--code-text)] shadow-none"
       {...props}
@@ -100,7 +103,7 @@ export const markdownComponents: Components = {
       {children}
     </pre>
   ),
-  code: ({ children, className, ...props }) =>
+  code: ({ node: _node, children, className, ...props }) =>
     className ? (
       <code
         className="bg-transparent p-0 font-mono text-[0.8rem] text-[color:var(--code-text)]"
@@ -124,27 +127,27 @@ export const markdownComponents: Components = {
 export const aboutPageComponents: Components = {
   ...markdownComponents,
   // Tighten top spacing for section headings within Home page cards
-  h2: (props) => (
+  h2: ({ node: _node, ...props }) => (
     // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2
       className="mb-4 text-2xl font-semibold text-[color:var(--text-primary)]"
       {...props}
     />
   ),
-  h3: (props) => (
+  h3: ({ node: _node, ...props }) => (
     // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2
       className="text-xl font-semibold text-[color:var(--text-primary)]"
       {...props}
     />
   ),
-  ul: (props) => (
+  ul: ({ node: _node, ...props }) => (
     <ul
       className="space-y-1.5 pl-0 list-none text-sm text-[color:var(--text-primary)]"
       {...props}
     />
   ),
-  li: ({ children, ...props }) => (
+  li: ({ node: _node, children, ...props }) => (
     <li className="flex gap-2 items-baseline" {...props}>
       <span
         className="font-mono text-[color:var(--v3-accent-text)] shrink-0"
@@ -155,7 +158,7 @@ export const aboutPageComponents: Components = {
       <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
-  ol: (props) => (
+  ol: ({ node: _node, ...props }) => (
     <ol
       className="list-decimal marker:text-[color:var(--secondary)] space-y-3 pl-5 text-sm text-[color:var(--text-primary)]"
       {...props}
@@ -167,19 +170,19 @@ export const aboutPageComponents: Components = {
  * Variant for Home (root /) intro section: larger typography without card styling
  */
 export const introComponents: Components = {
-  p: (props) => (
+  p: ({ node: _node, ...props }) => (
     <p
       className="break-words text-base sm:text-lg leading-relaxed text-[color:var(--text-primary)]"
       {...props}
     />
   ),
-  ul: (props) => (
+  ul: ({ node: _node, ...props }) => (
     <ul
       className="space-y-2 pl-0 list-none text-base sm:text-lg leading-relaxed text-[color:var(--text-primary)]"
       {...props}
     />
   ),
-  li: ({ children, ...props }) => (
+  li: ({ node: _node, children, ...props }) => (
     <li className="flex gap-2 items-baseline" {...props}>
       <span
         className="font-mono text-[color:var(--v3-accent-text)] shrink-0"
@@ -190,7 +193,7 @@ export const introComponents: Components = {
       <div className="min-w-0 break-words">{children}</div>
     </li>
   ),
-  ol: (props) => (
+  ol: ({ node: _node, ...props }) => (
     <ol
       className="list-decimal marker:text-[color:var(--secondary)] space-y-2 pl-5 text-base sm:text-lg leading-relaxed text-[color:var(--text-primary)]"
       {...props}

@@ -11,8 +11,10 @@ interface Ref {
   name: string;
   role: string;
   href?: string;
-  fullText: string;
+  paragraphs: string[];
 }
+
+const TRUNCATE_AT = 220;
 
 function CardContent({
   index,
@@ -25,14 +27,18 @@ function CardContent({
   name: string;
   role: string;
   href?: string;
-  text: string;
+  text: string | string[];
 }) {
   return (
     <>
       <div className="v3-cv-ref-card-eyebrow">
         ❝ REF · {String(index + 1).padStart(2, "0")}
       </div>
-      <div className="v3-cv-ref-card-text">{text}</div>
+      <div className="v3-cv-ref-card-text">
+        {Array.isArray(text)
+          ? text.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+          : text}
+      </div>
       <div className="v3-cv-ref-card-attribution">
         <div className="v3-cv-ref-card-name">
           {href ? (
@@ -61,7 +67,7 @@ function CvRefCard({
   name,
   role,
   href,
-  fullText,
+  paragraphs,
   hovered,
   dimmed,
   onEnter,
@@ -77,7 +83,9 @@ function CvRefCard({
   const expanded = hovered || clickExpanded;
   const isEvenCol = index % 2 === 0;
   const isLastRow = index >= total - 2;
-  const truncated = fullText.slice(0, 220) + "…";
+  const flat = paragraphs.join(" ");
+  const truncated =
+    flat.length > TRUNCATE_AT ? `${flat.slice(0, TRUNCATE_AT)}…` : flat;
 
   const handleToggle = () => setClickExpanded((prev) => !prev);
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -142,7 +150,7 @@ function CvRefCard({
           name={name}
           role={role}
           href={href}
-          text={fullText}
+          text={paragraphs}
         />
         <button
           type="button"
@@ -158,7 +166,12 @@ function CvRefCard({
 }
 
 interface CvRefsGridProps {
-  refs: Array<{ name: string; role: string; href?: string; fullText: string }>;
+  refs: Array<{
+    name: string;
+    role: string;
+    href?: string;
+    paragraphs: string[];
+  }>;
 }
 
 export function CvRefsGrid({ refs }: CvRefsGridProps) {
@@ -184,7 +197,7 @@ export function CvRefsGrid({ refs }: CvRefsGridProps) {
           name={ref.name}
           role={ref.role}
           href={ref.href}
-          fullText={ref.fullText}
+          paragraphs={ref.paragraphs}
           hovered={activeIndex === i}
           dimmed={activeIndex !== null && activeIndex !== i}
           onEnter={() => setActiveIndex(i)}

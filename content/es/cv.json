@@ -541,28 +541,64 @@
   ],
   "references": [
     {
-      "name": "<a href='https://www.linkedin.com/in/carvido1'>Carlos Vicent Domenech</a> | Líder de Ingeniería de Site Reliability @ Nexthink",
-      "reference": "He tenido la oportunidad de trabajar dos veces con Vicente en diferentes empresas. En nuestra primera etapa juntos, trabajando en Carlsberg, formábamos parte de dos equipos distintos responsables de diferentes productos/plataformas. Vicente estaba a cargo del equipo responsable del diseño y el framework de la plataforma para incorporar nuevos mercados a Carlsberg. Crearon Carlsberg Malty, un sistema de diseño open source para estandarizar los componentes que se utilizarían en los distintos escaparates y mercados. Como viajábamos regularmente a Lisboa para reunirnos con nuestros compañeros del Carlsberg Digital Hub, siempre teníamos tiempo para charlar y debatir sobre tecnología durante interminables tardes y noches. Estas conversaciones nos ayudaron a comprender diferentes puntos de vista técnicos y a mejorar la comprensión del trabajo en curso entre los distintos grupos.<br /><br />En nuestra segunda etapa juntos, Vicente se incorporó a Nexthink como Web Engineering Manager. A pesar del corto periodo trabajando nuevamente con Vicente, retomamos conversaciones más centradas en la gestión de ingeniería, decisiones clave y puntos de fricción en equipos de rápido crecimiento. Esto me confirma que el liderazgo y el deseo de destacar en el trabajo siguen siendo habilidades muy sólidas que Vicente posee.<br /><br />Reafirmo mi confianza en Vicente y en sus capacidades para liderar la creación de plataformas que mejoren la Developer Experience y aceleren el desarrollo y la entrega de productos tangibles."
+      "name": "Carlos Vicent Domenech",
+      "role": "Líder de Ingeniería de Site Reliability @ Nexthink",
+      "url": "https://www.linkedin.com/in/carvido1",
+      "paragraphs": [
+        "He tenido la oportunidad de trabajar dos veces con Vicente en diferentes empresas. En nuestra primera etapa juntos, trabajando en Carlsberg, formábamos parte de dos equipos distintos responsables de diferentes productos/plataformas. Vicente estaba a cargo del equipo responsable del diseño y el framework de la plataforma para incorporar nuevos mercados a Carlsberg. Crearon Carlsberg Malty, un sistema de diseño open source para estandarizar los componentes que se utilizarían en los distintos escaparates y mercados. Como viajábamos regularmente a Lisboa para reunirnos con nuestros compañeros del Carlsberg Digital Hub, siempre teníamos tiempo para charlar y debatir sobre tecnología durante interminables tardes y noches. Estas conversaciones nos ayudaron a comprender diferentes puntos de vista técnicos y a mejorar la comprensión del trabajo en curso entre los distintos grupos.",
+        "En nuestra segunda etapa juntos, Vicente se incorporó a Nexthink como Web Engineering Manager. A pesar del corto periodo trabajando nuevamente con Vicente, retomamos conversaciones más centradas en la gestión de ingeniería, decisiones clave y puntos de fricción en equipos de rápido crecimiento. Esto me confirma que el liderazgo y el deseo de destacar en el trabajo siguen siendo habilidades muy sólidas que Vicente posee.",
+        "Reafirmo mi confianza en Vicente y en sus capacidades para liderar la creación de plataformas que mejoren la Developer Experience y aceleren el desarrollo y la entrega de productos tangibles."
+      ]
     },
     {
-      "name": "<a href='https://www.linkedin.com/in/peterbirkholmbuch'>Peter Birkholm-Buch</a> | Director of Software Engineering in Growth Products & Data @ Carlsberg Group",
-      "reference": "Ha sido un privilegio tener a Vicente como parte de mi Leadership Team en Carlsberg Group. Como Frontend Solutions Architect, desempeñó un papel crítico en la definición de nuestra estrategia frontend, especialmente con el desarrollo del Malty Design System, que transformó nuestra aproximación a soluciones frontend globales.<br /><br />Su experiencia en JavaScript, TypeScript, React y tecnologías frontend, junto con su liderazgo en establecer una Community of Practice, mejoró significativamente DevEx y la calidad del código en toda la organización. Sus contribuciones fueron fundamentales para impulsar nuestro crecimiento e-commerce por encima de €1B anuales.<br /><br />Recomiendo ampliamente a Vicente por su liderazgo, creatividad y habilidades técnicas. Sería un activo excepcional para cualquier equipo."
+      "name": "Peter Birkholm-Buch",
+      "role": "Director of Software Engineering in Growth Products & Data @ Carlsberg Group",
+      "url": "https://www.linkedin.com/in/peterbirkholmbuch",
+      "paragraphs": [
+        "Ha sido un privilegio tener a Vicente como parte de mi Leadership Team en Carlsberg Group. Como Frontend Solutions Architect, desempeñó un papel crítico en la definición de nuestra estrategia frontend, especialmente con el desarrollo del Malty Design System, que transformó nuestra aproximación a soluciones frontend globales.",
+        "Su experiencia en JavaScript, TypeScript, React y tecnologías frontend, junto con su liderazgo en establecer una Community of Practice, mejoró significativamente DevEx y la calidad del código en toda la organización. Sus contribuciones fueron fundamentales para impulsar nuestro crecimiento e-commerce por encima de €1B anuales.",
+        "Recomiendo ampliamente a Vicente por su liderazgo, creatividad y habilidades técnicas. Sería un activo excepcional para cualquier equipo."
+      ]
     },
     {
-      "name": "<a href='https://www.linkedin.com/in/razvan-mihai-margauan'>Razvan Margauan</a> | iNM Programme Director @ EUROCONTROL",
-      "reference": "Tuve la oportunidad de trabajar estrechamente con Vicente durante mi liderazgo del USER Domain en EUROCONTROL. Vicente desempeñó un papel clave en la dirección técnica del framework NMUI y del Eurocontrol Design System (EDS), dos iniciativas fundamentales para nuestras plataformas operativas.<br /><br />Aportó claridad y consistencia, ya fuera alineando trabajo arquitectónico con requisitos regulatorios o mejorando workflows de desarrollo. Su capacidad para fomentar colaboración entre disciplinas lo convirtió en un miembro confiable del equipo.<br /><br />Su trabajo tuvo un impacto notable en la estabilidad y escalabilidad de nuestros sistemas, y aprecié su enfoque pragmático y constante."
+      "name": "Razvan Margauan",
+      "role": "iNM Programme Director @ EUROCONTROL",
+      "url": "https://www.linkedin.com/in/razvan-mihai-margauan",
+      "paragraphs": [
+        "Tuve la oportunidad de trabajar estrechamente con Vicente durante mi liderazgo del USER Domain en EUROCONTROL. Vicente desempeñó un papel clave en la dirección técnica del framework NMUI y del Eurocontrol Design System (EDS), dos iniciativas fundamentales para nuestras plataformas operativas.",
+        "Aportó claridad y consistencia, ya fuera alineando trabajo arquitectónico con requisitos regulatorios o mejorando workflows de desarrollo. Su capacidad para fomentar colaboración entre disciplinas lo convirtió en un miembro confiable del equipo.",
+        "Su trabajo tuvo un impacto notable en la estabilidad y escalabilidad de nuestros sistemas, y aprecié su enfoque pragmático y constante."
+      ]
     },
     {
-      "name": "<a href='https://www.linkedin.com/in/samuel-silva-olv'>Samuel Silva</a> | Senior Frontend Developer @ Carlsberg Group",
-      "reference": "Trabajar con Vicente en varios proyectos durante dos años ha sido un verdadero placer. Como Solutions Architect, demuestra dedicación para entregar soluciones que cumplen necesidades de negocio mientras valora la experiencia del equipo.<br /><br />Más allá de sus habilidades técnicas, es un team player que crea un entorno colaborativo y positivo. Su apoyo continuo y voluntad de compartir conocimiento han elevado nuestras prácticas internas.<br /><br />Recomiendo a Vicente para cualquier proyecto que requiera un Solutions Architect talentoso y comprometido."
+      "name": "Samuel Silva",
+      "role": "Senior Frontend Developer @ Carlsberg Group",
+      "url": "https://www.linkedin.com/in/samuel-silva-olv",
+      "paragraphs": [
+        "Trabajar con Vicente en varios proyectos durante dos años ha sido un verdadero placer. Como Solutions Architect, demuestra dedicación para entregar soluciones que cumplen necesidades de negocio mientras valora la experiencia del equipo.",
+        "Más allá de sus habilidades técnicas, es un team player que crea un entorno colaborativo y positivo. Su apoyo continuo y voluntad de compartir conocimiento han elevado nuestras prácticas internas.",
+        "Recomiendo a Vicente para cualquier proyecto que requiera un Solutions Architect talentoso y comprometido."
+      ]
     },
     {
-      "name": "<a href='https://www.linkedin.com/in/tmota-design'>Thiago Mota</a> | Senior Product Designer @ Carlsberg Group",
-      "reference": "Colaborar con Vicente, Solutions Architect y Lead Developer del Malty Design System, demostró su experiencia y profesionalismo excepcionales. Su profundo conocimiento y enfoque colaborativo garantizaron escalabilidad y éxito para el proyecto.<br /><br />Vicente conecta la complejidad técnica con la visión de diseño, aportando rigor y claridad a cada entrega."
+      "name": "Thiago Mota",
+      "role": "Senior Product Designer @ Carlsberg Group",
+      "url": "https://www.linkedin.com/in/tmota-design",
+      "paragraphs": [
+        "Colaborar con Vicente, Solutions Architect y Lead Developer del Malty Design System, demostró su experiencia y profesionalismo excepcionales. Su profundo conocimiento y enfoque colaborativo garantizaron escalabilidad y éxito para el proyecto.",
+        "Vicente conecta la complejidad técnica con la visión de diseño, aportando rigor y claridad a cada entrega."
+      ]
     },
     {
-      "name": "<a href='https://www.linkedin.com/in/brunomptorres'>Bruno Torres</a> | Senior Frontend Developer @ Carlsberg Group",
-      "reference": "Es un verdadero placer expresar mi admiración por Vicente, un Frontend Solutions Architect increíblemente talentoso. Trabajar con él ha sido una experiencia de crecimiento profesional y personal.<br /><br />Vicente destaca por su dominio técnico y su compromiso con construir una comunidad frontend sólida. Bajo su liderazgo, el equipo se ha sentido apoyado y unido.<br /><br />Su enfoque de mentoría y colaboración ha elevado mis habilidades y ha creado un ambiente de trabajo positivo.<br /><br />Recomiendo a Vicente no solo como líder técnico, sino como alguien que valora humanidad y trabajo en equipo tanto como excelencia técnica."
+      "name": "Bruno Torres",
+      "role": "Senior Frontend Developer @ Carlsberg Group",
+      "url": "https://www.linkedin.com/in/brunomptorres",
+      "paragraphs": [
+        "Es un verdadero placer expresar mi admiración por Vicente, un Frontend Solutions Architect increíblemente talentoso. Trabajar con él ha sido una experiencia de crecimiento profesional y personal.",
+        "Vicente destaca por su dominio técnico y su compromiso con construir una comunidad frontend sólida. Bajo su liderazgo, el equipo se ha sentido apoyado y unido.",
+        "Su enfoque de mentoría y colaboración ha elevado mis habilidades y ha creado un ambiente de trabajo positivo.",
+        "Recomiendo a Vicente no solo como líder técnico, sino como alguien que valora humanidad y trabajo en equipo tanto como excelencia técnica."
+      ]
     }
   ]
 }

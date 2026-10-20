@@ -2,6 +2,7 @@
 name: Política de privacidad
 title: Política de privacidad
 slug: privacy-policy
+description: "Política de privacidad de opa.so: qué datos personales se recogen, cómo se usan y protegen, y tus derechos conforme al RGPD."
 ---
 
 ## Introducción

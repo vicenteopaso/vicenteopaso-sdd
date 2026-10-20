@@ -2,6 +2,7 @@
 name: Política de cookies
 title: Política de cookies
 slug: cookie-policy
+description: "Política de cookies de opa.so: qué cookies y almacenamiento local utiliza el sitio, para qué y cómo gestionarlos conforme al RGPD."
 ---
 
 ## ¿Qué son las cookies?

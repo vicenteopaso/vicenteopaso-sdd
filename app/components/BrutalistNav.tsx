@@ -85,7 +85,7 @@ export function BrutalistNav() {
         </div>
 
         {/* Primary nav */}
-        <nav aria-label="Main navigation" className="v3-nav-links">
+        <nav aria-label={t("nav.mainLabel")} className="v3-nav-links">
           {navLinks.map((l) => (
             <Link
               key={l.label}

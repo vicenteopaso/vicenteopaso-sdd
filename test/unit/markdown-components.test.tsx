@@ -172,4 +172,32 @@ describe("introComponents", () => {
     expect(ordered).not.toBeNull();
     expect(ordered).toHaveClass("text-base");
   });
+
+  it.each([
+    ["markdownComponents", markdownComponents],
+    ["aboutPageComponents", aboutPageComponents],
+    ["introComponents", introComponents],
+  ])(
+    "%s never leaks react-markdown's node prop into the DOM",
+    (_name, components) => {
+      const markdown = [
+        "## H2",
+        "### H3",
+        "#### H4",
+        "Text with **bold**, `code` and a [link](https://example.com).",
+        "- item",
+        "1. step",
+        "```",
+        "block",
+        "```",
+        "---",
+      ].join("\n\n");
+
+      const { container } = render(
+        <ReactMarkdown components={components}>{markdown}</ReactMarkdown>,
+      );
+
+      expect(container.querySelectorAll("[node]")).toHaveLength(0);
+    },
+  );
 });

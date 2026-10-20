@@ -1,159 +1,84 @@
 # SEO Guide
 
-This site treats SEO as an engineering concern.
+SEO is treated as an engineering concern: every rule below is enforced by code and covered by tests, not by convention alone.
 
 ## Core Practices
 
-- Use the Next.js Metadata API for titles, descriptions, and Open Graph tags.
-- Maintain clean, descriptive URLs (e.g., `/cv`, `/about`, `/contact`).
-- Use JSON-LD structured data for Person and Website (no Articles planned for this site).
-- Generate sitemaps and `robots.txt` automatically.
+- Every page is statically prerendered per locale (`/en/*`, `/es/*`), with a correct `<html lang>` in the static HTML ([ADR-0004](./adr/0004-per-locale-root-layout.md)).
+- Every page has a canonical URL and hreflang alternates (`en`, `es`, `x-default` → `en`).
+- Titles and descriptions are localized and come from the same source as the rendered page, so they can't drift.
+- Structured data (JSON-LD) is server-rendered in the HTML and derived from `content/<locale>/cv.json`.
+- `sitemap.xml` and `robots.txt` are generated at build time from code.
 
-## Implementation Notes
+## Implementation
 
-### `lib/seo.ts`
+### `lib/seo.ts`: single source of truth
 
-- `siteConfig` is the **single source of truth** for:
-  - `name` – used across metadata and JSON-LD.
-  - `url` and `domain` – base URL for metadata and structured data.
-  - `description` – reused in the default `Metadata` and Open Graph fields.
-- `baseMetadata(overrides)` returns a Next.js `Metadata` object using `siteConfig` values and allows per-route overrides.
-  - The root layout (`app/layout.tsx`) calls `baseMetadata` to define the global `metadata` export.
-- `getWebsiteJsonLd()` returns the JSON-LD object for the `WebSite` schema using `siteConfig`.
-- `getPersonJsonLd()` returns the JSON-LD object for the `Person` schema using `siteConfig`.
+| Export                                                               | Purpose                                                                                                                                                                               |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `siteConfig`                                                         | Name, domain, base URL, and default description.                                                                                                                                      |
+| `baseMetadata(overrides)`                                            | Site-wide defaults: `metadataBase`, title template, and the default social image. Used directly only by the root layout.                                                              |
+| `pageMetadata({ locale, path, title, description, robots, images })` | **Use this for every page.** Adds the canonical URL, hreflang alternates, and locale-aware Open Graph (`og:url`, `og:locale`, `og:locale:alternate`).                                 |
+| `localizedAlternates(locale, path)` / `localizedPath(locale, path)`  | Canonical and alternate URLs for a locale-less path (`""`, `"/cv"`, …).                                                                                                               |
+| `getWebsiteJsonLd(locale)`                                           | `WebSite` node (rendered on every page by the root layout).                                                                                                                           |
+| `getPersonJsonLd(locale, cv)`                                        | `Person` node built from the CV: `jobTitle` is the first sentence of `basics.label`, `knowsAbout` the skill groups. `worksFor` is set only while the latest position has no end date. |
+| `getCvPageJsonLd(locale, cv)`                                        | `@graph` with `ProfilePage`, `Person`, and one `Article` per CV publication (CV page).                                                                                                |
+| `getArticleJsonLd({ locale, path, headline, description })`          | `Article` node for article pages.                                                                                                                                                     |
+| `serializeJsonLd(data)`                                              | `JSON.stringify` with `<` escaped, so a value can't close the `<script>` tag.                                                                                                         |
+| `INDEXABLE_PATHS`                                                    | Locale-less paths included in the sitemap.                                                                                                                                            |
 
-### `app/components/SeoJsonLd.tsx`
+`lib/seo.ts` has no filesystem access, so it is safe to import anywhere. Callers pass in the CV from `lib/cv.ts` (`loadCv(locale)`).
 
-- `SeoJsonLd` is a client component that injects JSON-LD via `<Script type="application/ld+json">`:
-  - Always includes the `WebSite` JSON-LD on all routes.
-  - Includes the `Person` JSON-LD **only** on `/` (root/About page) and `/cv` (controlled via `usePathname`).
-- If you add new routes that should expose `Person` schema, update the `includePerson` condition (currently includes `/` and `/cv`).
+### Page metadata
 
-### `app/layout.tsx` and Open Graph images
+- **Markdown-backed pages** (`accessibility`, `cookie-policy`, `privacy-policy`, `tech-stack`, `technical-governance`, `found-luggage`, articles) call `contentPageMetadata(locale, slug, { path?, robots? })` from `lib/content-metadata.ts`. Title and description come from the page's localized frontmatter (`title`, `description`). Add a `description` to the frontmatter of every new page, in both locales.
+- **Home and CV** call `pageMetadata()` directly: the home description comes from the `meta.siteDescription` UI string, and the CV description from `getCvDescription(locale)`.
+- **Unlisted pages** (`found-luggage`, `articles/*`) pass `robots: { index: false, … }` and are absent from `INDEXABLE_PATHS`.
 
-- Imports and uses both helpers:
-  - `baseMetadata` for the `metadata` export.
-  - `SeoJsonLd` inside the `<body>` alongside the Turnstile script.
-- Open Graph images are route-specific and **locale-aware** to prevent inheritance issues:
-  - **Homepage (`/`)**: Uses `app/[lang]/opengraph-image.tsx` for the homepage OG image. The `baseMetadata` function in `lib/seo.ts` references `/opengraph-image`.
-    - Accepts `lang` parameter to generate locale-specific images
-    - English (`/en/opengraph-image`): Uses English badge and subtitle text
-    - Spanish (`/es/opengraph-image`): Uses Spanish badge and subtitle text ("Liderazgo en Ingeniería de Software, Design Systems y Experiencia del Desarrollador (DevEx)")
-  - **CV (`/cv`)**: Uses `app/[lang]/cv/opengraph-image.tsx` for the CV-specific OG image. The CV page defines its own `metadata` export to override the homepage OG image with `/cv/opengraph-image`.
-    - Also locale-aware with translated badge ("Currículum Vitae") and footer text ("Experiencia · Habilidades · Publicaciones · Referencias")
-- When adding new routes that need custom OG images:
-  1. Create an `opengraph-image.tsx` file in the route folder within `app/[lang]/`.
-  2. Accept the `params: Promise<{ lang: Locale }>` parameter to support translations.
-  3. Export a `metadata` object in the page to override the default OG image path.
-- When changing the site name, domain, or description, update `siteConfig` in `lib/seo.ts`; metadata, JSON-LD, and OG images will stay in sync automatically.
-- **Translation Note**: Opengraph images maintain "Design Systems" in English as a technical term, translating other content appropriately for each locale.
+### Structured data
 
-## Content Practices
+`app/components/JsonLd.tsx` renders `<script type="application/ld+json">` on the server. The [Next.js JSON-LD guidance](https://nextjs.org/docs/app/guides/json-ld) pattern is used, with `serializeJsonLd` escaping.
 
-- Write clear, descriptive headings.
-- Use one `<h1>` per page and a logical heading hierarchy.
-- Prefer descriptive link text over "click here".
+| Where                         | Schema                                |
+| ----------------------------- | ------------------------------------- |
+| Root layout (every page)      | `WebSite`                             |
+| Home (`app/[lang]/page.tsx`)  | `Person`                              |
+| CV (`app/[lang]/cv/page.tsx`) | `ProfilePage` + `Person` + `Article`s |
+| Article pages                 | `Article`                             |
 
-## Checklist: Adding a New Route with SEO
+### Sitemap and robots
 
-```
-Is this a new public-facing page or API route?
-  ├─ YES, page: Does it need custom metadata or OG image?
-  │  ├─ YES: Export metadata in page.tsx; create opengraph-image.tsx if needed
-  │  │       Ensure opengraph-image.tsx accepts params: Promise<{ lang: Locale }>
-  │  │       Render locale-specific text (translate non-technical terms)
-  │  └─ NO: Default metadata from root layout will apply
-  └─ NO, API route: You don't need SEO metadata
+- `app/sitemap.ts`: one entry per `INDEXABLE_PATHS` × locale, each with absolute hreflang alternates. `lastModified` is deliberately omitted (build time isn't content-change time).
+- `app/robots.ts`: allows everything except a few legacy probe paths, and points at `/sitemap.xml`. `/api/*` stays crawlable because `/llms.txt` advertises the content and profile APIs to agents.
 
-Does the page have translated content?
-  ├─ YES: Place markdown in content/[locale]/[page-name].md
-  │       Read locale from params.lang and select correct file: content/[locale]/[page-name].md
-  │       Example: app/[lang]/page.tsx reads content/[locale]/about.md based on params.lang
-  └─ NO: Can be hardcoded if internal/admin-only
+### Open Graph images
 
-Does the page need a special JSON-LD schema (Person, Article, etc.)?
-  ├─ YES: Generate in SeoJsonLd.tsx, keyed by pathname
-  │       Update the includePerson (or new) condition to include your route
-  └─ NO: WebSite and BreadcrumbList (if added) schemas cover you
+- `app/[lang]/opengraph-image.tsx` (home) and `app/[lang]/cv/opengraph-image.tsx` (CV) render locale-aware 1200×630 PNGs via `lib/og-home-image.tsx`. Each receives `params: Promise<{ lang: Locale }>`.
+- `app/opengraph-image.tsx` is the default image referenced by `baseMetadata`.
+- Image URLs carry `?v=${ogCacheVersion}` (`NEXT_PUBLIC_OG_CACHE_DATE`); bump it to invalidate cached previews.
+- "Design Systems" stays in English in both locales as a technical term.
 
-Is this page indexed by search engines (not robots.txt-excluded)?
-  ├─ YES: Ensure robots.txt allows it (default allows all except API routes)
-  │       Add to sitemaps (automatic via next-sitemap if not excluded)
-  └─ NO: Add to robots.txt disallow list in next-sitemap.config.js
-```
+### 404s
 
-## Opengraph Image Implementation Details
+Unmatched URLs render `app/global-not-found.tsx`. It returns HTTP 404 with `noindex`, a localized message, and `<html lang>` from the `x-opaso-locale` header set by `proxy.ts` (see ADR-0004).
 
-### When to Use
+## Checklist: adding a page
 
-- **All public-facing pages**: Homepage, CV, policy pages, tech stack, etc.
-- **Not needed**: API routes, internal dashboards, redirects.
+1. Create `app/[lang]/<slug>/page.tsx` with `generateStaticParams` for both locales.
+2. Add `content/en/<slug>.md` and `content/es/<slug>.md` with `name`, `title`, `slug` and `description` frontmatter.
+3. Export `generateMetadata` that returns `contentPageMetadata(locale, "<slug>")` (or `pageMetadata` for non-markdown pages).
+4. If the page should be indexed, add `"/<slug>"` to `INDEXABLE_PATHS`; otherwise pass `robots: { index: false }`.
+5. If it needs a schema beyond `WebSite`, render `<JsonLd data={…} />` in the page with a builder from `lib/seo.ts`.
+6. Extend `test/unit/sitemap-robots.test.ts` and the page's metadata tests.
 
-### How It Works
+## Adding a locale
 
-Each locale-aware opengraph image file:
+1. Add it to `locales` in `lib/i18n/locales.ts` and to the `OG_LOCALE` map in `lib/seo.ts`.
+2. Add `content/<locale>/*` (including `cv.json`) and `i18n/<locale>/ui.json`.
+3. Handle the locale in `lib/og-home-image.tsx`.
+4. Routing (`proxy.ts`), alternates, the sitemap and the 404 page pick up the new locale automatically from `locales`.
 
-1. Accepts `params: Promise<{ lang: Locale }>` from Next.js App Router
-2. Extracts locale from params
-3. Conditionally renders English or Spanish content
-4. Uses ImageResponse API to generate PNG at 1200x630
-5. Returns as a route-specific metadata handler
+## Content practices
 
-**Example: `app/[lang]/opengraph-image.tsx`**
-
-```typescript
-import { ImageResponse } from "next/og";
-import type { Locale } from "@/lib/i18n/locales";
-
-export async function GET(
-  _: Request,
-  { params }: { params: Promise<{ lang: Locale }> }
-) {
-  const { lang } = await params;
-  const isSpanish = lang === "es";
-
-  const title = isSpanish
-    ? "Liderazgo en Ingeniería de Software"
-    : "Software Engineering Leadership";
-
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 60,
-          background: "white",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {title}
-      </div>
-    ),
-    { width: 1200, height: 630 }
-  );
-}
-```
-
-### Adding a New Locale
-
-To add support for a new locale (e.g., French `fr`):
-
-1. Add the locale to `lib/i18n/locales.ts` (type `Locale`)
-2. Create `content/fr/about.md`, `content/fr/cv.md`, etc.
-3. Create `i18n/fr/ui.json` with French UI strings
-4. Update all opengraph-image.tsx files to handle the new locale:
-
-```typescript
-const isFrench = lang === "fr";
-const title = isFrench
-  ? "Titre en Français"
-  : isSpanish
-    ? "...es..."
-    : "...en...";
-```
-
-5. Verify locale routing in middleware.ts includes the new locale
-6. Add E2E tests to verify opengraph generation for the new locale
+- One `<h1>` per page and a logical heading hierarchy.
+- Descriptive link text, not "click here".

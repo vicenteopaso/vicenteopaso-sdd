@@ -1,22 +1,22 @@
-import fs from "fs";
 import type { Metadata } from "next";
 import Image from "next/image";
-import path from "path";
 
 import { CvRefsGrid } from "@/app/components/CvRefCard";
+import { JsonLd } from "@/app/components/JsonLd";
 import { getCvDownloadFilename, getCvDownloadPath } from "@/app/config/cv";
-import { loadContentPage } from "@/lib/content";
-import { logWarning } from "@/lib/error-logging";
+import type { CvReference, CvWorkEntry } from "@/lib/cv";
+import { loadCv } from "@/lib/cv";
 import type { Locale } from "@/lib/i18n";
 import { getLocaleFromParams, getTranslations } from "@/lib/i18n";
-import { getCvDescription, ogCacheVersion, siteConfig } from "@/lib/seo";
+import {
+  getCvDescription,
+  getCvPageJsonLd,
+  ogCacheVersion,
+  pageMetadata,
+} from "@/lib/seo";
 import { getSiteData } from "@/lib/site-data";
 
 export const dynamic = "force-static";
-
-function stripHtmlLikeDelimiters(input: string): string {
-  return input.replace(/[<>]/g, "");
-}
 
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "es" }];
@@ -29,79 +29,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const locale = getLocaleFromParams({ lang });
-  const description = getCvDescription(locale);
-  return {
+  return pageMetadata({
+    locale,
+    path: "/cv",
     title: "CV",
-    description,
-    openGraph: {
-      type: "website",
-      url: `${siteConfig.url}/${locale}/cv`,
-      title: `${siteConfig.name} · CV`,
-      description,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: `/${locale}/cv/opengraph-image?v=${ogCacheVersion}`,
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${siteConfig.name} · CV`,
-      description,
-      site: "@vicenteopaso",
-      creator: "@vicenteopaso",
-      images: [`/${locale}/cv/opengraph-image?v=${ogCacheVersion}`],
-    },
-  };
+    description: getCvDescription(locale),
+    images: `/${locale}/cv/opengraph-image?v=${ogCacheVersion}`,
+  });
 }
-
-// ─── Types ─────────────────────────────────────────────────────────────────────
-type Highlight = string | { title?: string; content: string };
-
-type CvJson = {
-  basics?: {
-    name?: string;
-    label?: string;
-    summary?: string;
-    highlights?: Highlight[];
-  };
-  work?: Array<{
-    company: string;
-    location?: string;
-    positions: Array<{
-      position: string;
-      summary?: string;
-      startDate?: string;
-      endDate?: string;
-      highlights?: Highlight[];
-      skills?: string[];
-    }>;
-  }>;
-  education?: Array<{
-    institution: string;
-    area?: string;
-    studyType?: string;
-    startDate?: string;
-    endDate?: string;
-  }>;
-  skills?: Array<{ name: string; level?: string; keywords?: string[] }>;
-  languages?: Array<{ language: string; fluency?: string }>;
-  references?: Array<{ name: string; reference: string }>;
-  publications?: Array<{
-    name: string;
-    publisher?: string;
-    releaseDate?: string;
-    url?: string;
-  }>;
-  governance?: Array<{
-    group: string;
-    organization?: string;
-    summary?: string;
-  }>;
-};
 
 type T = ReturnType<typeof getTranslations>;
 
@@ -113,30 +48,6 @@ function SecHead({ n, label }: { n: string; label: string }) {
       <span className="v3-sec-head-rule" />
     </div>
   );
-}
-
-/** Strip HTML-like markup delimiters — used to clean reference names */
-function stripHtml(html: string): string {
-  return html.replace(/[<>]/g, "");
-}
-
-/** Parse "Name | Role" reference name strings, extracting href if present */
-function parseRefName(raw: string): {
-  name: string;
-  role: string;
-  href?: string;
-} {
-  const hrefMatch = raw.match(/href=['"]([^'"]+)['"]/);
-  const rawHref = hrefMatch?.[1];
-  const href = rawHref && /^https?:\/\//i.test(rawHref) ? rawHref : undefined;
-  const textMatch = raw.match(/>([^<]+)<\/a>/);
-  const anchorText = textMatch?.[1]?.trim();
-  const pipeIdx = raw.indexOf("|");
-  const role = pipeIdx >= 0 ? raw.substring(pipeIdx + 1).trim() : "";
-  const name =
-    anchorText ??
-    stripHtml(pipeIdx >= 0 ? raw.substring(0, pipeIdx) : raw).trim();
-  return { name, role, href };
 }
 
 // ─── CV Masthead ───────────────────────────────────────────────────────────────
@@ -306,13 +217,7 @@ function SummarySection({
       <SecHead n="01" label={t("cv.section.summary")} />
       <div className="v3-cv-summary-grid">
         {/* Left: prose */}
-        <div>
-          {summary && (
-            <p className="v3-cv-summary-prose">
-              {stripHtmlLikeDelimiters(summary)}
-            </p>
-          )}
-        </div>
+        <div>{summary && <p className="v3-cv-summary-prose">{summary}</p>}</div>
         {/* Right: TL;DR */}
         <div className="v3-cv-summary-tldr">
           <div className="v3-cv-summary-tldr-title">{t("tldr.header")}</div>
@@ -331,20 +236,7 @@ function SummarySection({
 }
 
 // ─── §02 Experience ─────────────────────────────────────────────────────────
-type WorkEntry = {
-  company: string;
-  location?: string;
-  positions: Array<{
-    position: string;
-    summary?: string;
-    startDate?: string;
-    endDate?: string;
-    highlights?: Highlight[];
-    skills?: string[];
-  }>;
-};
-
-function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
+function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
   return (
     <section id="cv-experience" className="v3-cv-section">
       <SecHead n="02" label={t("cv.section.experience")} />
@@ -392,7 +284,7 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                   >
                     {role.startDate ?? ""}
                     {"\n→\n"}
-                    {role.endDate ?? "Present"}
+                    {role.endDate ?? t("cv.exp.present")}
                     {isCurrent && (
                       <div className="v3-cv-exp-current-label">
                         {t("cv.exp.current")}
@@ -405,7 +297,7 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                     </div>
                     {role.summary && (
                       <div className="v3-cv-exp-position-summary">
-                        {stripHtmlLikeDelimiters(role.summary)}
+                        {role.summary}
                       </div>
                     )}
                     {highlights.length > 0 && (
@@ -413,7 +305,7 @@ function ExperienceSection({ work, t }: { work: WorkEntry[]; t: T }) {
                         {highlights.map((h, hi) => (
                           <li key={hi} className="v3-cv-exp-highlight">
                             <span className="v3-cv-exp-highlight-arrow">→</span>
-                            <span>{stripHtmlLikeDelimiters(h)}</span>
+                            <span>{h}</span>
                           </li>
                         ))}
                       </ul>
@@ -529,7 +421,9 @@ function EducationSection({
               <div className="v3-cv-edu-institution">{ed.institution}</div>
               {(ed.studyType || ed.area) && (
                 <div className="v3-cv-edu-program">
-                  {[ed.studyType, ed.area].filter(Boolean).join(" in ")}
+                  {[ed.studyType, ed.area]
+                    .filter(Boolean)
+                    .join(t("cv.edu.programSeparator"))}
                 </div>
               )}
               {(ed.startDate || ed.endDate) && (
@@ -624,11 +518,7 @@ function GovernanceSection({
                 </span>
               )}
             </div>
-            {g.summary && (
-              <div className="v3-cv-gov-summary">
-                {stripHtmlLikeDelimiters(g.summary)}
-              </div>
-            )}
+            {g.summary && <div className="v3-cv-gov-summary">{g.summary}</div>}
           </div>
         ))}
       </div>
@@ -641,18 +531,15 @@ function ReferencesSection({
   references,
   t,
 }: {
-  references: Array<{ name: string; reference: string }>;
+  references: CvReference[];
   t: T;
 }) {
-  const refs = references.map((ref) => {
-    const { name, role, href } = parseRefName(ref.name);
-    return {
-      name,
-      role,
-      href,
-      fullText: stripHtmlLikeDelimiters(ref.reference),
-    };
-  });
+  const refs = references.map(({ name, role, url, paragraphs }) => ({
+    name,
+    role,
+    href: url,
+    paragraphs,
+  }));
   return (
     <section id="cv-references" className="v3-cv-section">
       <SecHead n="07" label={t("cv.section.references")} />
@@ -710,52 +597,33 @@ export default async function CVPage({ params }: PageProps) {
   const t = getTranslations(locale);
   const siteData = getSiteData(locale);
 
-  // Frontmatter from cv.md (title, name)
-  const { data } = loadContentPage(locale, "cv");
-
-  // Structured data from cv.json
-  let cv: CvJson = {};
-  try {
-    const jsonPath = path.join(process.cwd(), "content", locale, "cv.json");
-    cv = JSON.parse(fs.readFileSync(jsonPath, "utf8")) as CvJson;
-  } catch (err) {
-    logWarning(`CV JSON load failed for locale "${locale}"`, {
-      component: "CVPage",
-      metadata: { error: err instanceof Error ? err.message : String(err) },
-    });
-  }
-
-  const name = cv.basics?.name ?? data.name;
-  const label =
-    cv.basics?.label ?? data.tagline ?? "Frontend Architect & Technical Leader";
+  const cv = loadCv(locale);
+  const { name, label, summary } = cv.basics;
 
   return (
     <div className="v3-page v3-cv-page">
+      <JsonLd data={getCvPageJsonLd(locale, cv)} />
       <CvMasthead name={name} label={label} lang={locale} t={t} />
       <CvToc t={t} tocEntries={siteData.cvToc} />
       <ImpactStrip impact={siteData.impact} />
-      <SummarySection summary={cv.basics?.summary} t={t} tldr={siteData.tldr} />
-      {(cv.work?.length ?? 0) > 0 && (
-        <ExperienceSection work={cv.work ?? []} t={t} />
-      )}
-      {(cv.skills?.length ?? 0) > 0 && (
-        <SkillsSection skills={cv.skills ?? []} t={t} />
-      )}
-      {((cv.education?.length ?? 0) > 0 || (cv.languages?.length ?? 0) > 0) && (
+      <SummarySection summary={summary} t={t} tldr={siteData.tldr} />
+      {cv.work.length > 0 && <ExperienceSection work={cv.work} t={t} />}
+      {cv.skills.length > 0 && <SkillsSection skills={cv.skills} t={t} />}
+      {(cv.education.length > 0 || cv.languages.length > 0) && (
         <EducationSection
-          education={cv.education ?? []}
-          languages={cv.languages ?? []}
+          education={cv.education}
+          languages={cv.languages}
           t={t}
         />
       )}
-      {(cv.publications?.length ?? 0) > 0 && (
-        <PublicationsSection publications={cv.publications ?? []} t={t} />
+      {cv.publications.length > 0 && (
+        <PublicationsSection publications={cv.publications} t={t} />
       )}
-      {(cv.governance?.length ?? 0) > 0 && (
-        <GovernanceSection governance={cv.governance ?? []} t={t} />
+      {cv.governance.length > 0 && (
+        <GovernanceSection governance={cv.governance} t={t} />
       )}
-      {(cv.references?.length ?? 0) > 0 && (
-        <ReferencesSection references={cv.references ?? []} t={t} />
+      {cv.references.length > 0 && (
+        <ReferencesSection references={cv.references} t={t} />
       )}
       <EndCta locale={locale} t={t} />
     </div>

@@ -22,7 +22,6 @@ const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 function persistLocale(locale: Locale) {
   localStorage.setItem("preferred-locale", locale);
   document.cookie = `preferred-locale=${locale};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
-  document.documentElement.lang = locale;
 }
 
 function getLocaleFromPathname(pathname: string | null): Locale | null {
@@ -49,7 +48,7 @@ export function LocaleProvider({
     routeLocaleFromParams ?? initialLocale,
   );
 
-  // On mount, persist the server-determined locale to storage/cookie/<html lang>
+  // On mount, persist the server-determined locale to storage and cookie
   useEffect(() => {
     persistLocale(routeLocaleFromParams ?? initialLocale);
   }, [initialLocale, routeLocaleFromParams]);

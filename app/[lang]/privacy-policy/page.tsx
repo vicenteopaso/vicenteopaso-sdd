@@ -3,10 +3,10 @@ import ReactMarkdown from "react-markdown";
 
 import { ContentPageShell } from "@/app/components/ContentPageShell";
 import { loadContentPage } from "@/lib/content";
+import { contentPageMetadata } from "@/lib/content-metadata";
 import { getLocaleFromParams } from "@/lib/i18n";
 
 import { markdownComponents } from "../../../lib/markdown-components";
-import { baseMetadata } from "../../../lib/seo";
 
 export const dynamic = "force-static";
 
@@ -14,17 +14,13 @@ export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "es" }];
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  return baseMetadata({
-    title: "Privacy Policy",
-    description:
-      "Privacy Policy for opa.so. Learn how your data is collected, used, and protected.",
-    openGraph: {
-      title: "Privacy Policy · Vicente Opaso",
-      description:
-        "Privacy Policy for opa.so, detailing data collection, usage, and protection.",
-    },
-  });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return contentPageMetadata(getLocaleFromParams({ lang }), "privacy-policy");
 }
 
 interface PageProps {

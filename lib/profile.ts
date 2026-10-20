@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { z } from "zod";
 
+import type { Cv } from "@/lib/cv";
+import { loadCv } from "@/lib/cv";
 import { logError } from "@/lib/error-logging";
 import type { Locale } from "@/lib/i18n";
 
@@ -70,40 +72,6 @@ const profileSchema = z.object({
   }),
 });
 
-const cvSchema = z.object({
-  basics: z.object({
-    name: z.string(),
-    label: z.string().optional(),
-  }),
-  work: z.array(
-    z.object({
-      company: z.string(),
-      positions: z.array(
-        z.object({
-          position: z.string(),
-          startDate: z.string().optional(),
-        }),
-      ),
-    }),
-  ),
-  skills: z
-    .array(
-      z.object({
-        name: z.string(),
-        keywords: z.array(z.string()).optional(),
-      }),
-    )
-    .optional(),
-  languages: z
-    .array(
-      z.object({
-        language: z.string(),
-        fluency: z.string().optional(),
-      }),
-    )
-    .optional(),
-});
-
 const profilePreferencesSchema = z.object({
   meta: z.object({
     current_title: z.string(),
@@ -129,7 +97,7 @@ const profilePreferencesSchema = z.object({
 });
 
 type CanonicalProfile = z.infer<typeof profileSchema>;
-type CvData = z.infer<typeof cvSchema>;
+type CvData = Cv;
 type ProfilePreferences = z.infer<typeof profilePreferencesSchema>;
 
 function readJsonFile<T>(filePath: string, schema: z.ZodSchema<T>): T {
@@ -233,7 +201,6 @@ function mapLanguages(
 
 export function getCanonicalProfile(locale: Locale): CanonicalProfile {
   try {
-    const cvPath = path.join(process.cwd(), "content", locale, "cv.json");
     const preferencesPath = path.join(
       process.cwd(),
       "content",
@@ -241,7 +208,7 @@ export function getCanonicalProfile(locale: Locale): CanonicalProfile {
       "profile-preferences.json",
     );
 
-    const cv = readJsonFile(cvPath, cvSchema);
+    const cv = loadCv(locale);
     const preferences = readJsonFile(preferencesPath, profilePreferencesSchema);
 
     const profile = {

@@ -7,6 +7,7 @@ import { config } from "../../proxy";
 // Mock the locales module
 vi.mock("../../lib/i18n/locales", () => ({
   locales: ["en", "es"],
+  LOCALE_REQUEST_HEADER: "x-opaso-locale",
 }));
 
 describe("proxy (middleware)", () => {
@@ -50,6 +51,24 @@ describe("proxy (middleware)", () => {
       },
     } as NextRequest;
   }
+
+  describe("locale request header", () => {
+    it.each([
+      ["/es/nope", "es"],
+      ["/en", "en"],
+      ["/en/cv", "en"],
+    ])(
+      "forwards the path locale for %s so global-not-found can localize",
+      (path, locale) => {
+        const response = proxy(createMockRequest(path)) as NextResponse;
+
+        expect(response.status).toBe(200);
+        expect(
+          response.headers.get("x-middleware-request-x-opaso-locale"),
+        ).toBe(locale);
+      },
+    );
+  });
 
   describe("Spanish locale detection and redirect", () => {
     it("should prioritize preferred locale cookie over accept-language", () => {
@@ -293,52 +312,6 @@ describe("proxy (middleware)", () => {
       expect((response as NextResponse).status).toBe(307);
       expect((response as NextResponse).headers.get("location")).toBe(
         "http://localhost:3000/es",
-      );
-    });
-  });
-
-  describe("Sitemap redirects", () => {
-    it("should redirect /en/sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/en/sitemap.xml", "en-US");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /es/sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/es/sitemap.xml", "es-ES");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /en/sitemap-0.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/en/sitemap-0.xml", "en-US");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
-      );
-    });
-
-    it("should redirect /es/news_sitemap.xml to /sitemap.xml with 301", () => {
-      const req = createMockRequest("/es/news_sitemap.xml", "es-ES");
-      const response = proxy(req);
-
-      expect(response).toBeInstanceOf(NextResponse);
-      expect((response as NextResponse).status).toBe(301);
-      expect((response as NextResponse).headers.get("location")).toBe(
-        "http://localhost:3000/sitemap.xml",
       );
     });
   });

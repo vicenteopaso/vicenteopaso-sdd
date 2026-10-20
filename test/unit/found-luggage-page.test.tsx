@@ -29,10 +29,9 @@ describe("FoundLuggagePage", () => {
         name: /you found my luggage/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /vicente@opa\.so/i })).toHaveAttribute(
-      "href",
-      "mailto:vicente@opa.so",
-    );
+    expect(
+      screen.getByRole("link", { name: /vicente@opa\.so/i }),
+    ).toHaveAttribute("href", "mailto:vicente@opa.so");
     expect(
       screen.getByRole("link", { name: /\+34 684 00 52 62/i }),
     ).toHaveAttribute("href", "tel:+34684005262");
@@ -57,14 +56,13 @@ describe("FoundLuggagePage", () => {
         name: /encontraste mi equipaje/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByTestId("notifier")).toHaveAttribute(
-      "data-locale",
-      "es",
-    );
+    expect(screen.getByTestId("notifier")).toHaveAttribute("data-locale", "es");
   });
 
   it("marks the page as noindex so it stays unlisted", async () => {
-    const metadata = await generateMetadata();
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ lang: "en" }),
+    });
 
     expect(metadata.robots).toMatchObject({ index: false, follow: false });
   });

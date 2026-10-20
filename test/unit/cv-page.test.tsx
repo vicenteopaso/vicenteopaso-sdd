@@ -6,43 +6,41 @@ import CVPage from "../../app/[lang]/cv/page";
 
 const realReadFileSync = fs.readFileSync;
 
+type CvFixture = Record<string, unknown> & {
+  basics?: Record<string, unknown>;
+};
+
+/**
+ * Mocks content/<locale>/cv.json. Object fixtures are merged onto the minimum
+ * valid CV (lib/cv.ts schema) so each test only states the fields it covers;
+ * string fixtures are served verbatim (e.g. to exercise invalid JSON).
+ */
 function mockCvFs({
   locale = "en",
-  meta,
   cvJson,
 }: {
   locale?: string;
-  meta?: { name?: string; title?: string; tagline?: string };
-  cvJson: unknown;
+  cvJson: CvFixture | string;
 }) {
-  const metaConfig = {
-    name: "Vicente",
-    title: "CV",
-    tagline: "Engineering leader",
-    ...meta,
-  };
-
-  const metaLines = [
-    "---",
-    `name: ${metaConfig.name}`,
-    `title: ${metaConfig.title}`,
-    metaConfig.tagline ? `tagline: ${metaConfig.tagline}` : undefined,
-    "slug: cv",
-    "---",
-    "",
-  ].filter(Boolean) as string[];
-
-  const metaRaw = metaLines.join("\n");
   const cvContent =
-    typeof cvJson === "string" ? cvJson : JSON.stringify(cvJson);
+    typeof cvJson === "string"
+      ? cvJson
+      : JSON.stringify({
+          name: "Vicente Opaso",
+          title: "Vicente Opaso",
+          slug: "cv",
+          work: [],
+          ...cvJson,
+          basics: {
+            name: "Vicente Opaso",
+            label: "Engineering leader",
+            ...cvJson.basics,
+          },
+        });
 
   vi.spyOn(fs, "readFileSync").mockImplementation(
     (filePath, options): string => {
       const file = String(filePath);
-
-      if (file.endsWith(`${locale}/cv.md`)) {
-        return metaRaw;
-      }
 
       if (file.endsWith(`${locale}/cv.json`)) {
         return cvContent;
@@ -61,23 +59,28 @@ afterEach(() => {
 });
 
 describe("CVPage", () => {
-  it("renders the CV shell when CV JSON is invalid", async () => {
+  it("fails the render (and therefore the build) when CV JSON is invalid", async () => {
     mockCvFs({
       locale: "en",
       cvJson: "this is not valid json",
     });
 
-    const ui = await CVPage({ params: Promise.resolve({ lang: "en" }) });
+    await expect(
+      CVPage({ params: Promise.resolve({ lang: "en" }) }),
+    ).rejects.toThrow("Failed to read content/en/cv.json");
+  });
 
-    render(ui);
+  it("rejects HTML markup in CV text instead of rendering it", async () => {
+    mockCvFs({
+      locale: "en",
+      cvJson: {
+        basics: { summary: "<p>Summary</p><script>alert(1)</script>" },
+      },
+    });
 
-    expect(
-      screen.getByText(/CURRICULUM VITAE · v2026\.08/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /DOWNLOAD PDF/i }),
-    ).toBeInTheDocument();
-    expect(screen.queryByText(/Acme Corp/i)).toBeNull();
+    await expect(
+      CVPage({ params: Promise.resolve({ lang: "en" }) }),
+    ).rejects.toThrow(/basics\.summary — must be plain text/);
   });
 
   it("renders CV sections when JSON is valid", async () => {
@@ -85,13 +88,12 @@ describe("CVPage", () => {
       basics: {
         name: "Vicente Opaso",
         label: "Engineering leader",
-        summary:
-          "<p>Summary HTML</p><script>window.evilSummary = true;</script>",
+        summary: "Summary text",
         highlights: [
           "Led teams",
           {
-            title: "<strong>Technical leadership</strong>",
-            content: "<p>Built modern web platforms</p>",
+            title: "Technical leadership",
+            content: "Built modern web platforms",
           },
         ],
       },
@@ -102,10 +104,10 @@ describe("CVPage", () => {
           positions: [
             {
               position: "Staff Engineer",
-              summary: "<p>Did important things</p>",
+              summary: "Did important things",
               startDate: "2020",
               endDate: "2024",
-              highlights: ["<p>Shipped features</p>"],
+              highlights: ["Shipped features"],
               skills: ["TypeScript", "Next.js"],
             },
           ],
@@ -149,8 +151,10 @@ describe("CVPage", () => {
       ],
       references: [
         {
-          name: "<strong>Someone</strong>",
-          reference: "<p>Vicente is great to work with.</p>",
+          name: "Someone",
+          role: "Peer",
+          url: "https://example.com/someone",
+          paragraphs: ["Vicente is great to work with.", "Second paragraph."],
         },
       ],
     };
@@ -192,10 +196,17 @@ describe("CVPage", () => {
       screen.getAllByText(/Vicente is great to work with/i).length,
     ).toBeGreaterThanOrEqual(1);
 
-    // Sanitizer should remove script tags from the rendered output.
-    expect(document.querySelector("script")).toBeNull();
-    // And should keep the visible summary text.
-    expect(screen.getByText(/Summary HTML/i)).toBeInTheDocument();
+    expect(screen.getByText("Summary text")).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "Someone" })[0]).toHaveAttribute(
+      "href",
+      "https://example.com/someone",
+    );
+
+    // ProfilePage JSON-LD is server-rendered with the page.
+    const jsonLd = document.querySelector('script[type="application/ld+json"]');
+    expect(
+      JSON.parse(jsonLd?.textContent ?? "null")["@graph"][0],
+    ).toMatchObject({ "@type": "ProfilePage", url: "https://opa.so/en/cv" });
   });
 
   it("renders governance and steering groups when provided", async () => {
@@ -217,7 +228,8 @@ describe("CVPage", () => {
       references: [
         {
           name: "Reference Person",
-          reference: "Reference text",
+          role: "Peer",
+          paragraphs: ["Reference text"],
         },
       ],
     };
@@ -306,29 +318,41 @@ describe("CVPage", () => {
   });
 
   it("handles CV with all optional fields missing", async () => {
-    const cvJson = {
-      basics: {},
-      work: [],
-      education: [],
-      skills: [],
-      languages: [],
-      interests: [],
-      publications: [],
-      references: [],
-    };
-
     mockCvFs({
       locale: "en",
-      meta: { name: "Test" },
-      cvJson,
+      cvJson: { basics: { name: "Test Person" } },
     });
 
     const ui = await CVPage({ params: Promise.resolve({ lang: "en" }) });
 
     render(ui);
 
-    expect(screen.getByRole("heading", { name: /Test/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Test\s*Person/i }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText("SUMMARY").length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById("cv-experience")).toBeNull();
+    expect(document.getElementById("cv-references")).toBeNull();
+  });
+
+  it("shows the localized label for an ongoing position", async () => {
+    mockCvFs({
+      locale: "es",
+      cvJson: {
+        work: [
+          {
+            company: "Acme",
+            positions: [{ position: "Arquitecto", startDate: "2026-01" }],
+          },
+        ],
+      },
+    });
+
+    const ui = await CVPage({ params: Promise.resolve({ lang: "es" }) });
+
+    render(ui);
+
+    expect(screen.getByText(/2026-01\s*→\s*Actualidad/)).toBeInTheDocument();
   });
 
   it("renders work experience with multiple positions", async () => {
@@ -345,15 +369,15 @@ describe("CVPage", () => {
               position: "Senior Engineer",
               startDate: "2022",
               endDate: "2024",
-              summary: "<p>Current role</p>",
-              highlights: ["<p>Built systems</p>"],
+              summary: "Current role",
+              highlights: ["Built systems"],
               skills: ["React", "Node.js"],
             },
             {
               position: "Engineer",
               startDate: "2020",
               endDate: "2022",
-              summary: "<p>Previous role</p>",
+              summary: "Previous role",
               highlights: [],
               skills: [],
             },
@@ -364,7 +388,6 @@ describe("CVPage", () => {
 
     mockCvFs({
       locale: "en",
-      meta: { name: "Test" },
       cvJson,
     });
 
@@ -387,7 +410,6 @@ describe("CVPage", () => {
 
     mockCvFs({
       locale: "en",
-      meta: { name: "Test" },
       cvJson,
     });
 
@@ -416,7 +438,7 @@ describe("CVPage", () => {
       ],
     };
 
-    mockCvFs({ locale: "en", meta: { name: "Test" }, cvJson });
+    mockCvFs({ locale: "en", cvJson });
 
     const ui = await CVPage({ params: Promise.resolve({ lang: "en" }) });
     render(ui);
