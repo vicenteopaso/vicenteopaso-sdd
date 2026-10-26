@@ -49,6 +49,7 @@ describe("instrumentation-client Sentry init", () => {
     delete process.env.VITEST;
     delete process.env.NEXT_PUBLIC_SENTRY_DSN;
     delete process.env.SENTRY_ENVIRONMENT;
+    delete process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT;
   });
 
   afterEach(() => {
@@ -61,6 +62,7 @@ describe("instrumentation-client Sentry init", () => {
     delete process.env.NEXT_PUBLIC_SENTRY_DSN;
     delete process.env.VITEST;
     delete process.env.SENTRY_ENVIRONMENT;
+    delete process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT;
   });
 
   it("exports onRouterTransitionStart hook", async () => {
@@ -113,7 +115,7 @@ describe("instrumentation-client Sentry init", () => {
     process.env = { ...process.env, NODE_ENV: "production" };
     process.env.NEXT_PUBLIC_SENTRY_DSN =
       "https://1234567890abcdef1234567890abcdef@o123456.ingest.sentry.io/9999999";
-    process.env.SENTRY_ENVIRONMENT = "prod-env";
+    process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "prod-env";
 
     await importClientInstrumentation();
     const sentry =
@@ -127,6 +129,25 @@ describe("instrumentation-client Sentry init", () => {
     expect(initArg.replaysOnErrorSampleRate).toBe(1.0);
     expect(initArg.integrations).toBeUndefined();
     expect(sentry.lazyLoadIntegration).not.toHaveBeenCalled();
+  });
+
+  it("tags events with the inlined public environment, not SENTRY_ENVIRONMENT", async () => {
+    // Regression: the client read SENTRY_ENVIRONMENT, which Next.js never
+    // exposes to the browser, so preview deployments reported "production".
+    process.env = { ...process.env, NODE_ENV: "production" };
+    process.env.NEXT_PUBLIC_SENTRY_DSN =
+      "https://1234567890abcdef1234567890abcdef@o123456.ingest.sentry.io/9999999";
+    process.env.SENTRY_ENVIRONMENT = "server-only-value";
+
+    await importClientInstrumentation();
+    const initArg = sentryClientMock.init.mock.calls[0][0] as InitOptions;
+    expect(initArg.environment).toBe("production");
+
+    process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "preview";
+    sentryClientMock.init.mockClear();
+    await importClientInstrumentation();
+    const previewArg = sentryClientMock.init.mock.calls[0][0] as InitOptions;
+    expect(previewArg.environment).toBe("preview");
   });
 
   it("lazy-loads Session Replay once, on the first interaction", async () => {
