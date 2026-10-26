@@ -6,6 +6,7 @@ const sentryMock = vi.hoisted(() => ({
     getClient: () => null,
   })),
   captureRequestError: vi.fn(),
+  consoleLoggingIntegration: vi.fn(() => ({ name: "ConsoleLogs" })),
 }));
 
 vi.mock("@sentry/nextjs", () => sentryMock);

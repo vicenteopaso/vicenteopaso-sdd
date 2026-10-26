@@ -16,20 +16,25 @@ Sentry is configured in this project to provide:
 - **Performance monitoring** with configurable trace sampling
 - **Session replay** for debugging user interactions
 - **Source map uploads** for readable stack traces in production
+- **Logs**: server and edge `console.warn`/`console.error` output, sent from the SDK to Sentry Logs (no Vercel Log Drain needed)
 
 ## Required Environment Variables
 
 The following environment variables must be set for Sentry to work properly:
 
-| Variable                    | Required For   | Description                                                   |
-| --------------------------- | -------------- | ------------------------------------------------------------- |
-| `SENTRY_DSN`                | Server & Edge  | Secret DSN for server-side and edge runtime error tracking    |
-| `NEXT_PUBLIC_SENTRY_DSN`    | Client         | Public DSN for browser-side error tracking                    |
-| `SENTRY_ENVIRONMENT`        | All            | Environment label (development, preview, production)          |
-| `SENTRY_AUTH_TOKEN`         | Build          | Auth token for uploading source maps during build             |
-| `SENTRY_ORG`                | Build          | Organization slug for source map uploads                      |
-| `SENTRY_PROJECT`            | Build          | Project slug for source map uploads                           |
-| `SENTRY_TRACES_SAMPLE_RATE` | All (Optional) | Sample rate for performance traces (0.0 to 1.0, default: 0.1) |
+| Variable                    | Required For  | Description                                                    |
+| --------------------------- | ------------- | -------------------------------------------------------------- |
+| `SENTRY_DSN`                | Server & Edge | Secret DSN for server-side and edge runtime error tracking     |
+| `NEXT_PUBLIC_SENTRY_DSN`    | Client        | Public DSN for browser-side error tracking                     |
+| `SENTRY_ENVIRONMENT`        | All           | Environment label (development, preview, production)¹          |
+| `SENTRY_AUTH_TOKEN`         | Build         | Auth token for uploading source maps during build              |
+| `SENTRY_ORG`                | Build         | Organization slug for source map uploads                       |
+| `SENTRY_PROJECT`            | Build         | Project slug for source map uploads                            |
+| `SENTRY_TRACES_SAMPLE_RATE` | Server & Edge | Sample rate for performance traces (0.0 to 1.0, default: 0.1)² |
+
+¹ The browser can't read unprefixed variables, so `next.config.mjs` inlines `SENTRY_ENVIRONMENT` into the client bundle as `NEXT_PUBLIC_SENTRY_ENVIRONMENT` at build time. Set only `SENTRY_ENVIRONMENT`.
+
+² Optional. Values that aren't a number in the 0–1 range fall back to `0.1`. The browser SDK uses a fixed `0.1` in `instrumentation-client.ts`.
 
 ## Step-by-Step Setup
 
@@ -124,8 +129,8 @@ SENTRY_TRACES_SAMPLE_RATE=0.1
    - **Key**: Variable name (e.g., `SENTRY_DSN`)
    - **Value**: The corresponding value from Sentry
    - **Environment**: Select appropriate environments (Production, Preview, Development)
-4. For sensitive values like `SENTRY_AUTH_TOKEN`:
-   - Mark as **Sensitive** to hide the value in logs
+4. For `SENTRY_AUTH_TOKEN`:
+   - Keep it as a regular encrypted variable, **not Sensitive**. Builds run in GitHub Actions after `vercel pull`, and `vercel pull` returns Sensitive values empty. An empty token silently disables source map upload (`next.config.mjs`).
    - Only expose to **Production** builds if source maps are only needed in production
 
 **Important**:
@@ -133,6 +138,28 @@ SENTRY_TRACES_SAMPLE_RATE=0.1
 - `NEXT_PUBLIC_SENTRY_DSN` must be set for all environments (it's bundled in client code)
 - `SENTRY_AUTH_TOKEN` is only needed during build time, not runtime
 - Set `SENTRY_ENVIRONMENT` appropriately per environment (e.g., `production`, `preview`, `development`)
+
+### Vercel Hobby plan: no drains
+
+Vercel [Drains](https://vercel.com/docs/drains) (log, trace, Speed Insights and Analytics forwarding) are available on Pro and Enterprise only. This project runs on Hobby, so nothing is forwarded from Vercel to Sentry. Instead, the SDK sends everything itself:
+
+| Signal            | How it reaches Sentry on Hobby                                                                                       |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Errors            | `Sentry.captureException` (`lib/error-logging.ts`), `onRequestError` (`instrumentation.ts`), browser global handlers |
+| Traces            | SDK tracing on client, server and edge (`tracesSampleRate`)                                                          |
+| Logs              | `consoleLoggingIntegration({ levels: ["warn", "error"] })` in `sentry.server.config.ts` / `sentry.edge.config.ts`    |
+| Session Replay    | Browser SDK, lazy-loaded on first interaction                                                                        |
+| Full runtime logs | Vercel dashboard or `vercel logs` only (short retention on Hobby)                                                    |
+
+Browser `console` output is deliberately **not** sent to Sentry Logs (extension and third-party noise). Browser failures reach Sentry as errors via `logError()`.
+
+#### Variables added by the Sentry Vercel integration
+
+Installing Sentry from the Vercel Marketplace adds its own set of variables, here with the custom `OPASO_` prefix (`OPASO_SENTRY_ORG`, `OPASO_SENTRY_PROJECT`, `OPASO_SENTRY_AUTH_TOKEN`, `NEXT_PUBLIC_OPASO_SENTRY_DSN`, `OPASO_SENTRY_PUBLIC_KEY`, `OPASO_SENTRY_VERCEL_LOG_DRAIN_URL`, `OPASO_SENTRY_OTLP_TRACES_URL`).
+
+- **The application does not read any `OPASO_SENTRY_*` variable.** It uses the unprefixed `SENTRY_*` set documented above.
+- `OPASO_SENTRY_VERCEL_LOG_DRAIN_URL`, `OPASO_SENTRY_OTLP_TRACES_URL` and `OPASO_SENTRY_PUBLIC_KEY` only configure Vercel Drains, so they have no effect on Hobby.
+- If the plan is upgraded to Pro, create a log drain to `OPASO_SENTRY_VERCEL_LOG_DRAIN_URL` and a trace drain to `OPASO_SENTRY_OTLP_TRACES_URL` (Vercel dashboard → Settings → Drains), then consider dropping `consoleLoggingIntegration` to avoid sending logs twice.
 
 ### 7. Verify the Setup
 
@@ -245,8 +272,9 @@ warning "@sentry/nextjs > @sentry/opentelemetry@8.55.0" has unmet peer dependenc
 **Solution:**
 
 - Adjust sampling rates in the Sentry config files:
-  - `sentry.client.config.ts`: `tracesSampleRate`, `replaysSessionSampleRate`
-  - `sentry.server.config.ts`: `SENTRY_TRACES_SAMPLE_RATE` env var
+  - `instrumentation-client.ts`: `tracesSampleRate`, `replaysSessionSampleRate`
+  - `sentry.server.config.ts` / `sentry.edge.config.ts`: `SENTRY_TRACES_SAMPLE_RATE` env var
+  - Sentry Logs volume: `SERVER_CONSOLE_LOG_LEVELS` in `lib/sentry-config.ts`
 - Consider implementing filtering rules in Sentry:
   - Navigate to **Settings** → **Inbound Filters**
   - Add filters for known noisy errors (e.g., browser extensions)
@@ -266,7 +294,7 @@ The project uses the following default sampling rates:
 
 - **Replay Session Sample Rate**: 10% (`0.1`)
   - Controls how many normal user sessions are recorded
-  - Configured in `sentry.client.config.ts`
+  - Configured in `instrumentation-client.ts`
 
 - **Replay on Error Sample Rate**: 100% (`1.0`)
   - Records 100% of sessions where an error occurs

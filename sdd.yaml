@@ -52,6 +52,7 @@ standards:
         opengraph: "Locale-aware image generation in app/[lang]/opengraph-image.tsx and app/[lang]/cv/opengraph-image.tsx; accepts lang param for translations."
       lib:
         error-logging: "Centralized Sentry + console logging in lib/error-logging.ts."
+        sentry-config: "Shared Sentry option parsing (trace sample rate, forwarded log levels) for sentry.server/edge.config.ts in lib/sentry-config.ts; no SDK imports."
         markdown: "Shared markdown component maps in lib/markdown-components.tsx."
         seo: "Single source of truth for site config, per-page metadata (canonical + hreflang via pageMetadata), JSON-LD builders, and INDEXABLE_PATHS in lib/seo.ts. No fs access."
         cv: "lib/cv.ts loadCv(locale) validates content/<locale>/cv.json with Zod (plain text only) and throws on invalid data; the only reader of cv.json."
