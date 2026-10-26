@@ -43,17 +43,18 @@ Copy `.env.example` to `.env.local` for local development.
 
 ## Configuration Files
 
-| File                     | Purpose                        |
-| ------------------------ | ------------------------------ |
-| `.nvmrc`                 | Node.js version (24)           |
-| `package.json`           | Dependencies, scripts, engines |
-| `tsconfig.json`          | TypeScript configuration       |
-| `next.config.mjs`        | Next.js configuration          |
-| `tailwind.config.js`     | Tailwind CSS configuration     |
-| `eslint.config.mjs`      | ESLint configuration           |
-| `vitest.config.ts`       | Unit test configuration        |
-| `playwright.config.ts`   | E2E test configuration         |
-| `sentry.*.config.ts`     | Sentry SDK configuration       |
+| File                   | Purpose                        |
+| ---------------------- | ------------------------------ |
+| `.nvmrc`               | Node.js version (24)           |
+| `package.json`         | Dependencies, scripts, engines |
+| `pnpm-workspace.yaml`  | pnpm settings, `engineStrict`  |
+| `tsconfig.json`        | TypeScript configuration       |
+| `next.config.mjs`      | Next.js configuration          |
+| `tailwind.config.js`   | Tailwind CSS configuration     |
+| `eslint.config.mjs`    | ESLint configuration           |
+| `vitest.config.ts`     | Unit test configuration        |
+| `playwright.config.ts` | E2E test configuration         |
+| `sentry.*.config.ts`   | Sentry SDK configuration       |
 
 ## Governance Files
 
