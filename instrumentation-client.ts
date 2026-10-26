@@ -56,7 +56,10 @@ if (isTestEnv) {
   } else {
     Sentry.init({
       dsn,
-      environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV,
+      // Inlined from SENTRY_ENVIRONMENT by next.config.mjs; the unprefixed
+      // var is not available in the browser bundle.
+      environment:
+        process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || process.env.NODE_ENV,
       // Adjust these sample rates based on your traffic and quota.
       tracesSampleRate: 0.1,
       replaysSessionSampleRate: 0.1,
