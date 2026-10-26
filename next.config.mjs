@@ -75,6 +75,12 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Browser code only sees NEXT_PUBLIC_* vars, so the per-environment
+  // SENTRY_ENVIRONMENT label is inlined for instrumentation-client.ts.
+  // Without this, preview deployments reported client events as "production".
+  env: {
+    NEXT_PUBLIC_SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT ?? "",
+  },
   // experimental.inlineCss is deliberately off. Besides the <style> tag it
   // serialises the ~110 KB stylesheet into the RSC payload, so every page
   // shipped the CSS twice and mobile spent ~700 ms parsing the HTML document.

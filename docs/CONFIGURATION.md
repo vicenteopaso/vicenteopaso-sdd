@@ -24,7 +24,7 @@ Copy `.env.example` to `.env.local` for local development.
 | `SENTRY_AUTH_TOKEN`         | Build    | Yes      | Token for source map uploads                       |
 | `SENTRY_ORG`                | Build    | Yes      | Sentry organization slug                           |
 | `SENTRY_PROJECT`            | Build    | Yes      | Sentry project slug                                |
-| `SENTRY_TRACES_SAMPLE_RATE` | Both     | No       | Performance trace rate (0.0-1.0, default 0.1)      |
+| `SENTRY_TRACES_SAMPLE_RATE` | Server   | No       | Performance trace rate (0.0-1.0, default 0.1)      |
 
 ### Cache Busting
 
@@ -43,17 +43,17 @@ Copy `.env.example` to `.env.local` for local development.
 
 ## Configuration Files
 
-| File                     | Purpose                        |
-| ------------------------ | ------------------------------ |
-| `.nvmrc`                 | Node.js version (24)           |
-| `package.json`           | Dependencies, scripts, engines |
-| `tsconfig.json`          | TypeScript configuration       |
-| `next.config.mjs`        | Next.js configuration          |
-| `tailwind.config.js`     | Tailwind CSS configuration     |
-| `eslint.config.mjs`      | ESLint configuration           |
-| `vitest.config.ts`       | Unit test configuration        |
-| `playwright.config.ts`   | E2E test configuration         |
-| `sentry.*.config.ts`     | Sentry SDK configuration       |
+| File                   | Purpose                        |
+| ---------------------- | ------------------------------ |
+| `.nvmrc`               | Node.js version (24)           |
+| `package.json`         | Dependencies, scripts, engines |
+| `tsconfig.json`        | TypeScript configuration       |
+| `next.config.mjs`      | Next.js configuration          |
+| `tailwind.config.js`   | Tailwind CSS configuration     |
+| `eslint.config.mjs`    | ESLint configuration           |
+| `vitest.config.ts`     | Unit test configuration        |
+| `playwright.config.ts` | E2E test configuration         |
+| `sentry.*.config.ts`   | Sentry SDK configuration       |
 
 ## Governance Files
 

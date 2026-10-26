@@ -1,5 +1,10 @@
 import * as Sentry from "@sentry/nextjs";
 
+import {
+  resolveTracesSampleRate,
+  SERVER_CONSOLE_LOG_LEVELS,
+} from "./lib/sentry-config";
+
 // Skip Sentry initialization during unit tests to avoid Next.js pages hooks.
 if (process.env.NODE_ENV === "test" || process.env.VITEST) {
   // Do not initialize Sentry when running Vitest/JSDOM.
@@ -11,15 +16,16 @@ if (process.env.NODE_ENV === "test" || process.env.VITEST) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV,
-    // Allow tuning via env var; default to 0.1 (10%) if not set or invalid
-    // Use parseFloat and explicit isNaN check to handle empty string and 0 correctly
-    tracesSampleRate: (() => {
-      const parsedRate = parseFloat(
-        process.env.SENTRY_TRACES_SAMPLE_RATE || "",
-      );
-      return !isNaN(parsedRate) ? parsedRate : 0.1;
-    })(),
-    // Use default server integrations; console capture is handled by our
-    // structured logging and Vercel logs.
+    // Tunable via SENTRY_TRACES_SAMPLE_RATE; defaults to 0.1 (10%).
+    tracesSampleRate: resolveTracesSampleRate(
+      process.env.SENTRY_TRACES_SAMPLE_RATE,
+    ),
+    // Vercel Hobby has no Log Drains, so forward console warnings/errors
+    // (including lib/error-logging output) to Sentry Logs from the SDK.
+    integrations: [
+      Sentry.consoleLoggingIntegration({
+        levels: [...SERVER_CONSOLE_LOG_LEVELS],
+      }),
+    ],
   });
 }
