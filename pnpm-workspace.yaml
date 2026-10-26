@@ -1,3 +1,6 @@
+# Refuse to install on a Node version outside package.json "engines" (the
+# runtime Vercel deploys with; .nvmrc pins the same major for CI and local).
+engineStrict: true
 allowBuilds:
   "@sentry/cli": true
   esbuild: true

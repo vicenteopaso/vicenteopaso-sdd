@@ -47,6 +47,7 @@ Copy `.env.example` to `.env.local` for local development.
 | ---------------------- | ------------------------------ |
 | `.nvmrc`               | Node.js version (24)           |
 | `package.json`         | Dependencies, scripts, engines |
+| `pnpm-workspace.yaml`  | pnpm settings, `engineStrict`  |
 | `tsconfig.json`        | TypeScript configuration       |
 | `next.config.mjs`      | Next.js configuration          |
 | `tailwind.config.js`   | Tailwind CSS configuration     |

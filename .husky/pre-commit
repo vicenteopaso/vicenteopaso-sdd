@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
 # Extend PATH for GUI clients (e.g. GitHub Desktop) that use a limited shell.
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Append rather than prepend so the caller's Node (e.g. nvm, matching .nvmrc)
+# wins over a Homebrew one; pnpm's engineStrict rejects other majors.
+export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
 
 # Husky sets a repo-local core.hooksPath, which shadows any global hooks
 # directory. Chain a global pre-commit (e.g. a personal secret-scan safety
