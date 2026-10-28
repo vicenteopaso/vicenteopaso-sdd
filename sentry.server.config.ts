@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "test" || process.env.VITEST) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     environment: process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV,
-    // Tunable via SENTRY_TRACES_SAMPLE_RATE; defaults to 0.1 (10%).
+    // Off unless SENTRY_TRACES_SAMPLE_RATE is above 0 (see lib/sentry-config.ts).
     tracesSampleRate: resolveTracesSampleRate(
       process.env.SENTRY_TRACES_SAMPLE_RATE,
     ),
