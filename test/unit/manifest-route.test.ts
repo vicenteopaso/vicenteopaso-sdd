@@ -56,4 +56,14 @@ describe("app/[lang]/manifest.webmanifest GET", () => {
     expect(manifest.start_url).toBe("/en");
     expect(manifest.description).toContain("Frontend Architect");
   });
+
+  it("is prerendered once per locale", async () => {
+    vi.resetModules();
+    const mod = await import("../../app/[lang]/manifest.webmanifest/route");
+    expect(mod.dynamic).toBe("force-static");
+    expect(mod.generateStaticParams()).toEqual([
+      { lang: "en" },
+      { lang: "es" },
+    ]);
+  });
 });
