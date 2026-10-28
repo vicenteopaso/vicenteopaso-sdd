@@ -1,9 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import {
-  DEFAULT_TRACES_SAMPLE_RATE,
-  resolveTracesSampleRate,
-} from "../../lib/sentry-config";
+import { resolveTracesSampleRate } from "../../lib/sentry-config";
 
 const sentryMock = vi.hoisted(() => ({
   init: vi.fn(),
@@ -16,26 +13,29 @@ const sentryMock = vi.hoisted(() => ({
 vi.mock("@sentry/nextjs", () => sentryMock);
 
 interface InitOptions {
-  tracesSampleRate: number;
+  tracesSampleRate: number | undefined;
   integrations: { name: string; options: { levels: string[] } }[];
 }
 
 describe("resolveTracesSampleRate", () => {
-  it("defaults when unset or empty", () => {
-    expect(resolveTracesSampleRate(undefined)).toBe(DEFAULT_TRACES_SAMPLE_RATE);
-    expect(resolveTracesSampleRate("")).toBe(DEFAULT_TRACES_SAMPLE_RATE);
+  it("turns tracing off when unset or empty", () => {
+    expect(resolveTracesSampleRate(undefined)).toBeUndefined();
+    expect(resolveTracesSampleRate("")).toBeUndefined();
   });
 
-  it("parses valid rates, including 0 and 1", () => {
-    expect(resolveTracesSampleRate("0")).toBe(0);
+  it("turns tracing off for 0, since the SDK still creates spans at rate 0", () => {
+    expect(resolveTracesSampleRate("0")).toBeUndefined();
+  });
+
+  it("parses rates above 0 and up to 1", () => {
     expect(resolveTracesSampleRate("0.25")).toBe(0.25);
     expect(resolveTracesSampleRate("1")).toBe(1);
   });
 
-  it("defaults for non-numeric or out-of-range values", () => {
-    expect(resolveTracesSampleRate("abc")).toBe(DEFAULT_TRACES_SAMPLE_RATE);
-    expect(resolveTracesSampleRate("-0.5")).toBe(DEFAULT_TRACES_SAMPLE_RATE);
-    expect(resolveTracesSampleRate("1.5")).toBe(DEFAULT_TRACES_SAMPLE_RATE);
+  it("turns tracing off for non-numeric or out-of-range values", () => {
+    expect(resolveTracesSampleRate("abc")).toBeUndefined();
+    expect(resolveTracesSampleRate("-0.5")).toBeUndefined();
+    expect(resolveTracesSampleRate("1.5")).toBeUndefined();
   });
 });
 
@@ -62,6 +62,13 @@ describe.each([
     await import(modulePath);
     const options = sentryMock.init.mock.calls[0][0] as InitOptions;
     expect(options.tracesSampleRate).toBe(0.5);
+  });
+
+  it("leaves tracing off when SENTRY_TRACES_SAMPLE_RATE is unset", async () => {
+    delete process.env.SENTRY_TRACES_SAMPLE_RATE;
+    await import(modulePath);
+    const options = sentryMock.init.mock.calls[0][0] as InitOptions;
+    expect(options.tracesSampleRate).toBeUndefined();
   });
 
   it("forwards console warnings and errors to Sentry Logs", async () => {

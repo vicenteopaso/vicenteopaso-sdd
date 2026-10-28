@@ -22,19 +22,19 @@ Sentry is configured in this project to provide:
 
 The following environment variables must be set for Sentry to work properly:
 
-| Variable                    | Required For  | Description                                                    |
-| --------------------------- | ------------- | -------------------------------------------------------------- |
-| `SENTRY_DSN`                | Server & Edge | Secret DSN for server-side and edge runtime error tracking     |
-| `NEXT_PUBLIC_SENTRY_DSN`    | Client        | Public DSN for browser-side error tracking                     |
-| `SENTRY_ENVIRONMENT`        | All           | Environment label (development, preview, production)¹          |
-| `SENTRY_AUTH_TOKEN`         | Build         | Auth token for uploading source maps during build              |
-| `SENTRY_ORG`                | Build         | Organization slug for source map uploads                       |
-| `SENTRY_PROJECT`            | Build         | Project slug for source map uploads                            |
-| `SENTRY_TRACES_SAMPLE_RATE` | Server & Edge | Sample rate for performance traces (0.0 to 1.0, default: 0.1)² |
+| Variable                    | Required For  | Description                                                |
+| --------------------------- | ------------- | ---------------------------------------------------------- |
+| `SENTRY_DSN`                | Server & Edge | Secret DSN for server-side and edge runtime error tracking |
+| `NEXT_PUBLIC_SENTRY_DSN`    | Client        | Public DSN for browser-side error tracking                 |
+| `SENTRY_ENVIRONMENT`        | All           | Environment label (development, preview, production)¹      |
+| `SENTRY_AUTH_TOKEN`         | Build         | Auth token for uploading source maps during build          |
+| `SENTRY_ORG`                | Build         | Organization slug for source map uploads                   |
+| `SENTRY_PROJECT`            | Build         | Project slug for source map uploads                        |
+| `SENTRY_TRACES_SAMPLE_RATE` | Server & Edge | Server/edge trace rate (above 0, up to 1; default: off)²   |
 
 ¹ The browser can't read unprefixed variables, so `next.config.mjs` inlines `SENTRY_ENVIRONMENT` into the client bundle as `NEXT_PUBLIC_SENTRY_ENVIRONMENT` at build time. Set only `SENTRY_ENVIRONMENT`.
 
-² Optional. Values that aren't a number in the 0–1 range fall back to `0.1`. The browser SDK uses a fixed `0.1` in `instrumentation-client.ts`.
+² Optional. Server tracing is off when this is unset, `0`, or not a number in the 0–1 range, because traces add Active CPU to every Vercel Function invocation. `0` is treated as off since the SDK still creates spans at rate 0. The browser SDK uses a fixed `0.1` in `instrumentation-client.ts`.
 
 ## Step-by-Step Setup
 
@@ -118,7 +118,8 @@ SENTRY_ENVIRONMENT=development
 SENTRY_AUTH_TOKEN=your-auth-token-here
 SENTRY_ORG=your-org-slug
 SENTRY_PROJECT=your-project-slug
-SENTRY_TRACES_SAMPLE_RATE=0.1
+# Optional: enable server tracing, e.g. 0.1
+SENTRY_TRACES_SAMPLE_RATE=
 ```
 
 #### For Production (Vercel)

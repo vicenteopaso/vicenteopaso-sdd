@@ -38,6 +38,8 @@ vi.mock("next/og", () => ({
 
 import CvOgImage, {
   contentType as cvContentType,
+  generateStaticParams as cvStaticParams,
+  revalidate as cvRevalidate,
   size as cvSize,
 } from "../../app/[lang]/cv/opengraph-image";
 import LocalizedOgImage from "../../app/[lang]/opengraph-image";
@@ -147,6 +149,11 @@ describe("Unlocalized (root) OG image route", () => {
 });
 
 describe("CV OG image route", () => {
+  it("is prerendered per locale and never re-rendered on a timer", () => {
+    expect(cvRevalidate).toBe(false);
+    expect(cvStaticParams()).toEqual([{ lang: "en" }, { lang: "es" }]);
+  });
+
   beforeEach(() => {
     mockInstances.length = 0;
   });
@@ -233,9 +240,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     expect(textContent).toContain("ABOUT");
     expect(textContent).toContain("TL;DR");
     expect(textContent).toContain("Open to roles");
-    expect(textContent).toContain(
-      "Frontend Architect & Technical Leader",
-    );
+    expect(textContent).toContain("Frontend Architect & Technical Leader");
   });
 
   it("renders Spanish translations when lang is es", async () => {
@@ -300,9 +305,8 @@ describe("OG image helpers", () => {
     const readFileSyncMock = vi.mocked(fs.default.readFileSync);
     readFileSyncMock.mockClear();
 
-    const { createHomeOgImage: freshCreateHomeOgImage } = await import(
-      "../../lib/og-home-image"
-    );
+    const { createHomeOgImage: freshCreateHomeOgImage } =
+      await import("../../lib/og-home-image");
 
     freshCreateHomeOgImage("en");
     freshCreateHomeOgImage("en");
