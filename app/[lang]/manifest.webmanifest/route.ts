@@ -22,6 +22,14 @@ const icons = [
   },
 ];
 
+// Built once per locale at deploy time. Browsers fetch the manifest from
+// every page, so a dynamic handler cost a Vercel Function call each time.
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
+
 export async function GET(
   _request: NextRequest,
   context: { params: Promise<{ lang: string }> },

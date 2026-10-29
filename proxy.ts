@@ -143,6 +143,13 @@ export const config = {
     // so probe-style dotted paths fall through to be 404'd here.
     // `monitoring` is the Sentry tunnelRoute (next.config.mjs); it must reach
     // the Sentry rewrite unprefixed, not be redirected to /{locale}/monitoring.
-    "/((?!api/|_next/static|_next/image|opengraph-image|monitoring(?:/|$)|.*\\.(?:png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|css|js|mjs|map|webmanifest|xml|txt|json|pdf|mp4|webm|mp3|wav)$).*)",
+    // Known localized routes are skipped too: the proxy runs as a Vercel
+    // Function, so matching them billed CPU on every view and prefetch of an
+    // otherwise static page just to set the locale header. Unknown paths
+    // under a locale still match, so the 404 stays localized and probes are
+    // still blocked. Must be a literal (Next reads it at build time);
+    // test/unit/proxy-matcher.test.ts fails if a new route or locale is not
+    // listed here.
+    "/((?!api/|_next/static|_next/image|opengraph-image|monitoring(?:/|$)|(?:en|es)(?:/(?:accessibility|articles/8-agent-job-search-system|cookie-policy|cv(?:/download|/opengraph-image)?|found-luggage|lost-luggage|opengraph-image|privacy-policy|tech-stack|technical-governance))?$|.*\\.(?:png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|css|js|mjs|map|webmanifest|xml|txt|json|pdf|mp4|webm|mp3|wav)$).*)",
   ],
 };

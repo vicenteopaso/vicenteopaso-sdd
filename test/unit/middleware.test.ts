@@ -423,11 +423,16 @@ describe("proxy (middleware)", () => {
       },
     );
 
-    it.each(["/", "/cv", "/en", "/en/monitoring-notes", "/wp-login.php"])(
-      "still runs on %s",
-      (pathname) => {
-        expect(matcher.test(pathname)).toBe(true);
-      },
-    );
+    it.each([
+      "/",
+      "/cv",
+      "/en/monitoring-notes",
+      "/en/unknown-page",
+      "/es/cv/unknown",
+      "/en/wp-admin",
+      "/wp-login.php",
+    ])("still runs on %s", (pathname) => {
+      expect(matcher.test(pathname)).toBe(true);
+    });
   });
 });

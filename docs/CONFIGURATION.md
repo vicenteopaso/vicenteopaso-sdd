@@ -24,7 +24,7 @@ Copy `.env.example` to `.env.local` for local development.
 | `SENTRY_AUTH_TOKEN`         | Build    | Yes      | Token for source map uploads                       |
 | `SENTRY_ORG`                | Build    | Yes      | Sentry organization slug                           |
 | `SENTRY_PROJECT`            | Build    | Yes      | Sentry project slug                                |
-| `SENTRY_TRACES_SAMPLE_RATE` | Server   | No       | Performance trace rate (0.0-1.0, default 0.1)      |
+| `SENTRY_TRACES_SAMPLE_RATE` | Server   | No       | Server trace rate (0–1; unset or 0 = tracing off)  |
 
 ### Cache Busting
 
