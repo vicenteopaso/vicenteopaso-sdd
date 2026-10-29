@@ -21,6 +21,8 @@ overrides:
   # @tailwindcss/typography pins postcss-selector-parser 6.0.10 exactly
   # (GHSA-rj75-hqrm-r3gf); 7.1.6 is the first patched release.
   "@tailwindcss/typography>postcss-selector-parser": "^7.1.6"
+  "@modelcontextprotocol/server@<2.3.0": ">=2.3.0 <3.0.0"
+  "@vitest/mocker@<4.1.12": ">=4.1.12 <5.0.0"
 peerDependencyRules:
   allowedVersions:
     "@opentelemetry/api": ">=1.0.0 <2.0.0"
