@@ -5,7 +5,7 @@ This project uses **pnpm** for package management.
 ## Prerequisites
 
 - Node.js 24 (see `.nvmrc`)
-- pnpm (via corepack: `corepack enable && corepack use pnpm@^10.25`)
+- pnpm 12 (via corepack: `corepack enable` — the exact version is pinned by `packageManager` in `package.json`)
 
 ## Quick Start
 

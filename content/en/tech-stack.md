@@ -12,7 +12,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 ## Core Framework & Runtime
 
 - **Next.js 16** — App Router with React Server Components (RSC), static site generation (SSG), and typed routes
-- **React 19.2** — UI library with server components and progressive enhancement
+- **React 19.3** — UI library with server components and progressive enhancement
 - **TypeScript 6.0** — Strict type checking end-to-end
 - **Node.js 24** — Runtime environment (LTS)
 
@@ -27,7 +27,6 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 - **Markdown** — Content source files in `content/` directory
 - **gray-matter** — Frontmatter parsing, validated against a Zod schema
 - **react-markdown** — Markdown rendering in React
-- **sanitize-html** — HTML sanitization for security
 
 ## Forms & Backend Services
 
@@ -38,45 +37,45 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 ## Testing & Quality Assurance
 
-- **Vitest 4.1** — Unit testing framework with jsdom environment
+- **Vitest 5.1** — Unit testing framework with jsdom environment
 - **@vitest/coverage-v8** — Code coverage reporting
-- **Playwright 1.62** — End-to-end testing
+- **Playwright 1.64** — End-to-end testing
 - **@testing-library/react** — React component testing utilities
 - **@testing-library/jest-dom** — DOM matchers for testing
 - **@testing-library/dom** — DOM testing utilities
 
 ## Code Quality & Linting
 
-- **ESLint 10.8** — Code linting with:
-  - `eslint-config-next` — Next.js recommended rules
-  - `@typescript-eslint/eslint-plugin` — TypeScript-specific rules
+- **ESLint 10.14** — Code linting with:
+  - `@next/eslint-plugin-next` — Next.js recommended rules
+  - `typescript-eslint` — TypeScript-specific rules
   - `eslint-plugin-jsx-a11y` — Accessibility linting
   - `eslint-plugin-security` — Security-focused rules
   - `eslint-plugin-simple-import-sort` — Import sorting
   - `eslint-config-prettier` — Prettier integration
 - **Prettier 3.9** — Code formatting
 - **Husky 9.1** — Git hooks
-- **lint-staged 17.3** — Pre-commit linting and formatting
+- **lint-staged 17.6** — Pre-commit linting and formatting
 
 ## Observability & Monitoring
 
 - **Vercel Analytics** — Page views and user interactions
 - **Vercel Speed Insights** — Core Web Vitals and performance metrics
-- **Sentry (@sentry/nextjs 10.70)** — Error tracking, session replay, and alerting
+- **Sentry (@sentry/nextjs 11.11)** — Error tracking, session replay, and alerting
 - **Vercel Logs** — Server-side error logs
 
 ## Build & Deployment
 
 - **Vercel** — Hosting, CDN, and edge network deployment
-- **next-sitemap 4.2** — Automatic sitemap and robots.txt generation
-- **pnpm 11.2** — Package manager
+- **Next.js Metadata API** — Generated `sitemap.xml` and `robots.txt` (`app/sitemap.ts`, `app/robots.ts`)
+- **pnpm 12.18** — Package manager
 
 ## Development Tools
 
 - **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal for development workflow
 - **[Cursor](https://cursor.com)** — AI-assisted code editor
 - **PostCSS 8.5** — CSS processing
-- **autoprefixer 10.5** — CSS vendor prefixing
+- **autoprefixer 10.6** — CSS vendor prefixing
 
 ## Performance & SEO
 

@@ -12,7 +12,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 ## Marco principal y entorno de ejecución
 
 - **Next.js 16** — Enrutador de aplicaciones (App Router) con React Server Components (RSC), generación de sitios estáticos (SSG) y rutas tipadas
-- **React 19.2** — Biblioteca de interfaz de usuario (UI) con componentes de servidor (server components) y mejora progresiva
+- **React 19.3** — Biblioteca de interfaz de usuario (UI) con componentes de servidor (server components) y mejora progresiva
 - **TypeScript 6.0** — Verificación estricta de tipos de extremo a extremo
 - **Node.js 24** — Entorno de ejecución (LTS)
 
@@ -27,7 +27,6 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 - **Markdown** — Archivos fuente de contenido en el directorio `content/`
 - **gray-matter** — Análisis de frontmatter, validado según un esquema Zod
 - **react-markdown** — Representación de Markdown en React
-- **sanitize-html** — Desinfectación de HTML por motivos de seguridad
 
 ## Formularios y servicios de backend
 
@@ -38,45 +37,45 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 ## Pruebas y control de calidad
 
-- **Vitest 4.1** — Marco de pruebas unitarias con entorno jsdom
+- **Vitest 5.1** — Marco de pruebas unitarias con entorno jsdom
 - **@vitest/coverage-v8** — Informes de cobertura de código
-- **Playwright 1.62** — Pruebas de extremo a extremo
+- **Playwright 1.64** — Pruebas de extremo a extremo
 - **@testing-library/react** — Utilidades de pruebas de componentes de React
 - **@testing-library/jest-dom** — Comparadores DOM para pruebas
 - **@testing-library/dom** — Utilidades de pruebas del DOM
 
 ## Calidad del código y análisis sintáctico
 
-- **ESLint 10.8** — Análisis sintáctico del código con:
-  - `eslint-config-next` — Reglas recomendadas por Next.js
-  - `@typescript-eslint/eslint-plugin`: reglas específicas de TypeScript
+- **ESLint 10.14** — Análisis sintáctico del código con:
+  - `@next/eslint-plugin-next` — Reglas recomendadas por Next.js
+  - `typescript-eslint`: reglas específicas de TypeScript
   - `eslint-plugin-jsx-a11y`: validación de accesibilidad
   - `eslint-plugin-security`: reglas centradas en la seguridad
   - `eslint-plugin-simple-import-sort`: ordenación de importaciones
   - `eslint-config-prettier`: integración con Prettier
 - **Prettier 3.9**: formateo de código
 - **Husky 9.1** — Hooks de Git
-- **lint-staged 17.3** — Validación y formateo previos al commit
+- **lint-staged 17.6** — Validación y formateo previos al commit
 
 ## Observabilidad y monitorización
 
 - **Vercel Analytics** — Visitas a la página e interacciones de los usuarios
 - **Vercel Speed Insights** — Core Web Vitals y métricas de rendimiento
-- **Sentry (@sentry/nextjs 10.70)** — Seguimiento de errores, reproducción de sesiones y alertas
+- **Sentry (@sentry/nextjs 11.11)** — Seguimiento de errores, reproducción de sesiones y alertas
 - **Vercel Logs** — Registros de errores del lado del servidor
 
 ## Compilación e implementación
 
 - **Vercel** — Alojamiento, CDN e implementación en red perimetral
-- **next-sitemap 4.2** — Generación automática de mapas del sitio y del archivo robots.txt
-- **pnpm 11.2** — Gestor de paquetes
+- **API de metadatos de Next.js** — Generación de `sitemap.xml` y `robots.txt` (`app/sitemap.ts`, `app/robots.ts`)
+- **pnpm 12.18** — Gestor de paquetes
 
 ## Herramientas de desarrollo
 
 - **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal para el flujo de trabajo de desarrollo
 - **[Cursor](https://cursor.com)** — Editor de código asistido por IA
 - **PostCSS 8.5** — Procesamiento de CSS
-- **autoprefixer 10.5** — Prefijos de proveedor para CSS
+- **autoprefixer 10.6** — Prefijos de proveedor para CSS
 
 ## Rendimiento y SEO
 
