@@ -20,8 +20,14 @@ jobs:
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.PAT_WORKFLOW_TRIGGER || secrets.GITHUB_TOKEN }}
-      - uses: pnpm/action-setup@v6
-      - run: pnpm install
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: npx playwright install --with-deps
       - run: pnpm test:visual:update
