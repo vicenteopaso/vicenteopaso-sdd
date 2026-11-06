@@ -39,6 +39,34 @@
   },
   "work": [
     {
+      "company": "Consultor independiente · Cliente confidencial (NDA)",
+      "location": "Remoto",
+      "positions": [
+        {
+          "position": "Arquitecto Frontend y Lead Frontend Developer",
+          "startDate": "2026-01",
+          "endDate": "2026-09",
+          "summary": "Contratado como Arquitecto Frontend y Lead Frontend Developer para un cliente confidencial bajo NDA, combinando la responsabilidad arquitectónica con la implementación práctica para entregar desde cero una Progressive Web App greenfield.",
+          "highlights": [
+            "Diseñé la arquitectura y lideré el desarrollo de una Progressive Web App (PWA) greenfield con Next.js, React y TypeScript, asumiendo tanto la dirección técnica como la implementación práctica como Lead Frontend Developer.",
+            "Apliqué Spec-Driven Development (SDD) como metodología de gobierno, estableciendo artefactos de gobernanza documentation-first para guiar la implementación desde el inicio del proyecto.",
+            "Implementé server-side rendering (SSR) para rendimiento y SEO, junto con estándares de accesibilidad WCAG 2.1 y soporte de localización multi-idioma."
+          ],
+          "skills": [
+            "Arquitectura Frontend",
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Spec-Driven Development (SDD)",
+            "SSR",
+            "Accesibilidad (WCAG 2.1)",
+            "Localización",
+            "Progressive Web Apps"
+          ]
+        }
+      ]
+    },
+    {
       "company": "Nexthink",
       "location": "Híbrido",
       "positions": [

@@ -83,6 +83,25 @@ describe("CVPage", () => {
     ).rejects.toThrow(/basics\.summary — must be plain text/);
   });
 
+  it("puts the label's final sentence on its own line in the masthead", async () => {
+    mockCvFs({
+      cvJson: {
+        basics: {
+          label:
+            "Frontend Architect. Design Systems & DevEx. 15+ years delivering products.",
+        },
+      },
+    });
+
+    render(await CVPage({ params: Promise.resolve({ lang: "en" }) }));
+
+    const tail = screen.getByText("15+ years delivering products.");
+    expect(tail.className).toBe("v3-cv-label-tail");
+    expect(tail.parentElement?.textContent).toBe(
+      "Frontend Architect. Design Systems & DevEx. 15+ years delivering products.",
+    );
+  });
+
   it("renders CV sections when JSON is valid", async () => {
     const cvJson = {
       basics: {

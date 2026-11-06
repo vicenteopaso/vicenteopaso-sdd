@@ -24,6 +24,26 @@
     border-color: var(--v3-accent);
   }
 
+  /* Focus indicator for the fields (WCAG 2.1 SC 2.4.7). The input drops its
+     own outline, so the whole row — label and field — gets a 2px --v3-fg
+     outline drawn inside its box: fg on bg clears 3:1 (SC 1.4.11) in every
+     theme/contrast combination, and it stays distinct from the error state
+     (accent bottom border + accent label/text). An outline rather than a
+     box-shadow, because forced-colors mode keeps outlines (recoloured to a
+     system colour) but drops shadows. Text fields always match
+     :focus-visible when focused, so :focus-within is equivalent here without
+     needing :has(). */
+  .v3-form-row:focus-within {
+    outline: 2px solid var(--v3-fg);
+    outline-offset: -2px;
+  }
+
+  /* Inset one more pixel on an errored row so the 1px accent bottom border
+     stays visible under the focus outline instead of being painted over. */
+  .v3-form-row.has-error:focus-within {
+    outline-offset: -3px;
+  }
+
   .v3-form-row-start {
     align-items: start;
   }
