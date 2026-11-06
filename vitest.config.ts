@@ -17,7 +17,6 @@ export default defineConfig({
       "test/e2e/**",
       "test/visual/**",
       "test/a11y/**",
-      "next-sitemap.config.*",
       ".claude/worktrees/**",
     ],
     coverage: {
@@ -28,7 +27,6 @@ export default defineConfig({
         "test/**",
         "playwright.config.*",
         "next.config.*",
-        "next-sitemap.config.*",
         "tailwind.config.*",
         "lighthouserc.*",
         "**/*.d.ts",

@@ -154,11 +154,8 @@ element.innerHTML = userData;
 **Required:**
 
 ```typescript
-// ✅ REQUIRED: Sanitize with whitelist
-import { sanitizeHtml } from '@/lib/sanitize-html';
-
-const safeHtml = sanitizeHtml(userContent);
-<div dangerouslySetInnerHTML={{ __html: safeHtml }} />
+// ✅ REQUIRED: Render as React elements (React escapes text)
+<p>{userContent}</p>
 
 // ✅ REQUIRED: Controlled markdown components
 import { markdownComponents } from '@/lib/markdown-components';
@@ -429,10 +426,10 @@ catch (error) {
   logError(error, { context: 'api-route', userId });
 }
 
-// ✅ REQUIRED: Shared sanitization utility
-import { sanitizeHtml } from '@/lib/sanitize-html';
+// ✅ REQUIRED: Context-escaped JSON-LD
+import { serializeJsonLd } from '@/lib/seo';
 
-const clean = sanitizeHtml(untrustedHtml);
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }} />
 
 // ✅ REQUIRED: SEO helper for metadata
 import { createMetadata } from '@/lib/seo';
@@ -799,38 +796,38 @@ This document enumerates APIs, patterns, and practices that **must not** be used
 
 ---
 
-### ❌ Custom Sanitization Bypassing `lib/sanitize-html.ts`
+### ❌ Rendering Raw HTML or Hand-Rolled Sanitization
 
 **Forbidden:**
 
-- Implementing custom HTML sanitization logic
-- Using `dangerouslySetInnerHTML` without sanitization
-- Bypassing the `sanitizeRichText()` function
-- Allowing executable URL schemes (`javascript:`, `data:`, `vbscript:`) in links
+- Rendering HTML from content or user input with `dangerouslySetInnerHTML`
+- Enabling raw HTML in markdown (`rehype-raw` or similar plugins)
+- Implementing custom HTML sanitization logic (regex stripping, ad-hoc allowlists)
+- Allowing executable URL schemes (`javascript:`, `data:`, `vbscript:`) in links. A custom `urlTransform` must start from react-markdown's `defaultUrlTransform`.
 
-**Why:** Inconsistent or weak sanitization can lead to XSS vulnerabilities. The centralized `sanitizeRichText()` function provides defense-in-depth protection.
+**Why:** The site doesn't need an HTML sanitizer because it never renders raw HTML. Markdown is escaped by `ReactMarkdown`, and CV text is validated as plain text by `lib/cv.ts`. A hand-rolled sanitizer would be weaker than not rendering HTML at all.
 
 **Alternative:**
 
-- Always use `sanitizeRichText()` from `lib/sanitize-html.ts` before rendering HTML
-- If additional tags/attributes are needed, update the central configuration rather than creating new sanitization logic
-- Prefer React components over `dangerouslySetInnerHTML` when possible
+- Render content as React elements, or markdown through `ReactMarkdown` with `lib/markdown-components.tsx`
+- Use `dangerouslySetInnerHTML` only for trusted, build-time payloads escaped for their context: JSON-LD via `serializeJsonLd()` and the static `contrastInitScript`
+- If real HTML rendering is ever required, adopt a vetted allowlist sanitizer with unit tests, and record it in an ADR
 
 **Reference:**
 
-- Implementation: `lib/sanitize-html.ts`
-- Usage: `app/[lang]/cv/page.tsx`, `app/components/ReferencesCarousel.tsx`
+- Markdown: `lib/markdown-components.tsx`, `app/[lang]/found-luggage/page.tsx` (custom `urlTransform` built on `defaultUrlTransform`)
+- Plain-text validation: `lib/cv.ts`
+- JSON-LD escaping: `serializeJsonLd()` in `lib/seo.ts`, used by `app/components/JsonLd.tsx`
 - ESLint: No automatic enforcement (code review required)
 
 **Allowed usage example:**
 
 ```tsx
-import { sanitizeRichText } from "@/lib/sanitize-html";
+import { serializeJsonLd } from "@/lib/seo";
 
-<div
-  dangerouslySetInnerHTML={{
-    __html: sanitizeRichText(untrustedHtml),
-  }}
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
 />;
 ```
 
@@ -1440,7 +1437,7 @@ When reviewing code, check for:
 
 1. ✅ No bypassed security checks (Turnstile, rate limiting, honeypot)
 2. ✅ No hard-coded secrets or API keys
-3. ✅ HTML sanitization uses `sanitizeRichText()`
+3. ✅ No raw HTML rendering (`ReactMarkdown` without `rehype-raw`, `dangerouslySetInnerHTML` only for escaped JSON-LD and static scripts)
 4. ✅ No `any` types without justification
 5. ✅ No direct DOM manipulation in React components
 6. ✅ Errors logged with `logError()` from `lib/error-logging.ts`
