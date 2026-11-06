@@ -40,12 +40,13 @@ High Contrast overrides in `styles/globals.css`:
 
 | Token                              | Light default | Light High Contrast | Dark default  | Dark High Contrast |
 | ---------------------------------- | ------------- | ------------------- | ------------- | ------------------ |
-| `--v3-accent` / `--v3-accent-text` | `#9b1219`     | `#b91c1c`           | `#b3141c`     | `#e13232`          |
+| `--v3-accent` / `--v3-accent-text` | `#9b1219`     | `#891016`           | `#b3141c`     | `#eb4747`          |
 | `--v3-on-accent`                   | `--v3-bg`     | `--v3-bg`           | `--v3-fg`     | `--v3-bg`          |
-| `--v3-muted`                       | `#6b6760`     | `#6b6760`           | `#8a847a`     | `#aaa398`          |
-| `--v3-accent-inverse`              | `#b91c1c`     | `#b91c1c`           | `--v3-accent` | `--v3-accent`      |
+| `--v3-muted`                       | `#6b6760`     | `#4f4b45`           | `#8a847a`     | `#aaa398`          |
+| `--v3-rule`                        | `#e3ded4`     | `#8a847a`           | `#26231e`     | `#6b665d`          |
+| `--v3-accent-inverse`              | `#b91c1c`     | `#eb4747`           | `--v3-accent` | `#891016`          |
 
-`--v3-accent-inverse` colors the red headings on inverted blocks (`background: var(--v3-fg)`). In the light theme those blocks are near-black, where the deep default red would be only 2.3:1.
+High Contrast applies the same rules in both themes: the accent moves away from the background, muted text reaches 7:1, rules reach 3:1, and red on inverted blocks (`background: var(--v3-fg)`) reaches 4.5:1. See [DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md) for the ratios; `test/unit/palette-contrast.test.ts` enforces them.
 
 ## Usage
 
@@ -57,7 +58,7 @@ import { ContrastToggle } from "./ContrastToggle";
 
 ## Testing
 
-- **Unit**: `test/unit/contrast-toggle.test.tsx` covers the English and Spanish labels, `aria-pressed`, persistence, following OS changes, listener cleanup and storage failures. `test/unit/contrast.test.ts` covers the preference logic and the inline script.
+- **Unit**: `test/unit/contrast-toggle.test.tsx` covers the English and Spanish labels, `aria-pressed`, persistence, following OS changes, listener cleanup and storage failures. `test/unit/contrast.test.ts` covers the preference logic and the inline script. `test/unit/palette-contrast.test.ts` checks every palette's contrast ratios.
 - **E2E**: `test/e2e/high-contrast.spec.ts`
 - **Accessibility**: `test/a11y/axe.spec.ts` asserts that the toggle is on every page and passes axe in every presentation.
 - **Visual**: `test/visual/components/contrast-toggle.visual.spec.ts` captures the header in both themes, with the toggle off and on, plus mobile.

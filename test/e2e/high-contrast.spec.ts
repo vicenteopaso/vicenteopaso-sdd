@@ -5,7 +5,7 @@ import { setContrastHigh, setThemeDark } from "../visual/utils";
 
 // Dark-theme palettes from styles/globals.css.
 const DARK_DEFAULT = { accent: "#b3141c", muted: "#8a847a" };
-const DARK_HIGH_CONTRAST = { accent: "#e13232", muted: "#aaa398" };
+const DARK_HIGH_CONTRAST = { accent: "#eb4747", muted: "#aaa398" };
 
 async function palette(page: Page): Promise<{ accent: string; muted: string }> {
   return page.evaluate(() => {
