@@ -23,6 +23,7 @@ This project targets **WCAG 2.1 AA** compliance as a minimum standard.
 - All interactive elements must be keyboard accessible
 - Logical tab order following visual layout
 - Visible focus indicators (never `outline: none` without alternative)
+  - v3 convention: a 2px `var(--v3-fg)` **outline** (not a `box-shadow`, which `forced-colors: active` removes), so it clears 3:1 against `--v3-bg` (SC 1.4.11) in every theme and contrast mode. Contact form fields draw it on the whole row via `.v3-form-row:focus-within`, inset so an errored row's accent border stays visible (`test/e2e/contact-and-cv.spec.ts` guards it).
 - No keyboard traps
 - Skip links for main content
 

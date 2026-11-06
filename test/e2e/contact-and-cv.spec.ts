@@ -1,4 +1,6 @@
-import { expect, type Page, test } from "@playwright/test";
+import { expect, type Locator, type Page, test } from "@playwright/test";
+
+import { setContrastHigh, setThemeDark, setThemeLight } from "../visual/utils";
 
 /**
  * Helper function to navigate to the inline contact form.
@@ -124,5 +126,81 @@ test.describe("Contact form - accessibility", () => {
     const subjectInput = page.getByLabel("SUBJECT");
     await subjectInput.focus();
     await expect(subjectInput).toBeFocused();
+  });
+});
+
+// Regression: `.v3-form-input` sets `outline: none`, so the fields had no
+// visible focus at all (WCAG 2.1 SC 2.4.7). The row now draws the indicator.
+async function focusIndicator(locator: Locator) {
+  return locator.evaluate((input) => {
+    const row = input.closest(".v3-form-row") ?? input;
+    const own = getComputedStyle(input);
+    const wrap = getComputedStyle(row);
+    return {
+      input: { outline: own.outlineStyle, shadow: own.boxShadow },
+      row: { outline: wrap.outlineStyle, width: wrap.outlineWidth },
+    };
+  });
+}
+
+function hasVisibleFocus(style: Awaited<ReturnType<typeof focusIndicator>>) {
+  return (
+    style.input.outline !== "none" ||
+    style.input.shadow !== "none" ||
+    (style.row.outline !== "none" && parseFloat(style.row.width) >= 2)
+  );
+}
+
+test.describe("Contact form - visible keyboard focus", () => {
+  const presentations = [
+    { name: "light", dark: false, highContrast: false },
+    { name: "dark", dark: true, highContrast: false },
+    { name: "light + High Contrast", dark: false, highContrast: true },
+    { name: "dark + High Contrast", dark: true, highContrast: true },
+  ];
+
+  for (const { name, dark, highContrast } of presentations) {
+    test(`fields show a focus indicator when tabbed into (${name})`, async ({
+      page,
+    }) => {
+      if (dark) await setThemeDark(page);
+      else await setThemeLight(page);
+      if (highContrast) await setContrastHigh(page);
+      await navigateToContactSection(page);
+
+      const nameInput = page.getByLabel("NAME", { exact: true });
+      const emailInput = page.getByLabel("EMAIL *");
+
+      // Unfocused fields carry no indicator, so the assertion below is about
+      // focus and not a permanent border.
+      expect(hasVisibleFocus(await focusIndicator(emailInput))).toBe(false);
+
+      await nameInput.focus();
+      await page.keyboard.press("Tab");
+      await expect(emailInput).toBeFocused();
+      expect(hasVisibleFocus(await focusIndicator(emailInput))).toBe(true);
+
+      await page.keyboard.press("Tab");
+      const subjectInput = page.getByLabel("SUBJECT");
+      await expect(subjectInput).toBeFocused();
+      expect(hasVisibleFocus(await focusIndicator(subjectInput))).toBe(true);
+      expect(hasVisibleFocus(await focusIndicator(emailInput))).toBe(false);
+    });
+  }
+
+  test("focus indicator survives forced-colors mode", async ({ page }) => {
+    await page.emulateMedia({ forcedColors: "active" });
+    await navigateToContactSection(page);
+
+    const messageInput = page.getByLabel("MESSAGE *");
+    await page.getByLabel("SUBJECT").focus();
+    await page.keyboard.press("Tab");
+    await expect(messageInput).toBeFocused();
+
+    // Forced colors drop box-shadows, so only an outline counts here.
+    const style = await focusIndicator(messageInput);
+    expect(style.input.outline !== "none" || style.row.outline !== "none").toBe(
+      true,
+    );
   });
 });
