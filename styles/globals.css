@@ -589,21 +589,31 @@ body {
 
 /* ── v3 High Contrast palette ─────────────────────────────────────────────
    Active while <html data-contrast="more">: set before first paint by the
-   inline script in app/layout.tsx, toggled by ContrastToggle. The accents
-   are the ones from before the default was deepened, verified at 4.5:1 or
-   more for all red text. */
+   inline script in app/layout.tsx, toggled by ContrastToggle.
+
+   Both themes follow the same rules, and no text on a page surface is lower
+   contrast than in the default palette:
+   - the accent moves away from the background (darker in light, lighter in
+     dark) and meets 4.5:1 on every surface it sits on;
+   - muted text reaches 7:1 (AAA) on --v3-bg;
+   - rules reach 3:1, so cards and form fields are outlined (SC 1.4.11);
+   - red on inverted blocks meets 4.5:1, so it is safe at any size. Each
+     theme's inverse red is the other theme's High Contrast accent.
+   test/unit/palette-contrast.test.ts enforces every pair. */
 :root[data-contrast="more"] {
-  --v3-accent: #b91c1c; /* 6.1:1 on --v3-bg */
+  --v3-accent: #891016; /* 9.2:1 on --v3-bg, 8.1:1 on --v3-elevated */
+  --v3-muted: #4f4b45; /* 8.2:1 on --v3-bg, 7.2:1 on --v3-elevated */
+  --v3-rule: #8a847a; /* 3.5:1 on --v3-bg */
+  --v3-accent-inverse: #eb4747; /* 5.1:1 on --v3-fg */
 }
 
 :root.dark[data-contrast="more"] {
-  /* 4.7:1 on the pure-black --v3-bg. Black button text on it is 4.7:1 too,
-     where cream would only reach 4.0:1. */
-  --v3-accent: #e13232;
+  --v3-accent: #eb4747; /* 5.5:1 on --v3-bg, 4.7:1 on --v3-elevated */
+  /* Black button text on it is 5.5:1, where cream would only reach 3.4:1. */
   --v3-on-accent: var(--v3-bg);
-  /* Lighter secondary text: 8.4:1 on --v3-bg and 7.1:1 on --v3-elevated
-     (AAA), up from 5.7:1 and 4.8:1. */
-  --v3-muted: #aaa398;
+  --v3-muted: #aaa398; /* 8.4:1 on --v3-bg, 7.1:1 on --v3-elevated */
+  --v3-rule: #6b665d; /* 3.7:1 on --v3-bg */
+  --v3-accent-inverse: #891016; /* 8.7:1 on --v3-fg */
 }
 
 /* ═══════════════════════════════════════════════════════════

@@ -124,7 +124,7 @@ sequenceDiagram
     participant FS as Filesystem<br/>(content/[locale]/)
     participant Parser as gray-matter /<br/>JSON.parse
     participant Markdown as ReactMarkdown
-    participant Sanitizer as sanitize-html
+    participant Schema as Zod schema<br/>(lib/cv.ts)
     participant Browser
 
     User->>NextJS: Request /en/about or /es/cv
@@ -135,14 +135,14 @@ sequenceDiagram
     Parser-->>NextJS: Frontmatter data
 
     alt CV Page
-        NextJS->>Parser: JSON.parse(body)
+        NextJS->>Parser: JSON.parse(cv.json)
         Parser-->>NextJS: CV JSON object
+        NextJS->>Schema: Validate (plain text only, no HTML)
+        Schema-->>NextJS: Typed Cv data
     end
 
     NextJS->>Markdown: Render with component mappings
-    Markdown-->>NextJS: HTML output
-    NextJS->>Sanitizer: Apply sanitization
-    Sanitizer-->>NextJS: Safe HTML
+    Markdown-->>NextJS: React elements (raw HTML escaped)
     NextJS->>Browser: Return HTML to client
 ```
 
@@ -163,7 +163,9 @@ For CV: extract and parse JSON object from body
   ↓
 Render with ReactMarkdown using shared component mappings from `lib/markdown-components.tsx` (intro/about variants on `/about`, standard `markdownComponents` on policy/governance pages)
   ↓
-Apply sanitization (sanitize-html) for rich content
+For CV: validate cv.json with the Zod schema in lib/cv.ts (plain text only)
+  ↓
+ReactMarkdown escapes raw HTML (no rehype-raw), so no HTML sanitizer is needed
   ↓
 Return HTML to client
 ```
@@ -172,7 +174,7 @@ Return HTML to client
 
 - `app/[lang]/page.tsx` - renders `content/[locale]/about.md` (About page for each locale)
 - `app/[lang]/cv/page.tsx` - renders `content/[locale]/cv.md` with JSON CV parsing
-- `lib/sanitize-html.ts` - sanitizes rich content
+- `lib/cv.ts` - Zod schema for `cv.json` (rejects HTML markup)
 - `lib/i18n/` - locale detection and UI string translation utilities
 
 **Error handling:**
@@ -568,7 +570,7 @@ graph TD
         ErrorLog["error-logging.ts<br/>(Sentry integration)"]
         RateLimit["rate-limit.ts"]
         Markdown["markdown-components.tsx"]
-        Sanitize["sanitize-html.ts"]
+        CvSchema["cv.ts<br/>(CV schema)"]
     end
 
     subgraph Test["test/ (Testing)"]
@@ -607,7 +609,7 @@ graph TD
     Lib --> ErrorLog
     Lib --> RateLimit
     Lib --> Markdown
-    Lib --> Sanitize
+    Lib --> CvSchema
 
     Test --> Unit
     Test --> E2E
@@ -689,7 +691,7 @@ lib/
 ├── error-logging.ts        # Sentry integration
 ├── rate-limit.ts           # Rate limiting logic
 ├── markdown-components.tsx # Shared ReactMarkdown components
-└── sanitize-html.ts        # HTML sanitization
+└── cv.ts                   # CV schema (Zod, plain text only)
 
 styles/
 └── globals.css             # Design tokens & global styles

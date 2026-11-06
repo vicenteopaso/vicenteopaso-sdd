@@ -38,9 +38,9 @@ This project targets **WCAG 2.1 AA** compliance as a minimum standard.
 The default dark-theme accent red (`#b3141c`, 3.0:1 on black) is deliberately below 4.5:1 for small text. WCAG 2.1 AA for that text comes from High Contrast mode, per technique G174 ([ADR-0003](./adr/0003-high-contrast-mode-conforming-alternate.md)):
 
 - The [ContrastToggle](./components/ContrastToggle.md) in the top navigation is on every page. It's keyboard operable, reports its state with `aria-pressed`, and meets AA contrast itself.
-- It switches every page to the High Contrast palette (`<html data-contrast="more">`), which meets AA for all text. The choice persists across pages and visits.
+- It switches every page to the High Contrast palette (`<html data-contrast="more">`), which meets AA for all text in both themes, AAA for muted text, and 3:1 for borders and form-field outlines. The choice persists across pages and visits.
 - Visitors whose OS asks for more contrast (`prefers-contrast: more`) get High Contrast automatically until they choose otherwise.
-- New colors must meet AA in High Contrast mode in both themes. In the default palette they must meet AA everywhere except small red accent text in the dark theme.
+- New colors must meet AA in High Contrast mode in both themes, and must not lower any ratio the default palette has (`test/unit/palette-contrast.test.ts`). In the default palette they must meet AA everywhere except small red accent text in the dark theme.
 
 ### Images
 

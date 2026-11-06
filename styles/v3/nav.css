@@ -88,6 +88,32 @@
     line-height: 1;
   }
 
+  /* ── Repository link ───────────────────────────────────────────────────── */
+  .v3-nav-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* WCAG 2.2 target size (2.5.8) */
+    min-width: 24px;
+    min-height: 24px;
+    color: var(--v3-muted);
+    text-decoration: none;
+  }
+
+  .v3-nav-icon-link:hover {
+    color: var(--v3-fg);
+  }
+
+  .v3-nav-icon-link:focus-visible {
+    outline: 2px solid var(--v3-fg);
+    outline-offset: 2px;
+  }
+
+  .v3-nav-icon {
+    width: 14px;
+    height: 14px;
+  }
+
   /* ── High Contrast toggle ──────────────────────────────────────────────── */
   .v3-contrast-toggle {
     display: inline-flex;
@@ -162,6 +188,20 @@
   /* Icon-only below 480px so the nav still reflows at 320px (WCAG 1.4.10);
      the label stays in the accessibility tree as the button's name. */
   @media (max-width: 480px) {
+    /* Room for the repository link at 320px: drop the dot separators and
+       tighten the gaps rather than let the header scroll sideways. */
+    .v3-nav-links {
+      gap: 12px;
+    }
+
+    .v3-nav-controls {
+      gap: 6px;
+    }
+
+    .v3-nav-sep {
+      display: none;
+    }
+
     .v3-contrast-toggle {
       padding: 0;
     }

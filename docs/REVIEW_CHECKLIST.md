@@ -77,8 +77,8 @@ Every PR should be reviewed against this checklist before merging. Some items ar
 
 ### Data Sanitization
 
-- [ ] HTML sanitized via `lib/sanitize-html.ts` before rendering
-- [ ] No `dangerouslySetInnerHTML` without sanitization
+- [ ] No raw HTML rendered from content or user input (no `rehype-raw`; content rendered as React elements)
+- [ ] `dangerouslySetInnerHTML` used only for trusted, context-escaped payloads (JSON-LD via `serializeJsonLd()`, static `contrastInitScript`)
 - [ ] ReactMarkdown uses controlled component mappings
 - [ ] No direct `innerHTML` usage
 
@@ -306,7 +306,7 @@ Every PR should be reviewed against this checklist before merging. Some items ar
 
 - [ ] CV JSON in `content/en/cv.json` (and `content/es/cv.json`) is valid
 - [ ] All required fields present
-- [ ] HTML in CV sanitized and safe
+- [ ] CV text is plain text (validated by the Zod schema in `lib/cv.ts`); no HTML injected
 - [ ] Dates formatted consistently
 
 ### UI Strings
@@ -487,7 +487,7 @@ This checklist helps reviewers consistently evaluate AI-authored and human-autho
 - [ ] **No secrets in client code**: API keys, tokens, and secrets are never hardcoded in client components or public environment variables.
   - Client uses `NEXT_PUBLIC_*` env vars only for public values (Formspree key, Turnstile site key).
   - Server uses private env vars for secrets (Turnstile secret, Sentry DSN).
-- [ ] **Input sanitization**: User input is sanitized before rendering (e.g., `sanitizeRichText()` from `lib/sanitize-html` for markdown content).
+- [ ] **Input sanitization**: User input is sanitized before rendering (e.g., rendered as React elements or through `ReactMarkdown`, which escapes raw HTML; never injected as HTML).
 - [ ] **Content Security Policy (CSP)**: Changes do not weaken CSP headers or introduce inline scripts without nonces.
 - [ ] **Dependency vulnerabilities**: No new high/critical vulnerabilities introduced. Run `pnpm audit:security` if dependencies change.
 - [ ] **Security tests**: Unit tests cover security scenarios (invalid Turnstile token, honeypot filled, rate limit exceeded). E2E tests validate rate limiting behavior.
@@ -559,7 +559,7 @@ This checklist helps reviewers consistently evaluate AI-authored and human-autho
   - `WebSite` schema on all pages (via `SeoJsonLd` component).
   - `Person` schema on homepage and CV page (controlled by `usePathname` in `SeoJsonLd`).
   - Use Google's [Rich Results Test](https://search.google.com/test/rich-results) to validate.
-- [ ] **Sitemap**: New routes are added to the sitemap configuration (`./next-sitemap.config.js` in project root) if they should be indexed.
+- [ ] **Sitemap**: New routes that should be indexed are added to `INDEXABLE_PATHS` in `lib/seo.ts`, which drives `app/sitemap.ts`. Unlisted routes are excluded and set `robots: { index: false }`.
 - [ ] **URL structure**: URLs are clean, descriptive, and human-readable (e.g., `/cv`, `/accessibility`, not `/page?id=123`).
 - [ ] **No duplicate content**: Avoid multiple URLs serving identical content without canonical tags.
 - [ ] **Page speed**: Changes do not introduce unnecessary client-side JavaScript or large assets that hurt Core Web Vitals.
@@ -643,7 +643,7 @@ This checklist helps reviewers consistently evaluate AI-authored and human-autho
 - [ ] **Unit tests added**: New utilities, functions, and component logic have unit tests in `test/unit/`.
   - Test both happy path and edge cases (errors, invalid input, boundary conditions).
   - Use Vitest + React Testing Library.
-  - Example: `test/unit/sanitize-html.test.ts`, `test/unit/error-logging.test.ts`.
+  - Example: `test/unit/seo.test.ts`, `test/unit/error-logging.test.ts`.
 - [ ] **E2E tests added**: New user flows and critical paths have E2E tests in `test/e2e/`.
   - Use Playwright.
   - Example: `test/e2e/contact-and-cv.spec.ts`, `test/e2e/error-handling.spec.ts`.
