@@ -16,7 +16,7 @@ Rather than writing code first and documenting later, this project inverts the t
 1. **Define Intent** — Engineering standards, architecture decisions, and governance principles are captured in markdown documents
 2. **Establish Governance** — Clear rules, quality gates, and decision-making frameworks are documented
 3. **Build with Guidance** — Code is written with these documents as the source of truth, ensuring consistency and alignment
-4. **AI as Co-Pilot** — AI tools (like [Cursor](https://cursor.com)) use these documents to understand context, make informed suggestions, and maintain architectural integrity
+4. **AI as Co-Pilot** — AI tools (like [Claude Code](https://claude.com/claude-code), GitHub Copilot, and [Cursor](https://cursor.com)) use these documents to understand context, make informed suggestions, and maintain architectural integrity
 
 ## Spec-Driven Development (SDD) in Practice
 
@@ -72,6 +72,8 @@ Defines the repo’s **immutable invariants** and the governance **precedence or
 - **SEO Guide** (`docs/SEO_GUIDE.md`) — SEO implementation patterns and best practices
 - **Error Handling** (`docs/ERROR_HANDLING.md`) — Error boundaries, logging, and monitoring strategies
 - **Security Policy** (`docs/SECURITY_POLICY.md`) — Security practices and vulnerability reporting
+- **Testing** (`docs/TESTING.md`) — Unit, E2E, visual regression, and accessibility test suites
+- **Configuration and Deployment** (`docs/CONFIGURATION.md`, `docs/DEPLOYMENT.md`) — Environment variables and the CI-driven deploy path
 
 ## Architecture Decision Records (ADRs)
 
@@ -168,27 +170,40 @@ docs/
 ├── adr/                      # Architecture Decision Records
 │   ├── README.md            # ADR process and index
 │   ├── 0000-adr-template.md # Template for new ADRs
-│   └── 0001-adopt-architecture-decision-records.md
+│   ├── 0001-adopt-architecture-decision-records.md
+│   ├── 0002-implement-ai-guardrails.md
+│   ├── 0003-high-contrast-mode-conforming-alternate.md
+│   └── 0004-per-locale-root-layout.md
+├── components/               # Per-component documentation
 ├── ENGINEERING_STANDARDS.md  # North-star engineering intent
 ├── ARCHITECTURE.md           # Technical architecture
 ├── CONSTITUTION.md           # Repository governance
+├── AI_GUARDRAILS.md          # AI coding rules and quality gates
+├── FORBIDDEN_PATTERNS.md     # Prohibited patterns
+├── REVIEW_CHECKLIST.md       # Pre-merge checklist
 ├── DESIGN_SYSTEM.md          # Visual design system
 ├── ACCESSIBILITY.md          # A11y guidelines
+├── TESTING.md                # Test suites and coverage
 ├── SEO_GUIDE.md              # SEO practices
 ├── ERROR_HANDLING.md         # Error management
+├── CONFIGURATION.md          # Environment variables
+├── DEPLOYMENT.md             # Deploy pipeline
 └── SECURITY_POLICY.md        # Security practices
 ```
+
+The machine-readable SDD (`sdd.yaml`) and its JSON Schema (`sdd.schema.json`) live at the repository root.
 
 ### CI/CD Integration
 
 Documentation standards are enforced through:
 
-- **Linting** — ESLint rules enforce code quality standards
+- **Linting** — ESLint rules enforce code quality standards, and Knip flags unused code and dependencies
 - **Type Checking** — TypeScript strict mode ensures type safety
-- **Testing** — Coverage thresholds enforce testing standards
-- **Accessibility** — Automated a11y checks in CI
-- **Security** — CodeQL and dependency scanning
-- **Performance** — Lighthouse CI enforces performance budgets
+- **Testing** — Coverage thresholds enforce testing standards, and code changes in `app/` or `lib/` must come with test changes
+- **Accessibility** — Accessibility lint rules and an image alt-text audit in CI
+- **Security** — CodeQL, dependency audits, and a secret scan
+- **Performance** — Lighthouse CI audits every pull request
+- **SDD Compliance** — `sdd.yaml` is validated against `sdd.schema.json`
 
 ### Version Control
 
@@ -213,7 +228,7 @@ This project embraces **AI-first development with strong guardrails**:
 
 ### Responsibilities
 
-**AI Tools (Copilot, Cursor):**
+**AI Tools (Claude Code, GitHub Copilot, Cursor):**
 
 - Reference governance docs for context (`docs/CONSTITUTION.md`, `sdd.yaml`, `ENGINEERING_STANDARDS.md`, `ARCHITECTURE.md`)
 - Suggest code following documented patterns
@@ -232,10 +247,10 @@ This project embraces **AI-first development with strong guardrails**:
 **Automated CI/CD:**
 
 - Enforce linting, type checking, test coverage
-- Run security scans (CodeQL, dependency audits)
-- Validate accessibility (WCAG 2.1 AA)
+- Run security scans (CodeQL, dependency audits, secret scan)
+- Check accessibility (lint rules, image alt text, Lighthouse)
 - Check performance (Lighthouse budgets)
-- Block merge on failures
+- Block merge to `main` when a required check fails
 
 ### Guardrails and Constraints
 
@@ -250,11 +265,12 @@ This project embraces **AI-first development with strong guardrails**:
 
 - Linting (`pnpm lint`) and formatting (Prettier)
 - Type checking (`pnpm typecheck`) in strict mode
-- Unit tests with 90% line coverage
-- E2E tests for user-facing changes
+- Unit tests with 90% coverage of lines, statements, branches, and functions
+- Test changes for any code change in `app/` or `lib/`
+- E2E and `axe-core` accessibility suites before merge (`pnpm verify`)
 - Accessibility audit
-- Security scanning (CodeQL, npm audit)
-- Lighthouse performance ≥90, accessibility ≥90, SEO ≥95
+- Security scanning (CodeQL, `pnpm audit`, secret scan)
+- Lighthouse SEO ≥95 (blocking); performance, accessibility, and best practices ≥90 (warnings)
 
 See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** for complete constraints.
 
@@ -263,11 +279,12 @@ See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob
 **All PRs** (AI or human) follow the same review workflow:
 
 1. **Self-Review** — Author validates changes against [Review Checklist](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
-2. **CI Validation** — Automated checks must pass (see `.github/workflows/`)
-3. **Human Review** — Architectural and security review (required for sensitive changes)
-4. **Merge Decision** — Auto-merge eligible for safe changes, manual approval otherwise
+2. **CI Validation** — Required checks must pass before merging to `main` (see `.github/workflows/`)
+3. **Automated Review** — GitHub Copilot reviews every push to a pull request
+4. **Human Review** — Code owner review, with architectural and security review for sensitive changes; all review threads must be resolved
+5. **Merge Decision** — Auto-merge eligible for safe changes, manual approval otherwise
 
-**Auto-merge eligible** (with `copilot-automerge` label):
+**Auto-merge eligible** (Dependabot PRs labeled `dependencies`, or owner PRs labeled `copilot-automerge`, once CI and CodeQL pass):
 
 - Documentation-only changes
 - Dependency updates (Dependabot)
@@ -344,4 +361,4 @@ See `.github/ISSUE_TEMPLATE/` for template definitions and usage guidelines.
 
 ## Last Updated
 
-This technical governance documentation was last reviewed and updated on May 3, 2026.
+This technical governance documentation was last reviewed and updated on November 6, 2026.

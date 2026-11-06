@@ -16,7 +16,7 @@ En lugar de escribir primero el código y documentarlo después, este proyecto i
 1. **Definir la intención**: las normas de ingeniería, las decisiones de arquitectura y los principios de gobernanza se recogen en documentos Markdown
 2. **Establecer la gobernanza**: se documentan reglas claras, controles de calidad y marcos de toma de decisiones
 3. **Desarrollar con orientación**: el código se escribe tomando estos documentos como fuente de referencia, lo que garantiza la coherencia y la alineación
-4. **La IA como copiloto**: las herramientas de IA (como [Cursor](https://cursor.com)) utilizan estos documentos para comprender el contexto, realizar sugerencias fundamentadas y mantener la integridad arquitectónica
+4. **La IA como copiloto**: las herramientas de IA (como [Claude Code](https://claude.com/claude-code), GitHub Copilot y [Cursor](https://cursor.com)) utilizan estos documentos para comprender el contexto, realizar sugerencias fundamentadas y mantener la integridad arquitectónica
 
 ## El desarrollo basado en especificaciones (SDD) en la práctica
 
@@ -72,6 +72,8 @@ Define las **invariantes inmutables** del repositorio y el **orden de prioridad*
 - **Guía de SEO** (`docs/SEO_GUIDE.md`) — Patrones de implementación de SEO y mejores prácticas
 - **Gestión de errores** (`docs/ERROR_HANDLING.md`) — Límites de error, registro de eventos y estrategias de supervisión
 - **Política de seguridad** (`docs/SECURITY_POLICY.md`) — Prácticas de seguridad y notificación de vulnerabilidades
+- **Pruebas** (`docs/TESTING.md`) — Suites de pruebas unitarias, de extremo a extremo, de regresión visual y de accesibilidad
+- **Configuración y despliegue** (`docs/CONFIGURATION.md`, `docs/DEPLOYMENT.md`) — Variables de entorno y el proceso de despliegue desde CI
 
 ## Registros de decisiones de arquitectura (ADR)
 
@@ -168,27 +170,40 @@ docs/
 ├── adr/ # Registros de decisiones de arquitectura
 │   ├── README.md # Proceso e índice de los ADR
 │   ├── 0000-adr-template.md # Plantilla para nuevos ADR
-│   └── 0001-adopt-architecture-decision-records.md
+│   ├── 0001-adopt-architecture-decision-records.md
+│   ├── 0002-implement-ai-guardrails.md
+│   ├── 0003-high-contrast-mode-conforming-alternate.md
+│   └── 0004-per-locale-root-layout.md
+├── components/ # Documentación de cada componente
 ├── ENGINEERING_STANDARDS.md  # Objetivo principal de ingeniería
 ├── ARCHITECTURE.md # Arquitectura técnica
 ├── CONSTITUTION.md # Gobernanza del repositorio
+├── AI_GUARDRAILS.md # Reglas de programación con IA y controles de calidad
+├── FORBIDDEN_PATTERNS.md # Patrones prohibidos
+├── REVIEW_CHECKLIST.md # Lista de comprobación previa a la fusión
 ├── DESIGN_SYSTEM.md # Sistema de diseño visual
 ├── ACCESSIBILITY.md # Directrices de accesibilidad
+├── TESTING.md # Suites de pruebas y cobertura
 ├── SEO_GUIDE.md # Prácticas de SEO
 ├── ERROR_HANDLING.md # Gestión de errores
+├── CONFIGURATION.md # Variables de entorno
+├── DEPLOYMENT.md # Proceso de despliegue
 └── SECURITY_POLICY.md # Prácticas de seguridad
 ```
+
+El SDD legible por máquina (`sdd.yaml`) y su esquema JSON (`sdd.schema.json`) se encuentran en la raíz del repositorio.
 
 ### Integración de CI/CD
 
 Las normas de documentación se aplican mediante:
 
-- **Linting** — Las reglas de ESLint garantizan el cumplimiento de los estándares de calidad del código
+- **Linting** — Las reglas de ESLint garantizan el cumplimiento de los estándares de calidad del código, y Knip detecta código y dependencias sin usar
 - **Comprobación de tipos** — El modo estricto de TypeScript garantiza la seguridad de tipos
-- **Pruebas** — Los umbrales de cobertura garantizan el cumplimiento de los estándares de pruebas
-- **Accesibilidad** — Comprobaciones automatizadas de accesibilidad en CI
-- **Seguridad** — CodeQL y análisis de dependencias
-- **Rendimiento** — Lighthouse CI garantiza los límites de rendimiento
+- **Pruebas** — Los umbrales de cobertura garantizan el cumplimiento de los estándares de pruebas, y los cambios de código en `app/` o `lib/` deben ir acompañados de cambios en las pruebas
+- **Accesibilidad** — Reglas de lint de accesibilidad y una auditoría de texto alternativo de imágenes en CI
+- **Seguridad** — CodeQL, auditorías de dependencias y un análisis de secretos
+- **Rendimiento** — Lighthouse CI audita cada pull request
+- **Cumplimiento del SDD** — `sdd.yaml` se valida con `sdd.schema.json`
 
 ### Control de versiones
 
@@ -213,7 +228,7 @@ Este proyecto adopta un **desarrollo centrado en la IA con sólidas medidas de p
 
 ### Responsabilidades
 
-**Herramientas de IA (Copilot, Cursor):**
+**Herramientas de IA (Claude Code, GitHub Copilot, Cursor):**
 
 - Consultar la documentación de gobernanza para conocer el contexto (`docs/CONSTITUTION.md`, `sdd.yaml`, `ENGINEERING_STANDARDS.md`, `ARCHITECTURE.md`)
 - Sugerir código que siga los patrones documentados
@@ -232,10 +247,10 @@ Este proyecto adopta un **desarrollo centrado en la IA con sólidas medidas de p
 **CI/CD automatizada:**
 
 - Aplicar linting, comprobación de tipos y cobertura de pruebas
-- Ejecutar análisis de seguridad (CodeQL, auditorías de dependencias)
-- Validar la accesibilidad (WCAG 2.1 AA)
+- Ejecutar análisis de seguridad (CodeQL, auditorías de dependencias, análisis de secretos)
+- Comprobar la accesibilidad (reglas de lint, texto alternativo de imágenes, Lighthouse)
 - Comprobar el rendimiento (límites de Lighthouse)
-- Bloquear la fusión en caso de fallos
+- Bloquear la fusión en `main` cuando falla una comprobación obligatoria
 
 ### Barreras de seguridad y restricciones
 
@@ -250,11 +265,12 @@ Este proyecto adopta un **desarrollo centrado en la IA con sólidas medidas de p
 
 - Análisis sintáctico (`pnpm lint`) y formateo (Prettier)
 - Comprobación de tipos (`pnpm typecheck`) en modo estricto
-- Pruebas unitarias con una cobertura de líneas del 90 %
-- Pruebas de extremo a extremo (E2E) para los cambios que afectan al usuario
+- Pruebas unitarias con una cobertura del 90 % de líneas, sentencias, ramificaciones y funciones
+- Cambios en las pruebas para cualquier cambio de código en `app/` o `lib/`
+- Suites de extremo a extremo (E2E) y de accesibilidad con `axe-core` antes de fusionar (`pnpm verify`)
 - Auditoría de accesibilidad
-- Análisis de seguridad (CodeQL, npm audit)
-- Rendimiento de Lighthouse ≥90, accesibilidad ≥90, SEO ≥95
+- Análisis de seguridad (CodeQL, `pnpm audit`, análisis de secretos)
+- Lighthouse: SEO ≥95 (bloqueante); rendimiento, accesibilidad y buenas prácticas ≥90 (advertencias)
 
 Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** para conocer todas las restricciones.
 
@@ -263,11 +279,12 @@ Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode
 **Todas las PR** (ya sean de IA o humanas) siguen el mismo flujo de trabajo de revisión:
 
 1. **Autorrevisión**: el autor valida los cambios según la [lista de comprobación de revisión](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
-2. **Validación de CI**: deben superarse las comprobaciones automatizadas (véase `.github/workflows/`)
-3. **Revisión humana**: revisión arquitectónica y de seguridad (obligatoria para cambios sensibles)
-4. **Decisión de fusión**: los cambios seguros pueden fusionarse automáticamente; en los demás casos, se requiere aprobación manual
+2. **Validación de CI**: deben superarse las comprobaciones obligatorias antes de fusionar en `main` (véase `.github/workflows/`)
+3. **Revisión automatizada**: GitHub Copilot revisa cada push a una pull request
+4. **Revisión humana**: revisión del propietario del código, con revisión arquitectónica y de seguridad para los cambios sensibles; todos los hilos de revisión deben quedar resueltos
+5. **Decisión de fusión**: los cambios seguros pueden fusionarse automáticamente; en los demás casos, se requiere aprobación manual
 
-**Cualificados para la fusión automática** (con la etiqueta `copilot-automerge`):
+**Cualificados para la fusión automática** (pull requests de Dependabot con la etiqueta `dependencies`, o del propietario con la etiqueta `copilot-automerge`, una vez superados CI y CodeQL):
 
 - Cambios que afectan únicamente a la documentación
 - Actualizaciones de dependencias (Dependabot)
@@ -344,4 +361,4 @@ Consulta `.github/ISSUE_TEMPLATE/` para ver las definiciones de las plantillas y
 
 ## Última actualización
 
-Esta documentación sobre gobernanza técnica se revisó y actualizó por última vez el 3 de mayo de 2026.
+Esta documentación sobre gobernanza técnica se revisó y actualizó por última vez el 6 de noviembre de 2026.
