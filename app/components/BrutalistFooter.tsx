@@ -29,7 +29,21 @@ export function BrutalistFooter() {
       <div className="v3-footer-inner">
         <div className="v3-footer-copyright">
           <span>{t("footer.copyrightName", { year })}</span>
-          <span>{t("footer.copyrightTagline")}</span>
+          <span>
+            {/* Non-breaking space keeps the heart on the same line as the
+                last word when the tagline wraps on mobile. */}
+            {t("footer.copyrightTagline")}
+            {" "}
+            {/* U+FE0E forces the text glyph, so the theme red applies instead
+                of the platform's fixed-colour emoji. */}
+            <span
+              className="v3-footer-heart"
+              role="img"
+              aria-label={t("footer.heartLabel")}
+            >
+              {"❤︎"}
+            </span>
+          </span>
         </div>
 
         <div className="v3-footer-links">

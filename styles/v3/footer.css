@@ -29,6 +29,17 @@
     color: var(--v3-muted);
   }
 
+  /* Theme red, sized up from the 10px tagline so the glyph reads as a heart.
+     --v3-accent meets 3:1 (SC 1.4.11) on --v3-bg in every theme. Stays
+     inline (not inline-block) so the non-breaking space before it holds and
+     it never wraps away from the last word. */
+  .v3-footer-heart {
+    font-size: 14px;
+    line-height: 1;
+    vertical-align: -1px;
+    color: var(--v3-accent);
+  }
+
   .v3-footer-links {
     display: flex;
     flex-wrap: wrap;
