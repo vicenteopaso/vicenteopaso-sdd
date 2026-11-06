@@ -124,22 +124,19 @@ We write **more unit tests**, **some integration tests**, and **fewer E2E tests*
 **Example**:
 
 ```typescript
-// test/unit/sanitize-html.test.ts
+// test/unit/seo.test.ts
 import { describe, it, expect } from "vitest";
-import { sanitizeRichText } from "../../lib/sanitize-html";
+import { serializeJsonLd } from "../../lib/seo";
 
-describe("sanitizeRichText", () => {
-  it("allows safe HTML tags", () => {
-    const input = "<p>Hello <strong>world</strong>!</p>";
-    const output = sanitizeRichText(input);
-    expect(output).toContain("<strong>world</strong>");
+describe("serializeJsonLd", () => {
+  it("escapes < so the payload can't close the script tag", () => {
+    const out = serializeJsonLd({ name: "</script><script>alert(1)" });
+    expect(out).not.toContain("<");
   });
 
-  it("removes dangerous tags", () => {
-    const input = '<script>alert("xss")</script><p>Safe</p>';
-    const output = sanitizeRichText(input);
-    expect(output).not.toContain("<script>");
-    expect(output).toContain("Safe");
+  it("round-trips the original data", () => {
+    const out = serializeJsonLd({ name: "</script><script>alert(1)" });
+    expect(JSON.parse(out).name).toBe("</script><script>alert(1)");
   });
 });
 ```

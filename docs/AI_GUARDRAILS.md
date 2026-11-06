@@ -43,7 +43,7 @@ This project embraces AI-first development with strong guardrails to ensure code
 - Remove domain origin checks
 - Hard-code secrets, API keys, or credentials
 - Weaken Content Security Policy (CSP) or security headers
-- Introduce XSS vulnerabilities (all HTML must be sanitized via `lib/sanitize-html.ts`)
+- Introduce XSS vulnerabilities (never render raw HTML from content or user input; see [HTML Rendering](#html-rendering))
 - Bypass error logging (all errors must use `lib/error-logging.ts`)
 
 **Required security practices:**
@@ -89,7 +89,7 @@ This project embraces AI-first development with strong guardrails to ensure code
 - Shared mutable state across routes
 - Cross-layer imports (e.g., `app/components` importing from `app/api`)
 - Direct filesystem or `process.env` access in components (use props/lib helpers)
-- Bypassing centralized error logging or sanitization utilities
+- Bypassing centralized error logging or the safe HTML rendering rules
 
 ### Testing Requirements
 
@@ -1120,10 +1120,11 @@ function GoodButton() {
 // ❌ Bad - unsafe HTML injection
 element.innerHTML = userInput;
 
-// ✅ Good - sanitized HTML
-import sanitizeHtml from 'sanitize-html';
-const clean = sanitizeHtml(userInput);
-<div dangerouslySetInnerHTML={{ __html: clean }} />
+// ✅ Good - render as React elements (escaped by React)
+<p>{userInput}</p>
+
+// ✅ Good - markdown through ReactMarkdown (raw HTML is escaped)
+<ReactMarkdown components={markdownComponents}>{content}</ReactMarkdown>
 ```
 
 ---
@@ -1351,17 +1352,24 @@ try {
 - All links must include locale prefix: `/en/about`, not `/about`
 - Use UI string dictionaries in `i18n/[locale]/ui.json`
 
-### HTML Sanitization
+### HTML Rendering
 
-Always use `lib/sanitize-html.ts` for user-generated or content-sourced HTML:
+The site never renders raw HTML from content or user input, so it has no HTML sanitizer. Keep it that way:
+
+- **Markdown** goes through `ReactMarkdown` with the shared mappings in `lib/markdown-components.tsx`. Don't add `rehype-raw` or any other plugin that turns raw HTML on. Without it, react-markdown escapes inline HTML and drops unsafe link schemes such as `javascript:`.
+- **Structured content** (`content/[locale]/cv.json`) is validated by the Zod schema in `lib/cv.ts`, which rejects HTML markup in text fields. Render it as React elements.
+- **`dangerouslySetInnerHTML`** is only for trusted, build-time payloads that are escaped for their context. Today that's JSON-LD via `serializeJsonLd()` in `lib/seo.ts` (escapes `<`) and the static `contrastInitScript` from `lib/contrast.ts`.
 
 ```tsx
-import { sanitizeRichText } from "@/lib/sanitize-html";
+import { serializeJsonLd } from "@/lib/seo";
 
-function Reference({ html }: { html: string }) {
-  return <div dangerouslySetInnerHTML={{ __html: sanitizeRichText(html) }} />;
-}
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
+/>;
 ```
+
+If a feature ever needs to render real HTML, add a vetted allowlist sanitizer with unit tests first, and record the decision in an ADR. Don't hand-roll one.
 
 ---
 
@@ -1380,7 +1388,7 @@ Before submitting a PR with AI-assisted changes:
 **Security:**
 
 - [ ] No hardcoded secrets
-- [ ] HTML sanitized before rendering
+- [ ] No raw HTML rendered (see [HTML Rendering](#html-rendering))
 - [ ] Security checks preserved in `/api/contact`
 
 **Accessibility:**

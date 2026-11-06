@@ -80,7 +80,7 @@ AI tools (GitHub Copilot, Cursor) accelerate development while comprehensive doc
 
 - **Documentation-First**: AI tools reference comprehensive governance documents (`sdd.yaml`, `docs/ENGINEERING_STANDARDS.md`, `docs/ARCHITECTURE.md`) to understand intent, patterns, and constraints.
 - **Quality Gates**: All AI-generated code must pass the same rigorous CI checks as human-written code: linting, type checking, unit tests (90% coverage), E2E tests, accessibility audits, security scans, and Lighthouse performance budgets.
-- **Security Constraints**: AI cannot bypass security controls (Turnstile verification, rate limiting, input validation, HTML sanitization) or introduce vulnerabilities. All changes are scanned by CodeQL and dependency audits.
+- **Security Constraints**: AI cannot bypass security controls (Turnstile verification, rate limiting, input validation, safe HTML rendering) or introduce vulnerabilities. All changes are scanned by CodeQL and dependency audits.
 - **Human Oversight**: Architectural decisions remain human-driven. Security-sensitive changes require manual review. AI suggestions are validated against documented patterns.
 
 ### Governance Documentation
@@ -316,8 +316,7 @@ Content files are organized by locale in `content/en/` (English source) and `con
   - `work` – Companies, locations, positions, date ranges, highlights, and skills.
   - `education`, `skills`, `languages`, `interests`, `publications`, `references`.
 
-- Some fields contain HTML strings (e.g. `references[*].reference`), which are injected with `dangerouslySetInnerHTML` in both `CVPage` and `ReferencesCarousel`.
-  - These HTML strings are sanitized via a whitelist-based sanitizer in `lib/sanitize-html.ts` before rendering to guard against XSS.
+- `cv.json` is validated against the Zod schema in `lib/cv.ts`, which accepts plain text only and rejects HTML markup in every text field. Reference paragraphs and highlights render as React elements, so the CV never injects HTML.
 
 If the JSON is invalid or missing, the CV page will:
 
