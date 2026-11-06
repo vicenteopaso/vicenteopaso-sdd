@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { ContrastIcon } from "../../app/components/icons";
+import { ContrastIcon, GitHubIcon } from "../../app/components/icons";
 
 describe("Icon components", () => {
   it("renders ContrastIcon as a decorative SVG that forwards props", () => {
@@ -13,5 +13,16 @@ describe("Icon components", () => {
     expect(svg).toHaveAttribute("aria-hidden", "true");
     expect(svg).toHaveClass("icon");
     expect(svg).toHaveAttribute("data-testid", "contrast-icon");
+  });
+
+  it("renders GitHubIcon as a decorative SVG that forwards props", () => {
+    const { container } = render(
+      <GitHubIcon className="icon" data-testid="github-icon" />,
+    );
+    const svg = container.querySelector("svg");
+    expect(svg).toHaveAttribute("viewBox", "0 0 24 24");
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(svg).toHaveClass("icon");
+    expect(svg).toHaveAttribute("data-testid", "github-icon");
   });
 });

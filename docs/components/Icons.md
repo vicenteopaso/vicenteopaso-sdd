@@ -16,6 +16,14 @@ Half-filled circle used by the High Contrast toggle ([ContrastToggle](./Contrast
 <ContrastIcon className="v3-contrast-toggle-icon" />
 ```
 
+### GitHubIcon
+
+GitHub mark (Octicons `mark-github`, scaled to the 24px grid) used by the repository link in [BrutalistNav](./BrutalistNav.md).
+
+```tsx
+<GitHubIcon className="v3-nav-icon" />
+```
+
 ## Accessibility
 
 Icons never carry meaning on their own: they are always `aria-hidden="true"`, and the control that renders them provides the accessible name (visible text or `aria-label`).
