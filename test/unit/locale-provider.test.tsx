@@ -23,13 +23,16 @@ describe("LocaleProvider and useLocale", () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    vi.unstubAllGlobals();
   });
 
   beforeEach(() => {
     store = {};
     vi.mocked(usePathname).mockReturnValue("/en");
     vi.mocked(useParams).mockReturnValue({ lang: "en" });
-    global.localStorage = {
+    // jsdom exposes localStorage as a getter-only property, so stub it via
+    // defineProperty rather than assigning to it.
+    vi.stubGlobal("localStorage", {
       getItem: vi.fn((key: string) => store[key] || null),
       setItem: vi.fn((key: string, value: string) => {
         store[key] = value;
@@ -42,7 +45,7 @@ describe("LocaleProvider and useLocale", () => {
       }),
       length: 0,
       key: vi.fn(() => null),
-    } as unknown as Storage;
+    } as unknown as Storage);
   });
 
   describe("LocaleProvider initialization", () => {
