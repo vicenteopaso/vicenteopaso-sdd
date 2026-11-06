@@ -28,8 +28,7 @@ All interactive elements are fully keyboard accessible:
 
 - Use **Tab** to navigate forward through interactive elements
 - Use **Shift + Tab** to navigate backward
-- Use **Enter** or **Space** to activate buttons and links
-- Use **Escape** to close dialogs and modals
+- Use **Enter** to follow links, and **Enter** or **Space** to activate buttons
 - A visible skip link appears on keyboard focus to jump to main content
 
 ### Screen Reader Support
@@ -46,7 +45,7 @@ All interactive elements are fully keyboard accessible:
 - Minimum contrast ratio of 3:1 for large text (WCAG AA)
 - Text is resizable up to 200% without loss of functionality
 - No reliance on color alone to convey information
-- Focus indicators are clearly visible with 2px outlines
+- Links and buttons show a visible focus indicator; the skip link and High Contrast button use a 2px outline
 
 ### High Contrast Mode
 
@@ -58,9 +57,8 @@ The default dark theme uses a deep accent red whose small text falls below a 4.5
 
 ### Motion & Animation
 
-- Animations are subtle and non-distracting
-- Reduced motion preferences are respected via `prefers-reduced-motion`
-- No content flashing more than 3 times per second
+- Motion is limited to short transitions (about 0.2 seconds) on hover or when a card expands, and smooth scrolling to in-page sections
+- Nothing animates on its own, and no content flashes
 
 ### Forms
 
@@ -73,9 +71,10 @@ The default dark theme uses a deep accent red whose small text falls below a 4.5
 
 ### Automated Testing
 
-- ESLint with `eslint-plugin-jsx-a11y` catches common issues during development
-- Automated accessibility audit script (`scripts/audit-a11y.mjs`) runs in CI/CD
-- A dedicated Playwright suite (`test/a11y/`) runs a full `axe-core` scan (WCAG 2.1 A/AA) across every page, in both languages and both light/dark themes, with High Contrast mode off and on. Color contrast is checked everywhere except the default dark palette, whose small red accent text is covered by High Contrast mode, and every page must include a High Contrast button that passes the scan itself. The suite also checks reflow at 320px width and the WCAG 1.4.12 text-spacing override, with advisory readability warnings for text size, line-height, and font weight
+- ESLint with `eslint-plugin-jsx-a11y` catches common issues during development and in CI
+- An accessibility audit script (`scripts/audit-a11y.mjs`) runs in CI on every pull request and fails if an image is missing alternative text
+- Lighthouse CI audits accessibility on every pull request
+- Before merging, a dedicated Playwright suite (`test/a11y/`) runs a full `axe-core` scan (WCAG 2.1 A/AA) across every page, in both languages and both light/dark themes, with High Contrast mode off and on. Color contrast is checked everywhere except the default dark palette, whose small red accent text is covered by High Contrast mode, and every page must include a High Contrast button that passes the scan itself. The suite also checks reflow at 320px width and the WCAG 1.4.12 text-spacing override, with advisory readability warnings for text size, line-height, and font weight
 
 ### Manual Testing
 
@@ -99,14 +98,15 @@ We regularly test with:
 While we strive for full accessibility, we are aware of the following:
 
 - **Third-party services**: Cloudflare Turnstile (spam protection) and Formspree (email service) are external services we do not fully control, though we've verified they meet basic accessibility standards
-- **Dynamic content**: Some animations may not respect all user motion preferences in older browsers
+- **Contact form focus**: The contact form's text fields do not yet show a visible focus outline. A fix is planned
+- **Reduced motion**: Smooth scrolling to in-page sections does not yet turn off when your system asks for reduced motion. A fix is planned
 
 ## Continuous Improvement
 
 Accessibility is an ongoing effort. We:
 
 - Review accessibility on every pull request
-- Run automated accessibility checks in CI/CD
+- Run automated accessibility checks in CI
 - Conduct periodic manual audits
 - Update components when accessibility issues are identified
 - Stay current with WCAG guidelines and best practices
@@ -153,7 +153,7 @@ This statement references the following standards:
 
 ## Last Updated
 
-This accessibility statement was last reviewed and updated on September 11, 2026.
+This accessibility statement was last reviewed and updated on November 6, 2026.
 
 ---
 
