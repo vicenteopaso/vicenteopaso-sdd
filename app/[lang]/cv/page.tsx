@@ -5,7 +5,7 @@ import { CvRefsGrid } from "@/app/components/CvRefCard";
 import { JsonLd } from "@/app/components/JsonLd";
 import { getCvDownloadFilename, getCvDownloadPath } from "@/app/config/cv";
 import type { CvReference, CvWorkEntry } from "@/lib/cv";
-import { loadCv } from "@/lib/cv";
+import { loadCv, splitCvLabel } from "@/lib/cv";
 import type { Locale } from "@/lib/i18n";
 import { getLocaleFromParams, getTranslations } from "@/lib/i18n";
 import {
@@ -63,6 +63,7 @@ function CvMasthead({
   t: T;
 }) {
   const cvDownloadPath = getCvDownloadPath(lang);
+  const { lead: labelLead, tail: labelTail } = splitCvLabel(label);
   const meta = [
     [t("cv.metaLocation"), t("cv.metaLocationValue")],
     [t("cv.metaAvailability"), t("cv.metaAvailabilityValue")],
@@ -85,7 +86,15 @@ function CvMasthead({
             </span>
             .
           </h1>
-          <div className="v3-cv-label">{label}</div>
+          <div className="v3-cv-label">
+            {labelLead}
+            {labelTail && (
+              <>
+                {" "}
+                <span className="v3-cv-label-tail">{labelTail}</span>
+              </>
+            )}
+          </div>
           <div className="v3-cv-subtitle">
             {t("cv.subtitle1")} {t("cv.subtitle2")}
           </div>

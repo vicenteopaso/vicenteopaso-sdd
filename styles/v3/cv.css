@@ -51,6 +51,11 @@
     letter-spacing: -0.005em;
   }
 
+  /* Tenure line sits on its own row on wide screens; inline on mobile. */
+  .v3-cv-label-tail {
+    display: block;
+  }
+
   .v3-cv-subtitle {
     max-width: 440px;
     margin-top: 10px;
@@ -519,6 +524,10 @@
 
   /* ── Responsive ────────────────────────────────────────────────────────── */
   @media (max-width: 768px) {
+    .v3-cv-label-tail {
+      display: inline;
+    }
+
     .v3-cv-page section {
       padding-left: 16px;
       padding-right: 16px;

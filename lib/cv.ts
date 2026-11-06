@@ -159,3 +159,18 @@ export function loadCv(locale: Locale): Cv {
 
   return result.data;
 }
+
+/**
+ * Splits the CV label into its lead (title + focus areas) and its final
+ * sentence (the tenure line), so the masthead can put the tenure line on its
+ * own row on wide screens. A label with a single sentence has no tail.
+ */
+export function splitCvLabel(label: string): { lead: string; tail: string } {
+  const trimmed = label.trim();
+  const boundary = trimmed.lastIndexOf(". ", trimmed.length - 2);
+  if (boundary === -1) return { lead: trimmed, tail: "" };
+  return {
+    lead: trimmed.slice(0, boundary + 1),
+    tail: trimmed.slice(boundary + 2).trim(),
+  };
+}
