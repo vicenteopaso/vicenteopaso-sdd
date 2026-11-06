@@ -1,7 +1,7 @@
 import fs from "fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { loadCv } from "../../lib/cv";
+import { loadCv, splitCvLabel } from "../../lib/cv";
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -57,4 +57,36 @@ describe("loadCv", () => {
 
     expect(() => loadCv("en")).toThrow(/references\.0\.url/);
   });
+});
+
+describe("splitCvLabel", () => {
+  it("splits off the final sentence as the tail", () => {
+    expect(
+      splitCvLabel(
+        "Frontend Architect. Design Systems & DevEx. 15+ years delivering products.",
+      ),
+    ).toEqual({
+      lead: "Frontend Architect. Design Systems & DevEx.",
+      tail: "15+ years delivering products.",
+    });
+  });
+
+  it("returns no tail for a single-sentence label", () => {
+    expect(splitCvLabel("Engineering leader")).toEqual({
+      lead: "Engineering leader",
+      tail: "",
+    });
+    expect(splitCvLabel("Engineering leader.")).toEqual({
+      lead: "Engineering leader.",
+      tail: "",
+    });
+  });
+
+  it.each(["en", "es"] as const)(
+    "puts the tenure line in the tail for the %s CV",
+    (locale) => {
+      const { tail } = splitCvLabel(loadCv(locale).basics.label);
+      expect(tail).toMatch(/15/);
+    },
+  );
 });
