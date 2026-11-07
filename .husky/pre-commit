@@ -8,7 +8,10 @@ export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
 # Husky sets a repo-local core.hooksPath, which shadows any global hooks
 # directory. Chain a global pre-commit (e.g. a personal secret-scan safety
 # net) so installing Husky never silently disables it.
-global_hooks=$(git config --global --get core.hooksPath 2>/dev/null)
+# Husky runs this file with `sh -e`, and `git config --get` exits 1 when the
+# key is unset (CI runners, most contributors), so `|| true` keeps that from
+# aborting the hook before lint-staged runs.
+global_hooks=$(git config --global --get core.hooksPath 2>/dev/null || true)
 if [ -n "$global_hooks" ]; then
   case "$global_hooks" in
     "~"/*) global_hooks="$HOME/${global_hooks#\~/}" ;;
