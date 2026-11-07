@@ -23,6 +23,10 @@ overrides:
   "@tailwindcss/typography>postcss-selector-parser": "^7.1.6"
   "@modelcontextprotocol/server@<2.3.0": ">=2.3.0 <3.0.0"
   "@vitest/mocker@<4.1.12": ">=4.1.12 <5.0.0"
+  # eslint 10 / typescript-eslint 8 still depend on minimatch 10, which has no
+  # patched release for GHSA-g3hv-75wg-m249 (globparts DoS); 11.0.1 is the first
+  # fix and keeps the same API. Lint tooling only. Drop once upstream bumps.
+  "minimatch@>=7.0.0 <11.0.1": "^11.0.4"
 peerDependencyRules:
   allowedVersions:
     "@opentelemetry/api": ">=1.0.0 <2.0.0"

@@ -34,9 +34,9 @@ The v3 brutalist design uses a single accent red. In the dark theme it was pinne
 **Chosen option**: Option 3. It's the only option that delivers the deeper red in both themes and keeps WCAG 2.1 AA conformance, through a documented W3C technique.
 
 - **Default accents**: light `#9b1219` (7.9:1 on `--v3-bg`), dark `#b3141c` (3.0:1). The dark red meets 3:1 for large text and UI accents but not 4.5:1 for small text.
-- **High Contrast palette** (`<html data-contrast="more">`): light `#b91c1c` (6.1:1) and dark `#e13232` (4.7:1), the pre-change accents. The dark theme also gets a lighter `--v3-muted`: `#aaa398`, 8.4:1 on `--v3-bg` and 7.1:1 on `--v3-elevated`.
-- **`--v3-on-accent`**: filled buttons use cream text on the deep dark red (6.2:1) and black text on `#e13232` (4.7:1). Primary buttons meet AA in both palettes.
-- **`--v3-accent-inverse`**: in the light theme, the near-black inverted blocks (the TL;DR heading and the CV closing headline) keep `#b91c1c` for their red text, at 3.0:1. The deep red would be 2.3:1 there, below the 3:1 large-text floor. On the dark theme's cream inverted blocks the accent itself is used: 6.2:1 by default, 4.0:1 in High Contrast. The light default palette therefore meets AA everywhere.
+- **High Contrast palette** (`<html data-contrast="more">`, revised 2026-11-06, see Revision below): the same rules in both themes. Accents light `#891016` (9.2:1) and dark `#eb4747` (5.5:1, 4.7:1 on `--v3-elevated`). Muted text light `#4f4b45` (8.2:1) and dark `#aaa398` (8.4:1). Rules light `#8a847a` (3.5:1) and dark `#6b665d` (3.7:1).
+- **`--v3-on-accent`**: filled buttons use cream text on the deep dark red (6.2:1) and black text on the dark High Contrast red (5.5:1). Primary buttons meet AA in both palettes.
+- **`--v3-accent-inverse`**: in the light theme, the near-black inverted blocks (the TL;DR heading and the CV closing headline) keep `#b91c1c` for their red text, at 3.0:1. The deep red would be 2.3:1 there, below the 3:1 large-text floor. On the dark theme's cream inverted blocks the accent itself is used: 6.2:1 by default. In High Contrast, each theme's inverse red is the other theme's High Contrast accent: `#eb4747` (5.1:1) in light and `#891016` (8.7:1) in dark, so it is safe at any size. The light default palette therefore meets AA everywhere.
 - **`ContrastToggle`**: a native `<button aria-pressed>` in the top navigation on every page. Its text is `--v3-fg` on `--v3-bg`, about 18:1, in every presentation.
 - **Persistence**: the choice is stored in `localStorage` (`contrast`). With no stored choice, `prefers-contrast: more` turns High Contrast on. An inline `<head>` script applies the preference before first paint.
 
@@ -46,14 +46,15 @@ The v3 brutalist design uses a single accent red. In the dark theme it was pinne
 
 - The owner's deeper reds are the default in both themes.
 - WCAG 2.1 AA conformance holds through G174. Visitors whose OS asks for more contrast get the conforming palette without doing anything.
-- Primary buttons now pass AA in the default dark palette: cream on deep red, 6.2:1, where they used black on `#e13232`, 4.7:1. In the dark High Contrast palette, muted text reaches AAA.
+- Primary buttons now pass AA in the default dark palette: cream on deep red, 6.2:1, where they used black on `#e13232`, 4.7:1. In both High Contrast palettes, muted text reaches AAA and borders reach 3:1.
 
 #### Negative
 
 - In the default dark palette, small red text is 3.0:1. That covers section numbers, meta labels and form error text. Low-vision visitors who don't set the OS preference must find and press the toggle.
 - The axe gate no longer checks color contrast on the default dark presentation (see Validation).
 - Lighthouse audits the default (dark) view, so its `color-contrast` audit is expected to fail there and the accessibility score to drop. `lighthouserc.js` keeps both at warning level.
-- In the light theme, High Contrast serves `#b91c1c` (6.1:1), below the new default's 7.9:1. Both pass AA. In the light theme the toggle restores the previous palette rather than maximizing contrast.
+- High Contrast draws 3:1 borders, so the brutalist grid looks heavier there than in the default palette.
+- Dark High Contrast buttons are 5.5:1 (black on the lighter red), below the default's 6.2:1 (cream on the deep red). Both pass AA.
 - There's one more inline `<head>` script, which the existing CSP (`script-src 'unsafe-inline'`) already allows.
 
 #### Neutral
@@ -72,6 +73,7 @@ The v3 brutalist design uses a single accent red. In the dark theme it was pinne
   - the Spanish label
   - the 24px target at 320px
 - `test/unit/contrast.test.ts` keeps the inline script in step with `resolveContrastPreference()`.
+- `test/unit/palette-contrast.test.ts` reads `styles/globals.css` and enforces the contrast rules for all four palettes, including that High Contrast never lowers a ratio the default has for text on page surfaces.
 
 ## Pros and Cons of the Options
 
@@ -111,4 +113,10 @@ The v3 brutalist design uses a single accent red. In the dark theme it was pinne
 
 ## Notes
 
-The High Contrast accents are the exact pre-change values. Reverting the default is a two-token change in `styles/globals.css`.
+Reverting the default is a two-token change in `styles/globals.css`.
+
+### Revision (2026-11-06)
+
+The first High Contrast palette restored the pre-change accents. That made the toggle inconsistent across themes. In dark it raised red contrast (3.0:1 to 4.7:1). In light it lowered it (7.9:1 to 6.1:1), because the pre-change light red was brighter than the new default. Muted text only changed in dark, and red on light inverted blocks stayed at 3.0:1.
+
+High Contrast now applies one set of rules in both themes: the accent moves away from the background, muted text reaches 7:1, rules reach 3:1, red on inverted blocks reaches 4.5:1, and no text on a page surface loses contrast against the default. The default palettes are unchanged.

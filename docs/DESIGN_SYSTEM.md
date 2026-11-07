@@ -139,14 +139,27 @@ Design tokens are defined in `styles/globals.css` as CSS custom properties under
 
 The live v3 UI uses the `--v3-*` tokens (the second `:root` / `.dark` block in `styles/globals.css`). The accent red has a default palette and a High Contrast palette. High Contrast applies while `<html data-contrast="more">` is set. The nav's [ContrastToggle](./components/ContrastToggle.md) toggles it, and the OS `prefers-contrast: more` setting turns it on by default. See [ADR-0003](./adr/0003-high-contrast-mode-conforming-alternate.md).
 
-| Token                                          | Light default     | Light High Contrast | Dark default          | Dark High Contrast    |
-| ---------------------------------------------- | ----------------- | ------------------- | --------------------- | --------------------- |
-| `--v3-accent` / `--v3-accent-text`             | `#9b1219` (7.9:1) | `#b91c1c` (6.1:1)   | `#b3141c` (3.0:1)     | `#e13232` (4.7:1)     |
-| `--v3-on-accent` (text on accent fills)        | `--v3-bg` (7.9:1) | `--v3-bg` (6.1:1)   | `--v3-fg` (6.2:1)     | `--v3-bg` (4.7:1)     |
-| `--v3-muted`                                   | `#6b6760` (5.3:1) | `#6b6760` (5.3:1)   | `#8a847a` (5.7:1)     | `#aaa398` (8.4:1)     |
-| `--v3-accent-inverse` (red on inverted blocks) | `#b91c1c` (3.0:1) | `#b91c1c` (3.0:1)   | `--v3-accent` (6.2:1) | `--v3-accent` (4.0:1) |
+| Token                                          | Light default     | Light High Contrast | Dark default          | Dark High Contrast |
+| ---------------------------------------------- | ----------------- | ------------------- | --------------------- | ------------------ |
+| `--v3-accent` / `--v3-accent-text`             | `#9b1219` (7.9:1) | `#891016` (9.2:1)   | `#b3141c` (3.0:1)     | `#eb4747` (5.5:1)  |
+| `--v3-on-accent` (text on accent fills)        | `--v3-bg` (7.9:1) | `--v3-bg` (9.2:1)   | `--v3-fg` (6.2:1)     | `--v3-bg` (5.5:1)  |
+| `--v3-muted`                                   | `#6b6760` (5.3:1) | `#4f4b45` (8.2:1)   | `#8a847a` (5.7:1)     | `#aaa398` (8.4:1)  |
+| `--v3-rule` (borders, card and field outlines) | `#e3ded4` (1.3:1) | `#8a847a` (3.5:1)   | `#26231e` (1.3:1)     | `#6b665d` (3.7:1)  |
+| `--v3-accent-inverse` (red on inverted blocks) | `#b91c1c` (3.0:1) | `#eb4747` (5.1:1)   | `--v3-accent` (6.2:1) | `#891016` (8.7:1)  |
 
-Ratios are measured against `--v3-bg`, with two exceptions: `--v3-on-accent` is measured against the accent, and `--v3-accent-inverse` against `--v3-fg`, the background of inverted blocks such as the TL;DR sidebar. The dark default accent meets 3:1 for large text and UI accents only; small red text there relies on High Contrast mode. Use `--v3-accent-inverse` only for large headings: the deep light red would be 2.3:1 on those near-black blocks.
+Ratios are measured against `--v3-bg`, with two exceptions: `--v3-on-accent` is measured against the accent, and `--v3-accent-inverse` against `--v3-fg`, the background of inverted blocks such as the TL;DR sidebar.
+
+The default palettes carry the deep reds. The dark default accent meets 3:1 for large text and UI accents only; small red text there relies on High Contrast mode. In the default light theme, use `--v3-accent-inverse` only for large headings: the deep light red would be 2.3:1 on those near-black blocks.
+
+High Contrast follows the same rules in both themes:
+
+- The accent moves away from the background (darker in light, lighter in dark) and meets 4.5:1 on `--v3-bg` and `--v3-elevated`.
+- Muted text meets 7:1 (AAA) on `--v3-bg`.
+- Rules meet 3:1, so cards and form fields are outlined (SC 1.4.11).
+- Red on inverted blocks meets 4.5:1. Each theme's inverse red is the other theme's High Contrast accent.
+- No text on a page surface has lower contrast than in the default palette. Filled buttons are the one exception: dark High Contrast puts black on the lighter red (5.5:1), where the default puts cream on the deep red (6.2:1). Both pass AA.
+
+`test/unit/palette-contrast.test.ts` reads `styles/globals.css` and enforces every rule above.
 
 For text on accent-filled surfaces, use `--v3-on-accent`, never `--v3-bg`, so buttons stay AA in both palettes.
 
@@ -561,8 +574,8 @@ All text must meet WCAG AA contrast requirements:
 
 - Light default (`#9b1219`) on `--v3-bg` (`#faf8f5`): 7.9:1 ✅
 - Dark default (`#b3141c`) on `--v3-bg` (`#000000`): 3.0:1, for large text and UI accents only. Small red text relies on High Contrast mode ([ADR-0003](./adr/0003-high-contrast-mode-conforming-alternate.md))
-- Light High Contrast (`#b91c1c`): 6.1:1 ✅
-- Dark High Contrast (`#e13232`): 4.7:1 ✅
+- Light High Contrast (`#891016`): 9.2:1 ✅
+- Dark High Contrast (`#eb4747`): 5.5:1 ✅, 4.7:1 on `--v3-elevated` ✅
 
 ---
 

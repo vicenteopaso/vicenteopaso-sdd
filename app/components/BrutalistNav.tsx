@@ -10,12 +10,14 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "@/lib/i18n";
 
 import { ContrastToggle } from "./ContrastToggle";
+import { GitHubIcon } from "./icons";
 import { useLocale } from "./LocaleProvider";
 
 const imageCacheVersion = process.env.NEXT_PUBLIC_IMAGES_CACHE_DATE;
 const imageCacheSuffix = imageCacheVersion ? `?v=${imageCacheVersion}` : "";
 const DARK_LOGO = `/assets/images/logo_dark.png${imageCacheSuffix}`;
 const LIGHT_LOGO = `/assets/images/logo.png${imageCacheSuffix}`;
+const REPO_URL = "https://github.com/vicenteopaso/vicenteopaso-sdd";
 
 export function BrutalistNav() {
   const pathname = usePathname();
@@ -109,7 +111,7 @@ export function BrutalistNav() {
           >
             {locale === "en" ? t("language.es") : t("language.en")}
           </button>
-          <span>·</span>
+          <span className="v3-nav-sep">·</span>
           <button
             type="button"
             onClick={toggleTheme}
@@ -118,6 +120,18 @@ export function BrutalistNav() {
           >
             {displayTheme === "dark" ? "☼" : "☾"}
           </button>
+          <span aria-hidden="true" className="v3-nav-sep">
+            ·
+          </span>
+          <a
+            href={REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="v3-nav-icon-link"
+            aria-label={t("nav.sourceCode")}
+          >
+            <GitHubIcon className="v3-nav-icon" />
+          </a>
         </div>
       </div>
     </header>

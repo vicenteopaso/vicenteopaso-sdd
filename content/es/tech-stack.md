@@ -41,7 +41,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 ## Pruebas y control de calidad
 
-- **Vitest 4.1** — Marco de pruebas unitarias con entorno jsdom
+- **Vitest 5.1** — Marco de pruebas unitarias con entorno jsdom
 - **@vitest/coverage-v8** — Informes de cobertura de código
 - **Playwright 1.64** — Pruebas de extremo a extremo, de regresión visual y de accesibilidad
 - **@axe-core/playwright** — Análisis automatizados WCAG 2.1 A/AA
@@ -51,7 +51,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 ## Calidad del código y análisis sintáctico
 
-- **ESLint 10.13** — Análisis sintáctico del código con:
+- **ESLint 10.14** — Análisis sintáctico del código con:
   - `@next/eslint-plugin-next` — Reglas recomendadas por Next.js
   - `typescript-eslint`: reglas específicas de TypeScript
   - `eslint-plugin-jsx-a11y`: validación de accesibilidad
@@ -67,7 +67,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 - **Vercel Web Analytics** — Visitas a las páginas agregadas y sin cookies
 - **Vercel Speed Insights** — Core Web Vitals y métricas de rendimiento
-- **Sentry (@sentry/nextjs 11.8)** — Seguimiento de errores, alertas y reproducción de sesiones (se carga con la primera interacción)
+- **Sentry (@sentry/nextjs 11.11)** — Seguimiento de errores, alertas y reproducción de sesiones (se carga con la primera interacción)
 - **Sentry Logs** — Advertencias y errores del servidor reenviados por el SDK de Sentry
 - **Vercel Logs** — Registros de solicitudes y funciones
 
@@ -75,7 +75,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 - **Vercel** — Alojamiento y CDN. GitHub Actions compila el sitio con `vercel build` y despliega el resultado precompilado, de modo que las comprobaciones se ejecutan antes de publicar nada
 - **Rutas de metadatos de Next.js** — `app/sitemap.ts` y `app/robots.ts` generan el mapa del sitio y el archivo robots.txt
-- **pnpm 11.2** — Gestor de paquetes
+- **pnpm 12.18** — Gestor de paquetes
 
 ## Herramientas de desarrollo
 

@@ -54,7 +54,7 @@
 - [ ] Reviewed [AI Guardrails](../docs/AI_GUARDRAILS.md) — Security constraints respected
 - [ ] Reviewed [Forbidden Patterns](../docs/FORBIDDEN_PATTERNS.md) — No anti-patterns introduced
 - [ ] Completed [Review Checklist](../docs/REVIEW_CHECKLIST.md) — All applicable items verified
-- [ ] Security controls maintained (Turnstile, rate limiting, input validation, HTML sanitization)
+- [ ] Security controls maintained (Turnstile, rate limiting, input validation, no raw HTML rendering)
 - [ ] No secrets or credentials hard-coded
 - [ ] Accessibility standards maintained (WCAG 2.1 AA)
 - [ ] Architecture boundaries respected (no cross-layer imports)

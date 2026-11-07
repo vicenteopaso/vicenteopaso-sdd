@@ -49,7 +49,7 @@ docs/                # Documentation
 ### Contact Form
 
 - See `docs/CONTACT_FLOW.md` for full architecture
-- Never bypass: Turnstile, honeypot, rate limiting, or HTML sanitization
+- Never bypass: Turnstile, honeypot, rate limiting, or the no-raw-HTML rendering rule
 
 ### Testing
 
@@ -65,7 +65,7 @@ docs/                # Documentation
 
 ## Forbidden Actions
 
-1. **Never bypass security**: Turnstile, honeypot, rate limiting, sanitization
+1. **Never bypass security**: Turnstile, honeypot, rate limiting, safe HTML rendering
 2. **Never hard-code secrets**: Use environment variables
 3. **Never weaken CSP/headers**: Security headers are intentionally strict
 4. **Never skip tests**: All code changes require tests

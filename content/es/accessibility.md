@@ -45,7 +45,7 @@ Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 - Relación de contraste mínima de 3:1 para el texto grande (WCAG AA)
 - El texto se puede ampliar hasta un 200 % sin pérdida de funcionalidad
 - No se recurre exclusivamente al color para transmitir información
-- Los enlaces y botones muestran un indicador de foco visible; el enlace de salto y el botón de alto contraste usan un contorno de 2 píxeles
+- Los enlaces, botones y campos de formulario muestran un indicador de foco visible; el enlace de salto, el botón de alto contraste y los campos del formulario de contacto usan un contorno de 2 píxeles
 
 ### Modo de alto contraste
 
@@ -98,7 +98,6 @@ Realizamos pruebas periódicas con:
 Aunque nos esforzamos por lograr una accesibilidad total, somos conscientes de lo siguiente:
 
 - **Servicios de terceros**: Cloudflare Turnstile (protección contra el spam) y Formspree (servicio de correo electrónico) son servicios externos sobre los que no tenemos control total, aunque hemos comprobado que cumplen con los estándares básicos de accesibilidad
-- **Foco en el formulario de contacto**: los campos de texto del formulario de contacto todavía no muestran un contorno de foco visible. Está prevista una corrección
 - **Movimiento reducido**: el desplazamiento suave hacia las secciones de la página todavía no se desactiva cuando tu sistema solicita movimiento reducido. Está prevista una corrección
 
 ## Mejora continua

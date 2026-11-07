@@ -54,7 +54,7 @@ These instructions are for AI agents contributing to this repository. Follow the
 - **Never** bypass or remove:
   - Turnstile verification, honeypot, or rate limiting in contact flow
   - CV JSON parsing or error fallback in `app/[lang]/cv/page.tsx`
-  - HTML sanitization (`lib/sanitize-html.ts`)
+  - Safe content rendering: markdown only through `ReactMarkdown` without `rehype-raw`, CV data validated as plain text in `lib/cv.ts`
   - Centralized error logging (`lib/error-logging.ts`)
 - **Always**:
   - Use Zod schemas for input validation
@@ -67,7 +67,7 @@ These instructions are for AI agents contributing to this repository. Follow the
 
 - `app/` – App Router pages, layouts, API routes, shared components
 - `content/` – Markdown/JSON content by locale
-- `lib/` – Utilities: i18n, SEO, error logging, sanitization, rate limiting
+- `lib/` – Utilities: i18n, SEO, error logging, CV schema, rate limiting
 - `test/unit/`, `test/e2e/`, `test/visual/` – Tests (Vitest, Playwright)
 - `styles/` – Tailwind config and global styles
 - `scripts/` – Build, audit, translation, and utility scripts

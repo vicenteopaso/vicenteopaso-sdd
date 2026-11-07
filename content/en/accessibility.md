@@ -45,7 +45,7 @@ All interactive elements are fully keyboard accessible:
 - Minimum contrast ratio of 3:1 for large text (WCAG AA)
 - Text is resizable up to 200% without loss of functionality
 - No reliance on color alone to convey information
-- Links and buttons show a visible focus indicator; the skip link and High Contrast button use a 2px outline
+- Links, buttons, and form fields show a visible focus indicator; the skip link, the High Contrast button, and contact form fields use a 2px outline
 
 ### High Contrast Mode
 
@@ -98,7 +98,6 @@ We regularly test with:
 While we strive for full accessibility, we are aware of the following:
 
 - **Third-party services**: Cloudflare Turnstile (spam protection) and Formspree (email service) are external services we do not fully control, though we've verified they meet basic accessibility standards
-- **Contact form focus**: The contact form's text fields do not yet show a visible focus outline. A fix is planned
 - **Reduced motion**: Smooth scrolling to in-page sections does not yet turn off when your system asks for reduced motion. A fix is planned
 
 ## Continuous Improvement

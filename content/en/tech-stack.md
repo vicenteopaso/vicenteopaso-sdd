@@ -41,7 +41,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 ## Testing & Quality Assurance
 
-- **Vitest 4.1** — Unit testing framework with jsdom environment
+- **Vitest 5.1** — Unit testing framework with jsdom environment
 - **@vitest/coverage-v8** — Code coverage reporting
 - **Playwright 1.64** — End-to-end, visual regression, and accessibility testing
 - **@axe-core/playwright** — Automated WCAG 2.1 A/AA scans
@@ -51,7 +51,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 ## Code Quality & Linting
 
-- **ESLint 10.13** — Code linting with:
+- **ESLint 10.14** — Code linting with:
   - `@next/eslint-plugin-next` — Next.js recommended rules
   - `typescript-eslint` — TypeScript-specific rules
   - `eslint-plugin-jsx-a11y` — Accessibility linting
@@ -67,7 +67,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 - **Vercel Web Analytics** — Cookieless, aggregate page views
 - **Vercel Speed Insights** — Core Web Vitals and performance metrics
-- **Sentry (@sentry/nextjs 11.8)** — Error tracking, alerting, and session replay (loaded on first interaction)
+- **Sentry (@sentry/nextjs 11.11)** — Error tracking, alerting, and session replay (loaded on first interaction)
 - **Sentry Logs** — Server-side warnings and errors forwarded from the Sentry SDK
 - **Vercel Logs** — Request and function logs
 
@@ -75,7 +75,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 - **Vercel** — Hosting and CDN. GitHub Actions builds the site with `vercel build` and deploys the prebuilt output, so checks run before anything ships
 - **Next.js metadata routes** — `app/sitemap.ts` and `app/robots.ts` generate the sitemap and robots.txt
-- **pnpm 11.2** — Package manager
+- **pnpm 12.18** — Package manager
 
 ## Development Tools
 

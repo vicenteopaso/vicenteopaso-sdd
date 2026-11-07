@@ -132,7 +132,7 @@ Never bypass or remove:
 - Honeypot protection
 - Rate limiting
 - Domain origin check
-- HTML sanitization
+- Zod input validation (`contactSchema`)
 - Error logging
 
 See `docs/FORBIDDEN_PATTERNS.md` for detailed anti-patterns.
