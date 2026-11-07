@@ -28,8 +28,7 @@ Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 
 - Utiliza la tecla **Tab** para avanzar por los elementos interactivos
 - Utiliza **Shift + Tab** para retroceder
-- Utiliza **Enter** o **Espacio** para activar botones y enlaces
-- Utiliza **Esc** para cerrar cuadros de diálogo y ventanas modales
+- Utiliza **Enter** para seguir enlaces, y **Enter** o **Espacio** para activar botones
 - Al recibir el foco del teclado, aparece un enlace de salto visible para ir directamente al contenido principal
 
 ### Compatibilidad con lectores de pantalla
@@ -46,7 +45,7 @@ Todos los elementos interactivos son totalmente accesibles mediante el teclado:
 - Relación de contraste mínima de 3:1 para el texto grande (WCAG AA)
 - El texto se puede ampliar hasta un 200 % sin pérdida de funcionalidad
 - No se recurre exclusivamente al color para transmitir información
-- Los indicadores de foco son claramente visibles con contornos de 2 píxeles
+- Los enlaces, botones y campos de formulario muestran un indicador de foco visible; el enlace de salto, el botón de alto contraste y los campos del formulario de contacto usan un contorno de 2 píxeles
 
 ### Modo de alto contraste
 
@@ -58,9 +57,8 @@ El tema oscuro predeterminado utiliza un rojo de acento intenso cuyo texto peque
 
 ### Movimiento y animación
 
-- Las animaciones son sutiles y no distraen
-- Se respetan las preferencias de movimiento reducido mediante `prefers-reduced-motion`
-- Ningún contenido parpadea más de 3 veces por segundo
+- El movimiento se limita a transiciones breves (unos 0,2 segundos) al pasar el cursor o al desplegar una tarjeta, y al desplazamiento suave hacia las secciones de la página
+- Nada se anima por sí solo y ningún contenido parpadea
 
 ### Formularios
 
@@ -73,9 +71,10 @@ El tema oscuro predeterminado utiliza un rojo de acento intenso cuyo texto peque
 
 ### Pruebas automatizadas
 
-- ESLint con `eslint-plugin-jsx-a11y` detecta problemas comunes durante el desarrollo
-- El script de auditoría de accesibilidad automatizada (`scripts/audit-a11y.mjs`) se ejecuta en CI/CD
-- Una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA) en todas las páginas, en ambos idiomas y en los temas claro y oscuro, con el modo de alto contraste desactivado y activado. El contraste de colores se comprueba en todas las presentaciones salvo la paleta predeterminada del tema oscuro, cuyo texto pequeño en rojo de acento queda cubierto por el modo de alto contraste, y todas las páginas deben incluir un botón de alto contraste que supere el análisis. La suite también comprueba el reajuste de contenido a un ancho de 320 píxeles y la anulación del espaciado de texto según WCAG 1.4.12, con advertencias de legibilidad sobre el tamaño del texto, la altura de línea y el grosor de la fuente
+- ESLint con `eslint-plugin-jsx-a11y` detecta problemas comunes durante el desarrollo y en CI
+- Un script de auditoría de accesibilidad (`scripts/audit-a11y.mjs`) se ejecuta en CI en cada pull request y falla si alguna imagen no tiene texto alternativo
+- Lighthouse CI audita la accesibilidad en cada pull request
+- Antes de fusionar cambios, una suite dedicada de Playwright (`test/a11y/`) ejecuta un análisis completo con `axe-core` (WCAG 2.1 A/AA) en todas las páginas, en ambos idiomas y en los temas claro y oscuro, con el modo de alto contraste desactivado y activado. El contraste de colores se comprueba en todas las presentaciones salvo la paleta predeterminada del tema oscuro, cuyo texto pequeño en rojo de acento queda cubierto por el modo de alto contraste, y todas las páginas deben incluir un botón de alto contraste que supere el análisis. La suite también comprueba el reajuste de contenido a un ancho de 320 píxeles y la anulación del espaciado de texto según WCAG 1.4.12, con advertencias de legibilidad sobre el tamaño del texto, la altura de línea y el grosor de la fuente
 
 ### Pruebas manuales
 
@@ -99,14 +98,14 @@ Realizamos pruebas periódicas con:
 Aunque nos esforzamos por lograr una accesibilidad total, somos conscientes de lo siguiente:
 
 - **Servicios de terceros**: Cloudflare Turnstile (protección contra el spam) y Formspree (servicio de correo electrónico) son servicios externos sobre los que no tenemos control total, aunque hemos comprobado que cumplen con los estándares básicos de accesibilidad
-- **Contenido dinámico**: es posible que algunas animaciones no respeten todas las preferencias de movimiento del usuario en navegadores más antiguos
+- **Movimiento reducido**: el desplazamiento suave hacia las secciones de la página todavía no se desactiva cuando tu sistema solicita movimiento reducido. Está prevista una corrección
 
 ## Mejora continua
 
 La accesibilidad es un esfuerzo continuo. Nosotros:
 
 - Revisamos la accesibilidad en cada solicitud de incorporación de cambios
-- Realizamos comprobaciones automáticas de accesibilidad en CI/CD
+- Realizamos comprobaciones automáticas de accesibilidad en CI
 - Llevamos a cabo auditorías manuales periódicas
 - Actualizamos los componentes cuando se identifican problemas de accesibilidad
 - Nos mantenemos al día con las directrices WCAG y las mejores prácticas
@@ -153,7 +152,7 @@ Esta declaración hace referencia a las siguientes normas:
 
 ## Última actualización
 
-Esta declaración de accesibilidad se revisó y actualizó por última vez el 11 de septiembre de 2026.
+Esta declaración de accesibilidad se revisó y actualizó por última vez el 6 de noviembre de 2026.
 
 ---
 

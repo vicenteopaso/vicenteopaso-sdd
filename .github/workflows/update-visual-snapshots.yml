@@ -45,7 +45,13 @@ jobs:
             COMMIT_MESSAGE="ci: update Playwright visual snapshots [skip ci]"
           fi
 
-          git commit -m "$COMMIT_MESSAGE" || exit 0
+          # Exit cleanly only when nothing changed; a failed commit or push
+          # must fail the job instead of reporting success with no snapshots.
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+            exit 0
+          fi
+          git commit -m "$COMMIT_MESSAGE"
           git push
 
       - name: Trigger CI workflow for this branch

@@ -11,7 +11,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 ## Marco principal y entorno de ejecución
 
-- **Next.js 16** — Enrutador de aplicaciones (App Router) con React Server Components (RSC), generación de sitios estáticos (SSG) y rutas tipadas
+- **Next.js 16.4** — Enrutador de aplicaciones (App Router) con React Server Components (RSC), generación de sitios estáticos (SSG) y rutas tipadas
 - **React 19.3** — Biblioteca de interfaz de usuario (UI) con componentes de servidor (server components) y mejora progresiva
 - **TypeScript 6.0** — Verificación estricta de tipos de extremo a extremo
 - **Node.js 24** — Entorno de ejecución (LTS)
@@ -20,26 +20,31 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 - **Tailwind CSS v4** — Marco CSS basado en utilidades con tokens de diseño personalizados
 - **next-themes**: temas para los modos claro y oscuro con detección de las preferencias del sistema
+- **Modo de alto contraste** — Una paleta WCAG AA que se activa desde la navegación o con el ajuste «aumentar contraste» del sistema operativo
 - **@tailwindcss/typography** — Complemento tipográfico para el estilo de la prosa
+- **clsx** — Composición condicional de nombres de clase
 
 ## Gestión de contenidos
 
-- **Markdown** — Archivos fuente de contenido en el directorio `content/`
+- **Markdown** — Archivos fuente de contenido en el directorio `content/`, en inglés y español
 - **gray-matter** — Análisis de frontmatter, validado según un esquema Zod
-- **react-markdown** — Representación de Markdown en React
+- **react-markdown** — Representación de Markdown en React, con el HTML sin procesar desactivado
+- **DeepL** (`deepl-node`) — Traducción automática del contenido en inglés al español, bajo demanda
 
 ## Formularios y servicios de backend
 
 - **Cloudflare Turnstile** — Protección contra bots y prevención del spam (alternativa al CAPTCHA)
 - **Formspree** — Servicio de backend para formularios de correo electrónico
-- **Next.js Route Handlers** — Rutas de API para el procesamiento de formularios y la entrega de contenido
-- **Zod** — Validación de esquemas para datos de formularios y solicitudes de API
+- **Next.js Route Handlers** — Rutas de API para el procesamiento de formularios, el contenido y la API de perfil
+- **WebMCP** (`@mcp-b/global`) — Expone herramientas del sitio a agentes de IA en el navegador; solo se carga si el navegador no lo admite de forma nativa
+- **Zod 4** — Validación de esquemas para datos de formularios y solicitudes de API
 
 ## Pruebas y control de calidad
 
 - **Vitest 5.1** — Marco de pruebas unitarias con entorno jsdom
 - **@vitest/coverage-v8** — Informes de cobertura de código
-- **Playwright 1.64** — Pruebas de extremo a extremo
+- **Playwright 1.64** — Pruebas de extremo a extremo, de regresión visual y de accesibilidad
+- **@axe-core/playwright** — Análisis automatizados WCAG 2.1 A/AA
 - **@testing-library/react** — Utilidades de pruebas de componentes de React
 - **@testing-library/jest-dom** — Comparadores DOM para pruebas
 - **@testing-library/dom** — Utilidades de pruebas del DOM
@@ -56,24 +61,27 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 - **Prettier 3.9**: formateo de código
 - **Husky 9.1** — Hooks de Git
 - **lint-staged 17.6** — Validación y formateo previos al commit
+- **Knip** — Detección de archivos, exportaciones y dependencias sin usar
 
 ## Observabilidad y monitorización
 
-- **Vercel Analytics** — Visitas a la página e interacciones de los usuarios
+- **Vercel Web Analytics** — Visitas a las páginas agregadas y sin cookies
 - **Vercel Speed Insights** — Core Web Vitals y métricas de rendimiento
-- **Sentry (@sentry/nextjs 11.11)** — Seguimiento de errores, reproducción de sesiones y alertas
-- **Vercel Logs** — Registros de errores del lado del servidor
+- **Sentry (@sentry/nextjs 11.11)** — Seguimiento de errores, alertas y reproducción de sesiones (se carga con la primera interacción)
+- **Sentry Logs** — Advertencias y errores del servidor reenviados por el SDK de Sentry
+- **Vercel Logs** — Registros de solicitudes y funciones
 
 ## Compilación e implementación
 
-- **Vercel** — Alojamiento, CDN e implementación en red perimetral
-- **API de metadatos de Next.js** — Generación de `sitemap.xml` y `robots.txt` (`app/sitemap.ts`, `app/robots.ts`)
+- **Vercel** — Alojamiento y CDN. GitHub Actions compila el sitio con `vercel build` y despliega el resultado precompilado, de modo que las comprobaciones se ejecutan antes de publicar nada
+- **Rutas de metadatos de Next.js** — `app/sitemap.ts` y `app/robots.ts` generan el mapa del sitio y el archivo robots.txt
 - **pnpm 12.18** — Gestor de paquetes
 
 ## Herramientas de desarrollo
 
 - **[Warp](https://app.warp.dev/referral/8X3W39)** — Terminal para el flujo de trabajo de desarrollo
 - **[Cursor](https://cursor.com)** — Editor de código asistido por IA
+- **[Claude Code](https://claude.com/claude-code)** y **GitHub Copilot** — Agentes de programación con IA que trabajan según los documentos de gobernanza del proyecto
 - **PostCSS 8.5** — Procesamiento de CSS
 - **autoprefixer 10.6** — Prefijos de proveedor para CSS
 
@@ -82,7 +90,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 - **Generación de sitios estáticos (SSG)** — Páginas prerenderizadas en el momento de la compilación
 - **Componentes de servidor (server components)** — Reducción del JavaScript del lado del cliente
 - **Optimización de imágenes** — Optimización automática de imágenes con Next.js
-- **Optimización de fuentes** — Google Fonts a través de `next/font/google`: Instrument Serif y JetBrains Mono, con `font-display: swap`
+- **Optimización de fuentes** — Google Fonts autoalojadas a través de `next/font/google`: Instrument Serif, Inter y JetBrains Mono, con `font-display: swap`
 - **Datos estructurados JSON-LD** — Marcado Schema.org para SEO
 - **Open Graph y Twitter Cards** — Vistas previas en redes sociales
 
@@ -91,16 +99,19 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 - **Política de seguridad de contenidos (CSP)** — Protección contra XSS
 - **Limitación de tasa** — Limitación de tasa en memoria para rutas de API
 - **Validación de entradas** — Validación de esquemas Zod
-- **Desinfectación de salidas** — Desinfectación de HTML para contenido generado por el usuario
+- **Desinfectación de salidas** — El Markdown se representa sin HTML sin procesar, de modo que el contenido no puede inyectar marcado
+- **Cloudflare Turnstile** — Verificación contra bots en el formulario de contacto, comprobada en el servidor
 - **Encabezados de seguridad** — Encabezados de seguridad completos mediante la configuración de Next.js
 - **CodeQL** — Análisis de seguridad automatizado en CI
+- **Análisis de dependencias y secretos** — `pnpm audit` (avisos altos y críticos) y un análisis de secretos del repositorio
 
 ## CI/CD y automatización
 
 - **GitHub Actions** — Integración y despliegue continuos
 - **Dependabot** — Actualizaciones automatizadas de dependencias
-- **Lighthouse CI** — Auditorías de rendimiento y accesibilidad
+- **Lighthouse CI** — Auditorías de rendimiento, accesibilidad, buenas prácticas y SEO
 - **Umbrales de cobertura** — Aplicados mediante Vitest (90 % de líneas, sentencias, ramificaciones y funciones)
+- **Release Drafter** — Notas de versión redactadas a partir de las pull requests fusionadas
 
 ## Sistema de diseño
 
