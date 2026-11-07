@@ -27,6 +27,8 @@ None — reads locale from `LocaleProvider`.
 
 All policy links are standard `<Link>` anchors with descriptive text.
 
+The heart at the end of the tagline is rendered apart from the translated string, as `<span class="v3-footer-heart" role="img" aria-label={t("footer.heartLabel")}>` ("love" / "amor"). It uses the text-presentation glyph `❤︎` (U+2764 U+FE0E) so it takes `--v3-accent` instead of the platform emoji colour, and is set at 14px against the 10px tagline. `--v3-accent` meets 3:1 on `--v3-bg` in every theme and contrast mode (SC 1.4.11).
+
 ## Visual Testing
 
 Covered by `test/visual/components/footer.visual.spec.ts` — light, dark, mobile, and CV page variants.
