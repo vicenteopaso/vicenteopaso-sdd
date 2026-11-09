@@ -19,7 +19,7 @@ A wrapper around `next-themes` that provides light/dark theme functionality thro
 ```tsx
 <NextThemesProvider
   attribute="class"              // Toggles via class on <html>
-  defaultTheme="dark"            // Default if no preference
+  defaultTheme="system"          // Follow the OS until the visitor picks
   enableSystem                   // Respect system preference
   disableTransitionOnChange      // Prevents flash on theme switch
 >
@@ -28,15 +28,16 @@ A wrapper around `next-themes` that provides light/dark theme functionality thro
 ### Settings Explained
 
 - **attribute="class"**: Theme applied via `.dark` class on root element
-- **defaultTheme="dark"**: Defaults to dark mode if no stored preference
+- **defaultTheme="system"**: Visitors land on their OS theme (`prefers-color-scheme`) unless they stored a choice
 - **enableSystem**: Detects and respects OS theme preference
 - **disableTransitionOnChange**: Prevents transition animations during theme switch (avoids flash)
 
 ## Theme Detection Priority
 
 1. **Stored preference**: Previously selected theme in localStorage
-2. **System preference**: OS-level dark/light mode setting
-3. **Default**: Dark theme fallback
+2. **System preference**: OS-level dark/light mode setting (the default)
+
+The nav toggle (`BrutalistNav`) is binary. When it switches to the theme the OS already uses, it stores `"system"` rather than a pinned copy, so the site follows the OS again (`lib/theme.ts`). The logo and toggle glyph are picked in CSS from the `dark` class next-themes sets before paint, so they are correct before hydration.
 
 ## Usage
 
