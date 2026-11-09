@@ -16,7 +16,7 @@
 
   /* ── Masthead ──────────────────────────────────────────────────────────── */
   .v3-cv-masthead-section {
-    padding: 20px 32px 32px;
+    padding: var(--v3-page-top) 32px 32px;
     border-bottom: 2px solid var(--v3-fg);
   }
 
@@ -534,7 +534,7 @@
     }
 
     .v3-cv-masthead-section {
-      padding-top: 20px;
+      padding-top: var(--v3-page-top);
       padding-bottom: 20px;
     }
 

@@ -545,6 +545,9 @@ body {
 
   /* v3 shared layout constant — section/nav/footer max content width */
   --v3-max-w: 1180px;
+  /* Space between the nav rule and the first content on every page, so the
+     home hero and CV masthead start at the same height. */
+  --v3-page-top: 48px;
 
   /* v3 color tokens — light */
   --v3-bg: #faf8f5;
@@ -563,6 +566,12 @@ body {
   /* Text on accent-filled surfaces (primary buttons, CTAs). */
   --v3-on-accent: var(--v3-bg);
   --v3-sec: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --v3-page-top: 16px;
+  }
 }
 
 .dark {
