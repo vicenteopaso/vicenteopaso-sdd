@@ -111,6 +111,11 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      // globals.css sets `scroll-behavior: smooth` for in-page anchors. This
+      // opts in to Next turning it off during route changes; without it the
+      // scroll-to-top animates, gets cut short, and pages land 70px down
+      // under the sticky nav.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
