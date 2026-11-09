@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 import { useTranslations } from "@/lib/i18n";
+import { nextThemeChoice } from "@/lib/theme";
 
 import { ContrastToggle } from "./ContrastToggle";
 import { GitHubIcon } from "./icons";
@@ -23,24 +23,11 @@ export function BrutalistNav() {
   const pathname = usePathname();
   const router = useRouter();
   const { locale } = useLocale();
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, systemTheme, setTheme } = useTheme();
   const t = useTranslations();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const displayTheme = !mounted
-    ? "dark"
-    : resolvedTheme === "light" || resolvedTheme === "dark"
-      ? resolvedTheme
-      : "dark";
-
   const toggleTheme = () =>
-    setTheme(displayTheme === "dark" ? "light" : "dark");
-
-  const logoSrc = displayTheme === "dark" ? DARK_LOGO : LIGHT_LOGO;
+    setTheme(nextThemeChoice(resolvedTheme, systemTheme));
 
   const switchLocale = () => {
     const next = locale === "en" ? "es" : "en";
@@ -70,13 +57,24 @@ export function BrutalistNav() {
             className="v3-nav-logo"
             aria-label={t("nav.brand")}
           >
+            {/* Both variants render; CSS shows the one matching the theme
+                class next-themes sets on <html> before paint, so the logo
+                is right on first paint, before hydration. */}
             <Image
-              src={logoSrc}
+              src={DARK_LOGO}
               alt=""
               width={40}
               height={40}
               priority
-              className="v3-nav-logo-img"
+              className="v3-nav-logo-img v3-nav-logo-img--dark"
+            />
+            <Image
+              src={LIGHT_LOGO}
+              alt=""
+              width={40}
+              height={40}
+              priority
+              className="v3-nav-logo-img v3-nav-logo-img--light"
             />
           </Link>
           <span className="v3-nav-meta">{t("nav.version")}</span>
@@ -117,7 +115,12 @@ export function BrutalistNav() {
             className="v3-nav-btn v3-nav-theme-btn"
             aria-label={t("nav.themeToggle")}
           >
-            {displayTheme === "dark" ? "☼" : "☾"}
+            <span aria-hidden="true" className="v3-theme-glyph--sun">
+              ☼
+            </span>
+            <span aria-hidden="true" className="v3-theme-glyph--moon">
+              ☾
+            </span>
           </button>
           <span aria-hidden="true" className="v3-nav-sep">
             ·

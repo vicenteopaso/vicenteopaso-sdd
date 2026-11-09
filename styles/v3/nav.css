@@ -46,6 +46,17 @@
     transform: translateY(-4px);
   }
 
+  /* Theme-dependent nav bits key off the class next-themes sets on <html>
+     before paint (not React state), so light-OS visitors never see the dark
+     variants flash before hydration. Dark shows the sun (switch to light),
+     light shows the moon. */
+  :root.dark .v3-nav-logo-img--light,
+  :root:not(.dark) .v3-nav-logo-img--dark,
+  :root.dark .v3-theme-glyph--moon,
+  :root:not(.dark) .v3-theme-glyph--sun {
+    display: none;
+  }
+
   .v3-nav-links {
     display: flex;
     gap: 24px;

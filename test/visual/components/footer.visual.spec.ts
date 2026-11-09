@@ -31,6 +31,8 @@ test.describe("Footer Visual Regression", () => {
   });
 
   test("renders footer on mobile viewport", async ({ page }) => {
+    // Pin the theme: the site now follows the OS, and Playwright defaults to light.
+    await setThemeDark(page);
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/");
     await waitForHomepage(page);
