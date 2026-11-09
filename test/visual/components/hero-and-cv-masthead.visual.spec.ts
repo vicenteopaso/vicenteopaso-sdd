@@ -45,6 +45,8 @@ test.describe("Hero & CV Masthead Visual Regression", () => {
     });
 
     test("renders profile card on mobile viewport", async ({ page }) => {
+      // Pin the theme: the site now follows the OS, and Playwright defaults to light.
+      await setThemeDark(page);
       await page.setViewportSize({ width: 375, height: 667 });
       await page.goto("/");
       await waitForHomepage(page);
@@ -92,6 +94,8 @@ test.describe("Hero & CV Masthead Visual Regression", () => {
     test("renders CV header profile card on mobile viewport", async ({
       page,
     }) => {
+      // Pin the theme: the site now follows the OS, and Playwright defaults to light.
+      await setThemeDark(page);
       await page.setViewportSize({ width: 375, height: 667 });
       await page.goto("/cv");
       await waitForCVPage(page);
