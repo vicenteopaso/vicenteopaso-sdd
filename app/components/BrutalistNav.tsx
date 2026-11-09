@@ -102,7 +102,6 @@ export function BrutalistNav() {
 
         {/* Right controls */}
         <div className="v3-nav-controls">
-          <ContrastToggle />
           <button
             type="button"
             onClick={switchLocale}
@@ -132,6 +131,7 @@ export function BrutalistNav() {
           >
             <GitHubIcon className="v3-nav-icon" />
           </a>
+          <ContrastToggle />
         </div>
       </div>
     </header>

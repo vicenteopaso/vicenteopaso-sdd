@@ -123,6 +123,9 @@
     /* WCAG 2.2 target size (2.5.8) */
     min-width: 24px;
     min-height: 24px;
+    /* Last control in the row: extra lead space sets the bordered button apart
+       from the plain-text language/theme controls. */
+    margin-inline-start: 8px;
     padding: 0 8px;
     border: 1px solid var(--v3-fg);
     background: transparent;
