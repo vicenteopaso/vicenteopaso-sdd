@@ -46,6 +46,17 @@
     transform: translateY(-4px);
   }
 
+  /* Theme-dependent nav bits key off the class next-themes sets on <html>
+     before paint (not React state), so light-OS visitors never see the dark
+     variants flash before hydration. Dark shows the sun (switch to light),
+     light shows the moon. */
+  :root.dark .v3-nav-logo-img--light,
+  :root:not(.dark) .v3-nav-logo-img--dark,
+  :root.dark .v3-theme-glyph--moon,
+  :root:not(.dark) .v3-theme-glyph--sun {
+    display: none;
+  }
+
   .v3-nav-links {
     display: flex;
     gap: 24px;
@@ -123,6 +134,9 @@
     /* WCAG 2.2 target size (2.5.8) */
     min-width: 24px;
     min-height: 24px;
+    /* Last control in the row: extra lead space sets the bordered button apart
+       from the plain-text language/theme controls. */
+    margin-inline-start: 8px;
     padding: 0 8px;
     border: 1px solid var(--v3-fg);
     background: transparent;

@@ -5,7 +5,7 @@
 @layer components {
   /* ── Hero ──────────────────────────────────────────────────────────────── */
   .v3-hero-section {
-    padding-top: 64px;
+    padding-top: var(--v3-page-top);
     padding-bottom: 32px;
   }
 
@@ -480,7 +480,7 @@
     }
 
     .v3-hero-section {
-      padding-top: 16px;
+      padding-top: var(--v3-page-top);
       padding-bottom: 16px;
     }
 
