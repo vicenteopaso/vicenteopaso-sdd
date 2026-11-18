@@ -576,5 +576,10 @@
     .v3-hero-h1 {
       font-size: 36px;
     }
+
+    /* One-word headings (es: "¿Hablamos?") can't wrap; keep them within 320px. */
+    .v3-contact-h {
+      font-size: 48px;
+    }
   }
 }
