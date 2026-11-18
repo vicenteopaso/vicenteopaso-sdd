@@ -378,6 +378,8 @@ function StackGrid({ skills, t }: { skills: CvSkillGroup[]; t: T }) {
 
 // ─── §06 Contact ──────────────────────────────────────────────────────────────
 function ContactBlock({ t }: { t: T }) {
+  // Empty in locales whose heading is a single accented word (es: "¿Hablamos?").
+  const headline = t("contact.headline");
   return (
     <section id="contact" className="v3-contact-section v3-container">
       <div className="v3-contact-grid">
@@ -385,12 +387,16 @@ function ContactBlock({ t }: { t: T }) {
         <div>
           <SecHead n="06" label={t("section.getInTouch")} />
           <h2 className="v3-contact-h">
-            {t("contact.headline")}
-            <br />{" "}
+            {headline && (
+              <>
+                {headline}
+                <br />{" "}
+              </>
+            )}
             <span className="v3-accent-text">
               {t("contact.headlineAccent")}
             </span>
-            .
+            {t("contact.headlineEnd")}
           </h2>
           <p className="v3-contact-desc">{t("contact.description")}</p>
           <div className="v3-contact-links">

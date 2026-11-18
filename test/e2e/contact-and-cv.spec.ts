@@ -25,6 +25,14 @@ test("contact form section shows required fields", async ({ page }) => {
   await expect(page.getByLabel("MESSAGE *")).toBeVisible();
 });
 
+test("Spanish contact heading reads as a single question", async ({ page }) => {
+  await page.goto("/es", { waitUntil: "load" });
+
+  await expect(
+    page.getByRole("heading", { name: "¿Hablamos?", exact: true }),
+  ).toBeVisible();
+});
+
 test("CV page renders experience section", async ({ page }) => {
   await page.goto("/en/cv", { waitUntil: "load" });
 

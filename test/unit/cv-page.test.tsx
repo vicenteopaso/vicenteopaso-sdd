@@ -543,6 +543,35 @@ describe("CV Page Masthead Actions", () => {
     );
   });
 
+  it("renders the English end CTA heading with its lead-in", async () => {
+    mockCvFs({ locale: "en", cvJson: mockCVData });
+
+    const ui = await CVPage({ params: Promise.resolve({ lang: "en" }) });
+    const { container } = render(ui);
+
+    expect(container.querySelector(".v3-cv-endcta-h")?.textContent).toBe(
+      "Let's talk.",
+    );
+  });
+
+  it("renders the Spanish end CTA as a single question in first person", async () => {
+    mockCvFs({ locale: "es", cvJson: mockCVData });
+
+    const ui = await CVPage({ params: Promise.resolve({ lang: "es" }) });
+    const { container } = render(ui);
+
+    expect(container.querySelector(".v3-cv-endcta-h")?.textContent).toBe(
+      "¿Hablamos?",
+    );
+    expect(screen.getByRole("link", { name: /CONTÁCTAME/ })).toHaveAttribute(
+      "href",
+      "/es#contact",
+    );
+    expect(
+      screen.getByText("● Abierto a nuevas oportunidades"),
+    ).toBeInTheDocument();
+  });
+
   it("renders the portrait image with descriptive alt text", async () => {
     mockCvFs({
       locale: "en",

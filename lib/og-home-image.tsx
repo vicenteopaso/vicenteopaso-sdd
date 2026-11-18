@@ -91,7 +91,7 @@ const homeContentByLocale: Record<
       "Frontend Architect & Technical Leader — composable platforms, design systems, and the teams behind them.",
     basedLabel: "BASED",
     statusLabel: "STATUS",
-    status: "Open to roles",
+    status: "Open to opportunities",
     editionLabel: "EDITION 2026.05",
   },
   es: {
@@ -106,7 +106,7 @@ const homeContentByLocale: Record<
       "Arquitecto Frontend y Líder Técnico — plataformas componibles, design systems y los equipos detrás de ellas.",
     basedLabel: "BASE",
     statusLabel: "ESTADO",
-    status: "Abierto a roles",
+    status: "Disponible",
     editionLabel: "EDICIÓN 2026.05",
   },
 };
