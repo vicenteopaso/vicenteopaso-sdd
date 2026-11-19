@@ -1,13 +1,22 @@
 {
   "tldr": [
     "Lidero equipos de ingeniería y arquitecto plataformas frontend.",
+    "Sigo programando. En mi último proyecto definí la arquitectura y escribí el código de principio a fin.",
     "Me importa la arquitectura componible, los sistemas de diseño y la experiencia de desarrollador.",
     "Entrego productos accesibles, performantes y globalmente localizados.",
     "Escalo Comunidades de Práctica y mentorizo equipos distribuidos.",
     "Soy, muy probablemente, el único Arquitecto Frontend que conocerás que también fue ingeniero RF en Nokia.",
     "Construyo cosas fuera del trabajo. Un pipeline de búsqueda de empleo con IA, un producto de datos cívicos en tiempo real e infraestructura autoalojada. La ingeniería personal es como me mantengo en forma."
   ],
-  "tldrLabels": ["QUIÉN", "OFICIO", "ENTREGO", "ESCALO", "EXTRA", "BUILDS"],
+  "tldrLabels": [
+    "QUIÉN",
+    "PRÁCTICA",
+    "OFICIO",
+    "ENTREGO",
+    "ESCALO",
+    "EXTRA",
+    "BUILDS"
+  ],
   "focus": [
     {
       "h": "Arquitectura Frontend",
