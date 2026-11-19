@@ -245,6 +245,16 @@ function SummarySection({
 }
 
 // ─── §02 Experience ─────────────────────────────────────────────────────────
+/** "Hands-on: …" line, mirroring the per-role line in the downloadable CV. */
+function HandsOn({ text, t }: { text: string; t: T }) {
+  return (
+    <p className="v3-cv-exp-handson">
+      <span className="v3-cv-exp-handson-label">{t("cv.exp.handsOn")}</span>{" "}
+      {text}
+    </p>
+  );
+}
+
 function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
   return (
     <section id="cv-experience" className="v3-cv-section">
@@ -270,7 +280,12 @@ function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
                   ? company.positions[0].endDate.slice(0, 4)
                   : t("exp.now")}
               </span>
-              <span className="v3-cv-exp-company-name">{company.company}</span>
+              <div>
+                <span className="v3-cv-exp-company-name">
+                  {company.company}
+                </span>
+                {company.handsOn && <HandsOn text={company.handsOn} t={t} />}
+              </div>
               <span className="v3-cv-exp-loc">
                 {(company.location ?? "").toUpperCase()}
               </span>
@@ -319,6 +334,7 @@ function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
                         ))}
                       </ul>
                     )}
+                    {role.handsOn && <HandsOn text={role.handsOn} t={t} />}
                     {role.skills && role.skills.length > 0 && (
                       <div className="v3-chip-list" style={{ marginTop: 10 }}>
                         {role.skills.map((s) => (

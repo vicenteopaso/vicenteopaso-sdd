@@ -30,6 +30,7 @@ Current behavior:
 - `meta.name` comes from `cv.json`
 - `meta.years_experience` is derived from the earliest work `startDate`
 - language names come from `cv.json`
+- `hands_on` lists each position's `handsOn` line from `cv.json` (a company-level `handsOn` applies to every position at that company; a position's own value wins), with company, position and dates
 - language levels come from `profile-preferences.json`
 - preference-oriented sections come from `profile-preferences.json`
 - links are centralized in `profile-preferences.json`

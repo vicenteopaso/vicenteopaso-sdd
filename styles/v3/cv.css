@@ -276,6 +276,21 @@
     color: var(--v3-accent-text);
   }
 
+  .v3-cv-exp-handson {
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .v3-cv-exp-handson-label {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--v3-accent-text);
+  }
+
   /* ── Skills ────────────────────────────────────────────────────────────── */
   .v3-cv-skills-grid {
     display: grid;

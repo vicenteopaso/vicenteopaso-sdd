@@ -270,4 +270,69 @@ describe("lib/profile", () => {
     expect(() => getCanonicalProfile("en")).toThrow();
     expect(logErrorMock).toHaveBeenCalledTimes(1);
   });
+
+  it("lists hands_on per position, preferring the position's value over the company's", async () => {
+    const originalReadFileSync = fs.readFileSync.bind(fs);
+    vi.spyOn(fs, "readFileSync").mockImplementation((filePath, options) => {
+      if (String(filePath).endsWith("/content/en/cv.json")) {
+        return toJson({
+          name: "Vicente Opaso",
+          title: "Vicente Opaso",
+          slug: "cv",
+          basics: { name: "Vicente Opaso", label: "Frontend Architect" },
+          work: [
+            {
+              company: "Solo Co",
+              positions: [
+                {
+                  position: "Architect",
+                  startDate: "2026-01",
+                  endDate: "2026-09",
+                  handsOn: "Architecture and full development",
+                },
+              ],
+            },
+            {
+              company: "Big Co",
+              handsOn: "Production code throughout",
+              positions: [
+                { position: "Principal", handsOn: "Code review" },
+                { position: "Lead", startDate: "2020-01" },
+              ],
+            },
+            {
+              company: "Hands-off Co",
+              positions: [{ position: "Owner" }],
+            },
+          ],
+          skills: [],
+          languages: [],
+        });
+      }
+
+      return originalReadFileSync(
+        filePath as Parameters<typeof fs.readFileSync>[0],
+        options as Parameters<typeof fs.readFileSync>[1],
+      );
+    });
+
+    const { getCanonicalProfile } = await importProfileModule();
+
+    expect(getCanonicalProfile("en").hands_on).toEqual([
+      {
+        company: "Solo Co",
+        position: "Architect",
+        start_date: "2026-01",
+        end_date: "2026-09",
+        description: "Architecture and full development",
+      },
+      { company: "Big Co", position: "Principal", description: "Code review" },
+      {
+        company: "Big Co",
+        position: "Lead",
+        start_date: "2020-01",
+        description: "Production code throughout",
+      },
+    ]);
+  });
 });

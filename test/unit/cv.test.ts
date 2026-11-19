@@ -57,6 +57,31 @@ describe("loadCv", () => {
 
     expect(() => loadCv("en")).toThrow(/references\.0\.url/);
   });
+
+  it("rejects an empty handsOn line", () => {
+    const valid = JSON.parse(fs.readFileSync("content/en/cv.json", "utf8")) as {
+      work: Array<{ positions: Array<{ handsOn?: string }> }>;
+    };
+    valid.work[0].positions[0].handsOn = "";
+    vi.spyOn(fs, "readFileSync").mockReturnValue(JSON.stringify(valid));
+
+    expect(() => loadCv("en")).toThrow(
+      /work\.0\.positions\.0\.handsOn — must not be empty/,
+    );
+  });
+
+  it("gives the same roles a Hands-on line in the EN and ES CVs", () => {
+    const handsOnRoles = (locale: "en" | "es") =>
+      loadCv(locale).work.flatMap((company, ci) => [
+        ...(company.handsOn ? [`${ci}`] : []),
+        ...company.positions.flatMap((position, pi) =>
+          position.handsOn ? [`${ci}.${pi}`] : [],
+        ),
+      ]);
+
+    expect(handsOnRoles("en").length).toBeGreaterThan(0);
+    expect(handsOnRoles("es")).toEqual(handsOnRoles("en"));
+  });
 });
 
 describe("splitCvLabel", () => {

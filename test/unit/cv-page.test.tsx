@@ -102,6 +102,48 @@ describe("CVPage", () => {
     );
   });
 
+  it.each([
+    ["en", "Hands-on:"],
+    ["es", "Experiencia práctica:"],
+  ])(
+    "shows Hands-on lines for a position and a company (%s)",
+    async (lang, label) => {
+      mockCvFs({
+        locale: lang,
+        cvJson: {
+          work: [
+            {
+              company: "Solo Co",
+              positions: [
+                {
+                  position: "Architect",
+                  highlights: ["Built it"],
+                  handsOn: "Architecture and full development",
+                },
+              ],
+            },
+            {
+              company: "Big Co",
+              handsOn: "Production code throughout",
+              positions: [{ position: "Principal" }, { position: "Lead" }],
+            },
+            { company: "Hands-off Co", positions: [{ position: "Owner" }] },
+          ],
+        },
+      });
+
+      render(await CVPage({ params: Promise.resolve({ lang }) }));
+
+      const lines = screen
+        .getAllByText(label)
+        .map((labelEl) => labelEl.parentElement?.textContent);
+      expect(lines).toEqual([
+        `${label} Architecture and full development`,
+        `${label} Production code throughout`,
+      ]);
+    },
+  );
+
   it("renders CV sections when JSON is valid", async () => {
     const cvJson = {
       basics: {
