@@ -559,14 +559,17 @@ function ReferencesSection({
 
 // ─── End CTA ─────────────────────────────────────────────────────────────────
 function EndCta({ locale, t }: { locale: string; t: T }) {
+  // Empty in locales whose heading is a single accented word (es: "¿Hablamos?").
+  const headline = t("cv.endcta.headline");
   return (
     <section id="contact" className="v3-cv-endcta">
       <div className="v3-cv-endcta-grid">
         <div>
           <div className="v3-cv-endcta-label">{t("cv.endcta.label")}</div>
           <div className="v3-cv-endcta-h">
-            {t("cv.endcta.headline")}{" "}
-            <span className="v3-accent-inverse">{t("cv.endcta.accent")}</span>.
+            {headline && `${headline} `}
+            <span className="v3-accent-inverse">{t("cv.endcta.accent")}</span>
+            {t("cv.endcta.end")}
           </div>
           <div className="v3-cv-endcta-desc">{t("cv.endcta.description")}</div>
         </div>

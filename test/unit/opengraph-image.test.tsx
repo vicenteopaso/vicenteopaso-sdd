@@ -239,7 +239,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     const textContent = findTextContent(element).join(" ");
     expect(textContent).toContain("ABOUT");
     expect(textContent).toContain("TL;DR");
-    expect(textContent).toContain("Open to roles");
+    expect(textContent).toContain("Open to opportunities");
     expect(textContent).toContain("Frontend Architect & Technical Leader");
   });
 
@@ -254,7 +254,7 @@ describe("Localized (/[lang]) OG image translations", () => {
     const textContent = findTextContent(element).join(" ");
     expect(textContent).toContain("PERFIL");
     expect(textContent).toContain("RESUMEN");
-    expect(textContent).toContain("Abierto a roles");
+    expect(textContent).toContain("Disponible");
     expect(textContent).toContain("Arquitecto Frontend y Líder Técnico");
   });
 });

@@ -142,10 +142,11 @@ async function translateUiJson() {
     const enValueHash = hash(value);
 
     // Check if we need to translate: missing or English value changed
-    if (!esJson[key] || metadata[key] !== enValueHash) {
-      const action = !esJson[key]
-        ? "Translating"
-        : "Re-translating (source changed)";
+    if (esJson[key] === undefined || metadata[key] !== enValueHash) {
+      const action =
+        esJson[key] === undefined
+          ? "Translating"
+          : "Re-translating (source changed)";
       console.log(`  ${action}: ${key}`);
       try {
         const translated = await translateText(value);
