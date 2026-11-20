@@ -144,6 +144,27 @@ describe("CVPage", () => {
     },
   );
 
+  it("leaves hidden companies off the page", async () => {
+    mockCvFs({
+      cvJson: {
+        work: [
+          { company: "Shown Co", positions: [{ position: "Architect" }] },
+          {
+            company: "Hidden Co",
+            hidden: true,
+            positions: [{ position: "Engineer" }],
+          },
+        ],
+      },
+    });
+
+    render(await CVPage({ params: Promise.resolve({ lang: "en" }) }));
+
+    expect(screen.getByText("Shown Co")).toBeInTheDocument();
+    expect(screen.queryByText("Hidden Co")).not.toBeInTheDocument();
+    expect(screen.queryByText("Engineer")).not.toBeInTheDocument();
+  });
+
   it("renders CV sections when JSON is valid", async () => {
     const cvJson = {
       basics: {

@@ -366,6 +366,7 @@
     {
       "company": "Nokia Networks",
       "location": "Estados Unidos (viajando)",
+      "hidden": true,
       "positions": [
         {
           "position": "Ingeniero de Contratación",
@@ -493,9 +494,7 @@
     {
       "institution": "Universidad del Pacífico",
       "area": "Diseño Gráfico",
-      "studyType": "Bachelor",
-      "startDate": "1998-03",
-      "endDate": "1998-12"
+      "studyType": "Bachelor"
     }
   ],
   "languages": [

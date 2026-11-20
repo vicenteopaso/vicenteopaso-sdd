@@ -627,6 +627,7 @@ export default async function CVPage({ params }: PageProps) {
 
   const cv = loadCv(locale);
   const { name, label, summary } = cv.basics;
+  const work = cv.work.filter((company) => !company.hidden);
 
   return (
     <div className="v3-page v3-cv-page">
@@ -635,7 +636,7 @@ export default async function CVPage({ params }: PageProps) {
       <CvToc t={t} tocEntries={siteData.cvToc} />
       <ImpactStrip impact={siteData.impact} />
       <SummarySection summary={summary} t={t} tldr={siteData.tldr} />
-      {cv.work.length > 0 && <ExperienceSection work={cv.work} t={t} />}
+      {work.length > 0 && <ExperienceSection work={work} t={t} />}
       {cv.skills.length > 0 && <SkillsSection skills={cv.skills} t={t} />}
       {(cv.education.length > 0 || cv.languages.length > 0) && (
         <EducationSection
