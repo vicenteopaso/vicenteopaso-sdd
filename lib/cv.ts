@@ -46,8 +46,8 @@ const cvSchema = z.object({
       // development". Set on the company when it covers every position there;
       // a position's own value takes precedence.
       handsOn: requiredText().optional(),
-      // Left off the /cv page but kept as data, e.g. so years of experience
-      // still count it.
+      // Left off the /cv page and the home page experience table but kept as
+      // data, e.g. so the profile API's years of experience still count it.
       hidden: z.boolean().optional(),
       positions: z
         .array(
