@@ -198,8 +198,8 @@
         },
         {
           "position": "Desarrollador Principal y Arquitecto – Malty Design System",
-          "startDate": "2021-01",
-          "endDate": "2022-12",
+          "startDate": "2021-03",
+          "endDate": "2024-12",
           "summary": "Lideré la arquitectura, desarrollo y adopción de Malty—un Design System React/TypeScript empresarial con modelo de inner-sourcing. Escalé contribución, gobernanza y documentación para habilitar la reutilización entre productos.",
           "highlights": [
             "Establecí gobernanza, versionado y guías de contribución; integré Figma + Storybook + CI/CD.",
@@ -219,8 +219,8 @@
         },
         {
           "position": "Desarrollador Frontend Principal",
-          "startDate": "2021-03",
-          "endDate": "2022-12",
+          "startDate": "2021-11",
+          "endDate": "2022-11",
           "summary": "Responsable de la entrega de aplicaciones clave dentro del ecosistema de Carlsberg, co-gestionando CarlShop+ (B2B, €1B+ ingresos) y liderando el frontend para CADI (CRM interno), mientras mentoraba desarrolladores y mejoraba prácticas de entrega.",
           "highlights": [
             "Co-gestioné arquitectura y entrega de CarlShop+ (B2B, €1B+).",

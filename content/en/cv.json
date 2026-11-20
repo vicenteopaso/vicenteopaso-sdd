@@ -198,8 +198,8 @@
         },
         {
           "position": "Lead Developer & Architect – Malty Design System",
-          "startDate": "2021-01",
-          "endDate": "2022-12",
+          "startDate": "2021-03",
+          "endDate": "2024-12",
           "summary": "Led the architecture, development, and adoption of Malty—an enterprise React/TypeScript Design System built with an inner-sourcing model. Scaled contribution, governance, and documentation to enable reuse across products.",
           "highlights": [
             "Established governance, versioning, and contribution guidelines; integrated Figma + Storybook + CI/CD.",
@@ -219,8 +219,8 @@
         },
         {
           "position": "Principal Frontend Developer",
-          "startDate": "2021-03",
-          "endDate": "2022-12",
+          "startDate": "2021-11",
+          "endDate": "2022-11",
           "summary": "Owned delivery for key web apps across Carlsberg’s ecosystem, co-managing CarlShop+ (B2B, €1B+ revenue) and leading frontend for CADI (in-house CRM), while mentoring developers and improving delivery practices.",
           "highlights": [
             "Co-managed the architecture and delivery of CarlShop+ (B2B, €1B+ revenue).",
