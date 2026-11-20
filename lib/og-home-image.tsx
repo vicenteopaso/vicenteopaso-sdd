@@ -84,8 +84,7 @@ const homeContentByLocale: Record<
     navContact: "CONTACT",
     roleLabel: "FRONTEND ARCHITECT & TECHNICAL LEADER",
     summaryLabel: "TL;DR",
-    summaryPrefix:
-      "15 years shipping on the web. 10 in telecom before that. Currently open to my ",
+    summaryPrefix: "15+ years in software development. Currently open to my ",
     highlightedWord: "next challenge.",
     subtitle:
       "Frontend Architect & Technical Leader — composable platforms, design systems, and the teams behind them.",
@@ -100,7 +99,7 @@ const homeContentByLocale: Record<
     roleLabel: "ARQUITECTO FRONTEND Y LÍDER TÉCNICO",
     summaryLabel: "RESUMEN",
     summaryPrefix:
-      "15 años creando para la web. 10 en telecom antes de eso. Actualmente abierto a mi ",
+      "Más de 15 años en desarrollo de software. Actualmente abierto a mi ",
     highlightedWord: "próximo reto.",
     subtitle:
       "Arquitecto Frontend y Líder Técnico — plataformas componibles, design systems y los equipos detrás de ellas.",

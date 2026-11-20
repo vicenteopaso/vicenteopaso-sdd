@@ -26,6 +26,17 @@ describe("site data helpers", () => {
     },
   );
 
+  it.each(["en", "es"] as const)(
+    "keeps telecom out of the %s experience stats",
+    (locale) => {
+      const stats = getSiteData(locale)
+        .impact.map((item) => item.v)
+        .join(" ");
+
+      expect(stats).not.toMatch(/telecom|telco/i);
+    },
+  );
+
   it("falls back to English site data for unsupported locales", () => {
     expect(getSiteData("fr" as never)).toEqual(enSiteData);
   });
