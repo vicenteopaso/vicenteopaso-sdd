@@ -456,7 +456,8 @@ export default async function HomePage({ params }: PageProps) {
   const siteData = getSiteData(locale);
 
   const cv = loadCv(locale);
-  const { work, skills } = cv;
+  const { skills } = cv;
+  const work = cv.work.filter((company) => !company.hidden);
 
   return (
     <div className="v3-page">

@@ -16,6 +16,27 @@ describe("site data helpers", () => {
     expect(data.tldr.length).toBeGreaterThan(0);
   });
 
+  it.each(["en", "es"] as const)(
+    "gives every %s TL;DR row a label, including Hands-on",
+    (locale) => {
+      const { tldr, tldrLabels } = getSiteData(locale);
+
+      expect(tldrLabels).toHaveLength(tldr.length);
+      expect(tldrLabels[1]).toBe(locale === "en" ? "HANDS-ON" : "PRÁCTICA");
+    },
+  );
+
+  it.each(["en", "es"] as const)(
+    "keeps telecom out of the %s experience stats",
+    (locale) => {
+      const stats = getSiteData(locale)
+        .impact.map((item) => item.v)
+        .join(" ");
+
+      expect(stats).not.toMatch(/telecom|telco/i);
+    },
+  );
+
   it("falls back to English site data for unsupported locales", () => {
     expect(getSiteData("fr" as never)).toEqual(enSiteData);
   });

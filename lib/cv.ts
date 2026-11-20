@@ -42,6 +42,13 @@ const cvSchema = z.object({
     z.object({
       company: requiredText(),
       location: plainText().optional(),
+      // How close to the code the work was, e.g. "Architecture and full
+      // development". Set on the company when it covers every position there;
+      // a position's own value takes precedence.
+      handsOn: requiredText().optional(),
+      // Left off the /cv page and the home page experience table but kept as
+      // data, e.g. so the profile API's years of experience still count it.
+      hidden: z.boolean().optional(),
       positions: z
         .array(
           z.object({
@@ -50,6 +57,7 @@ const cvSchema = z.object({
             startDate: plainText().optional(),
             endDate: plainText().optional(),
             highlights: z.array(highlightSchema).optional(),
+            handsOn: requiredText().optional(),
             skills: z.array(plainText()).optional(),
           }),
         )

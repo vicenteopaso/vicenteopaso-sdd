@@ -245,6 +245,16 @@ function SummarySection({
 }
 
 // ─── §02 Experience ─────────────────────────────────────────────────────────
+/** "Hands-on: …" line, mirroring the per-role line in the downloadable CV. */
+function HandsOn({ text, t }: { text: string; t: T }) {
+  return (
+    <p className="v3-cv-exp-handson">
+      <span className="v3-cv-exp-handson-label">{t("cv.exp.handsOn")}</span>{" "}
+      {text}
+    </p>
+  );
+}
+
 function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
   return (
     <section id="cv-experience" className="v3-cv-section">
@@ -270,7 +280,12 @@ function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
                   ? company.positions[0].endDate.slice(0, 4)
                   : t("exp.now")}
               </span>
-              <span className="v3-cv-exp-company-name">{company.company}</span>
+              <div>
+                <span className="v3-cv-exp-company-name">
+                  {company.company}
+                </span>
+                {company.handsOn && <HandsOn text={company.handsOn} t={t} />}
+              </div>
               <span className="v3-cv-exp-loc">
                 {(company.location ?? "").toUpperCase()}
               </span>
@@ -319,6 +334,7 @@ function ExperienceSection({ work, t }: { work: CvWorkEntry[]; t: T }) {
                         ))}
                       </ul>
                     )}
+                    {role.handsOn && <HandsOn text={role.handsOn} t={t} />}
                     {role.skills && role.skills.length > 0 && (
                       <div className="v3-chip-list" style={{ marginTop: 10 }}>
                         {role.skills.map((s) => (
@@ -611,6 +627,7 @@ export default async function CVPage({ params }: PageProps) {
 
   const cv = loadCv(locale);
   const { name, label, summary } = cv.basics;
+  const work = cv.work.filter((company) => !company.hidden);
 
   return (
     <div className="v3-page v3-cv-page">
@@ -619,7 +636,7 @@ export default async function CVPage({ params }: PageProps) {
       <CvToc t={t} tocEntries={siteData.cvToc} />
       <ImpactStrip impact={siteData.impact} />
       <SummarySection summary={summary} t={t} tldr={siteData.tldr} />
-      {cv.work.length > 0 && <ExperienceSection work={cv.work} t={t} />}
+      {work.length > 0 && <ExperienceSection work={work} t={t} />}
       {cv.skills.length > 0 && <SkillsSection skills={cv.skills} t={t} />}
       {(cv.education.length > 0 || cv.languages.length > 0) && (
         <EducationSection

@@ -52,6 +52,7 @@
             "Applied Spec-Driven Development (SDD) as the governing methodology, establishing documentation-first governance artefacts to guide implementation from project inception.",
             "Implemented server-side rendering (SSR) for performance and SEO, alongside WCAG 2.1 accessibility standards and multi-locale localization support."
           ],
+          "handsOn": "Architecture and full development",
           "skills": [
             "Frontend Architecture",
             "Next.js",
@@ -87,6 +88,7 @@
             "Improve design ↔ development feedback loops with shared components, design tokens, and documentation for tighter iteration.",
             "Coordinated localization and campaign delivery across six languages with brand, content, and demand-gen stakeholders."
           ],
+          "handsOn": "Code review and technical direction",
           "skills": [
             "Frontend Architecture",
             "Composable Web Platforms",
@@ -143,6 +145,7 @@
     {
       "company": "Carlsberg Group",
       "location": "Lisbon, Portugal (Hybrid)",
+      "handsOn": "Production code throughout",
       "positions": [
         {
           "position": "Frontend Solutions Architect",
@@ -271,6 +274,7 @@
             "Implemented agile delivery practices, aligning engineering execution with client goals and outcomes.",
             "Led multi-phase projects exceeding $200K, balancing technical quality with business and stakeholder expectations."
           ],
+          "handsOn": "Full-stack development · PHP · Laravel · React · Angular · Bootstrap",
           "skills": [
             "Web Architecture",
             "React Native",
@@ -297,6 +301,7 @@
             "Led end-to-end delivery including sprint management, QA oversight, and stakeholder alignment.",
             "Managed client communications and expectations, ensuring high satisfaction and on-time delivery."
           ],
+          "handsOn": "Full-time frontend development",
           "skills": [
             "Angular",
             "TypeScript",
@@ -322,6 +327,7 @@
             "Collaborated with analysts and product managers to align experiments with business goals.",
             "Documented experiment logic, outcomes, and learnings for team knowledge sharing."
           ],
+          "handsOn": "Full-time frontend development · React · Angular · HTML · JavaScript",
           "skills": [
             "A/B Testing",
             "Conversion Rate Optimization",
@@ -346,6 +352,7 @@
             "Built responsive microsites optimized for performance and accessibility.",
             "Collaborated with designers and strategists to meet brand guidelines and technical standards."
           ],
+          "handsOn": "Full-time frontend development · HTML · CSS · JavaScript",
           "skills": [
             "HTML5",
             "CSS3",
@@ -359,6 +366,7 @@
     {
       "company": "Nokia Networks",
       "location": "United States (Traveling)",
+      "hidden": true,
       "positions": [
         {
           "position": "Contracting Engineer",
@@ -493,9 +501,7 @@
     {
       "institution": "Universidad del Pacífico",
       "area": "Graphic Design",
-      "studyType": "Bachelor",
-      "startDate": "1998-03",
-      "endDate": "1998-12"
+      "studyType": "Bachelor"
     }
   ],
   "languages": [

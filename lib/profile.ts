@@ -39,6 +39,15 @@ const profileSchema = z.object({
     languages: z.array(languageLevelSchema),
   }),
   experience_highlights: z.array(z.string()),
+  hands_on: z.array(
+    z.object({
+      company: z.string(),
+      position: z.string(),
+      start_date: z.string().optional(),
+      end_date: z.string().optional(),
+      description: z.string(),
+    }),
+  ),
   location_preferences: z.object({
     primary_locations: z.array(z.string()),
     acceptable_regions: z.array(z.string()),
@@ -120,6 +129,29 @@ function deriveYearsExperience(work: CvData["work"]): number {
 
   const earliestYear = Math.min(...years);
   return new Date().getUTCFullYear() - earliestYear;
+}
+
+/**
+ * One entry per position that says how hands-on it was. A position's own
+ * `handsOn` wins over its company's; positions with neither are left out.
+ */
+function buildHandsOn(work: CvData["work"]): CanonicalProfile["hands_on"] {
+  return work.flatMap((company) =>
+    company.positions.flatMap((position) => {
+      const description = position.handsOn ?? company.handsOn;
+      return description
+        ? [
+            {
+              company: company.company,
+              position: position.position,
+              start_date: position.startDate,
+              end_date: position.endDate,
+              description,
+            },
+          ]
+        : [];
+    }),
+  );
 }
 
 function collectKeywordsBySkillName(skills: CvData["skills"] = []) {
@@ -241,6 +273,7 @@ export function getCanonicalProfile(locale: Locale): CanonicalProfile {
         ),
       },
       experience_highlights: preferences.experience_highlights,
+      hands_on: buildHandsOn(cv.work),
       location_preferences: preferences.location_preferences,
       work_model_preferences: preferences.work_model_preferences,
       compensation_and_level: preferences.compensation_and_level,

@@ -102,6 +102,69 @@ describe("CVPage", () => {
     );
   });
 
+  it.each([
+    ["en", "Hands-on:"],
+    ["es", "Experiencia práctica:"],
+  ])(
+    "shows Hands-on lines for a position and a company (%s)",
+    async (lang, label) => {
+      mockCvFs({
+        locale: lang,
+        cvJson: {
+          work: [
+            {
+              company: "Solo Co",
+              positions: [
+                {
+                  position: "Architect",
+                  highlights: ["Built it"],
+                  handsOn: "Architecture and full development",
+                },
+              ],
+            },
+            {
+              company: "Big Co",
+              handsOn: "Production code throughout",
+              positions: [{ position: "Principal" }, { position: "Lead" }],
+            },
+            { company: "Hands-off Co", positions: [{ position: "Owner" }] },
+          ],
+        },
+      });
+
+      render(await CVPage({ params: Promise.resolve({ lang }) }));
+
+      const lines = screen
+        .getAllByText(label)
+        .map((labelEl) => labelEl.parentElement?.textContent);
+      expect(lines).toEqual([
+        `${label} Architecture and full development`,
+        `${label} Production code throughout`,
+      ]);
+    },
+  );
+
+  it("leaves hidden companies off the page", async () => {
+    mockCvFs({
+      cvJson: {
+        work: [
+          { company: "Shown Co", positions: [{ position: "Architect" }] },
+          {
+            company: "Hidden Co",
+            hidden: true,
+            positions: [{ position: "Engineer" }],
+          },
+        ],
+      },
+    });
+
+    render(await CVPage({ params: Promise.resolve({ lang: "en" }) }));
+
+    expect(screen.getByText("Shown Co")).toBeInTheDocument();
+    expect(screen.queryByText("Hidden Co")).not.toBeInTheDocument();
+    expect(screen.queryByText("Engineer")).not.toBeInTheDocument();
+  });
+
   it("renders CV sections when JSON is valid", async () => {
     const cvJson = {
       basics: {

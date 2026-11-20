@@ -52,6 +52,7 @@
             "Apliqué Spec-Driven Development (SDD) como metodología de gobierno, estableciendo artefactos de gobernanza documentation-first para guiar la implementación desde el inicio del proyecto.",
             "Implementé server-side rendering (SSR) para rendimiento y SEO, junto con estándares de accesibilidad WCAG 2.1 y soporte de localización multi-idioma."
           ],
+          "handsOn": "Arquitectura y desarrollo completo",
           "skills": [
             "Arquitectura Frontend",
             "Next.js",
@@ -87,6 +88,7 @@
             "Mejoré ciclos de retroalimentación diseño ↔ desarrollo con componentes compartidos, design tokens y documentación.",
             "Coordiné localización y entrega de campañas en seis idiomas con stakeholders de marca, contenido y demand-gen."
           ],
+          "handsOn": "Revisión de código y dirección técnica",
           "skills": [
             "Frontend Architecture",
             "Composable Web Platforms",
@@ -143,6 +145,7 @@
     {
       "company": "Carlsberg Group",
       "location": "Lisboa, Portugal (Híbrido)",
+      "handsOn": "Código de producción en todas las etapas",
       "positions": [
         {
           "position": "Arquitecto de Soluciones Frontend",
@@ -271,6 +274,7 @@
             "Implementé prácticas de entrega ágil alineando ejecución técnica con objetivos del cliente.",
             "Lideré proyectos multiphase superiores a $200K, equilibrando calidad técnica y expectativas de stakeholders."
           ],
+          "handsOn": "Desarrollo full-stack · PHP · Laravel · React · Angular · Bootstrap",
           "skills": [
             "Web Architecture",
             "React Native",
@@ -297,6 +301,7 @@
             "Lideré entrega end-to-end incluyendo gestión de sprints, QA y alineación con stakeholders.",
             "Gestioné comunicaciones y expectativas del cliente asegurando alta satisfacción."
           ],
+          "handsOn": "Desarrollo frontend a tiempo completo",
           "skills": [
             "Angular",
             "TypeScript",
@@ -322,6 +327,7 @@
             "Colaboré con analistas y PMs para alinear experimentos con objetivos de negocio.",
             "Documenté lógica, resultados y aprendizajes para mejorar prácticas del equipo."
           ],
+          "handsOn": "Desarrollo frontend a tiempo completo · React · Angular · HTML · JavaScript",
           "skills": [
             "A/B Testing",
             "Conversion Rate Optimization",
@@ -346,6 +352,7 @@
             "Construí micrositios responsivos optimizados para rendimiento y accesibilidad.",
             "Colaboré con diseñadores y estrategas para cumplir lineamientos de marca."
           ],
+          "handsOn": "Desarrollo frontend a tiempo completo · HTML · CSS · JavaScript",
           "skills": [
             "HTML5",
             "CSS3",
@@ -359,6 +366,7 @@
     {
       "company": "Nokia Networks",
       "location": "Estados Unidos (viajando)",
+      "hidden": true,
       "positions": [
         {
           "position": "Ingeniero de Contratación",
@@ -486,9 +494,7 @@
     {
       "institution": "Universidad del Pacífico",
       "area": "Diseño Gráfico",
-      "studyType": "Bachelor",
-      "startDate": "1998-03",
-      "endDate": "1998-12"
+      "studyType": "Bachelor"
     }
   ],
   "languages": [
