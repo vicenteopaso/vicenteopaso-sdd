@@ -336,6 +336,28 @@ describe("lib/profile", () => {
     ]);
   });
 
+  it("counts years of experience from the 2011 career start, not the earliest role", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-11-22T12:00:00Z"));
+    try {
+      const { getCanonicalProfile } = await importProfileModule();
+
+      for (const locale of ["en", "es"] as const) {
+        expect(getCanonicalProfile(locale).meta.years_experience).toBe(15);
+      }
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("uses the same current title in both locales", async () => {
+    const { getCanonicalProfile } = await importProfileModule();
+
+    expect(getCanonicalProfile("es").meta.current_title).toBe(
+      getCanonicalProfile("en").meta.current_title,
+    );
+  });
+
   it("passes the CV projects through to the profile", async () => {
     const { getCanonicalProfile } = await importProfileModule();
 

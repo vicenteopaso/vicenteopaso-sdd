@@ -28,7 +28,7 @@ The canonical profile is assembled by `lib/profile.ts`.
 Current behavior:
 
 - `meta.name` comes from `cv.json`
-- `meta.years_experience` is derived from the earliest work `startDate`
+- `meta.years_experience` counts from `meta.career_start_year` in `profile-preferences.json` (2011, the start of the software development career; earlier roles are not counted). Without it, it falls back to the earliest work `startDate`
 - language names come from `cv.json`
 - `hands_on` lists each position's `handsOn` line from `cv.json` (a company-level `handsOn` applies to every position at that company; a position's own value wins), with company, position and dates
 - `projects` lists the side projects from `cv.json` (name, description, optional url, highlights, keywords)
