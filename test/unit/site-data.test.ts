@@ -17,12 +17,20 @@ describe("site data helpers", () => {
   });
 
   it.each(["en", "es"] as const)(
-    "gives every %s TL;DR row a label, including Hands-on",
+    "gives every %s TL;DR row a label, with AI second and Hands-on third",
     (locale) => {
       const { tldr, tldrLabels } = getSiteData(locale);
 
       expect(tldrLabels).toHaveLength(tldr.length);
-      expect(tldrLabels[1]).toBe(locale === "en" ? "HANDS-ON" : "PRÁCTICA");
+      expect(tldrLabels[1]).toBe(locale === "en" ? "AI" : "IA");
+      expect(tldrLabels[2]).toBe(locale === "en" ? "HANDS-ON" : "PRÁCTICA");
+    },
+  );
+
+  it.each(["en", "es"] as const)(
+    "leads the %s focus areas with AI-native engineering",
+    (locale) => {
+      expect(getSiteData(locale).focus[0]?.h).toMatch(/AI-Native|nativa en IA/);
     },
   );
 

@@ -1,23 +1,27 @@
 {
   "tldr": [
     "Lidero equipos de ingeniería y arquitecto plataformas frontend.",
+    "Construyo con IA cada día: sistemas multiagente, un pipeline de desarrollo autónomo sobre modelos open-weight y codebases gobernadas por IA, todo en producción.",
     "Sigo programando. En mi último proyecto definí la arquitectura y escribí el código de principio a fin.",
     "Me importa la arquitectura componible, los sistemas de diseño y la experiencia de desarrollador.",
     "Entrego productos accesibles, performantes y globalmente localizados.",
     "Escalo Comunidades de Práctica y mentorizo equipos distribuidos.",
-    "Soy, muy probablemente, el único Arquitecto Frontend que conocerás que también fue ingeniero RF en Nokia.",
-    "Construyo cosas fuera del trabajo. Un pipeline de búsqueda de empleo con IA, un producto de datos cívicos en tiempo real e infraestructura autoalojada. La ingeniería personal es como me mantengo en forma."
+    "Soy, muy probablemente, el único Arquitecto Frontend que conocerás que también fue ingeniero RF en Nokia."
   ],
   "tldrLabels": [
     "QUIÉN",
+    "IA",
     "PRÁCTICA",
     "OFICIO",
     "ENTREGO",
     "ESCALO",
-    "EXTRA",
-    "BUILDS"
+    "EXTRA"
   ],
   "focus": [
+    {
+      "h": "Ingeniería nativa en IA",
+      "b": "Codebases gobernadas por IA, servidores MCP, sistemas multiagente y modelos open-weight."
+    },
     {
       "h": "Arquitectura Frontend",
       "b": "Ecosistemas React / Next.js componibles construidos para entrega global."
@@ -37,10 +41,6 @@
     {
       "h": "Rendimiento, A11y & SEO",
       "b": "Core Web Vitals, edge delivery, WCAG 2.1, SEO técnico."
-    },
-    {
-      "h": "Ingeniería AI-Nativa",
-      "b": "Spec-Driven Development, codebases gobernadas por IA, arquitectura de servidores MCP y diseño de flujos de trabajo agénticos — incluyendo despliegue de LLMs open-source en infraestructura GPU cloud y capas de abstracción multi-proveedor."
     }
   ],
   "impact": [
@@ -57,8 +57,8 @@
       "v": "Facturación anual en plataformas que he arquitectado"
     },
     {
-      "k": "15y+",
-      "v": "Años en desarrollo de software"
+      "k": "10",
+      "v": "Controles de calidad en cada PR escrito con IA"
     }
   ],
   "landingToc": [
@@ -66,7 +66,7 @@
       "n": "01",
       "id": "tl-dr",
       "t": "TL;DR",
-      "s": "La versión de 6 puntos"
+      "s": "La versión de 7 puntos"
     },
     {
       "n": "02",
@@ -100,27 +100,14 @@
     }
   ],
   "whatIBuild": {
-    "intro": "Fuera del trabajo, construyo. Estos son proyectos en vivo — no side projects que empecé y abandoné, sino sistemas que ejecuto, mantengo y mejoro. Es donde practico lo que escribo: ingeniería AI-nativa, infraestructura autoalojada y pensamiento de producto de principio a fin.",
+    "intro": "Sistemas que he diseñado y opero en producción, la mayoría nativos en IA. No son side projects que empecé y abandoné, sino pipelines multiagente, integraciones con LLMs y codebases gobernadas por IA que mantengo y mejoro. Es donde practico lo que escribo, de principio a fin.",
     "projects": [
       {
-        "title": "opa.so",
+        "title": "Dev Team",
         "subtitle": "",
-        "tags": "Next.js · Spec-Driven Development · Vitest · Playwright · Vercel",
-        "body": "- Construido spec-first usando **Spec-Driven Development (SDD)**: un `sdd.yaml` legible por máquina define el sistema y una **Constitución** enumera once invariantes inmutables — importaciones entre capas, gestión de secretos, mínimos de accesibilidad, requisitos de i18n — antes de escribir ningún código. Los ADRs registran cada decisión arquitectónica, dando a las herramientas de IA y a los contribuidores humanos el mismo contexto estructurado para mantener la integridad arquitectónica en cada contribución.\n- Cada PR — humano o generado por IA — pasa un pipeline de CI de diez puertas: ESLint (Next.js, TypeScript, accesibilidad, seguridad), compilación TypeScript estricta, escaneo automático de secretos, validación de enlaces internos, tests unitarios Vitest con **umbrales de cobertura del 90%** en líneas, sentencias, ramas y funciones como fallos obligatorios, Playwright E2E, regresión visual Playwright en viewports light/dark/mobile, análisis estático CodeQL, auditoría de vulnerabilidades de dependencias, y Lighthouse CI con Rendimiento ≥90, Accesibilidad ≥90 y SEO ≥95.\n- El formulario de contacto es una pila de defensa en profundidad: validación de origen → honeypot → rate limiting por IP → verificación server-side del token Cloudflare Turnstile → validación de esquema Zod, en ese orden, antes de que un mensaje sea enviado al backend de email. La observabilidad se basa en Vercel Analytics y Speed Insights para Core Web Vitals, con Sentry capturando errores de cliente y servidor, replays de sesión y trazas de rendimiento muestreadas.\n- Bilingüe (EN/ES) en todo: rutas App Router con prefijo de locale, archivos de contenido Markdown por locale como única fuente de verdad para todo el copy, y un workflow de traducción con DeepL para que el contenido en español se mantenga sincronizado sin esfuerzo manual. Las imágenes OG se generan por locale mediante la API `ImageResponse` de Next.js.",
-        "links": [
-          {
-            "label": "GitHub",
-            "href": "https://github.com/vicenteopaso/vicenteopaso-vibecode"
-          },
-          {
-            "label": "Gobernanza Técnica",
-            "href": "/es/technical-governance"
-          },
-          {
-            "label": "Tech Stack",
-            "href": "/es/tech-stack"
-          }
-        ]
+        "tags": "Node.js · Qwen 2.5 Coder · Modal · MCP · GitHub Actions · Telegram",
+        "body": "- Un pipeline de entrega de software completamente autónomo que toma una solicitud de funcionalidad — enviada por Telegram `/submit`, una cola basada en archivos o una llamada a herramienta MCP — y la lleva a través de descomposición de requisitos, generación de código, creación de pull requests, monitoreo de CI y auto-reparación en caso de fallo, sin intervención humana en el camino feliz.\n- El pipeline ejecuta **Qwen 2.5 Coder** en **GPUs cloud de Modal** — sin dependencia de APIs de LLMs alojados en el camino crítico. Una capa de abstracción multi-proveedor hace que el backend de inferencia sea completamente configurable en tiempo de ejecución: cambia entre Qwen (por defecto), Claude, OpenAI o cualquier endpoint compatible con OpenAI mediante una única variable de entorno. El sistema ha sido probado con los proveedores de GPU cloud Modal, OCI e IONOS.\n- El pipeline es una secuencia de roles de IA especializados: **Context** indexa el estado actual del repositorio, **Product Owner** descompone el objetivo en tareas con criterios de aceptación, **Designer** produce guía UI/UX y actúa como puerta de aprobación pre-PR, **Backend** y **Frontend** escriben la implementación, **QA** genera tests y notas de revisión, y **Fixer** lee los logs de fallos de CI y parchea el código hasta que los tests pasan. Cada rol es reintentable de forma independiente con un límite máximo, recibe solo contexto local a la tarea (nunca el repositorio completo ni el historial de conversación), y produce JSON validado contra un esquema fijo — sin prosa, sin excepciones.\n- El orquestador escribe checkpoints de memoria de ejecución durables en cada hito, de modo que una ejecución interrumpida o con rate limit se reanuda exactamente donde quedó en lugar de regenerar trabajo que ya había tenido éxito. La auto-reparación está intencionalmente controlada: los fallos transitorios (red, rate limits, flaps de CI) usan un backoff corto antes de reintentar; los fallos repetidos, roles bloqueados o bucles de fixer agotados escalan a un humano vía Telegram.\n- Expone todo el pipeline como un servidor HTTP MCP (`submit_task`, `get_status`, `resume_task`), haciendo que Dev Team sea composable: cualquier cliente compatible con MCP — Claude Code, BrowserOS o un agente de IA exterior — puede lanzar una solicitud, marcharse y luego consultar la memoria de checkpoint para ver exactamente qué roles se han completado y si el CI ha pasado.\n- La infraestructura es intencionalmente mínima y solo de salida: un proceso worker Node.js en un VPS privado sin superficie de entrada pública, consultando GitHub para el estado de CI/PR y Telegram para los comandos del operador. n8n gestiona los disparadores de schedule periódicos; GitHub Actions es la puerta de calidad estricta — un PR nunca se considera terminado hasta que el CI esté en verde.",
+        "links": []
       },
       {
         "title": "AI Job Search Pipeline",
@@ -132,16 +119,37 @@
       {
         "title": "Pipeline de Sentimiento de Noticias en Tiempo Real",
         "subtitle": "",
-        "tags": "Next.js · Node.js · PostgreSQL · LLM API · Vercel",
-        "body": "- Un barómetro de sentimiento en directo construido como dos servicios TypeScript desacoplados — un frontend SSR con **Next.js 16** y un BFF **Fastify** dedicado — separados intencionalmente para que toda la lógica de negocio, la puntuación y el acceso a la base de datos vivan detrás de un contrato explícito documentado con OpenAPI que la capa de presentación nunca puede saltarse.\n- El backend ejecuta un pipeline de contenido de cinco etapas con cadencia de seis horas: **Fetch → Normalize → Deduplicate → Synthesize → Write**. Tres fuentes de noticias se consultan en paralelo mediante `Promise.allSettled` — GDELT para análisis de tono, CurrentsAPI para amplitud de artículos, y NewsAPI.ai para enriquecimiento selectivo con sentimiento pre-puntuado. Pre-computar señales de sentimiento para la mayoría de los artículos reduce el consumo de tokens de Claude en un 60–70% estimado respecto a enviar texto crudo.\n- Tras la normalización en un tipo compartido `NormalizedArticle` (huella SHA-256 de título + fuente + hora de publicación), la deduplicación corre en dos pasadas — eliminación de parámetros URL y luego huella de contenido — resolviendo conflictos a favor de la versión con metadatos más ricos. El conjunto deduplicado se envía a Claude en una única llamada estructurada: Claude asigna pesos de relevancia por artículo en nueve categorías (deben sumar exactamente `1.0`), computa puntuaciones por categoría en escala `0–100`, calcula **confianza** como el menor de ratio de acuerdo entre fuentes y amplitud de cobertura, y emite **indicadores de desacuerdo** cuando el ratio del lado mayoritario cae por debajo de `0.7`.\n- Todas las escrituras se confirman dentro de una única transacción PostgreSQL — metadatos del pipeline, el snapshot de puntuación, las nueve puntuaciones de categoría con las cadenas de razonamiento de Claude, indicadores de desacuerdo y el conjunto completo de artículos deduplicados. El pipeline es idempotente: un índice único en `pipeline_run_id` previene escrituras dobles en reintentos, y la política de reintentos distingue fallos transitorios (un reintento automático con 30 segundos de espera) de permanentes, que se registran y dejan para la siguiente ejecución.\n- El frontend renderiza un dashboard en directo usando Next.js App Router con ISR (ventana de revalidación de 300 segundos). El gráfico de tendencias se renderiza como una `<table>` HTML accesible en el HTML inicial del servidor, luego se hidrata en una visualización Recharts; los cambios de ventana temporal son manejados por un route handler del mismo origen que valida parámetros y re-consulta al BFF en el servidor. Desplegado en Vercel mediante GitHub Actions con los despliegues automáticos Git de Vercel desactivados; los logs estructurados se envían a Grafana Loki para visibilidad operacional.",
+        "tags": "Next.js · Fastify · PostgreSQL · Jev · OpenRouter · Vercel",
+        "body": "- Un barómetro de sentimiento en directo construido como dos servicios TypeScript desacoplados — un frontend SSR con **Next.js 16** y un BFF **Fastify** dedicado — separados intencionalmente para que toda la lógica de negocio, la puntuación y el acceso a la base de datos vivan detrás de un contrato explícito documentado con OpenAPI que la capa de presentación nunca puede saltarse.\n- El backend ejecuta un pipeline de contenido de cinco etapas con cadencia de seis horas: **Fetch → Normalize → Deduplicate → Synthesize → Write**. Tres fuentes de noticias se consultan en paralelo mediante `Promise.allSettled` — GDELT para análisis de tono, CurrentsAPI para amplitud de artículos y NewsAPI.ai para enriquecimiento semántico — y después se normalizan en un tipo compartido `NormalizedArticle` y se deduplican en dos pasadas (eliminación de parámetros URL y luego una huella de contenido SHA-256), de modo que las copias sindicadas se leen y cuentan una sola vez.\n- La puntuación se reparte según la confianza. **Jev**, un modelo de decisión estructurada, responde once preguntas tipadas sobre cada noticia por separado — el encuadre en una escala de cinco niveles, nueve preguntas sí/no por categoría y si es opinión o información — y devuelve probabilidades calibradas. Solo ve el titular y el resumen, nunca el nombre del medio. Los pesos, las puntuaciones por categoría, la confianza y el indicador de desacuerdo izquierda-derecha se calculan después en código simple y con tests unitarios: **en una ejecución normal, ningún modelo calcula una puntuación**.\n- **OpenRouter** es la capa de lenguaje: una única API compatible con OpenAI delante de muchos proveedores, con Gemini 2.5 Flash por defecto y GPT-4o mini y GPT-4o como alternativas automáticas, de modo que el modelo se cambia con un ajuste de configuración y no con un cambio de código. Redacta las explicaciones de cada categoría a partir de la evidencia, pero nunca ve ni produce un número, y actúa como puntuador de respaldo registrado cuando Jev no está disponible.\n- Todas las escrituras se confirman dentro de una única transacción PostgreSQL — metadatos del pipeline, el snapshot de puntuación, las nueve puntuaciones de categoría con sus explicaciones, indicadores de desacuerdo y el conjunto completo de artículos deduplicados. El pipeline es idempotente: un índice único en `pipeline_run_id` previene escrituras dobles en reintentos, y la política de reintentos distingue fallos transitorios (un reintento automático con 30 segundos de espera) de permanentes, que se registran y dejan para la siguiente ejecución.\n- El frontend renderiza un dashboard en directo usando Next.js App Router con ISR (ventana de revalidación de 300 segundos). El gráfico de tendencias se renderiza como una `<table>` HTML accesible en el HTML inicial del servidor, luego se hidrata en una visualización Recharts; los cambios de ventana temporal son manejados por un route handler del mismo origen que valida parámetros y re-consulta al BFF en el servidor. Desplegado en Vercel mediante GitHub Actions con los despliegues automáticos Git de Vercel desactivados; los logs estructurados se envían a Grafana Loki para visibilidad operacional.",
         "links": []
       },
       {
-        "title": "Dev Team",
+        "title": "opa.so",
         "subtitle": "",
-        "tags": "Node.js · Qwen 2.5 Coder · Modal · MCP · GitHub Actions · Telegram",
-        "body": "- Un pipeline de entrega de software completamente autónomo que toma una solicitud de funcionalidad — enviada por Telegram `/submit`, una cola basada en archivos o una llamada a herramienta MCP — y la lleva a través de descomposición de requisitos, generación de código, creación de pull requests, monitoreo de CI y auto-reparación en caso de fallo, sin intervención humana en el camino feliz.\n- El pipeline ejecuta **Qwen 2.5 Coder** en **GPUs cloud de Modal** — sin dependencia de APIs de LLMs alojados en el camino crítico. Una capa de abstracción multi-proveedor hace que el backend de inferencia sea completamente configurable en tiempo de ejecución: cambia entre Qwen (por defecto), Claude, OpenAI o cualquier endpoint compatible con OpenAI mediante una única variable de entorno. El sistema ha sido probado con los proveedores de GPU cloud Modal, OCI e IONOS.\n- El pipeline es una secuencia de roles de IA especializados: **Context** indexa el estado actual del repositorio, **Product Owner** descompone el objetivo en tareas con criterios de aceptación, **Designer** produce guía UI/UX y actúa como puerta de aprobación pre-PR, **Backend** y **Frontend** escriben la implementación, **QA** genera tests y notas de revisión, y **Fixer** lee los logs de fallos de CI y parchea el código hasta que los tests pasan. Cada rol es reintentable de forma independiente con un límite máximo, recibe solo contexto local a la tarea (nunca el repositorio completo ni el historial de conversación), y produce JSON validado contra un esquema fijo — sin prosa, sin excepciones.\n- El orquestador escribe checkpoints de memoria de ejecución durables en cada hito, de modo que una ejecución interrumpida o con rate limit se reanuda exactamente donde quedó en lugar de regenerar trabajo que ya había tenido éxito. La auto-reparación está intencionalmente controlada: los fallos transitorios (red, rate limits, flaps de CI) usan un backoff corto antes de reintentar; los fallos repetidos, roles bloqueados o bucles de fixer agotados escalan a un humano vía Telegram.\n- Expone todo el pipeline como un servidor HTTP MCP (`submit_task`, `get_status`, `resume_task`), haciendo que Dev Team sea composable: cualquier cliente compatible con MCP — Claude Code, BrowserOS o un agente de IA exterior — puede lanzar una solicitud, marcharse y luego consultar la memoria de checkpoint para ver exactamente qué roles se han completado y si el CI ha pasado.\n- La infraestructura es intencionalmente mínima y solo de salida: un proceso worker Node.js en un VPS privado sin superficie de entrada pública, consultando GitHub para el estado de CI/PR y Telegram para los comandos del operador. n8n gestiona los disparadores de schedule periódicos; GitHub Actions es la puerta de calidad estricta — un PR nunca se considera terminado hasta que el CI esté en verde.",
-        "links": []
+        "tags": "Next.js · Spec-Driven Development · Vitest · Playwright · Vercel",
+        "body": "- Construido spec-first usando **Spec-Driven Development (SDD)**: un `sdd.yaml` legible por máquina define el sistema y una **Constitución** enumera once invariantes inmutables — importaciones entre capas, gestión de secretos, mínimos de accesibilidad, requisitos de i18n — antes de escribir ningún código. Los ADRs registran cada decisión arquitectónica, dando a las herramientas de IA y a los contribuidores humanos el mismo contexto estructurado para mantener la integridad arquitectónica en cada contribución.\n- **Legible por agentes desde el diseño**: el sitio registra cinco herramientas WebMCP en el navegador (`get_profile`, `get_content` y más), publica `/llms.txt` y `/llms-full.txt`, anuncia una configuración MCP en `/.well-known/mcp.json` y sirve un perfil JSON canónico en `/api/profile/es`. Apunta un agente de IA a opa.so y podrá leer el CV directamente en lugar de hacer scraping.\n- Cada PR — humano o generado por IA — pasa un pipeline de CI de diez puertas: ESLint (Next.js, TypeScript, accesibilidad, seguridad), compilación TypeScript estricta, escaneo automático de secretos, validación de enlaces internos, tests unitarios Vitest con **umbrales de cobertura del 90%** en líneas, sentencias, ramas y funciones como fallos obligatorios, Playwright E2E, regresión visual Playwright en viewports light/dark/mobile, análisis estático CodeQL, auditoría de vulnerabilidades de dependencias, y Lighthouse CI con Rendimiento ≥90, Accesibilidad ≥90 y SEO ≥95.\n- El formulario de contacto es una pila de defensa en profundidad: validación de origen → honeypot → rate limiting por IP → verificación server-side del token Cloudflare Turnstile → validación de esquema Zod, en ese orden, antes de que un mensaje sea enviado al backend de email. La observabilidad se basa en Vercel Analytics y Speed Insights para Core Web Vitals, con Sentry capturando errores de cliente y servidor, replays de sesión y trazas de rendimiento muestreadas.\n- Bilingüe (EN/ES) en todo: rutas App Router con prefijo de locale, archivos de contenido Markdown por locale como única fuente de verdad para todo el copy, y un workflow de traducción con DeepL para que el contenido en español se mantenga sincronizado sin esfuerzo manual. Las imágenes OG se generan por locale mediante la API `ImageResponse` de Next.js.",
+        "links": [
+          {
+            "label": "GitHub",
+            "href": "https://github.com/vicenteopaso/vicenteopaso-vibecode"
+          },
+          {
+            "label": "llms.txt",
+            "href": "https://opa.so/llms.txt"
+          },
+          {
+            "label": "API de perfil",
+            "href": "https://opa.so/api/profile/es"
+          },
+          {
+            "label": "Gobernanza Técnica",
+            "href": "/es/technical-governance"
+          },
+          {
+            "label": "Tech Stack",
+            "href": "/es/tech-stack"
+          }
+        ]
       },
       {
         "title": "Self-Hosted Cloud Platform",
