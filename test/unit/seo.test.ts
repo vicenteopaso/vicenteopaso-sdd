@@ -7,6 +7,13 @@ describe("seo utilities", () => {
     expect(getCvDescription("en")).toMatch("Selected Technical Leadership");
   });
 
+  it("leads the CV and fallback descriptions with AI-native engineering", async () => {
+    const { getCvDescription, siteConfig } = await import("../../lib/seo");
+    expect(getCvDescription("en")).toMatch("AI-Native Engineering");
+    expect(getCvDescription("es")).toMatch("Ingeniería nativa en IA");
+    expect(siteConfig.description).toMatch("AI-native engineering");
+  });
+
   it("builds base metadata and applies overrides", async () => {
     const { baseMetadata, siteConfig } = await import("../../lib/seo");
     const metadata = baseMetadata({ title: "Custom Title" });
