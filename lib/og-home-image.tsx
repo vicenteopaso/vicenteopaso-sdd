@@ -87,7 +87,7 @@ const homeContentByLocale: Record<
     summaryPrefix: "15+ years in software development. Currently open to my ",
     highlightedWord: "next challenge.",
     subtitle:
-      "Frontend Architect & Technical Leader — composable platforms, design systems, and the teams behind them.",
+      "Frontend Architect & Technical Leader — AI-native engineering, composable platforms, design systems, and the teams behind them.",
     basedLabel: "BASED",
     statusLabel: "STATUS",
     status: "Open to opportunities",
@@ -102,7 +102,7 @@ const homeContentByLocale: Record<
       "Más de 15 años en desarrollo de software. Actualmente abierto a mi ",
     highlightedWord: "próximo reto.",
     subtitle:
-      "Arquitecto Frontend y Líder Técnico — plataformas componibles, design systems y los equipos detrás de ellas.",
+      "Arquitecto Frontend y Líder Técnico — ingeniería nativa en IA, plataformas componibles, design systems y los equipos detrás de ellas.",
     basedLabel: "BASE",
     statusLabel: "ESTADO",
     status: "Disponible",

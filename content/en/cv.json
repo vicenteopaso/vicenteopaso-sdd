@@ -5,7 +5,7 @@
   "basics": {
     "name": "Vicente Opaso",
     "label": "Frontend Architect & Technical Leader. AI-Native Engineering, Composable Platforms, Design Systems & Developer Experience. 15+ years delivering high-impact digital products.",
-    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. I build AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models, which I run in production. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
+    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. I also build and operate my own AI systems: LLM integrations across open-weight and frontier models, MCP servers, and spec-driven codebases where every AI-written change passes automated quality gates. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
     "highlights": [
       {
         "title": "Web Engineering Manager at Nexthink",
@@ -391,19 +391,20 @@
   ],
   "projects": [
     {
-      "name": "Dev Team",
-      "description": "Autonomous software delivery pipeline: a feature request goes in, a CI-green pull request comes out.",
+      "name": "opa.so",
+      "description": "This site: built spec-first and maintained by human and AI contributors under the same governance.",
+      "url": "https://opa.so",
       "highlights": [
-        "Seven specialized AI roles (Context, Product Owner, Designer, Backend, Frontend, QA, Fixer), each with task-local context, schema-validated JSON output and a hard retry ceiling.",
-        "Runs Qwen 2.5 Coder on Modal cloud GPUs behind a multi-provider abstraction; switching to Claude, OpenAI or any OpenAI-compatible endpoint is one environment variable.",
-        "Exposed as an HTTP MCP server (submit_task, get_status, resume_task) with durable checkpoints, guarded self-healing on CI failure, and Telegram escalation to a human."
+        "Spec-Driven Development: a machine-readable sdd.yaml, a Constitution of eleven invariants and ADRs give AI agents and humans the same architectural context.",
+        "Every PR, human or AI-written, passes ten CI gates, including 90% coverage thresholds, Playwright visual regression, CodeQL and Lighthouse CI.",
+        "Agent-readable: WebMCP tools in the browser, llms.txt, an MCP config and a canonical JSON profile API."
       ],
       "keywords": [
-        "Node.js",
-        "Qwen 2.5 Coder",
-        "Modal",
-        "MCP",
-        "GitHub Actions"
+        "Next.js",
+        "Spec-Driven Development",
+        "WebMCP",
+        "Vitest",
+        "Playwright"
       ]
     },
     {
@@ -427,20 +428,19 @@
       "keywords": ["Next.js", "Fastify", "PostgreSQL", "Jev", "OpenRouter"]
     },
     {
-      "name": "opa.so",
-      "description": "This site: built spec-first and maintained by human and AI contributors under the same governance.",
-      "url": "https://opa.so",
+      "name": "Dev Team",
+      "description": "Autonomous software delivery pipeline: a feature request goes in, a CI-green pull request comes out.",
       "highlights": [
-        "Spec-Driven Development: a machine-readable sdd.yaml, a Constitution of eleven invariants and ADRs give AI agents and humans the same architectural context.",
-        "Every PR, human or AI-written, passes ten CI gates, including 90% coverage thresholds, Playwright visual regression, CodeQL and Lighthouse CI.",
-        "Agent-readable: WebMCP tools in the browser, llms.txt, an MCP config and a canonical JSON profile API."
+        "Seven specialized AI roles (Context, Product Owner, Designer, Backend, Frontend, QA, Fixer), each with task-local context, schema-validated JSON output and a hard retry ceiling.",
+        "Runs Qwen 2.5 Coder on Modal cloud GPUs behind a multi-provider abstraction; switching to Claude, OpenAI or any OpenAI-compatible endpoint is one environment variable.",
+        "Exposed as an HTTP MCP server (submit_task, get_status, resume_task) with durable checkpoints, guarded self-healing on CI failure, and Telegram escalation to a human."
       ],
       "keywords": [
-        "Next.js",
-        "Spec-Driven Development",
-        "WebMCP",
-        "Vitest",
-        "Playwright"
+        "Node.js",
+        "Qwen 2.5 Coder",
+        "Modal",
+        "MCP",
+        "GitHub Actions"
       ]
     }
   ],
@@ -450,6 +450,7 @@
       "level": "Advanced",
       "featured": true,
       "keywords": [
+        "LLM Integration",
         "Claude Code",
         "Anthropic API",
         "OpenAI API",

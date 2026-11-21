@@ -30,7 +30,7 @@ export function baseMetadata(overrides: Partial<Metadata> = {}): Metadata {
   const base: Metadata = {
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: `${siteConfig.name} — Software Engineering Leader & Frontend Architect`,
+      default: `${siteConfig.name} — Frontend Architect, AI-Native Engineering`,
       template: `%s — ${siteConfig.name}`,
     },
     description: siteConfig.description,

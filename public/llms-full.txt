@@ -15,23 +15,23 @@
 **Location:** Europe  
 **Languages:** Spanish (Native), English (C2)
 
-15+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience, and builds AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models, run in production.
+15+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience, and builds AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models that he operates himself.
 
 ## Experience Summary
 
 | Company | Role | Period | Focus |
 |---------|------|--------|-------|
-| Nexthink | Web Engineering Manager | 2025 | Composable platform, Next.js, Vercel |
+| Independent Consultant (NDA client) | Frontend Architect & Lead Frontend Developer | 2026 | Greenfield Next.js PWA, Spec-Driven Development |
+| Nexthink | Manager of Web Engineering | 2025 | Composable platform, Next.js, Vercel |
 | EUROCONTROL | Technical Application Owner | 2025 | Aviation systems, Design System |
 | Carlsberg Group | Frontend Solutions Architect | 2020-2024 | B2B platforms, Malty Design System |
-| Greygoo | Co-founder | 2012-2019 | Digital studio, Fortune 500 clients |
-| Nokia Networks | RF Engineer | 2001-2011 | Telecommunications |
+| Greygoo | Co-founder & Principal | 2012-2020 | Digital studio, Fortune 500 clients |
 
 ## Core Skills
 
 **Master:** TypeScript, React, Next.js, Design Systems, DevEx, CI/CD  
 **Advanced:** AWS, GraphQL, Tailwind CSS, Playwright, Vitest  
-**AI & Agentic Engineering (Advanced):** Claude Code, Anthropic/OpenAI APIs, OpenRouter, open-weight models (Qwen 2.5 Coder on Modal GPUs), multi-provider abstraction, MCP server architecture, WebMCP, multi-agent systems, Spec-Driven Development
+**AI & Agentic Engineering (Advanced):** LLM integration, Claude Code, Anthropic/OpenAI APIs, OpenRouter, open-weight models (Qwen 2.5 Coder on Modal GPUs), multi-provider abstraction, MCP server architecture, WebMCP, multi-agent systems, Spec-Driven Development
 
 ## AI Projects
 

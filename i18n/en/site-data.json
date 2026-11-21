@@ -1,7 +1,7 @@
 {
   "tldr": [
     "I lead engineering teams and architect frontend platforms.",
-    "I build with AI every day: multi-agent systems, an autonomous dev pipeline on open-weight models, and AI-governed codebases, all running in production.",
+    "I build AI systems I run myself: an AI job-search pipeline, a code-writing pipeline on Qwen 2.5 Coder, and this site, where every AI-written PR passes 10 CI gates.",
     "I stay hands-on. On my latest engagement I owned the architecture and wrote the code, end to end.",
     "I care about composable architecture, design systems, and developer experience.",
     "I ship accessible, performant, globally-localized products.",
@@ -12,7 +12,7 @@
   "focus": [
     {
       "h": "AI-Native Engineering",
-      "b": "AI-governed codebases, MCP servers, multi-agent systems and open-weight models."
+      "b": "Claude Code, MCP servers, LLM integrations via OpenRouter, open-weight models on cloud GPUs."
     },
     {
       "h": "Frontend Architecture",
@@ -49,8 +49,8 @@
       "v": "Annual turnover on platforms I architected"
     },
     {
-      "k": "10",
-      "v": "Quality gates on every AI-written PR"
+      "k": "15y+",
+      "v": "Years in software development"
     }
   ],
   "landingToc": [
@@ -92,29 +92,8 @@
     }
   ],
   "whatIBuild": {
-    "intro": "Systems I designed and run in production, most of them AI-native. Not side projects I started and abandoned, but multi-agent pipelines, LLM integrations, and AI-governed codebases I maintain and improve. They're where I practice what I write about, end to end.",
+    "intro": "Systems I designed and operate myself, most of them AI-native. Not side projects I started and abandoned, but LLM integrations, agent pipelines, and AI-governed codebases I maintain and improve. They're where I practice what I write about, end to end.",
     "projects": [
-      {
-        "title": "Dev Team",
-        "subtitle": "",
-        "tags": "Node.js · Qwen 2.5 Coder · Modal · MCP · GitHub Actions · Telegram",
-        "body": "- A fully autonomous software delivery pipeline that takes a feature request — submitted via Telegram `/submit`, a file-based queue, or an MCP tool call — and carries it through requirements decomposition, code generation, pull request creation, CI monitoring, and self-healing on failure, with no human intervention in the happy path.\n- The pipeline runs **Qwen 2.5 Coder** on **Modal cloud GPUs** — no hosted-LLM API dependency in the hot path. A multi-provider abstraction layer makes the inference backend fully configurable at runtime: switch between Qwen (default), Claude, OpenAI, or any OpenAI-compatible endpoint via a single environment variable. The system has been tested against Modal, OCI, and IONOS cloud GPU providers.\n- The pipeline is a sequence of specialized AI roles: **Context** indexes the current repo state, **Product Owner** breaks the goal into acceptance-criteria-bearing tasks, **Designer** produces UI/UX guidance and serves as a pre-PR approval gate, **Backend** and **Frontend** write the implementation, **QA** generates tests and review notes, and **Fixer** reads CI failure logs and patches the code until tests pass. Each role is independently retryable with a hard ceiling, receives only task-local context (never the full repo or conversation history), and produces validated JSON against a fixed schema — no prose, no exceptions.\n- The orchestrator writes durable run-memory checkpoints at every milestone so a crashed or rate-limited run resumes from exactly where it left off rather than regenerating work that already succeeded. Self-healing is intentionally guarded: transient failures (network, rate limits, CI flaps) use a short backoff before retrying; repeated failures, blocked roles, or exhausted fixer loops escalate to a human via Telegram.\n- Exposes the entire pipeline as an HTTP MCP server (`submit_task`, `get_status`, `resume_task`), making Dev Team composable: any MCP-compatible client — Claude Code, BrowserOS, or an outer AI agent — can fire a feature request, walk away, and later query the checkpoint memory to see exactly which roles have completed and whether CI has passed.\n- Infrastructure is intentionally minimal and outbound-only: a Node.js worker process runs on a private VPS with no public inbound surface, polling GitHub for CI/PR status and Telegram for operator commands. n8n handles periodic schedule triggers; GitHub Actions is the hard quality gate — a PR is never considered done until CI is green.",
-        "links": []
-      },
-      {
-        "title": "AI Job Search Pipeline",
-        "subtitle": "",
-        "tags": "TypeScript · Vercel · Neon Postgres · OpenAI · Linear · GitHub Actions",
-        "body": "- An end-to-end job-discovery pipeline with two ingestion paths feeding the same worker: a scraper that polls configured job boards on a daily GitHub Actions schedule, and a Vercel-hosted REST API (`POST /api/opportunities`) that accepts email-forwarded leads — allowing a Claude Code skill to parse recruiter emails and push structured opportunities directly into the queue without any manual copy-paste.\n- Deduplication is handled via canonical URL normalization (lowercased host, stripped UTM params, fragments, and default ports) combined with a `seen_jobs` ledger in Neon Postgres, so the same role appearing across multiple sources or emails is collapsed to a single record before scoring.\n- Qualified jobs go through a two-stage OpenAI scoring pass: a broad stage-1 filter removes clear mismatches, and a focused stage-2 pass scores borderline candidates in detail. Linear issue priority is derived dynamically from the score distribution of each batch — `MIN_MATCH_SCORE` maps to no priority, the highest qualified score maps to urgent — so the most relevant roles always surface at the top of the board.",
-        "links": []
-      },
-      {
-        "title": "Real-Time News Sentiment Pipeline",
-        "subtitle": "",
-        "tags": "Next.js · Fastify · PostgreSQL · Jev · OpenRouter · Vercel",
-        "body": "- A live sentiment barometer built as two decoupled TypeScript services — a **Next.js 16** SSR frontend and a dedicated **Fastify** BFF — intentionally separated so that all business logic, scoring, and database access live behind an explicit, OpenAPI-documented contract that the presentation layer never circumvents.\n- The backend runs a five-stage content pipeline on a six-hour cadence: **Fetch → Normalize → Deduplicate → Synthesize → Write**. Three news sources are queried in parallel via `Promise.allSettled` — GDELT for tone screening, CurrentsAPI for article breadth, and NewsAPI.ai for semantic enrichment — then normalized into a shared `NormalizedArticle` type and deduplicated in two passes (URL stripping, then a SHA-256 content fingerprint), so syndicated copies are read and counted once.\n- Scoring is split by trust. **Jev**, a structured-decision model, answers eleven typed questions about one story at a time — framing on a five-level scale, nine yes/no category questions, opinion vs. news — and returns calibrated probabilities. It sees only the headline and summary, never the outlet's name. Weights, category scores, confidence and the left-vs-right disagreement flag are then computed in plain, unit-tested code: **on a normal run, no model computes a score**.\n- **OpenRouter** is the language layer: one OpenAI-compatible API in front of many providers, with Gemini 2.5 Flash as the default and GPT-4o mini and GPT-4o as automatic fallbacks, so the model changes with a config setting instead of a code change. It writes the category explanations from the evidence but never sees or produces a number, and it doubles as the recorded backup scorer when Jev is unavailable.\n- All writes commit inside a single PostgreSQL transaction — pipeline metadata, the score snapshot, all nine category scores with their explanations, disagreement flags, and the full deduplicated article set. The pipeline is idempotent: a unique index on `pipeline_run_id` prevents double-writes on retry, and the retry policy distinguishes transient failures (one automatic retry with 30-second backoff) from permanent ones (invalid API key, schema mismatch), which are logged and left for the next scheduled run.\n- The frontend renders a live dashboard using Next.js App Router with ISR (300-second revalidation window). The trend chart renders as an accessible HTML `<table>` in the initial server HTML, then hydrates into a Recharts visualization; time-window changes are handled by a same-origin route handler that validates parameters and re-fetches from the BFF server-side. Deployed to Vercel via GitHub Actions with Vercel's own Git auto-deployments disabled to prevent double builds; structured logs are shipped to Grafana Loki for operational visibility.",
-        "links": []
-      },
       {
         "title": "opa.so",
         "subtitle": "",
@@ -142,6 +121,27 @@
             "href": "/en/tech-stack"
           }
         ]
+      },
+      {
+        "title": "AI Job Search Pipeline",
+        "subtitle": "",
+        "tags": "TypeScript · Vercel · Neon Postgres · OpenAI · Linear · GitHub Actions",
+        "body": "- An end-to-end job-discovery pipeline with two ingestion paths feeding the same worker: a scraper that polls configured job boards on a daily GitHub Actions schedule, and a Vercel-hosted REST API (`POST /api/opportunities`) that accepts email-forwarded leads — allowing a Claude Code skill to parse recruiter emails and push structured opportunities directly into the queue without any manual copy-paste.\n- Deduplication is handled via canonical URL normalization (lowercased host, stripped UTM params, fragments, and default ports) combined with a `seen_jobs` ledger in Neon Postgres, so the same role appearing across multiple sources or emails is collapsed to a single record before scoring.\n- Qualified jobs go through a two-stage OpenAI scoring pass: a broad stage-1 filter removes clear mismatches, and a focused stage-2 pass scores borderline candidates in detail. Linear issue priority is derived dynamically from the score distribution of each batch — `MIN_MATCH_SCORE` maps to no priority, the highest qualified score maps to urgent — so the most relevant roles always surface at the top of the board.",
+        "links": []
+      },
+      {
+        "title": "Real-Time News Sentiment Pipeline",
+        "subtitle": "",
+        "tags": "Next.js · Node.js · PostgreSQL · LLM API · Vercel",
+        "body": "- A live sentiment barometer built as two decoupled TypeScript services — a **Next.js 16** SSR frontend and a dedicated **Fastify** BFF — intentionally separated so that all business logic, scoring, and database access live behind an explicit, OpenAPI-documented contract that the presentation layer never circumvents.\n- The backend runs a five-stage content pipeline on a six-hour cadence: **Fetch → Normalize → Deduplicate → Synthesize → Write**. Three news sources are queried in parallel via `Promise.allSettled` — GDELT for tone screening, CurrentsAPI for article breadth, and NewsAPI.ai for semantic enrichment — then normalized into a shared `NormalizedArticle` type and deduplicated in two passes (URL stripping, then a SHA-256 content fingerprint), so syndicated copies are read and counted once.\n- Scoring is split by trust. **Jev**, a structured-decision model, answers eleven typed questions about one story at a time — framing on a five-level scale, nine yes/no category questions, opinion vs. news — and returns calibrated probabilities. It sees only the headline and summary, never the outlet's name. Weights, category scores, confidence and the source-disagreement flag are then computed in plain, unit-tested code: **on a normal run, no model computes a score**.\n- **OpenRouter** is the language layer: one OpenAI-compatible API in front of many providers, with Gemini 2.5 Flash as the default and GPT-4o mini and GPT-4o as automatic fallbacks, so the model changes with a config setting instead of a code change. It writes the category explanations from the evidence but never sees or produces a number, and it doubles as the recorded backup scorer when Jev is unavailable.\n- All writes commit inside a single PostgreSQL transaction — pipeline metadata, the score snapshot, all nine category scores with their explanations, disagreement flags, and the full deduplicated article set. The pipeline is idempotent: a unique index on `pipeline_run_id` prevents double-writes on retry, and the retry policy distinguishes transient failures (one automatic retry with 30-second backoff) from permanent ones (invalid API key, schema mismatch), which are logged and left for the next scheduled run.\n- The frontend renders a live dashboard using Next.js App Router with ISR (300-second revalidation window). The trend chart renders as an accessible HTML `<table>` in the initial server HTML, then hydrates into a Recharts visualization; time-window changes are handled by a same-origin route handler that validates parameters and re-fetches from the BFF server-side. Deployed to Vercel via GitHub Actions with Vercel's own Git auto-deployments disabled to prevent double builds; structured logs are shipped to Grafana Loki for operational visibility.",
+        "links": []
+      },
+      {
+        "title": "Dev Team",
+        "subtitle": "",
+        "tags": "Node.js · Qwen 2.5 Coder · Modal · MCP · GitHub Actions · Telegram",
+        "body": "- A fully autonomous software delivery pipeline that takes a feature request — submitted via Telegram `/submit`, a file-based queue, or an MCP tool call — and carries it through requirements decomposition, code generation, pull request creation, CI monitoring, and self-healing on failure, with no human intervention in the happy path.\n- The pipeline runs **Qwen 2.5 Coder** on **Modal cloud GPUs** — no hosted-LLM API dependency in the hot path. A multi-provider abstraction layer makes the inference backend fully configurable at runtime: switch between Qwen (default), Claude, OpenAI, or any OpenAI-compatible endpoint via a single environment variable. The system has been tested against Modal, OCI, and IONOS cloud GPU providers.\n- The pipeline is a sequence of specialized AI roles: **Context** indexes the current repo state, **Product Owner** breaks the goal into acceptance-criteria-bearing tasks, **Designer** produces UI/UX guidance and serves as a pre-PR approval gate, **Backend** and **Frontend** write the implementation, **QA** generates tests and review notes, and **Fixer** reads CI failure logs and patches the code until tests pass. Each role is independently retryable with a hard ceiling, receives only task-local context (never the full repo or conversation history), and produces validated JSON against a fixed schema — no prose, no exceptions.\n- The orchestrator writes durable run-memory checkpoints at every milestone so a crashed or rate-limited run resumes from exactly where it left off rather than regenerating work that already succeeded. Self-healing is intentionally guarded: transient failures (network, rate limits, CI flaps) use a short backoff before retrying; repeated failures, blocked roles, or exhausted fixer loops escalate to a human via Telegram.\n- Exposes the entire pipeline as an HTTP MCP server (`submit_task`, `get_status`, `resume_task`), making Dev Team composable: any MCP-compatible client — Claude Code, BrowserOS, or an outer AI agent — can fire a feature request, walk away, and later query the checkpoint memory to see exactly which roles have completed and whether CI has passed.\n- Infrastructure is intentionally minimal and outbound-only: a Node.js worker process runs on a private VPS with no public inbound surface, polling GitHub for CI/PR status and Telegram for operator commands. n8n handles periodic schedule triggers; GitHub Actions is the hard quality gate — a PR is never considered done until CI is green.",
+        "links": []
       },
       {
         "title": "Self-Hosted Cloud Platform",

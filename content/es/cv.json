@@ -5,7 +5,7 @@
   "basics": {
     "name": "Vicente Opaso",
     "label": "Arquitecto Frontend y Líder Técnico. Ingeniería nativa en IA, Composable Platforms, Design Systems y Developer Experience. Más de 15 años entregando productos digitales de alto impacto.",
-    "summary": "Soy Arquitecto Frontend y Líder Técnico con más de 15 años diseñando, escalando y manteniendo plataformas digitales de alto rendimiento en entornos empresariales, de comercio electrónico y de misión crítica. Me especializo en arquitectura composable, Design Systems y Developer Experience (DevEx), alineando tecnología, diseño y estrategia para entregar productos accesibles, performantes y mantenibles. Construyo de forma nativa en IA: codebases spec-driven gobernadas por IA, servidores MCP y sistemas multiagente sobre modelos open-weight y de frontera, que opero en producción. He liderado equipos multifuncionales, modernizado CI/CD y la gobernanza del código, y fortalecido la cultura técnica mediante mentoría y Communities of Practice. Mi enfoque combina arquitectura técnica con empatía de diseño y disciplina operativa para lograr resultados duraderos y alineados al negocio.",
+    "summary": "Soy Arquitecto Frontend y Líder Técnico con más de 15 años diseñando, escalando y manteniendo plataformas digitales de alto rendimiento en entornos empresariales, de comercio electrónico y de misión crítica. Me especializo en arquitectura composable, Design Systems y Developer Experience (DevEx), alineando tecnología, diseño y estrategia para entregar productos accesibles, performantes y mantenibles. También construyo y opero mis propios sistemas de IA: integraciones LLM con modelos open-weight y de frontera, servidores MCP y codebases spec-driven donde cada cambio escrito con IA pasa controles de calidad automáticos. He liderado equipos multifuncionales, modernizado CI/CD y la gobernanza del código, y fortalecido la cultura técnica mediante mentoría y Communities of Practice. Mi enfoque combina arquitectura técnica con empatía de diseño y disciplina operativa para lograr resultados duraderos y alineados al negocio.",
     "highlights": [
       {
         "title": "Web Engineering Manager en Nexthink",
@@ -391,19 +391,20 @@
   ],
   "projects": [
     {
-      "name": "Dev Team",
-      "description": "Pipeline autónomo de entrega de software: entra una petición de funcionalidad y sale un pull request con el CI en verde.",
+      "name": "opa.so",
+      "description": "Este sitio: construido spec-first y mantenido por contribuidores humanos y de IA bajo la misma gobernanza.",
+      "url": "https://opa.so",
       "highlights": [
-        "Siete roles de IA especializados (Context, Product Owner, Designer, Backend, Frontend, QA, Fixer), cada uno con contexto local a la tarea, salida JSON validada por esquema y un límite estricto de reintentos.",
-        "Ejecuta Qwen 2.5 Coder en GPUs cloud de Modal detrás de una abstracción multi-proveedor; cambiar a Claude, OpenAI o cualquier endpoint compatible con OpenAI es una variable de entorno.",
-        "Expuesto como servidor MCP HTTP (submit_task, get_status, resume_task) con checkpoints persistentes, auto-reparación controlada ante fallos de CI y escalado a una persona por Telegram."
+        "Spec-Driven Development: un sdd.yaml legible por máquina, una Constitución de once invariantes y ADRs dan a los agentes de IA y a las personas el mismo contexto arquitectónico.",
+        "Cada PR, humano o escrito con IA, pasa diez controles de CI, incluidos umbrales de cobertura del 90%, regresión visual con Playwright, CodeQL y Lighthouse CI.",
+        "Legible por agentes: herramientas WebMCP en el navegador, llms.txt, una configuración MCP y una API de perfil JSON canónica."
       ],
       "keywords": [
-        "Node.js",
-        "Qwen 2.5 Coder",
-        "Modal",
-        "MCP",
-        "GitHub Actions"
+        "Next.js",
+        "Spec-Driven Development",
+        "WebMCP",
+        "Vitest",
+        "Playwright"
       ]
     },
     {
@@ -427,20 +428,19 @@
       "keywords": ["Next.js", "Fastify", "PostgreSQL", "Jev", "OpenRouter"]
     },
     {
-      "name": "opa.so",
-      "description": "Este sitio: construido spec-first y mantenido por contribuidores humanos y de IA bajo la misma gobernanza.",
-      "url": "https://opa.so",
+      "name": "Dev Team",
+      "description": "Pipeline autónomo de entrega de software: entra una petición de funcionalidad y sale un pull request con el CI en verde.",
       "highlights": [
-        "Spec-Driven Development: un sdd.yaml legible por máquina, una Constitución de once invariantes y ADRs dan a los agentes de IA y a las personas el mismo contexto arquitectónico.",
-        "Cada PR, humano o escrito con IA, pasa diez controles de CI, incluidos umbrales de cobertura del 90%, regresión visual con Playwright, CodeQL y Lighthouse CI.",
-        "Legible por agentes: herramientas WebMCP en el navegador, llms.txt, una configuración MCP y una API de perfil JSON canónica."
+        "Siete roles de IA especializados (Context, Product Owner, Designer, Backend, Frontend, QA, Fixer), cada uno con contexto local a la tarea, salida JSON validada por esquema y un límite estricto de reintentos.",
+        "Ejecuta Qwen 2.5 Coder en GPUs cloud de Modal detrás de una abstracción multi-proveedor; cambiar a Claude, OpenAI o cualquier endpoint compatible con OpenAI es una variable de entorno.",
+        "Expuesto como servidor MCP HTTP (submit_task, get_status, resume_task) con checkpoints persistentes, auto-reparación controlada ante fallos de CI y escalado a una persona por Telegram."
       ],
       "keywords": [
-        "Next.js",
-        "Spec-Driven Development",
-        "WebMCP",
-        "Vitest",
-        "Playwright"
+        "Node.js",
+        "Qwen 2.5 Coder",
+        "Modal",
+        "MCP",
+        "GitHub Actions"
       ]
     }
   ],
@@ -450,6 +450,7 @@
       "level": "Avanzado",
       "featured": true,
       "keywords": [
+        "Integración de LLMs",
         "Claude Code",
         "Anthropic API",
         "OpenAI API",
