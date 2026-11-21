@@ -3,10 +3,10 @@
 <!-- 
   MAINTENANCE NOTE: This file provides comprehensive AI agent context.
   Keep in sync with README.md, cv.json, and site content.
-  Last updated: 2026-08-31
+  Last updated: 2026-11-21
 -->
 
-> Frontend Architect & Technical Leader | Composable Platforms, Design Systems & DevEx
+> Frontend Architect & Technical Leader | AI-Native Engineering, Composable Platforms, Design Systems & DevEx
 
 ## Profile
 
@@ -15,7 +15,7 @@
 **Location:** Europe  
 **Languages:** Spanish (Native), English (C2)
 
-25+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience.
+15+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience, and builds AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models, run in production.
 
 ## Experience Summary
 
@@ -30,7 +30,15 @@
 ## Core Skills
 
 **Master:** TypeScript, React, Next.js, Design Systems, DevEx, CI/CD  
-**Advanced:** AWS, GraphQL, Tailwind CSS, Playwright, Vitest
+**Advanced:** AWS, GraphQL, Tailwind CSS, Playwright, Vitest  
+**AI & Agentic Engineering (Advanced):** Claude Code, Anthropic/OpenAI APIs, OpenRouter, open-weight models (Qwen 2.5 Coder on Modal GPUs), multi-provider abstraction, MCP server architecture, WebMCP, multi-agent systems, Spec-Driven Development
+
+## AI Projects
+
+- **Dev Team** — autonomous delivery pipeline: seven AI roles from request to CI-green PR, Qwen 2.5 Coder on Modal, exposed as an MCP server
+- **AI Job Search Pipeline** — scraped and email-forwarded leads, deduplicated in Postgres, two-stage OpenAI scoring, triaged in Linear
+- **Real-Time News Sentiment Pipeline** — per-story measurement by Jev, scores computed in code, OpenRouter (Gemini, GPT fallbacks) as the language layer
+- Full details: [/api/profile/en](/api/profile/en) (`projects`)
 
 ## Site Architecture
 
