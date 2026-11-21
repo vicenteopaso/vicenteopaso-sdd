@@ -548,6 +548,26 @@ describe("CVPage", () => {
     // Within Advanced: React < Rust (alphabetical)
     expect(reactIdx).toBeLessThan(rustIdx);
   });
+
+  it("pins featured skill groups ahead of the proficiency sort", async () => {
+    mockCvFs({
+      locale: "en",
+      cvJson: {
+        skills: [
+          { name: "TypeScript", level: "Master" },
+          { name: "Agentic AI", level: "Advanced", featured: true },
+          { name: "React", level: "Master" },
+        ],
+      },
+    });
+
+    render(await CVPage({ params: Promise.resolve({ lang: "en" }) }));
+
+    const names = screen
+      .getAllByText(/^(TypeScript|Agentic AI|React)$/)
+      .map((el) => el.textContent);
+    expect(names).toEqual(["Agentic AI", "React", "TypeScript"]);
+  });
 });
 
 describe("CV Page Masthead Actions", () => {

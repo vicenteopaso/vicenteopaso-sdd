@@ -368,7 +368,12 @@ function SkillsSection({
   skills,
   t,
 }: {
-  skills: Array<{ name: string; level?: string; keywords?: string[] }>;
+  skills: Array<{
+    name: string;
+    level?: string;
+    featured?: boolean;
+    keywords?: string[];
+  }>;
   t: T;
 }) {
   const sortedSkills = [...skills]
@@ -377,6 +382,9 @@ function SkillsSection({
       _rank: PROFICIENCY_RANK[s.level?.toLowerCase() ?? ""] ?? 99,
     }))
     .sort((a, b) => {
+      if (Boolean(a.featured) !== Boolean(b.featured)) {
+        return a.featured ? -1 : 1;
+      }
       if (a._rank !== b._rank) return a._rank - b._rank;
       return a.name.localeCompare(b.name);
     });

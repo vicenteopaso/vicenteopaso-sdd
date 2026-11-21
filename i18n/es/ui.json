@@ -16,11 +16,11 @@
   "footer.technicalGovernance": "Gobernanza técnica",
   "footer.techStack": "Tech Stack",
   "hero.label": "◈ VICENTE OPASO",
-  "hero.headline1": "Frontend",
-  "hero.headline2": "arquitectura.",
+  "hero.headline1": "Arquitectura",
+  "hero.headline2": "frontend.",
   "hero.headline3": "Ingeniería",
-  "hero.headline4": "liderazgo.",
-  "hero.sub": "Más de 15 años desarrollando plataformas web modulares, sistemas de diseño y los equipos que hay detrás de ellos. Málaga, España · Trabajo a distancia (UE).",
+  "hero.headline4": "nativa en IA.",
+  "hero.sub": "Más de 15 años desarrollando plataformas web modulares, sistemas de diseño y los equipos que hay detrás de ellos. Ahora construyo codebases gobernadas por IA y sistemas multiagente. Málaga, España · Trabajo a distancia (UE).",
   "hero.readCv": "LEER CV ↗",
   "hero.email": "VICENTE@OPA.SO",
   "hero.contents": "ÍNDICE ————",
@@ -76,6 +76,7 @@
   "cv.pub.read": "LEER ↗",
   "cv.section.summary": "RESUMEN",
   "cv.section.experience": "EXPERIENCIA",
+  "cv.section.projects": "PROYECTOS",
   "cv.section.skills": "COMPETENCIAS",
   "cv.section.educationLanguages": "EDUCACIÓN · IDIOMAS",
   "cv.section.publications": "PUBLICACIONES",
@@ -156,5 +157,5 @@
   "nav.sourceCode": "Código fuente en GitHub (se abre en una pestaña nueva)",
   "notFound.text": "Página no encontrada.",
   "notFound.home": "Ir al inicio",
-  "meta.siteDescription": "Arquitecto Frontend y Líder Técnico especializado en Composable Platforms, Design Systems y Developer Experience (DevEx). Consulta el CV y los datos de contacto de Vicente Opaso."
+  "meta.siteDescription": "Arquitecto Frontend y Líder Técnico especializado en ingeniería nativa en IA, Composable Platforms, Design Systems y Developer Experience (DevEx). Consulta el CV y los datos de contacto de Vicente Opaso."
 }

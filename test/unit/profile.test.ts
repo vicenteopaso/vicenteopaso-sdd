@@ -335,4 +335,17 @@ describe("lib/profile", () => {
       },
     ]);
   });
+
+  it("passes the CV projects through to the profile", async () => {
+    const { getCanonicalProfile } = await importProfileModule();
+
+    for (const locale of ["en", "es"] as const) {
+      const { projects } = getCanonicalProfile(locale);
+      expect(projects.length).toBeGreaterThan(0);
+      expect(projects.map((p) => p.name)).toContain("Dev Team");
+      for (const project of projects) {
+        expect(project.highlights.length).toBeGreaterThan(0);
+      }
+    }
+  });
 });
