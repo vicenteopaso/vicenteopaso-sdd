@@ -18,9 +18,9 @@
   "hero.label": "◈ VICENTE OPASO",
   "hero.headline1": "Frontend",
   "hero.headline2": "architecture.",
-  "hero.headline3": "Engineering",
-  "hero.headline4": "leadership.",
-  "hero.sub": "15+ years shipping composable web platforms, design systems, and the teams behind them. Málaga, ES · Remote-EU.",
+  "hero.headline3": "AI-native",
+  "hero.headline4": "engineering.",
+  "hero.sub": "15+ years shipping composable web platforms, design systems, and the teams behind them. Now building AI-governed codebases and multi-agent systems. Málaga, ES · Remote-EU.",
   "hero.readCv": "READ CV ↗",
   "hero.email": "VICENTE@OPA.SO",
   "hero.contents": "CONTENTS ————",
@@ -76,6 +76,7 @@
   "cv.pub.read": "READ ↗",
   "cv.section.summary": "SUMMARY",
   "cv.section.experience": "EXPERIENCE",
+  "cv.section.projects": "PROJECTS",
   "cv.section.skills": "SKILLS",
   "cv.section.educationLanguages": "EDUCATION · LANGUAGES",
   "cv.section.publications": "PUBLICATIONS",
@@ -156,5 +157,5 @@
   "nav.sourceCode": "Source code on GitHub (opens in a new tab)",
   "notFound.text": "Page not found.",
   "notFound.home": "Go home",
-  "meta.siteDescription": "Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso."
+  "meta.siteDescription": "Frontend Architect & Technical Leader specializing in AI-native engineering, Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso."
 }

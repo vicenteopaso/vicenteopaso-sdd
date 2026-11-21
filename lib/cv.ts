@@ -64,11 +64,30 @@ const cvSchema = z.object({
         .min(1),
     }),
   ),
+  // Side projects. Kept as data for the profile API and the PDF; the landing
+  // page's "What I Build" section already presents them on the site.
+  projects: z
+    .array(
+      z.object({
+        name: requiredText(),
+        description: requiredText(),
+        url: z
+          .string()
+          .url()
+          .refine((value) => /^https:\/\//i.test(value), "must be https")
+          .optional(),
+        highlights: z.array(requiredText()).default([]),
+        keywords: z.array(plainText()).default([]),
+      }),
+    )
+    .default([]),
   skills: z
     .array(
       z.object({
         name: requiredText(),
         level: plainText().optional(),
+        // Pinned ahead of the proficiency sort on /cv.
+        featured: z.boolean().optional(),
         keywords: z.array(plainText()).optional(),
       }),
     )

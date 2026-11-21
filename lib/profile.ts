@@ -48,6 +48,15 @@ const profileSchema = z.object({
       description: z.string(),
     }),
   ),
+  projects: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      url: z.string().url().optional(),
+      highlights: z.array(z.string()),
+      keywords: z.array(z.string()),
+    }),
+  ),
   location_preferences: z.object({
     primary_locations: z.array(z.string()),
     acceptable_regions: z.array(z.string()),
@@ -274,6 +283,7 @@ export function getCanonicalProfile(locale: Locale): CanonicalProfile {
       },
       experience_highlights: preferences.experience_highlights,
       hands_on: buildHandsOn(cv.work),
+      projects: cv.projects,
       location_preferences: preferences.location_preferences,
       work_model_preferences: preferences.work_model_preferences,
       compensation_and_level: preferences.compensation_and_level,

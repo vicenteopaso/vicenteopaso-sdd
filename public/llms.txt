@@ -3,10 +3,10 @@
 <!-- 
   MAINTENANCE NOTE: This file provides AI agent context.
   Keep in sync with README.md and site content.
-  Last updated: 2026-08-31
+  Last updated: 2026-11-21
 -->
 
-> Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems, and Developer Experience (DevEx).
+> Frontend Architect & Technical Leader specializing in AI-native engineering, Composable Platforms, Design Systems, and Developer Experience (DevEx). Builds and runs AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models.
 
 Personal site with CV, technical governance, and contact details.
 
