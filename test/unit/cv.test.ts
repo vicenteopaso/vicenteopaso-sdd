@@ -19,6 +19,19 @@ describe("loadCv", () => {
     },
   );
 
+  it("lists the same projects, with highlights, in the EN and ES CVs", () => {
+    const en = loadCv("en").projects;
+    const es = loadCv("es").projects;
+
+    expect(en.length).toBeGreaterThan(0);
+    expect(es).toHaveLength(en.length);
+    en.forEach((project, i) => {
+      expect(project.highlights.length).toBeGreaterThan(0);
+      expect(es[i]?.highlights).toHaveLength(project.highlights.length);
+      expect(es[i]?.url).toBe(project.url);
+    });
+  });
+
   it("stores references as plain data with no HTML", () => {
     for (const locale of ["en", "es"] as const) {
       for (const ref of loadCv(locale).references) {

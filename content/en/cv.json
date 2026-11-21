@@ -4,8 +4,8 @@
   "slug": "cv",
   "basics": {
     "name": "Vicente Opaso",
-    "label": "Frontend Architect & Technical Leader. Composable Platforms, Design Systems & Developer Experience. 15+ years delivering high-impact digital products.",
-    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
+    "label": "Frontend Architect & Technical Leader. AI-Native Engineering, Composable Platforms, Design Systems & Developer Experience. 15+ years delivering high-impact digital products.",
+    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. I build AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models, which I run in production. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
     "highlights": [
       {
         "title": "Web Engineering Manager at Nexthink",
@@ -389,7 +389,83 @@
       ]
     }
   ],
+  "projects": [
+    {
+      "name": "Dev Team",
+      "description": "Autonomous software delivery pipeline: a feature request goes in, a CI-green pull request comes out.",
+      "highlights": [
+        "Seven specialized AI roles (Context, Product Owner, Designer, Backend, Frontend, QA, Fixer), each with task-local context, schema-validated JSON output and a hard retry ceiling.",
+        "Runs Qwen 2.5 Coder on Modal cloud GPUs behind a multi-provider abstraction; switching to Claude, OpenAI or any OpenAI-compatible endpoint is one environment variable.",
+        "Exposed as an HTTP MCP server (submit_task, get_status, resume_task) with durable checkpoints, guarded self-healing on CI failure, and Telegram escalation to a human."
+      ],
+      "keywords": [
+        "Node.js",
+        "Qwen 2.5 Coder",
+        "Modal",
+        "MCP",
+        "GitHub Actions"
+      ]
+    },
+    {
+      "name": "AI Job Search Pipeline",
+      "description": "End-to-end job discovery: scraped and email-forwarded leads, deduplicated, scored by an LLM and triaged in Linear.",
+      "highlights": [
+        "Two ingestion paths feed one worker: a daily GitHub Actions scraper and a REST API that a Claude Code skill uses to push leads parsed from recruiter emails.",
+        "Canonical URL normalization plus a seen-jobs ledger in Neon Postgres collapses duplicates across sources before scoring.",
+        "Two-stage OpenAI scoring (broad filter, then detailed pass), with Linear priority derived from each batch's score distribution."
+      ],
+      "keywords": ["TypeScript", "Vercel", "Neon Postgres", "OpenAI", "Linear"]
+    },
+    {
+      "name": "Real-Time News Sentiment Pipeline",
+      "description": "Live news-sentiment barometer: a Next.js frontend and a Fastify BFF behind an OpenAPI contract.",
+      "highlights": [
+        "Per-story measurement by Jev, a structured-decision model returning calibrated probabilities; scores, confidence and disagreement flags are computed in unit-tested code, never by a model.",
+        "OpenRouter as the language layer, with Gemini 2.5 Flash by default and GPT-4o mini and GPT-4o as automatic fallbacks; it writes explanations and serves as the recorded backup scorer.",
+        "Idempotent six-hour pipeline across GDELT, NewsAPI.ai and CurrentsAPI, committed in a single PostgreSQL transaction."
+      ],
+      "keywords": ["Next.js", "Fastify", "PostgreSQL", "Jev", "OpenRouter"]
+    },
+    {
+      "name": "opa.so",
+      "description": "This site: built spec-first and maintained by human and AI contributors under the same governance.",
+      "url": "https://opa.so",
+      "highlights": [
+        "Spec-Driven Development: a machine-readable sdd.yaml, a Constitution of eleven invariants and ADRs give AI agents and humans the same architectural context.",
+        "Every PR, human or AI-written, passes ten CI gates, including 90% coverage thresholds, Playwright visual regression, CodeQL and Lighthouse CI.",
+        "Agent-readable: WebMCP tools in the browser, llms.txt, an MCP config and a canonical JSON profile API."
+      ],
+      "keywords": [
+        "Next.js",
+        "Spec-Driven Development",
+        "WebMCP",
+        "Vitest",
+        "Playwright"
+      ]
+    }
+  ],
   "skills": [
+    {
+      "name": "AI & Agentic Engineering",
+      "level": "Advanced",
+      "featured": true,
+      "keywords": [
+        "Claude Code",
+        "Anthropic API",
+        "OpenAI API",
+        "OpenRouter",
+        "Multi-Provider Abstraction",
+        "Open-Weight Models",
+        "Qwen 2.5 Coder",
+        "Cloud GPU Inference (Modal)",
+        "MCP Server Architecture",
+        "WebMCP",
+        "Multi-Agent Systems",
+        "Agentic Workflows",
+        "Spec-Driven Development (SDD)",
+        "AI Guardrails"
+      ]
+    },
     {
       "name": "JavaScript",
       "level": "Master",
@@ -434,9 +510,7 @@
         "CodeQL",
         "Onboarding Automation",
         "Tooling Workflows",
-        "DX Strategy",
-        "Spec-Driven Development (SDD)",
-        "MCP Server Architecture"
+        "DX Strategy"
       ]
     },
     {
@@ -475,21 +549,6 @@
       "name": "Testing",
       "level": "Advanced",
       "keywords": ["Jest", "Cypress", "React Testing Library"]
-    },
-    {
-      "name": "AI & Agentic Engineering",
-      "level": "Advanced",
-      "keywords": [
-        "Anthropic API",
-        "OpenAI API",
-        "Model Context Protocol",
-        "Open-Source LLM Deployment",
-        "Cloud GPU Inference (Modal)",
-        "Qwen 2.5 Coder",
-        "AI Guardrails",
-        "Agentic Workflows",
-        "Multi-Provider Abstraction"
-      ]
     },
     {
       "name": "Infrastructure",
@@ -554,6 +613,15 @@
   ],
   "interests": [
     {
+      "name": "Open-Weight AI",
+      "keywords": [
+        "Open-Weight Models",
+        "OpenRouter API Integration",
+        "Multi-Provider LLM Routing",
+        "Cloud GPU Inference"
+      ]
+    },
+    {
       "name": "Saltwater Aquariums",
       "keywords": [
         "Coral",
@@ -574,10 +642,6 @@
         "Home Automation",
         "Homebridge"
       ]
-    },
-    {
-      "name": "Crypto",
-      "keywords": ["Bitcoin", "Ethereum", "NFT", "BCube", "Web3"]
     }
   ],
   "references": [
