@@ -8,7 +8,7 @@
     "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. Since Carlsberg, every team I've worked in has used AI-assisted engineering: I introduced AI-driven CI tests and GitHub Copilot code reviews there, furthered their adoption at EUROCONTROL and Nexthink, and designed the full workflow and its governance framework on my latest engagement. I also build and operate my own AI systems: LLM integrations across open-weight and frontier models, MCP servers, and spec-driven codebases. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
     "highlights": [
       {
-        "title": "Web Engineering Manager at Nexthink",
+        "title": "Web Engineering Manager & Frontend Architect at Nexthink",
         "content": "Led the architecture and delivery of nexthink.com, a global composable corporate website, while leading a cross-functional team focused on performance, accessibility, localization, and strategic alignment."
       },
       {
@@ -75,7 +75,7 @@
       "location": "Hybrid",
       "positions": [
         {
-          "position": "Manager of Web Engineering",
+          "position": "Web Engineering Manager & Frontend Architect",
           "startDate": "2025-07",
           "endDate": "2025-11",
           "summary": "Owned the frontend architecture and technical delivery of nexthink.com — Nexthink's composable marketing and corporate web platform. Defined the stack, governed its quality, and led a globally distributed cross-functional team across India, the US, and Europe to deliver a scalable, performant, and accessible platform.",

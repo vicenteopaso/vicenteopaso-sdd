@@ -8,7 +8,7 @@
     "summary": "Soy Arquitecto Frontend y Líder Técnico con más de 15 años diseñando, escalando y manteniendo plataformas digitales de alto rendimiento en entornos empresariales, de comercio electrónico y de misión crítica. Me especializo en arquitectura composable, Design Systems y Developer Experience (DevEx), alineando tecnología, diseño y estrategia para entregar productos accesibles, performantes y mantenibles. Desde Carlsberg, todos los equipos en los que he trabajado han usado ingeniería asistida por IA: allí introduje tests impulsados por IA en CI y revisiones de código con GitHub Copilot, impulsé su adopción en EUROCONTROL y Nexthink, y en mi último proyecto diseñé el flujo completo y su marco de gobernanza. También construyo y opero mis propios sistemas de IA: integraciones LLM con modelos open-weight y de frontera, servidores MCP y codebases spec-driven. He liderado equipos multifuncionales, modernizado CI/CD y la gobernanza del código, y fortalecido la cultura técnica mediante mentoría y Communities of Practice. Mi enfoque combina arquitectura técnica con empatía de diseño y disciplina operativa para lograr resultados duraderos y alineados al negocio.",
     "highlights": [
       {
-        "title": "Web Engineering Manager en Nexthink",
+        "title": "Web Engineering Manager & Frontend Architect en Nexthink",
         "content": "Lideré la arquitectura y entrega de nexthink.com, un sitio corporativo composable a escala global, dirigiendo un equipo multifuncional centrado en rendimiento, accesibilidad, localización y alineación estratégica."
       },
       {
@@ -75,7 +75,7 @@
       "location": "Híbrido",
       "positions": [
         {
-          "position": "Responsable de Ingeniería Web",
+          "position": "Web Engineering Manager & Frontend Architect",
           "startDate": "2025-07",
           "endDate": "2025-11",
           "summary": "Responsable de la arquitectura frontend y la entrega técnica de nexthink.com, la plataforma web corporativa y de marketing composable de Nexthink. Definí el stack, goberné su calidad y lideré un equipo multifuncional distribuido entre India, Estados Unidos y Europa para entregar una plataforma escalable, performante y accesible.",
