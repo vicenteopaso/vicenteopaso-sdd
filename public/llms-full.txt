@@ -15,7 +15,7 @@
 **Location:** Europe  
 **Languages:** Spanish (Native), English (C2)
 
-15+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience, and builds AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models that he operates himself.
+15+ years designing and scaling high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. Specializes in composable architecture, Design Systems, and Developer Experience. Has brought AI-assisted engineering (AI-driven CI tests, GitHub Copilot code reviews) into every team since Carlsberg, introducing it there and designing the full workflow and governance framework on the latest engagement. Also builds AI-native: spec-driven, AI-governed codebases, MCP servers, and multi-agent systems on open-weight and frontier models that he operates himself.
 
 ## Experience Summary
 

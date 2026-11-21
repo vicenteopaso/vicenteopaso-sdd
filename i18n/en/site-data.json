@@ -1,7 +1,7 @@
 {
   "tldr": [
     "I lead engineering teams and architect frontend platforms.",
-    "I build AI systems I run myself: an AI job-search pipeline, a code-writing pipeline on Qwen 2.5 Coder, and this site, where every AI-written PR passes 10 CI gates.",
+    "I've brought AI into every engineering team since Carlsberg: AI-driven CI tests and Copilot code reviews, and on my latest engagement the governance framework behind them. I also build and run my own AI systems.",
     "I stay hands-on. On my latest engagement I owned the architecture and wrote the code, end to end.",
     "I care about composable architecture, design systems, and developer experience.",
     "I ship accessible, performant, globally-localized products.",
@@ -12,7 +12,7 @@
   "focus": [
     {
       "h": "AI-Native Engineering",
-      "b": "Claude Code, MCP servers, LLM integrations via OpenRouter, open-weight models on cloud GPUs."
+      "b": "AI-assisted delivery and its governance, MCP servers, LLM integrations, open-weight models."
     },
     {
       "h": "Frontend Architecture",

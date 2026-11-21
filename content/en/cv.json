@@ -5,7 +5,7 @@
   "basics": {
     "name": "Vicente Opaso",
     "label": "Frontend Architect & Technical Leader. AI-Native Engineering, Composable Platforms, Design Systems & Developer Experience. 15+ years delivering high-impact digital products.",
-    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. I also build and operate my own AI systems: LLM integrations across open-weight and frontier models, MCP servers, and spec-driven codebases where every AI-written change passes automated quality gates. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
+    "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. Since Carlsberg, every team I've worked in has used AI-assisted engineering: I introduced AI-driven CI tests and GitHub Copilot code reviews there, furthered their adoption at EUROCONTROL and Nexthink, and designed the full workflow and its governance framework on my latest engagement. I also build and operate my own AI systems: LLM integrations across open-weight and frontier models, MCP servers, and spec-driven codebases. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
     "highlights": [
       {
         "title": "Web Engineering Manager at Nexthink",
@@ -49,11 +49,14 @@
           "summary": "Engaged as Frontend Architect and Lead Frontend Developer for a confidential client under NDA, combining architectural ownership with hands-on implementation to deliver a greenfield Progressive Web App from the ground up.",
           "highlights": [
             "Architected and led development of a greenfield Progressive Web App (PWA) using Next.js, React, and TypeScript, owning both technical direction and hands-on implementation as Lead Frontend Developer.",
+            "Designed and implemented the project's AI-assisted engineering workflow — AI-driven tests in CI and GitHub Copilot code reviews — and wrote the governance and framework that controls it.",
             "Applied Spec-Driven Development (SDD) as the governing methodology, establishing documentation-first governance artefacts to guide implementation from project inception.",
             "Implemented server-side rendering (SSR) for performance and SEO, alongside WCAG 2.1 accessibility standards and multi-locale localization support."
           ],
           "handsOn": "Architecture and full development",
           "skills": [
+            "AI-Assisted Engineering",
+            "GitHub Copilot",
             "Frontend Architecture",
             "Next.js",
             "React",
@@ -78,11 +81,12 @@
           "summary": "Led a 5-person cross-functional team—including a UI/UX Designer—behind nexthink.com, Nexthink's global composable web platform supporting brand, marketing, and product strategy. Focused on team structure, DevEx, and design–engineering collaboration to deliver reliable, scalable, and localized experiences.",
           "highlights": [
             "Led a 5-person distributed team across EU/US/India; improved delivery consistency through DevEx automation and workflow standardization.",
+            "Furthered the team's adoption of AI-assisted engineering: AI-driven tests in CI and GitHub Copilot for code reviews.",
             "Integrated Vercel + GitHub + Hygraph pipelines, reducing release friction and improving deployment reliability.",
             "Elevated Core Web Vitals across six localized markets by 25%.",
             "Introduced governance (CodeQL, PR templates, branch protections) reducing production defects by 30%+.",
             "Own architecture and delivery of a composable stack: Next.js, GraphQL, Tailwind CSS, Hygraph CMS—deployed on Vercel and tightly integrated with GitHub.",
-            "Implemented guardrails and governance: CodeQL, Copilot, branch protections, PR templates, and automated checks to raise code quality and reliability.",
+            "Implemented guardrails and governance: CodeQL, branch protections, PR templates, and automated checks to raise code quality and reliability.",
             "Integrate Vercel–GitHub–Hygraph workflows for faster, safer releases; standardize pipelines with GitHub Actions (CI/CD).",
             "Managed a cross-functional team (3 developers, 1 UX designer) focused on performance, accessibility, maintainability, and content velocity.",
             "Improve design ↔ development feedback loops with shared components, design tokens, and documentation for tighter iteration.",
@@ -90,6 +94,8 @@
           ],
           "handsOn": "Code review and technical direction",
           "skills": [
+            "AI-Assisted Engineering",
+            "GitHub Copilot",
             "Frontend Architecture",
             "Composable Web Platforms",
             "Developer Experience",
@@ -118,6 +124,7 @@
           "summary": "Led frontend governance, team coordination, and modernization for aviation-critical systems at the Network Manager Operations Centre (NMOC). Coordinated a 10-person cross-functional team (engineers, designers, SM, PO, and QA) within a wider 20+ person development organization, bridging engineering, product, and regulatory stakeholders in a safety-critical environment.",
           "highlights": [
             "Modernized frontend stack used by 5,000+ aviation stakeholders across Europe.",
+            "Furthered the adoption of AI-assisted engineering in the delivery team: AI-driven tests in CI and GitHub Copilot for code reviews.",
             "Modernized CI/CD pipelines and QA processes, reducing deployment friction by 40% and improving delivery reliability.",
             "Re-architected legacy flows into modular components, reducing maintenance overhead by 30%.",
             "Created the \"Formal Thread\" documentation framework, establishing engineering traceability across all UI workflows — reducing compliance review cycles for aviation-critical releases.",
@@ -128,6 +135,8 @@
             "Established improved documentation workflows and foundations for sustainable developer experience across teams."
           ],
           "skills": [
+            "AI-Assisted Engineering",
+            "GitHub Copilot",
             "Software Architecture",
             "Technical Governance",
             "Design Systems",
@@ -154,6 +163,7 @@
           "summary": "Led the design and delivery of scalable Frontend Architectures for global B2B and marketing platforms, aligning engineering with commercial priorities and DevEx maturity.",
           "highlights": [
             "Defined component architecture powering multiple brand sites across Western Europe.",
+            "Introduced AI-assisted engineering to the frontend teams: AI-driven tests in CI and GitHub Copilot for coding and code reviews.",
             "Established DevEx workflows and onboarding documentation that improved ramp-up speed and cross-team consistency.",
             "Introduced accessibility frameworks ensuring AA baseline across products.",
             "Architected web platforms supporting €1B+ annual turnover across regions; improved performance, reliability, and accessibility.",
@@ -163,6 +173,8 @@
             "Member of Software Engineering Leadership Team, shaping standards and governance."
           ],
           "skills": [
+            "AI-Assisted Engineering",
+            "GitHub Copilot",
             "Frontend Architecture",
             "Enterprise Platforms",
             "DevEx Maturity",

@@ -1,7 +1,7 @@
 {
   "tldr": [
     "Lidero equipos de ingeniería y arquitecto plataformas frontend.",
-    "Construyo sistemas de IA que opero yo mismo: un pipeline de búsqueda de empleo con IA, un pipeline que escribe código con Qwen 2.5 Coder y este sitio, donde cada PR escrito con IA pasa 10 controles de CI.",
+    "He llevado la IA a cada equipo de ingeniería desde Carlsberg: tests impulsados por IA en CI y revisiones de código con Copilot, y en mi último proyecto el marco de gobernanza que los sostiene. También construyo y opero mis propios sistemas de IA.",
     "Sigo programando. En mi último proyecto definí la arquitectura y escribí el código de principio a fin.",
     "Me importa la arquitectura componible, los sistemas de diseño y la experiencia de desarrollador.",
     "Entrego productos accesibles, performantes y globalmente localizados.",
@@ -20,7 +20,7 @@
   "focus": [
     {
       "h": "Ingeniería nativa en IA",
-      "b": "Claude Code, servidores MCP, integraciones LLM vía OpenRouter, modelos open-weight en GPUs cloud."
+      "b": "Entrega asistida por IA y su gobernanza, servidores MCP, integraciones LLM, modelos open-weight."
     },
     {
       "h": "Arquitectura Frontend",
