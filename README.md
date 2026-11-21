@@ -9,7 +9,7 @@
   <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main" />
 </div>
 <br />
-<img src="./test/visual/pages/homepage-readme.visual.spec.ts-snapshots/homepage-readme-dark-darwin.png" />
+<img src="./test/visual/pages/homepage-readme.visual.spec.ts-snapshots/homepage-readme-dark-linux.png" />
 <br />
 
 # Opa.so
