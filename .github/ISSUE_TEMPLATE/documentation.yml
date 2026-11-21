@@ -88,7 +88,7 @@ body:
         **IMPORTANT**: When resolving this documentation issue, you must:
 
         - Comply with Technical Governance:
-          - Follow [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)
+          - Follow [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md)
           - Maintain consistency with other governance documents
           - Follow [Technical Governance](https://vicenteopaso.com/technical-governance) principles
         - Maintain documentation structure:

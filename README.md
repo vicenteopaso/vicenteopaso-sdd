@@ -1,12 +1,12 @@
 <!-- CI -->
 <div align="center">
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/ci.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/coverage.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/lighthouse-ci.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/accessibility.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/security-audit.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/codeql.yml/badge.svg?branch=main" />
-  <img src="https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/ci.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/coverage.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/lighthouse-ci.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/accessibility.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/security-audit.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/codeql.yml/badge.svg?branch=main" />
+  <img src="https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main" />
 </div>
 <br />
 <img src="./test/visual/pages/homepage-readme.visual.spec.ts-snapshots/homepage-readme-dark-linux.png" />
@@ -32,7 +32,7 @@ The project is optimized for readability, accessibility, and maintainability, wi
 
 <!-- Stack -->
 
-[![Vercel](https://img.shields.io/website?url=https%3A%2F%2Fvicenteopaso.vercel.app&label=vercel)](https://vicenteopaso.vercel.app)
+[![Vercel](https://img.shields.io/website?url=https%3A%2F%2Fopa.so&label=vercel)](https://opa.so)
 ![Node](https://img.shields.io/badge/Node-%3E%3D24%20%3C25-43853D?logo=node.js&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-20232A?logo=react&logoColor=61DAFB)

@@ -96,8 +96,8 @@ body:
         **IMPORTANT**: When implementing this feature, you must:
 
         - Comply with Technical Governance:
-          - Follow [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)
-          - Follow [Architecture](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) guidelines
+          - Follow [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md)
+          - Follow [Architecture](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ARCHITECTURE.md) guidelines
           - Follow [Technical Governance](https://vicenteopaso.com/technical-governance) principles
         - Document all changes:
           - Update relevant documentation in `docs/` directory

@@ -67,6 +67,6 @@
   },
   "governance": {
     "ai_guardrails": true,
-    "documentation": "https://github.com/vicenteopaso/vicenteopaso-vibecode/tree/main/docs"
+    "documentation": "https://github.com/vicenteopaso/vicenteopaso-sdd/tree/main/docs"
   }
 }

@@ -115,7 +115,7 @@ Este sitio web se ha desarrollado con un stack moderno y seguro en cuanto a tipo
 
 ## Sistema de diseño
 
-El sitio utiliza un sistema de diseño personalizado basado en propiedades CSS personalizadas (tokens de diseño) definidas en `styles/globals.css`. Las decisiones de diseño están documentadas en [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md).
+El sitio utiliza un sistema de diseño personalizado basado en propiedades CSS personalizadas (tokens de diseño) definidas en `styles/globals.css`. Las decisiones de diseño están documentadas en [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/DESIGN_SYSTEM.md).
 
 Principios clave de diseño:
 
@@ -128,14 +128,14 @@ Principios clave de diseño:
 
 Este proyecto sigue los principios del [Desarrollo basado en especificaciones (SDD)](/es/technical-governance), con una documentación exhaustiva sobre gobernanza que incluye:
 
-- **[Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)** — Objetivo principal de la ingeniería
-- **[Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md)**: arquitectura técnica y diseño del sistema
-- **[Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md)** — Invariantes de gobernanza inmutables y orden de prioridad
+- **[Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md)** — Objetivo principal de la ingeniería
+- **[Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ARCHITECTURE.md)**: arquitectura técnica y diseño del sistema
+- **[Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/CONSTITUTION.md)** — Invariantes de gobernanza inmutables y orden de prioridad
 
 Para obtener más detalles sobre cómo estos documentos de gobernanza orientan el desarrollo y permiten flujos de trabajo asistidos por IA, consulta la página [Gobernanza técnica](/es/technical-governance).
 
 ## Enlaces del proyecto
 
-- [Repositorio de GitHub](https://github.com/vicenteopaso/vicenteopaso-vibecode)
+- [Repositorio de GitHub](https://github.com/vicenteopaso/vicenteopaso-sdd)
 - [Alojado en Vercel](https://vercel.com)
 - [Gobernanza técnica](/es/technical-governance) — Cómo el SDD y la ingeniería centrada en la documentación han dado forma a este proyecto

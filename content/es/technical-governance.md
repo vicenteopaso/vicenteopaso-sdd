@@ -272,13 +272,13 @@ Este proyecto adopta un **desarrollo centrado en la IA con sólidas medidas de p
 - Análisis de seguridad (CodeQL, `pnpm audit`, análisis de secretos)
 - Lighthouse: SEO ≥95 (bloqueante); rendimiento, accesibilidad y buenas prácticas ≥90 (advertencias)
 
-Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** para conocer todas las restricciones.
+Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/AI_GUARDRAILS.md)** para conocer todas las restricciones.
 
 ### Proceso de revisión
 
 **Todas las PR** (ya sean de IA o humanas) siguen el mismo flujo de trabajo de revisión:
 
-1. **Autorrevisión**: el autor valida los cambios según la [lista de comprobación de revisión](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
+1. **Autorrevisión**: el autor valida los cambios según la [lista de comprobación de revisión](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/REVIEW_CHECKLIST.md)
 2. **Validación de CI**: deben superarse las comprobaciones obligatorias antes de fusionar en `main` (véase `.github/workflows/`)
 3. **Revisión automatizada**: GitHub Copilot revisa cada push a una pull request
 4. **Revisión humana**: revisión del propietario del código, con revisión arquitectónica y de seguridad para los cambios sensibles; todos los hilos de revisión deben quedar resueltos
@@ -303,8 +303,8 @@ Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode
 **Cuando algo sale mal:**
 
 1. **Fallo de CI** — Revisar los registros, corregir localmente, volver a ejecutar las comprobaciones, enviar las correcciones
-2. **Vulnerabilidad de seguridad**: detén el proceso inmediatamente, revisa la [Política de seguridad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/SECURITY_POLICY.md), corrige la vulnerabilidad y vuelve a escanear
-3. **Regresión en la accesibilidad** — Revisar las [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md), probar con teclado o lector de pantalla, corregir
+2. **Vulnerabilidad de seguridad**: detén el proceso inmediatamente, revisa la [Política de seguridad](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/SECURITY_POLICY.md), corrige la vulnerabilidad y vuelve a escanear
+3. **Regresión en la accesibilidad** — Revisar las [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ACCESSIBILITY.md), probar con teclado o lector de pantalla, corregir
 4. **Incumplimiento de la arquitectura** — Revisar `sdd.yaml` y `ARCHITECTURE.md`, refactorizar para alinearlos y obtener aprobación humana
 
 **Condiciones de parada de emergencia:**
@@ -322,9 +322,9 @@ Consulta **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode
 
 ### Documentación sobre gobernanza
 
-- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** — Restricciones y controles de calidad para el desarrollo de IA
-- **[Patrones prohibidos](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Antipatrones y cambios prohibidos
-- **[Lista de comprobación para la revisión](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)** — Lista de comprobación de validación previa a la fusión
+- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/AI_GUARDRAILS.md)** — Restricciones y controles de calidad para el desarrollo de IA
+- **[Patrones prohibidos](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Antipatrones y cambios prohibidos
+- **[Lista de comprobación para la revisión](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/REVIEW_CHECKLIST.md)** — Lista de comprobación de validación previa a la fusión
 
 ## Consideraciones futuras
 
@@ -341,11 +341,11 @@ Este enfoque centrado en la documentación se adapta bien a la escalabilidad:
 Para desarrolladores y colaboradores:
 
 - [Tech Stack](/es/tech-stack) — Descripción general completa de la pila tecnológica y las herramientas
-- [Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) — Exposición exhaustiva de la filosofía de ingeniería
-- [Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) — Arquitectura técnica
-- [Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md) — Gobernanza del repositorio
-- [Sistema de diseño](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) — Tokens y patrones de diseño visual
-- [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) — Prácticas técnicas de accesibilidad
+- [Normas de ingeniería](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md) — Exposición exhaustiva de la filosofía de ingeniería
+- [Descripción general de la arquitectura](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ARCHITECTURE.md) — Arquitectura técnica
+- [Constitución de ingeniería](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/CONSTITUTION.md) — Gobernanza del repositorio
+- [Sistema de diseño](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/DESIGN_SYSTEM.md) — Tokens y patrones de diseño visual
+- [Directrices de accesibilidad](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ACCESSIBILITY.md) — Prácticas técnicas de accesibilidad
 
 ## Plantillas de incidencias y comentarios de la comunidad
 

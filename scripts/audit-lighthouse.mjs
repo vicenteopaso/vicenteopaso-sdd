@@ -18,7 +18,7 @@ For local testing:
      (Press F12 → Lighthouse → Analyze page load)
 
 CI reports available at:
-  https://github.com/vicenteopaso/vicenteopaso-vibecode/actions/workflows/lighthouse-ci.yml
+  https://github.com/vicenteopaso/vicenteopaso-sdd/actions/workflows/lighthouse-ci.yml
 
 Note: Browser DevTools Lighthouse provides the same metrics as CI and
       supports additional features like device emulation and throttling.

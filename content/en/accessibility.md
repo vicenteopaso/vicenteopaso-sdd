@@ -160,6 +160,6 @@ This accessibility statement was last reviewed and updated on November 6, 2026.
 
 For developers contributing to this project:
 
-- [docs/ACCESSIBILITY.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) - Technical accessibility guidelines
-- [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) - Design tokens and component patterns
-- [docs/ENGINEERING_STANDARDS.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) - Code quality standards
+- [docs/ACCESSIBILITY.md](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ACCESSIBILITY.md) - Technical accessibility guidelines
+- [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/DESIGN_SYSTEM.md) - Design tokens and component patterns
+- [docs/ENGINEERING_STANDARDS.md](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md) - Code quality standards
