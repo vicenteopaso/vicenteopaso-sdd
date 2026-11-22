@@ -8,7 +8,7 @@
     "summary": "Soy Arquitecto Frontend y Líder Técnico con más de 15 años diseñando, escalando y manteniendo plataformas digitales de alto rendimiento en entornos empresariales, de comercio electrónico y de misión crítica. Me especializo en arquitectura composable, Design Systems y Developer Experience (DevEx), alineando tecnología, diseño y estrategia para entregar productos accesibles, performantes y mantenibles. Desde Carlsberg, todos los equipos en los que he trabajado han usado ingeniería asistida por IA: allí introduje tests impulsados por IA en CI y revisiones de código con GitHub Copilot, impulsé su adopción en EUROCONTROL y Nexthink, y en mi último proyecto diseñé el flujo completo y su marco de gobernanza. También construyo y opero mis propios sistemas de IA: integraciones LLM con modelos open-weight y de frontera, servidores MCP y codebases spec-driven. He liderado equipos multifuncionales, modernizado CI/CD y la gobernanza del código, y fortalecido la cultura técnica mediante mentoría y Communities of Practice. Mi enfoque combina arquitectura técnica con empatía de diseño y disciplina operativa para lograr resultados duraderos y alineados al negocio.",
     "highlights": [
       {
-        "title": "Web Engineering Manager en Nexthink",
+        "title": "Web Engineering Manager & Frontend Architect en Nexthink",
         "content": "Lideré la arquitectura y entrega de nexthink.com, un sitio corporativo composable a escala global, dirigiendo un equipo multifuncional centrado en rendimiento, accesibilidad, localización y alineación estratégica."
       },
       {
@@ -75,22 +75,18 @@
       "location": "Híbrido",
       "positions": [
         {
-          "position": "Responsable de Ingeniería Web",
+          "position": "Web Engineering Manager & Frontend Architect",
           "startDate": "2025-07",
           "endDate": "2025-11",
-          "summary": "Lideré un equipo multifuncional de 5 personas —incluyendo una persona de UI/UX Design— detrás de nexthink.com, la plataforma web composable global que respalda marca, marketing y estrategia de producto. Me enfoqué en estructura de equipo, DevEx y colaboración diseño‑ingeniería para ofrecer experiencias escalables, fiables y localizadas.",
+          "summary": "Responsable de la arquitectura frontend y la entrega técnica de nexthink.com, la plataforma web corporativa y de marketing composable de Nexthink. Definí el stack, goberné su calidad y lideré un equipo multifuncional distribuido entre India, Estados Unidos y Europa para entregar una plataforma escalable, performante y accesible.",
           "highlights": [
-            "Lideré un equipo multifuncional de 5 personas distribuido en EU/EE.UU./India; mejoré la consistencia de entrega mediante automatización DevEx y estandarización de flujos.",
+            "Diseñé una plataforma composable y modular con Next.js, GraphQL, Hygraph CMS, Tailwind CSS y Vercel, que permitió escalar contenido e iterar rápido en seis locales.",
             "Impulsé la adopción de la ingeniería asistida por IA en el equipo: tests impulsados por IA en CI y GitHub Copilot para revisiones de código.",
-            "Integré pipelines Vercel + GitHub + Hygraph, reduciendo fricción de release y mejorando la confiabilidad de despliegues.",
-            "Mejoré Core Web Vitals en seis mercados localizados en 25%.",
-            "Introduje gobernanza (CodeQL, plantillas de PR, protecciones de ramas) reduciendo defectos productivos en más de 30%.",
-            "Fui responsable de la arquitectura y entrega de un stack composable: Next.js, GraphQL, Tailwind CSS, Hygraph CMS—desplegado en Vercel e integrado con GitHub.",
             "Implementé guardrails y gobernanza: CodeQL, branch protections, PR templates y checks automatizados para mejorar calidad y confiabilidad.",
-            "Integramos workflows Vercel–GitHub–Hygraph para releases más rápidas y seguras; estandarizamos pipelines con GitHub Actions (CI/CD).",
-            "Gestioné un equipo multifuncional (3 developers, 1 UX designer) centrado en rendimiento, accesibilidad, mantenibilidad y velocidad de contenido.",
-            "Mejoré ciclos de retroalimentación diseño ↔ desarrollo con componentes compartidos, design tokens y documentación.",
-            "Coordiné localización y entrega de campañas en seis idiomas con stakeholders de marca, contenido y demand-gen."
+            "Construí un modelo de ingeniería DevEx-first, estandarizando documentación, herramientas y onboarding para reducir fricción y mejorar la cadencia de releases.",
+            "Establecí estándares de accesibilidad WCAG 2.1 y una arquitectura de SEO técnico para la entrega multilingüe en seis locales.",
+            "Implementé observabilidad y monitoreo de rendimiento, mejorando Core Web Vitals y métricas de estabilidad en un 25%.",
+            "Integré ciclos de feedback entre diseño e ingeniería mediante patrones de UI compartidos y componentes reutilizables, acortando el handoff de diseño a desarrollo."
           ],
           "handsOn": "Revisión de código y dirección técnica",
           "skills": [

@@ -8,7 +8,7 @@
     "summary": "I’m a Frontend Architect & Technical Leader with 15+ years designing, scaling, and maintaining high-performance digital platforms across enterprise, e-commerce, and mission-critical environments. I specialize in composable architecture, Design Systems, and Developer Experience (DevEx)—aligning technology, design, and strategy to deliver accessible, performant, and maintainable products. Since Carlsberg, every team I've worked in has used AI-assisted engineering: I introduced AI-driven CI tests and GitHub Copilot code reviews there, furthered their adoption at EUROCONTROL and Nexthink, and designed the full workflow and its governance framework on my latest engagement. I also build and operate my own AI systems: LLM integrations across open-weight and frontier models, MCP servers, and spec-driven codebases. I have led cross-functional teams, modernized CI/CD and code governance, and foster strong engineering culture through mentorship and Communities of Practice. My approach blends technical architecture with design empathy and operational discipline to unlock durable, business-aligned outcomes.",
     "highlights": [
       {
-        "title": "Web Engineering Manager at Nexthink",
+        "title": "Web Engineering Manager & Frontend Architect at Nexthink",
         "content": "Led the architecture and delivery of nexthink.com, a global composable corporate website, while leading a cross-functional team focused on performance, accessibility, localization, and strategic alignment."
       },
       {
@@ -75,22 +75,18 @@
       "location": "Hybrid",
       "positions": [
         {
-          "position": "Manager of Web Engineering",
+          "position": "Web Engineering Manager & Frontend Architect",
           "startDate": "2025-07",
           "endDate": "2025-11",
-          "summary": "Led a 5-person cross-functional team—including a UI/UX Designer—behind nexthink.com, Nexthink's global composable web platform supporting brand, marketing, and product strategy. Focused on team structure, DevEx, and design–engineering collaboration to deliver reliable, scalable, and localized experiences.",
+          "summary": "Owned the frontend architecture and technical delivery of nexthink.com — Nexthink's composable marketing and corporate web platform. Defined the stack, governed its quality, and led a globally distributed cross-functional team across India, the US, and Europe to deliver a scalable, performant, and accessible platform.",
           "highlights": [
-            "Led a 5-person distributed team across EU/US/India; improved delivery consistency through DevEx automation and workflow standardization.",
+            "Architected a modular composable platform using Next.js, GraphQL, Hygraph CMS, Tailwind CSS, and Vercel — enabling content-driven scalability and rapid iteration across six locales.",
             "Furthered the team's adoption of AI-assisted engineering: AI-driven tests in CI and GitHub Copilot for code reviews.",
-            "Integrated Vercel + GitHub + Hygraph pipelines, reducing release friction and improving deployment reliability.",
-            "Elevated Core Web Vitals across six localized markets by 25%.",
-            "Introduced governance (CodeQL, PR templates, branch protections) reducing production defects by 30%+.",
-            "Own architecture and delivery of a composable stack: Next.js, GraphQL, Tailwind CSS, Hygraph CMS—deployed on Vercel and tightly integrated with GitHub.",
-            "Implemented guardrails and governance: CodeQL, branch protections, PR templates, and automated checks to raise code quality and reliability.",
-            "Integrate Vercel–GitHub–Hygraph workflows for faster, safer releases; standardize pipelines with GitHub Actions (CI/CD).",
-            "Managed a cross-functional team (3 developers, 1 UX designer) focused on performance, accessibility, maintainability, and content velocity.",
-            "Improve design ↔ development feedback loops with shared components, design tokens, and documentation for tighter iteration.",
-            "Coordinated localization and campaign delivery across six languages with brand, content, and demand-gen stakeholders."
+            "Designed and enforced governance frameworks: CodeQL static analysis, branch protections, PR templates, and automated CI/CD pipelines, improving delivery consistency and code quality across a distributed cross-functional team.",
+            "Built a DevEx-first engineering model — standardizing documentation, tooling, and onboarding workflows to reduce friction and improve release cadence.",
+            "Established WCAG 2.1 accessibility standards and technical SEO architecture, supporting multilingual delivery across six locales.",
+            "Rolled out observability and performance monitoring, improving Core Web Vitals and stability metrics by 25%.",
+            "Embedded design–engineering feedback loops through shared UI patterns and reusable components — cutting design-to-dev handoff cycles."
           ],
           "handsOn": "Code review and technical direction",
           "skills": [

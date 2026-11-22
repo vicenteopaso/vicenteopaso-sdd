@@ -272,13 +272,13 @@ This project embraces **AI-first development with strong guardrails**:
 - Security scanning (CodeQL, `pnpm audit`, secret scan)
 - Lighthouse SEO ≥95 (blocking); performance, accessibility, and best practices ≥90 (warnings)
 
-See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** for complete constraints.
+See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/AI_GUARDRAILS.md)** for complete constraints.
 
 ### Review Process
 
 **All PRs** (AI or human) follow the same review workflow:
 
-1. **Self-Review** — Author validates changes against [Review Checklist](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)
+1. **Self-Review** — Author validates changes against [Review Checklist](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/REVIEW_CHECKLIST.md)
 2. **CI Validation** — Required checks must pass before merging to `main` (see `.github/workflows/`)
 3. **Automated Review** — GitHub Copilot reviews every push to a pull request
 4. **Human Review** — Code owner review, with architectural and security review for sensitive changes; all review threads must be resolved
@@ -303,8 +303,8 @@ See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob
 **When things go wrong:**
 
 1. **CI Failure** — Review logs, fix locally, re-run checks, push fixes
-2. **Security Vulnerability** — Stop immediately, review [Security Policy](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/SECURITY_POLICY.md), fix vulnerability, re-scan
-3. **Accessibility Regression** — Review [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md), test with keyboard/screen reader, fix
+2. **Security Vulnerability** — Stop immediately, review [Security Policy](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/SECURITY_POLICY.md), fix vulnerability, re-scan
+3. **Accessibility Regression** — Review [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ACCESSIBILITY.md), test with keyboard/screen reader, fix
 4. **Architecture Violation** — Review `sdd.yaml` and `ARCHITECTURE.md`, refactor to align, get human approval
 
 **Emergency stop conditions:**
@@ -322,9 +322,9 @@ See **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob
 
 ### Governance Documentation
 
-- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/AI_GUARDRAILS.md)** — Constraints and quality gates for AI development
-- **[Forbidden Patterns](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Anti-patterns and prohibited changes
-- **[Review Checklist](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/REVIEW_CHECKLIST.md)** — Pre-merge validation checklist
+- **[AI Guardrails](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/AI_GUARDRAILS.md)** — Constraints and quality gates for AI development
+- **[Forbidden Patterns](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/FORBIDDEN_PATTERNS.md)** — Anti-patterns and prohibited changes
+- **[Review Checklist](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/REVIEW_CHECKLIST.md)** — Pre-merge validation checklist
 
 ## Future Considerations
 
@@ -341,11 +341,11 @@ This documentation-first approach scales well:
 For developers and contributors:
 
 - [Tech Stack](/en/tech-stack) — Complete technology stack and tooling overview
-- [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md) — Comprehensive engineering intent
-- [Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md) — Technical architecture
-- [Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md) — Repository governance
-- [Design System](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md) — Visual design tokens and patterns
-- [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ACCESSIBILITY.md) — Technical a11y practices
+- [Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md) — Comprehensive engineering intent
+- [Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ARCHITECTURE.md) — Technical architecture
+- [Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/CONSTITUTION.md) — Repository governance
+- [Design System](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/DESIGN_SYSTEM.md) — Visual design tokens and patterns
+- [Accessibility Guidelines](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ACCESSIBILITY.md) — Technical a11y practices
 
 ## Issue Templates and Community Feedback
 

@@ -115,7 +115,7 @@ This site is built with a modern, type-safe stack optimized for performance, acc
 
 ## Design System
 
-The site uses a custom design system built on CSS custom properties (design tokens) defined in `styles/globals.css`. Design decisions are documented in [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/DESIGN_SYSTEM.md).
+The site uses a custom design system built on CSS custom properties (design tokens) defined in `styles/globals.css`. Design decisions are documented in [docs/DESIGN_SYSTEM.md](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/DESIGN_SYSTEM.md).
 
 Key design principles:
 
@@ -128,14 +128,14 @@ Key design principles:
 
 This project follows [Spec-Driven Development (SDD)](/en/technical-governance) principles, with comprehensive governance documentation including:
 
-- **[Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ENGINEERING_STANDARDS.md)** — North-star engineering intent
-- **[Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/ARCHITECTURE.md)** — Technical architecture and system design
-- **[Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-vibecode/blob/main/docs/CONSTITUTION.md)** — Immutable governance invariants and precedence
+- **[Engineering Standards](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ENGINEERING_STANDARDS.md)** — North-star engineering intent
+- **[Architecture Overview](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/ARCHITECTURE.md)** — Technical architecture and system design
+- **[Engineering Constitution](https://github.com/vicenteopaso/vicenteopaso-sdd/blob/main/docs/CONSTITUTION.md)** — Immutable governance invariants and precedence
 
 For more details on how these governance documents guide development and enable AI-assisted workflows, see the [Technical Governance](/en/technical-governance) page.
 
 ## Project Links
 
-- [GitHub Repository](https://github.com/vicenteopaso/vicenteopaso-vibecode)
+- [GitHub Repository](https://github.com/vicenteopaso/vicenteopaso-sdd)
 - [Hosted on Vercel](https://vercel.com)
 - [Technical Governance](/en/technical-governance) — How SDD and documentation-first engineering shaped this project

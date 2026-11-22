@@ -110,7 +110,7 @@ These labels are also used by:
 
 Security issues should be reported privately through:
 
-- GitHub Security Advisories: https://github.com/vicenteopaso/vicenteopaso-vibecode/security/advisories/new
+- GitHub Security Advisories: https://github.com/vicenteopaso/vicenteopaso-sdd/security/advisories/new
 
 See [Security Policy](../docs/SECURITY_POLICY.md) for details.
 

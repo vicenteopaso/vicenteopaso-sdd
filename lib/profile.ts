@@ -95,6 +95,7 @@ const profilePreferencesSchema = z.object({
     current_title: z.string(),
     seniority: z.string(),
     actively_looking: z.boolean(),
+    career_start_year: z.number().int().optional(),
   }),
   role_preferences: profileSchema.shape.role_preferences,
   domains: profileSchema.shape.domains,
@@ -124,7 +125,19 @@ function readJsonFile<T>(filePath: string, schema: z.ZodSchema<T>): T {
   return schema.parse(parsed);
 }
 
-function deriveYearsExperience(work: CvData["work"]): number {
+/**
+ * Years since the career start. `careerStartYear` (from
+ * profile-preferences.json) wins over the CV, so earlier roles outside the
+ * current career are not counted; without it, the earliest position counts.
+ */
+function deriveYearsExperience(
+  work: CvData["work"],
+  careerStartYear?: number,
+): number {
+  if (careerStartYear !== undefined) {
+    return Math.max(0, new Date().getUTCFullYear() - careerStartYear);
+  }
+
   const years = work
     .flatMap((company) => company.positions)
     .map((position) => position.startDate?.slice(0, 4))
@@ -256,7 +269,10 @@ export function getCanonicalProfile(locale: Locale): CanonicalProfile {
       meta: {
         name: cv.basics.name,
         current_title: preferences.meta.current_title,
-        years_experience: deriveYearsExperience(cv.work),
+        years_experience: deriveYearsExperience(
+          cv.work,
+          preferences.meta.career_start_year,
+        ),
         seniority: preferences.meta.seniority,
         actively_looking: preferences.meta.actively_looking,
       },

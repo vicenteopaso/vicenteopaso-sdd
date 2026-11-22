@@ -9,7 +9,7 @@ export const siteConfig = {
   domain: "opa.so",
   url: "https://opa.so",
   description:
-    "Frontend Architect & Technical Leader specializing in Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso.",
+    "Frontend Architect & Technical Leader specializing in AI-native engineering, Composable Platforms, Design Systems and Developer Experience (DevEx). View the CV and contact details for Vicente Opaso.",
 };
 
 /**
@@ -20,8 +20,8 @@ export const siteConfig = {
  */
 export function getCvDescription(locale: string): string {
   return locale === "es"
-    ? "Roles Seleccionados de Liderazgo Técnico: Experiencia del Desarrollador (DevEx), Impacto en Ingeniería de Software, y Liderazgo en Design Systems."
-    : "Selected Technical Leadership Roles: Developer Experience (DevEx), Software Engineering Impact, and Design Systems Leadership.";
+    ? "Roles Seleccionados de Liderazgo Técnico: Ingeniería nativa en IA, Experiencia del Desarrollador (DevEx) y Liderazgo en Design Systems."
+    : "Selected Technical Leadership Roles: AI-Native Engineering, Developer Experience (DevEx), and Design Systems Leadership.";
 }
 
 export const ogCacheVersion = process.env.NEXT_PUBLIC_OG_CACHE_DATE ?? "1";

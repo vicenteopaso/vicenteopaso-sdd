@@ -22,7 +22,7 @@
 | Company | Role | Period | Focus |
 |---------|------|--------|-------|
 | Independent Consultant (NDA client) | Frontend Architect & Lead Frontend Developer | 2026 | Greenfield Next.js PWA, Spec-Driven Development |
-| Nexthink | Manager of Web Engineering | 2025 | Composable platform, Next.js, Vercel |
+| Nexthink | Web Engineering Manager & Frontend Architect | 2025 | Composable platform, Next.js, Vercel |
 | EUROCONTROL | Technical Application Owner | 2025 | Aviation systems, Design System |
 | Carlsberg Group | Frontend Solutions Architect | 2020-2024 | B2B platforms, Malty Design System |
 | Greygoo | Co-founder & Principal | 2012-2020 | Digital studio, Fortune 500 clients |

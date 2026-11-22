@@ -534,7 +534,7 @@ Live at opa.so
 - `SENTRY_AUTH_TOKEN` - Sentry auth token for source map uploads
 - `SENTRY_ORG` - Sentry organization slug
 - `SENTRY_PROJECT` - Sentry project slug
-- `SENTRY_TRACES_SAMPLE_RATE` - Performance sampling rate (optional, defaults to 0.1)
+- `SENTRY_TRACES_SAMPLE_RATE` - Server-side performance sampling rate (optional; unset means server tracing is off, see `lib/sentry-config.ts`)
 
 See [`docs/SENTRY_SETUP.md`](./SENTRY_SETUP.md) for detailed Sentry configuration instructions.
 

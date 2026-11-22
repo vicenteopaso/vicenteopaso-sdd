@@ -45,8 +45,10 @@ describe("app/api/profile/[lang] GET", () => {
     };
 
     expect(json.meta.name).toBe("Vicente Opaso");
-    expect(json.meta.current_title).toBe("Frontend Architect & Technical Leader");
-    expect(json.meta.years_experience).toBeGreaterThanOrEqual(20);
+    expect(json.meta.current_title).toBe(
+      "Frontend Architect & Technical Leader",
+    );
+    expect(json.meta.years_experience).toBeGreaterThanOrEqual(15);
     expect(json.skills.core_technical).toEqual(
       expect.arrayContaining(["JavaScript", "React", "Next.js", "Node.js"]),
     );

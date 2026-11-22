@@ -2,7 +2,7 @@
 name: Vicente Opaso
 title: Vicente Opaso
 slug: about
-tagline: Frontend Architect & Technical Leader. Design Systems & DevEx Leader.
+tagline: Frontend Architect & Technical Leader. AI-Native Engineering, Design Systems & DevEx.
 underhero: 15+ years of driving scalable, high-performance web platforms in enterprise, e-commerce & mission-critical domains.
 initials: VO
 ---
